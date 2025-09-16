@@ -43,7 +43,7 @@
     <div class="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-8 py-3">
 
       <!-- Logo -->
-      <a href="{{ route('home') }}" class="flex items-center space-x-2">
+      <a href="#" class="flex items-center space-x-2">
         <img src="assets/images/logo.webp" alt="Logo" class="h-12">
         <span class="font-bold text-lg 
           {{ Request::is('/') ? 'text-white' : 'text-orange-600' }}">
@@ -54,7 +54,7 @@
       <!-- Desktop Menu -->
       <nav class="hidden md:flex space-x-6 font-medium 
         {{ Request::is('/') ? 'text-white' : 'text-orange-600' }}">
-        <a href="{{ route('home') }}" class="hover:text-orange-300">Beranda</a>
+        <a href="#" class="hover:text-orange-300">Beranda</a>
 
         <!-- Dropdown Tentang -->
         <div class="relative group dropdown">
@@ -68,7 +68,7 @@
           </a>
           <div
             class="dropdown-menu absolute left-0 hidden group-hover:block bg-white shadow-lg border border-gray-200 mt-2 rounded-lg w-56 opacity-0 translate-y-2 transition-all duration-300">
-            <a href="{{ route('sambutan') }}"
+            <a href="#"
               class="dropdown-link block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white rounded-md">
               Sambutan Pembina Yayasan
             </a>
@@ -93,7 +93,7 @@
           </a>
           <div
             class="dropdown-menu absolute left-0 hidden group-hover:block bg-white shadow-lg border border-gray-200 mt-2 rounded-lg w-40 opacity-0 translate-y-2 transition-all duration-300">
-            <a href="{{ route('galeri') }}"
+            <a href="#"
               class="dropdown-link block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white rounded-md">
               Galeri
             </a>
@@ -104,8 +104,8 @@
           </div>
         </div>
 
-        <a href="{{ route('pendaftaran') }}" class="hover:text-orange-300">Pendaftaran</a>
-        <a href="{{ route('presmalance.welcome') }}" class="hover:text-orange-300">PresmaLance</a>
+        <a href="#" class="hover:text-orange-300">Pendaftaran</a>
+        <a href="#" class="hover:text-orange-300">PresmaLance</a>
       </nav>
 
       <!-- Mobile Menu Button -->
@@ -120,7 +120,7 @@
 
     <!-- Mobile Dropdown Menu -->
     <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
-      <a href="{{ route('home') }}"
+      <a href="#"
         class="block px-6 py-3 text-gray-700 hover:bg-orange-500 hover:text-white">Beranda</a>
       <a href="#"
         class="block px-6 py-3 text-gray-700 hover:bg-orange-500 hover:text-white">Tentang</a>

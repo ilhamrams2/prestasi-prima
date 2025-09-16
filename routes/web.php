@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::get('/', function () {
-    return view('prestasiprima.index');
+    return view('prestasiprima.pages.landing');
 });
 
+Route::get('/welcome', function () {
+    return view('welcome');
+});

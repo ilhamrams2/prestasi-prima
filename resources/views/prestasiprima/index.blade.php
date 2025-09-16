@@ -20,18 +20,15 @@
 <body class="antialiased font-sans text-slate-800 bg-white">
 
   <!-- Header -->
-  <x-header />
-
+  @include('header')
+  
   <!-- Main Content -->
   <main>
     @yield('content')
   </main>
 
-  <!-- Motto -->
-  <x-motto />
-
   <!-- Footer -->
-  <x-footer />
+  @include('footer')
 
   <!-- AOS JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
