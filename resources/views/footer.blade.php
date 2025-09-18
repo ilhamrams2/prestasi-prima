@@ -3,7 +3,7 @@
 
     <!-- LOGO & ABOUT -->
     <div class="text-left">
-      <img src="assets/images/logo.webp" alt="Logo" class="w-20 mb-4">
+      <img src="assets/images/logo-smk.png" alt="Logo" class="w-20 mb-4">
       <p class="text-sm leading-relaxed max-w-xs">
         SMK Prestasi Prima berkomitmen mencetak generasi berprestasi 
         dengan program pendidikan unggulan dan fasilitas modern.

@@ -37,7 +37,27 @@
       once: false,
       offset: 100,
       duration: 800,
-      easing: 'ease-in-out'
+      easing: 'ease-in-out',
+    });
+  </script>
+
+  <!-- Custom Scripts -->
+  @stack('scripts')
+
+  <script>
+    // ===== Active Links Navbar =====
+    const currentURL = window.location.pathname;
+    const navLinkEls = document.querySelectorAll("#navbar .nav-link");
+
+    navLinkEls.forEach(link => { 
+      const href = link.getAttribute("href");
+
+      if (
+        (href === "/" && currentURL === "/") || 
+        (href !== "/" && currentURL.startsWith(href))
+      ) {
+        link.classList.add("border-b-2", "border-orange-500");
+      }
     });
   </script>
 </body>
