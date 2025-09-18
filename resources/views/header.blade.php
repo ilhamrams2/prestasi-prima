@@ -2,7 +2,7 @@
 <header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-transparent">
 
   <!-- ===== TOPBAR ===== -->
-  <div class="topbar w-full bg-orange-600 text-white text-sm hidden md:flex transition-all duration-300">
+  <div class="topbar hidden md:flex w-full bg-orange-600 text-white text-sm transition-all duration-300">
     <div class="max-w-7xl mx-auto flex items-center justify-end px-4 md:px-8 py-2 w-full">
       <div class="flex items-center divide-x divide-white">
 
@@ -49,7 +49,7 @@
         <a href="/" class="nav-link relative text-white">Beranda</a>
 
         <!-- Dropdown Tentang -->
-        <div class="relative group">
+        <div class="relative group dropdown">
           <a href="#" class="flex items-center nav-link text-white">
             Tentang
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -65,7 +65,7 @@
         <a href="/program" class="nav-link text-white">Program</a>
 
         <!-- Dropdown Dokumentasi -->
-        <div class="relative group">
+        <div class="relative group dropdown">
           <a href="#" class="flex items-center nav-link text-white">
             Dokumentasi
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -146,17 +146,28 @@
 
 <!-- ================= SCRIPT ================= -->
 <script>
-  // ===== Desktop Dropdown =====
-  document.querySelectorAll('.group').forEach(drop => {
+  // ===== Desktop Dropdown (Hover + Click) =====
+  document.querySelectorAll('.dropdown').forEach(drop => {
+    const trigger = drop.querySelector('a');
     const menu = drop.querySelector('.dropdown-menu');
+
+    // Hover open (desktop)
     drop.addEventListener('mouseenter', () => {
-      menu.classList.remove('hidden','opacity-0','translate-y-2');
-      menu.classList.add('opacity-100','translate-y-0');
+      menu.classList.remove('hidden', 'opacity-0', 'translate-y-2');
+      menu.classList.add('opacity-100', 'translate-y-0');
     });
     drop.addEventListener('mouseleave', () => {
-      menu.classList.remove('opacity-100','translate-y-0');
-      menu.classList.add('opacity-0','translate-y-2');
-      setTimeout(() => menu.classList.add('hidden'), 300);
+      menu.classList.remove('opacity-100', 'translate-y-0');
+      menu.classList.add('opacity-0', 'translate-y-2');
+      setTimeout(() => menu.classList.add('hidden'), 200);
+    });
+
+    // Click toggle (desktop)
+    trigger.addEventListener('click', e => {
+      e.preventDefault();
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('opacity-0');
+      menu.classList.toggle('translate-y-2');
     });
   });
 
@@ -185,36 +196,32 @@
   const isHomePage = window.location.pathname === '/';
 
   function updateNavbarColor() {
-    if(isHomePage) {
-      if(window.scrollY > 50) {
-        headerEl.classList.add('bg-white','shadow');
-        logoEl.classList.replace('text-white','text-orange-600');
-        navLinkEls.forEach(l => l.classList.replace('text-white','text-orange-600'));
-        mobileLinkEls.forEach(l => l.classList.replace('text-white','text-orange-600'));
+    if (isHomePage) {
+      if (window.scrollY > 50) {
+        headerEl.classList.add('bg-white', 'shadow');
+        logoEl.classList.replace('text-white', 'text-orange-600');
+        navLinkEls.forEach(l => l.classList.replace('text-white', 'text-orange-600'));
       } else {
-        headerEl.classList.remove('bg-white','shadow');
-        logoEl.classList.replace('text-orange-600','text-white');
-        navLinkEls.forEach(l => l.classList.replace('text-orange-600','text-white'));
-        mobileLinkEls.forEach(l => l.classList.replace('text-orange-600','text-white'));
+        headerEl.classList.remove('bg-white', 'shadow');
+        logoEl.classList.replace('text-orange-600', 'text-white');
+        navLinkEls.forEach(l => l.classList.replace('text-orange-600', 'text-white'));
       }
     } else {
-      headerEl.classList.add('bg-white','shadow');
-      logoEl.classList.replace('text-white','text-orange-600');
-      navLinkEls.forEach(l => l.classList.replace('text-white','text-orange-600'));
-      mobileLinkEls.forEach(l => l.classList.replace('text-white','text-orange-600'));
+      headerEl.classList.add('bg-white', 'shadow');
+      logoEl.classList.replace('text-white', 'text-orange-600');
+      navLinkEls.forEach(l => l.classList.replace('text-white', 'text-orange-600'));
     }
   }
-
   window.addEventListener('scroll', updateNavbarColor);
   updateNavbarColor();
 
   // ===== Active Links =====
   const currentURL = window.location.href;
-  navLinkEls.forEach(link => { 
-    if(link.href === currentURL) link.classList.add('border-b-2','border-orange-500'); 
+  navLinkEls.forEach(link => {
+    if (link.href === currentURL) link.classList.add('border-b-2', 'border-orange-500');
   });
-  mobileLinkEls.forEach(link => { 
-    if(link.href === currentURL) link.classList.add('font-semibold','bg-orange-100','rounded-md'); 
+  mobileLinkEls.forEach(link => {
+    if (link.href === currentURL) link.classList.add('font-semibold', 'bg-orange-100', 'rounded-md');
   });
 </script>
 

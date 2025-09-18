@@ -1,7 +1,7 @@
 <!-- ================= HERO SECTION (VIDEO) ================= -->
 <section id="heroVideoSection" 
          class="relative h-screen w-full overflow-hidden bg-cover bg-center"
-         style="background-image: url('{{ asset('assets/images/hero/hero-bg.png') }}');">
+         style="background-image: url('{{ asset('assets/images/section/hero/hero-bg.png') }}');">
     
   <!-- Overlay -->
   <div class="absolute inset-0 bg-black/40 z-10"></div>
@@ -29,7 +29,7 @@
 
   <!-- Background Image -->
   <div class="absolute inset-0">
-    <img src="{{ asset('assets/images/hero/hero-bg.png') }}" alt="Hero Background" 
+    <img src="{{ asset('assets/images/section/hero/hero-bg.png') }}" alt="Hero Background" 
          class="w-full h-full object-cover">
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
   </div>
