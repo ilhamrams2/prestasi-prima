@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
         video.play().catch(() => console.warn("Autoplay blocked by browser"));
     }
 
-    // Logic for Chatbot (this is the part I've fixed)
+    // Logic for Chatbot
     const openChatButton = document.getElementById('openChatButton');
     const chatWindow = document.getElementById('chatWindow');
     const closeChatButton = document.getElementById('closeChatButton');
@@ -211,15 +211,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatMessages = document.getElementById('chatMessages');
     const clearChatButton = document.getElementById('clearChatButton');
 
-    // Get the CSRF token from the meta tag
     const csrfTokenElement = document.querySelector('meta[name="csrf-token"]');
     const csrfToken = csrfTokenElement ? csrfTokenElement.getAttribute('content') : null;
 
-    // Check if all necessary elements exist before adding listeners
     if (openChatButton && chatWindow && closeChatButton && chatForm && chatInput && chatMessages && clearChatButton) {
 
-        // Function to add a message to the chat UI
-        function addMessage(sender, text) {
+        // Function to create a new message element
+        function createMessageElement(sender, text) {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('flex', 'items-start', 'mb-2', sender === 'user' ? 'justify-end' : 'justify-start');
             messageDiv.innerHTML = `
@@ -227,11 +225,56 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${text}
                 </p>
             `;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return messageDiv;
         }
 
-        // Function to manage chat window toggle
+        // Function to type a message character by character
+        function typeMessage(element, text) {
+            return new Promise(resolve => {
+                let i = 0;
+                // Replace all whitespace with a special character for processing
+                const formattedText = text.replace(/\s/g, '•'); 
+                
+                function type() {
+                    if (i < formattedText.length) {
+                        const char = formattedText.charAt(i);
+                        if (char === '•') {
+                            element.innerHTML += ' '; // Add a space for the special character
+                        } else {
+                            element.innerHTML += char;
+                        }
+                        
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        i++;
+                        setTimeout(type, 15); // Adjust typing speed here (in ms)
+                    } else {
+                        resolve();
+                    }
+                }
+                element.innerHTML = '';
+                type();
+            });
+        }
+        
+        // This function types word by word, handling spaces correctly
+        async function typeWordByWord(element, text) {
+            const words = text.split(/\s+/);
+            element.innerHTML = '';
+            for (let i = 0; i < words.length; i++) {
+                const word = words[i];
+                let j = 0;
+                while (j < word.length) {
+                    element.innerHTML += word.charAt(j);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    await new Promise(r => setTimeout(r, 15)); // Typing speed
+                    j++;
+                }
+                if (i < words.length - 1) {
+                    element.innerHTML += ' ';
+                }
+            }
+        }
+
         function toggleChat() {
             const isHidden = chatWindow.classList.contains('hidden');
             const chatIcon = openChatButton.querySelector('svg');
@@ -251,7 +294,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // Event listeners
         openChatButton.addEventListener('click', toggleChat);
         closeChatButton.addEventListener('click', toggleChat);
 
@@ -260,19 +302,22 @@ document.addEventListener("DOMContentLoaded", () => {
             const userMessage = chatInput.value.trim();
             if (userMessage === '') return;
 
-            addMessage('user', userMessage);
+            // Add user's message
+            chatMessages.appendChild(createMessageElement('user', userMessage));
             chatInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
 
             try {
-                const typingDiv = document.createElement('div');
-                typingDiv.id = 'typingIndicator';
-                typingDiv.classList.add('flex', 'items-start');
-                typingDiv.innerHTML = `
-                    <p class="inline-block bg-gray-200 text-black text-sm p-2 rounded-lg max-w-[80%] animate-pulse">
-                        Typing...
+                // Add typing indicator
+                const typingIndicatorDiv = document.createElement('div');
+                typingIndicatorDiv.id = 'typingIndicator';
+                typingIndicatorDiv.classList.add('flex', 'items-start', 'mb-2', 'justify-start');
+                typingIndicatorDiv.innerHTML = `
+                    <p class="inline-block bg-gray-200 text-black text-sm p-2 rounded-lg max-w-[80%]">
+                        <span class="animate-pulse">Typing...</span>
                     </p>
                 `;
-                chatMessages.appendChild(typingDiv);
+                chatMessages.appendChild(typingIndicatorDiv);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
 
                 const response = await fetch('/api/chatbot-send', {
@@ -288,6 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const data = await response.json();
 
+                // Remove typing indicator
                 const typingIndicator = document.getElementById('typingIndicator');
                 if (typingIndicator) {
                     typingIndicator.remove();
@@ -299,16 +345,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     let match;
                     let lastIndex = 0;
 
-                    const containerDiv = document.createElement('div');
-                    containerDiv.classList.add('flex', 'items-start', 'mb-2', 'justify-start', 'flex-col');
+                    const aiResponseContainer = document.createElement('div');
+                    aiResponseContainer.classList.add('flex', 'items-start', 'mb-2', 'justify-start', 'flex-col');
+                    chatMessages.appendChild(aiResponseContainer);
 
                     while ((match = regex.exec(aiReply)) !== null) {
                         const textBefore = aiReply.substring(lastIndex, match.index).trim();
                         if (textBefore) {
                             const p = document.createElement('p');
                             p.classList.add('inline-block', 'text-sm', 'p-2', 'rounded-lg', 'max-w-[80%]', 'bg-gray-200', 'text-black', 'mb-2');
-                            p.innerText = textBefore;
-                            containerDiv.appendChild(p);
+                            aiResponseContainer.appendChild(p);
+                            await typeWordByWord(p, textBefore);
                         }
                         
                         const buttonText = match[1];
@@ -318,7 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         buttonLink.target = "_blank";
                         buttonLink.classList.add('inline-block', 'text-sm', 'p-2', 'rounded-lg', 'max-w-[80%]', 'bg-orange-500', 'text-white', 'hover:bg-orange-600', 'transition', 'font-semibold', 'text-center', 'mb-2');
                         buttonLink.innerText = buttonText;
-                        containerDiv.appendChild(buttonLink);
+                        aiResponseContainer.appendChild(buttonLink);
 
                         lastIndex = regex.lastIndex;
                     }
@@ -327,19 +374,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (textAfter) {
                         const p = document.createElement('p');
                         p.classList.add('inline-block', 'text-sm', 'p-2', 'rounded-lg', 'max-w-[80%]', 'bg-gray-200', 'text-black', 'mb-2');
-                        p.innerText = textAfter;
-                        containerDiv.appendChild(p);
+                        aiResponseContainer.appendChild(p);
+                        await typeWordByWord(p, textAfter);
                     }
-
+                    
                     if (lastIndex === 0) {
-                        addMessage('model', aiReply);
-                    } else {
-                        chatMessages.appendChild(containerDiv);
-                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        const p = document.createElement('p');
+                        p.classList.add('inline-block', 'text-sm', 'p-2', 'rounded-lg', 'max-w-[80%]', 'bg-gray-200', 'text-black', 'mb-2');
+                        aiResponseContainer.appendChild(p);
+                        await typeWordByWord(p, aiReply);
                     }
+                    
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
 
                 } else {
-                    addMessage('model', data.reply || "Maaf, terjadi kesalahan saat menghubungi server.");
+                    chatMessages.appendChild(createMessageElement('model', data.reply || "Maaf, terjadi kesalahan saat menghubungi server."));
                 }
 
             } catch (error) {
@@ -349,7 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     typingIndicator.remove();
                 }
                 const errorMessage = "Maaf, terjadi kesalahan. Silakan coba lagi.";
-                addMessage('model', errorMessage);
+                chatMessages.appendChild(createMessageElement('model', errorMessage));
             }
         });
 
@@ -364,7 +413,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         'X-CSRF-TOKEN': csrfToken
                     }
                 });
-                addMessage('model', 'Halo! Saya asisten virtual SMK Prestasi Prima. Ada yang bisa saya bantu?');
+                chatMessages.appendChild(createMessageElement('model', 'Halo! Saya asisten virtual SMK Prestasi Prima. Ada yang bisa saya bantu?'));
             } catch (error) {
                 console.error("Error clearing chat history:", error);
             }
@@ -376,18 +425,25 @@ document.addEventListener("DOMContentLoaded", () => {
 <!-- ================= STYLE ================= -->
 <style>
 @keyframes slideLeft {
-  0% { opacity: 0; transform: translateX(-60px); }
-  100% { opacity: 1; transform: translateX(0); }
+    0% { opacity: 0; transform: translateX(-60px); }
+    100% { opacity: 1; transform: translateX(0); }
 }
 @keyframes slideRight {
-  0% { opacity: 0; transform: translateX(60px); }
-  100% { opacity: 1; transform: translateX(0); }
+    0% { opacity: 0; transform: translateX(60px); }
+    100% { opacity: 1; transform: translateX(0); }
 }
 .animate-slide-left {
-  animation: slideLeft 1s ease-out forwards;
+    animation: slideLeft 1s ease-out forwards;
 }
 .animate-slide-right {
-  animation: slideRight 1s ease-out forwards;
+    animation: slideRight 1s ease-out forwards;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
+}
+.animate-pulse {
+    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 </style>
 

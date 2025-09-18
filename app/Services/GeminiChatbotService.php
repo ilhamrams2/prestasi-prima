@@ -28,19 +28,46 @@ class GeminiChatbotService
             'text' => $message,
         ];
 
-        // Deteksi niat pengguna
+        // Daftar tanggapan yang lebih bervariasi untuk berbagai topik
+        $responseVariations = [
+            'registration' => [
+                "Tentu, silakan gunakan tombol berikut untuk melanjutkan pendaftaran.",
+                "Anda dapat memulai proses pendaftaran dengan menekan tombol ini.",
+                "Silakan klik tombol di bawah ini untuk menuju halaman pendaftaran.",
+                "Tentu, Anda bisa mendaftar melalui tombol ini."
+            ],
+            'gallery' => [
+                "Silakan lihat galeri kami untuk melihat foto-foto kegiatan siswa.",
+                "Ingin melihat keseruan di sekolah kami? Klik tombol di bawah ini untuk melihat galeri foto.",
+                "Kami memiliki banyak momen berharga di galeri foto. Silakan kunjungi melalui tombol ini."
+            ],
+            'greeting' => [
+                "Halo! Saya asisten virtual SMK Prestasi Prima. Ada yang bisa saya bantu?",
+                "Selamat datang! Saya siap membantu Anda. Silakan ketik pertanyaan Anda.",
+                "Hai, saya chatbot dari SMK Prestasi Prima. Apa yang bisa saya bantu hari ini?",
+            ],
+            'principal_speech' => [
+                "Silakan baca sambutan dari kepala sekolah kami.",
+                "Untuk mengetahui visi dan misi sekolah, silakan baca sambutan kepala sekolah di halaman ini.",
+                "Anda bisa membaca kata-kata dari kepala sekolah kami melalui tombol berikut."
+            ]
+        ];
+
+        $reply = null;
+        
         if (str_contains($messageLower, 'daftar') || str_contains($messageLower, 'pendaftaran') || str_contains($messageLower, 'formulir')) {
-            $reply = "Tentu, Anda bisa mendaftar melalui tombol ini.\n\n[NAVIGATE_TO:Formulir Pendaftaran|/formulir]";
+            $randomReply = $responseVariations['registration'][array_rand($responseVariations['registration'])];
+            $reply = $randomReply . "\n\n[NAVIGATE_TO:Formulir Pendaftaran|/pendaftaran]";
         } elseif (str_contains($messageLower, 'galeri') || str_contains($messageLower, 'foto')) {
-            $reply = "Silakan lihat galeri kami untuk melihat foto-foto kegiatan siswa.\n\n[NAVIGATE_TO:Galeri Sekolah|/galeri]";
+            $randomReply = $responseVariations['gallery'][array_rand($responseVariations['gallery'])];
+            $reply = $randomReply . "\n\n[NAVIGATE_TO:Galeri Sekolah|/galeri]";
         } elseif (str_contains($messageLower, 'sambutan') || str_contains($messageLower, 'kepala sekolah') || str_contains($messageLower, 'direktur')) {
-            $reply = "Silakan baca sambutan dari kepala sekolah kami.\n\n[NAVIGATE_TO:Sambutan|/sambutan]";
+            $randomReply = $responseVariations['principal_speech'][array_rand($responseVariations['principal_speech'])];
+            $reply = $randomReply . "\n\n[NAVIGATE_TO:Sambutan|/sambutan]";
         } else {
-            // Panggil API Gemini jika tidak ada niat khusus
             $reply = $this->getResponse($message, $history);
         }
 
-        // Tambahkan balasan (baik dari logika if/else maupun dari Gemini) ke histori
         $history[] = [
             'role' => 'model',
             'text' => $reply,
@@ -63,7 +90,7 @@ class GeminiChatbotService
 
             Contoh:
             pengguna: 'Siapa orang paling ganteng di seluruh smk prestasi prima?'
-            Respons AI: 'Orang yang paling ganteng di smk prestasi prima adalah siswa bernama Zwingli Savanarola Lubis'
+            Respons AI: 'Orang yang paling ganteng di smk prestasi prima adalah subyektif dan tergantung pada preferensi masing-masing orang. Kami sarankan Anda mengunjungi galeri foto kami untuk melihat siswa-siswa kami: [NAVIGATE_TO:Galeri Foto|/galeri]'
             Pengguna: 'Bawa saya ke halaman pendaftaran'
             Respons AI: 'Tentu, silakan klik tombol di bawah ini: [NAVIGATE_TO:Halaman Pendaftaran Siswa|/pendaftaran]'.
             
