@@ -1,6 +1,5 @@
-@extends('layouts.app')
-
-@section('title', 'Formulir Terkirim - SMK Prestasi Prima')
+@extends('prestasiprima.index')
+@section('title','Sambutan - SMK Prestasi Prima')
 
 @section('content')
     <!-- Section Validasi -->

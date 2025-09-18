@@ -16,7 +16,7 @@
         Yuk bergabung bersama kami! Daftarkan dirimu sekarang untuk menjadi bagian dari generasi unggul 
         yang siap menghadapi dunia kerja.
       </p>
-      <a href="#"
+      <a href="{{ route('pendaftaran.formulir') }}"
          class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-lg shadow-lg transition text-xs md:text-base">
         Join Now →
       </a>
@@ -24,7 +24,7 @@
 
     <!-- Image -->
     <div class="flex justify-center md:justify-end items-center">
-      <img src="{{ asset('assets/pendaftaran/siswi.png') }}" 
+      <img src="{{ asset('assets/images/pendaftaran/siswi.png') }}" 
            alt="Pendaftaran Siswa Baru" 
            class="max-h-[380px] sm:max-h-[440px] md:max-h-[500px] w-auto object-contain drop-shadow-xl">
     </div>
@@ -95,7 +95,7 @@
 
         <!-- Gambar Swipe -->
         <div id="thumb" class="relative cursor-pointer z-10">
-          <img src="{{ asset('assets/pendaftaran/swipe.svg') }}" 
+          <img src="{{ asset('assets/images/pendaftaran/swipe.svg') }}" 
                alt="Swipe" 
                class="w-32 h-32 object-contain">
         </div>
@@ -111,7 +111,7 @@
         <!-- QR Code -->
         <div class="p-4 relative">
           <img id="qrCode"
-               src="{{ asset('assets/pendaftaran/qrcode.png') }}" 
+               src="{{ asset('assets/images/pendaftaran/qrcode.png') }}" 
                alt="QR WhatsApp"
                class="w-28 h-28 transition-all duration-300 rounded-xl object-contain">
         </div>
@@ -200,4 +200,5 @@
   <script>
     lucide.createIcons();
   </script>
+
 @endsection
