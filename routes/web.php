@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SambutanController;
+use App\Http\Controllers\Pendaftaran;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +26,7 @@ Route::get('/', function () {
 Route::get('/welcome', function () {
     return view('welcome');
 });
+
+Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
+
+Route::get('/pendaftaran', [Pendaftaran::class, 'index'])->name('pendaftaran');
