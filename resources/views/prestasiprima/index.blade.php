@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +8,7 @@
   <!-- Google Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <!-- Font Awesome (Latest v6.5.0) -->
+  <!-- Font Awesome v6.5 -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
   <!-- AOS CSS (Animate on Scroll) -->
@@ -44,14 +44,13 @@
   <!-- Custom Scripts -->
   @stack('scripts')
 
+  <!-- Navbar Active Link Highlight -->
   <script>
-    // ===== Active Links Navbar =====
     const currentURL = window.location.pathname;
     const navLinkEls = document.querySelectorAll("#navbar .nav-link");
 
     navLinkEls.forEach(link => { 
       const href = link.getAttribute("href");
-
       if (
         (href === "/" && currentURL === "/") || 
         (href !== "/" && currentURL.startsWith(href))
@@ -60,5 +59,15 @@
       }
     });
   </script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('Service Worker terdaftar'))
+        .catch(err => console.log('Gagal registrasi SW:', err));
+    }
+  </script>
+
 </body>
 </html>

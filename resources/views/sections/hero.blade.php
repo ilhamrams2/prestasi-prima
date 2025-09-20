@@ -8,7 +8,7 @@
 
   <!-- Hero Video -->
   <video id="heroVideo" autoplay muted playsinline 
-         poster="{{ asset('assets/images/section/hero/hero-fallback.jpg') }}"
+         poster="{{ asset('assets/images/section/hero/hero-bg.png') }}"
          class="absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-1000">
     <source src="{{ asset('assets/videos/videos.mp4') }}" type="video/mp4">
     Browsermu tidak mendukung video.

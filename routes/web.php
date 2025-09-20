@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SambutanController;
 use App\Http\Controllers\Pendaftaran;
 use App\Http\Controllers\FormulirController;
+use App\Http\Controllers\PresmaboardController;
+use App\Http\Controllers\PresmaboardBackofficeController;
+
 
 Route::get('/', function () {
     return view('prestasiprima.pages.landing');
@@ -25,3 +28,11 @@ Route::post('/formulir', [FormulirController::class, 'store'])->name('pendaftara
 
 // Validasi Pendaftaran
 Route::get('/validasi', [FormulirController::class, 'validasi'])->name('pendaftaran.validasi');
+
+// Presmaboard
+Route::get('/presmaboard', [PresmaboardController::class, 'index']);
+
+// Presmaboard Backoffice (Protected Route)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/backoffice/presmaboard', [PresmaboardBackofficeController::class, 'index']);
+});

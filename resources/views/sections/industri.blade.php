@@ -19,8 +19,8 @@
       </h3>
 
       <!-- Wrapper scroll -->
-      <div class="relative w-full overflow-hidden group">
-        <div class="flex animate-scroll space-x-20 group-hover:[animation-play-state:paused]">
+      <div class="relative w-full overflow-hidden">
+        <div class="flex animate-scroll space-x-20">
           
           <!-- Telkom Indonesia -->
           <img src="assets/images/section/industri/telkom.png" alt="Telkom Indonesia" class="h-28 object-contain">
