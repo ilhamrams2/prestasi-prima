@@ -100,6 +100,7 @@ class GeminiChatbotService
             - Galeri: /galeri
             - Sambutan: /sambutan
             - Kontak: /contact
+            - Presmalancer: /presmalance
             ";
 
             $contents = [];
