@@ -22,13 +22,11 @@ class GeminiChatbotService
         $history = Session::get(self::CHAT_HISTORY_KEY, []);
         $messageLower = strtolower($message);
 
-        // Tambahkan pesan user ke histori
         $history[] = [
             'role' => 'user',
             'text' => $message,
         ];
 
-        // Daftar tanggapan yang lebih bervariasi untuk berbagai topik
         $responseVariations = [
             'registration' => [
                 "Tentu, silakan gunakan tombol berikut untuk melanjutkan pendaftaran.",

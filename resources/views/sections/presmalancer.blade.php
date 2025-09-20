@@ -30,7 +30,7 @@
       </h2>
 
       <!-- Tombol -->
-      <a href="#"
+      <a href="/presmalance"
          class="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 mt-4 sm:mt-6 font-semibold rounded-lg shadow
                 bg-white text-orange-600 hover:bg-gray-100 hover:scale-105 transition-all w-max">
         Presmalancer <span class="ml-2">→</span>

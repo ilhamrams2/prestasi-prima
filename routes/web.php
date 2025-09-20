@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SambutanController;
 use App\Http\Controllers\Pendaftaran;
 use App\Http\Controllers\FormulirController;
+use App\Http\Controllers\PresmalanceController;
 
 Route::get('/', function () {
     return view('prestasiprima.pages.landing');
@@ -25,3 +26,4 @@ Route::post('/formulir', [FormulirController::class, 'store'])->name('pendaftara
 
 // Validasi Pendaftaran
 Route::get('/validasi', [FormulirController::class, 'validasi'])->name('pendaftaran.validasi');
+Route::get('/presmalance', [PresmalanceController::class, 'login'])->name('presmalancer.login');
