@@ -5,7 +5,8 @@ use App\Http\Controllers\SambutanController;
 use App\Http\Controllers\Pendaftaran;
 use App\Http\Controllers\FormulirController;
 use App\Http\Controllers\PresmalanceController;
-
+use App\Http\Controllers\PresmaAuthController;
+use App\Http\Controllers\SocialAuthController;
 Route::get('/', function () {
     return view('prestasiprima.pages.landing');
 });
@@ -26,4 +27,11 @@ Route::post('/formulir', [FormulirController::class, 'store'])->name('pendaftara
 
 // Validasi Pendaftaran
 Route::get('/validasi', [FormulirController::class, 'validasi'])->name('pendaftaran.validasi');
-Route::get('/presmalance', [PresmalanceController::class, 'login'])->name('presmalancer.login');
+Route::get('/presmalance', [PresmalanceController::class, 'presmalance'])->name('presmalancer.presmalance');
+Route::get('/login', [PresmalanceController::class, 'login'])->name('login');
+Route::post('/login', [PresmaAuthController::class, 'login'])->name('login.post');
+
+Route::get('/auth/{provider}', [SocialAuthController::class, 'redirect'])->name('social.redirect');
+Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('social.callback');
+
+Route::get('/forum', [PresmalanceController::class, 'forum'])->name('forum');
