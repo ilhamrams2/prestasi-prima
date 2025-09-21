@@ -9,10 +9,16 @@
 </head>
 <body class="bg-white font-sans relative overflow-x-hidden">
 
-    <div class="absolute top-50 -left-20 w-48 h-48 bg-orange-300 rounded-full blur-2xl opacity-60"></div>
-    <div class="absolute bottom-100 -right-20 w-60 h-60 bg-orange-300 rounded-full blur-2xl opacity-60"></div>
-    
+    {{-- Dekorasi Lingkaran PNG --}}
+    <img src="../assets/images/section/presmalancer/oren rock2.png" 
+         alt="Lingkaran Kiri Atas" 
+         class="absolute top-0 -left-20 w-56 opacity-70 -z-10">
 
+    <img src="../assets/images/section/presmalancer/oren rock.png" 
+         alt="Lingkaran Kanan Bawah" 
+         class="absolute bottom-0 -right-20 w-72 opacity-70 -z-10">
+
+    {{-- Section Hero --}}
     <section class="max-w-5xl mx-auto px-6 py-12 relative z-10">
         <div class="grid md:grid-cols-2 gap-8 items-center">
             <div>
@@ -21,6 +27,7 @@
                     <span class="text-orange-500">Presmalance!</span>
                 </h1>
 
+                {{-- Card Login --}}
                 <div class="bg-orange-100 border shadow-md rounded-xl mt-6 p-6">
                     <button class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 rounded-lg py-3 hover:bg-gray-100 transition">
                         <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" class="w-5 h-5">
@@ -43,41 +50,109 @@
                 </div>
             </div>
 
-            <div class="flex flex-col items-center">
-                <img src="../assets/images/section/presmalancer/siswa1.png" alt="Anak SMK" class="w-80 relative z-10">
-                <span class="margin-top: 0.125rem transform translate-x-2.5 bg-orange-500 text-white px-10 py-3 rounded-full shadow-md text-sm font-semibold transition hover:shadow-lg">
+            {{-- Gambar siswa --}}
+            <div class="flex flex-col items-center relative">
+                <img src="../assets/images/section/presmalancer/rock behind girl.png" 
+                     alt="Lingkaran Belakang" 
+                     class="absolute w-96 -z-10 top-1/2 -translate-y-1/2">
+
+                <img src="../assets/images/section/presmalancer/siswa1.png" 
+                     alt="Anak SMK" 
+                     class="w-80 relative z-10">
+
+                <span class="mt-2 translate-x-3 bg-orange-500 text-white px-10 py-3 rounded-full shadow-md text-sm font-semibold transition hover:shadow-lg">
                     Dari Kelas ke Dunia Kerja
                 </span>
             </div>
         </div>
     </section>
 
+    {{-- Carousel Mitra --}}
     <section class="py-12 relative z-10">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-xl md:text-2xl font-semibold text-gray-800 text-center mb-8">
-                Cari magang atau kerja part-time seru di perusahaan pilihanmu!
-            </h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                <div class="bg-orange-100 border rounded-xl shadow-sm p-6 hover:shadow-md transition">
-                    <img src="../assets/images/section/industri/komatsu.png" alt="Komatsu" class="h-8 mx-auto mb-2">
-                    <p class="text-sm text-gray-600">7 lowongan tersedia</p>
-                </div>
-                <div class="bg-orange-100 border rounded-xl shadow-sm p-6 hover:shadow-md transition">
-                    <img src="../assets/images/section/industri/jatelindo.png" alt="Komatsu" class="h-8 mx-auto mb-2">
-                    <p class="text-sm text-gray-600">13 lowongan tersedia</p>
-                </div>
-                <div class="bg-orange-100 border rounded-xl shadow-sm p-6 hover:shadow-md transition">
-                    <img src="../assets/images/section/industri/antam.png" alt="Komatsu" class="h-8 mx-auto mb-2">
-                    <p class="text-sm text-gray-600">3 lowongan tersedia</p>
-                </div>
-                <div class="bg-orange-100 border rounded-xl shadow-sm p-6 hover:shadow-md transition">
-                    <img src="../assets/images/section/industri/wika.png" alt="Komatsu" class="h-8 mx-auto mb-2">
-                    <p class="text-sm text-gray-600">9 lowongan tersedia</p>
+        <h2 class="text-xl md:text-2xl font-semibold text-gray-800 text-center mb-8">
+            Cari magang atau kerja part-time seru di perusahaan pilihanmu!
+        </h2>
+
+        <div class="relative flex items-center max-w-6xl mx-auto px-6">
+            <button id="prevBtn"
+                class="absolute -left-5 bg-orange-500 text-white rounded-full w-10 h-10 flex items-center justify-center shadow hover:bg-orange-600 transition z-10">
+                &#10094;
+            </button>
+
+            <div id="carouselWrapper" class="overflow-hidden w-full">
+                <div id="carouselTrack" class="flex gap-6 transition-transform duration-500 ease-in-out">
+                    @php
+                        $companies = [
+                            ['logo' => '../assets/images/section/industri/komatsu.png', 'lowongan' => '7'],
+                            ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
+                            ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
+                            ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
+                             ['logo' => '../assets/images/section/industri/komatsu.png', 'lowongan' => '7'],
+                            ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
+                            ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
+                            ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
+                             ['logo' => '../assets/images/section/industri/komatsu.png', 'lowongan' => '7'],
+                            ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
+                            ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
+                            ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
+                             ['logo' => '../assets/images/section/industri/komatsu.png', 'lowongan' => '7'],
+                            ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
+                            ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
+                            ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
+                             ['logo' => '../assets/images/section/industri/komatsu.png', 'lowongan' => '7'],
+                            ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
+                            ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
+                            ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
+                             ['logo' => '../assets/images/section/industri/komatsu.png', 'lowongan' => '7'],
+                            ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
+                            ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
+                            ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
+                             ['logo' => '../assets/images/section/industri/komatsu.png', 'lowongan' => '7'],
+                            ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
+                            ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
+                            ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
+                             ['logo' => '../assets/images/section/industri/komatsu.png', 'lowongan' => '7'],
+                            ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
+                            ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
+                            ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
+                             ['logo' => '../assets/images/section/industri/komatsu.png', 'lowongan' => '7'],
+                            ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
+                            ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
+                            ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
+                             ['logo' => '../assets/images/section/industri/komatsu.png', 'lowongan' => '7'],
+                            ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
+                            ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
+                            ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
+                             ['logo' => '../assets/images/section/industri/komatsu.png', 'lowongan' => '7'],
+                            ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
+                            ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
+                            ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
+                             ['logo' => '../assets/images/section/industri/komatsu.png', 'lowongan' => '7'],
+                            ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
+                            ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
+                            ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
+                        ];
+                        // Gandakan supaya terlihat infinite
+                        $loopedCompanies = array_merge($companies, $companies, $companies);
+                    @endphp
+
+                    @foreach ($loopedCompanies as $c)
+                        <div class="flex-shrink-0 w-56 bg-orange-50 border rounded-xl shadow p-6 hover:shadow-lg transition flex flex-col items-center justify-center">
+                            <img src="{{ $c['logo'] }}" class="h-10 mb-2">
+                            <p class="bg-gray-200 rounded-full px-3 py-1 text-xs">{{ $c['lowongan'] }} lowongan tersedia</p>
+                        </div>
+                    @endforeach
                 </div>
             </div>
+
+            <button id="nextBtn"
+                class="absolute -right-5 bg-orange-500 text-white rounded-full w-10 h-10 flex items-center justify-center shadow hover:bg-orange-600 transition z-10">
+                &#10095;
+            </button>
         </div>
     </section>
 
+    {{-- Section Workshop --}}
     <section class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-6 relative z-10">
         <div class="bg-orange-100 rounded-2xl p-6 flex items-center justify-between">
             <div>
@@ -86,7 +161,7 @@
                     Ikuti Jadwal Workshop
                 </button>
             </div>
-            <img src="../assets/images/section/presmalancer/logo.webp" alt="Workshop" class="h-24">
+            <img src="../assets/images/section/presmalancer/workshop1.png" alt="Workshop" class="h-24">
         </div>
 
         <div class="bg-orange-500 rounded-2xl p-6 flex items-center justify-between">
@@ -96,9 +171,47 @@
                     Cek Gaji & Info Lainnya
                 </button>
             </div>
-            <img src="../assets/images/section/presmalancer/logo.webp" alt="Salary" class="h-24">
+            <img src="../assets/images/section/presmalancer/workshop2.png" alt="Salary" class="h-24">
         </div>
     </section>
+
+    <script>
+        const track = document.getElementById("carouselTrack");
+        const nextBtn = document.getElementById("nextBtn");
+        const prevBtn = document.getElementById("prevBtn");
+
+        const items = track.children;
+        const itemWidth = items[0].offsetWidth + 24; // termasuk gap-6
+        let position = -(itemWidth * (items.length / 3)); // mulai di tengah
+        track.style.transform = `translateX(${position}px)`;
+
+        function moveCarousel(direction = 1) {
+            position -= itemWidth * direction;
+            track.style.transition = "transform 0.5s ease-in-out";
+            track.style.transform = `translateX(${position}px)`;
+
+            track.addEventListener("transitionend", () => {
+                const totalItems = items.length;
+                const visibleItems = 3;
+                const maxTranslate = -(itemWidth * (totalItems - visibleItems));
+
+                if (position <= maxTranslate) {
+                    track.style.transition = "none";
+                    position = -(itemWidth * (totalItems / 3));
+                    track.style.transform = `translateX(${position}px)`;
+                } else if (position >= 0) {
+                    track.style.transition = "none";
+                    position = -(itemWidth * (totalItems / 3));
+                    track.style.transform = `translateX(${position}px)`;
+                }
+            }, { once: true });
+        }
+
+        nextBtn.addEventListener("click", () => moveCarousel(1));
+        prevBtn.addEventListener("click", () => moveCarousel(-1));
+
+        setInterval(() => moveCarousel(1), 10000);
+    </script>
 
 </body>
 </html>
