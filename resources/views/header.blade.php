@@ -1,5 +1,5 @@
 <!-- ================= HEADER (TOPBAR + NAVBAR) ================= -->
-<header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-transparent">
+<header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-transparent ">
 
   <!-- ===== TOPBAR ===== -->
   <div class="topbar w-full bg-orange-600 text-white text-sm hidden md:flex transition-all duration-300">
@@ -15,7 +15,7 @@
         <!-- Phone -->
         <div class="flex items-center space-x-2 px-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 5a2 2 0 012-2h3.3a1 1 0 01.95.7l1.3 3.9a1 1 0 01-.3 1.1L9.4 10.6a11 11 0 005 5l2-2a1 1 0 011.1-.3l3.9 1.3a1 1 0 01.7.9V19a2 2 0 01-2 2h-1C10.6 21 3 13.4 3 4V5z"/>
           </svg>
           <a href="tel:089599439033">0895 - 9943 - 9033</a>
@@ -24,7 +24,7 @@
         <!-- Email -->
         <div class="flex items-center space-x-2 px-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 8l7.9 5.3a2 2 0 002.2 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
           </svg>
           <a href="mailto:halo@smkprestasiprima.ac.id">halo@smkprestasiprima.ac.id</a>
@@ -210,11 +210,11 @@
 
   // ===== Active Links =====
   const currentURL = window.location.href;
-  navLinkEls.forEach(link => { 
-    if(link.href === currentURL) link.classList.add('border-b-2','border-orange-500'); 
+  navLinkEls.forEach(link => {
+    if(link.href === currentURL) link.classList.add('border-b-2','border-orange-500');
   });
-  mobileLinkEls.forEach(link => { 
-    if(link.href === currentURL) link.classList.add('font-semibold','bg-orange-100','rounded-md'); 
+  mobileLinkEls.forEach(link => {
+    if(link.href === currentURL) link.classList.add('font-semibold','bg-orange-100','rounded-md');
   });
 </script>
 
