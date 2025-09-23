@@ -1,6 +1,6 @@
 <!-- ================= SECTION TENTANG KAMI ================= -->
 <section id="tentang" class="relative bg-white py-20 overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-center gap-14 md:gap-20">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-center gap-14 md:gap-20 ">
 
     <!-- Gambar Kepala Sekolah -->
     <div class="relative flex justify-center fade-in-right">
@@ -9,10 +9,10 @@
 
       <!-- Kotak Orange dengan Gambar -->
       <div class="relative z-10 w-72 h-[26rem] md:w-96 md:h-[32rem] bg-orange-500 overflow-hidden shadow-xl rounded-lg md:rounded-none">
-        <img src="assets/images/section/tentang/kepala-sekolah.png" 
-             alt="Kepala Sekolah" 
+        <img src="assets/images/section/tentang/kepala-sekolah.png"
+             alt="Kepala Sekolah"
              class="w-full h-full object-cover">
-        
+
         <!-- Nama Kepala Sekolah -->
         <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-[90%] md:w-[85%] bg-white/95 backdrop-blur-md shadow-lg px-4 md:px-5 py-3 text-left rounded-md">
           <p class="text-sm md:text-base font-bold text-orange-600 leading-snug">Hendry Kurniawan, S.Kom., M.I.Kom.</p>
@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <!-- Teks Tentang Kami -->  
+    <!-- Teks Tentang Kami -->
     <div class="text-center md:text-left max-w-xl fade-in-left">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-left">
         Tentang <span class="text-orange-600">Kami</span>
