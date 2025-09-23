@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +11,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Kalau mau bikin user dummy bisa di sini juga
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Jalankan seeder kategori & galeri
+        $this->call([
+            CategorySeeder::class,
+            GaleriSeeder::class,
+        ]);
     }
 }
