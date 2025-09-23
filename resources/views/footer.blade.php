@@ -6,8 +6,7 @@
       <img src="assets/images/logo-smk.png" alt="Logo" class="w-20 mb-4">
       <p class="text-sm leading-relaxed max-w-xs">
         SMK Prestasi Prima berkomitmen mencetak generasi berprestasi 
-        dengan program pendidikan unggulan dan fasilitas modern.
-      </p>
+        dengan program pendidikan unggulan dan fasilitas modern.kacaw bener s anjay
       <!-- Sosial Media -->
       <div class="flex justify-start gap-3 mt-5">
         <a href="#" class="bg-orange-500 hover:bg-orange-600 text-white w-9 h-9 flex items-center justify-center rounded-full shadow-md transition">
