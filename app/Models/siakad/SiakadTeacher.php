@@ -21,6 +21,6 @@ class SiakadTeacher extends Model
 
     public function user()
     {
-        return $this->hasOne(SiakadUsers::class, 'teacher_id');
+        return $this->hasOne(SiakadUser::class, 'teacher_id');
     }
 }
