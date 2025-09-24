@@ -46,4 +46,6 @@ Route::get('/forum', [PresmalanceController::class, 'forum'])->name('forum');
 Route::prefix('siakad')->name('siakad.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
          ->name('dashboard');
+           Route::get('/dashboard', [DashboardController::class, 'index'])
+         ->name('dashboard');
 });
