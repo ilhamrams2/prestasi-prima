@@ -32,10 +32,10 @@ class NewsController extends Controller
         $news = News::latest()->paginate(9); // ambil data berita
         return view('news.backend.pages.news', compact('news'));
     }
-public function newsopen($id)
+ public function newsopen()
     {
-        $item = News::findOrFail($id);
-        return view('news.backend.pages.news', compact('item'));
+
+        return view('news.backend.pages.newsopen');
     }
 
   public function store(Request $request)
