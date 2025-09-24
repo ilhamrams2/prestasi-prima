@@ -29,7 +29,7 @@
 
     <!-- Background Image -->
     <div class="absolute inset-0">
-        <img src="{{ asset('assets/images/hero/hero-bg.png') }}" alt="Hero Background" 
+        <img src="{{ asset('assets/images/section/hero/hero-bg.png') }}" alt="Hero Background" 
              class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-black bg-opacity-50"></div>
     </div>
