@@ -220,7 +220,7 @@
         <div class="text-sm text-gray-600">💬 Belum ada komentar baru</div>
       </div>
     </div>
-    
+    @include('ChatbotUI')
   </div>
 </main>
   </div>

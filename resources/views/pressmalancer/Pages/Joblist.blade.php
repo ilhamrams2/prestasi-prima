@@ -1,4 +1,4 @@
-<!-- resources/views/Joblist.blade.php -->
+@include('HeaderLance')
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -117,7 +117,7 @@
           <div class="text-center text-gray-400 mt-20">Pilih pekerjaan untuk melihat detailnya</div>
       </div>
   </div>
-
+@include('ChatbotUI')
   <script>
       const jobItems = document.querySelectorAll('.job-item');
       const jobDetail = document.getElementById('jobDetail');
@@ -156,3 +156,4 @@
   </script>
 </body>
 </html>
+@include('footer')

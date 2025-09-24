@@ -59,4 +59,5 @@
         </p>
     </div>
 </div>
+@include('ChatbotUI')
 @include('footer')

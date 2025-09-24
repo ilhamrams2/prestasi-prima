@@ -8,21 +8,21 @@ class PresmalanceController extends Controller
 {
     public function presmalance()
     {
-        return view('pressmalancer.presmalance');
+        return view('pressmalancer.pages.presmalance');
     }
 
     public function login()
     {
-        return view('pressmalancer.login');
+        return view('pressmalancer.pages.login');
     }
 
      public function forum()
     {
-        return view('pressmalancer.forum');
+        return view('pressmalancer.pages.forum');
     }
 
     public function joblist()
     {
-        return view('pressmalancer.Joblist');
+        return view('pressmalancer.pages.Joblist');
     }
 }

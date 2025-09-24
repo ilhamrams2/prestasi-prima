@@ -25,6 +25,7 @@
   <!-- Main Content -->
   <main>
     @yield('content')
+    @include('ChatbotUI')
   </main>
 
   <!-- Footer -->

@@ -134,6 +134,7 @@
             <img src="../assets/images/section/presmalancer/workshop2.png" alt="Salary" class="h-24">
         </div>
     </section>
+    @include('ChatbotUI')
 
     <script>
         const track = document.getElementById("carouselTrack");
