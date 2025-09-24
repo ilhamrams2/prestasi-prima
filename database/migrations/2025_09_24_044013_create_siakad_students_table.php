@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('siakad_students', function (Blueprint $table) {
             $table->id();
-            $table->string('student_id', 50)->unique(); // NIS/NISN
+            $table->foreignId('major_id')->nullable()->constrained('siakad_majors')->nullOnDelete();
+            $table->foreignId('class_id')->nullable()->constrained('siakad_classes')->nullOnDelete();
+            $table->string('student_number', 50)->unique();
             $table->string('name', 100);
-            $table->enum('gender', ['L', 'P'])->nullable();
-            $table->date('birth_date')->nullable();
-            $table->foreignId('class_id')->constrained('siakad_classes')->onDelete('cascade');
-            $table->integer('year_entry')->nullable(); // Tahun masuk sekolah
+            $table->string('email')->unique();
+            $table->string('password');
             $table->timestamps();
         });
     }
