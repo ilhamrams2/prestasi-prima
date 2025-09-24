@@ -20,7 +20,7 @@ class ScoreController extends Controller
 
     public function store(Request $request)
     {
-  $validatedData = $request->validate([
+        $validatedData = $request->validate([
             'enrollment_id' => 'required|exists:siakad_enrollments,id', // Validasi enrollment harus ada
             'assignment' => 'required|numeric|min:0|max:100',
             'mid_exam' => 'required|numeric|min:0|max:100',
@@ -46,7 +46,7 @@ class ScoreController extends Controller
 
     public function update(Request $request, string $id)
     {
- $validatedData = $request->validate([
+        $validatedData = $request->validate([
             'enrollment_id' => 'required|exists:siakad_enrollments,id', // Validasi enrollment harus ada
             'assignment' => 'required|numeric|min:0|max:100',
             'mid_exam' => 'required|numeric|min:0|max:100',
@@ -68,7 +68,7 @@ class ScoreController extends Controller
 
     public function destroy(string $id)
     {
-try {
+        try {
             $score = SiakadScore::findOrFail($id);
             $score->delete();
 

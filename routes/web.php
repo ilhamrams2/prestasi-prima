@@ -49,3 +49,13 @@ Route::prefix('siakad')->name('siakad.')->group(function () {
            Route::get('/dashboard', [DashboardController::class, 'index'])
          ->name('dashboard');
 });
+
+Route::get('/dashboard', [NewsController::class, 'index'])->name('news.index');
+Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
+Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
+Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
+
+
+Route::get('/news', [NewsController::class, 'news'])->name('news.index');
+Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
