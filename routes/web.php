@@ -10,6 +10,7 @@ use App\Http\Controllers\PresmalanceController;
 use App\Http\Controllers\PresmaAuthController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\Errorcontroller;
+use App\Http\Controllers\Siakad\DashboardController;
 
 
 Route::get('/', function () {
@@ -40,3 +41,9 @@ Route::get('/auth/{provider}', [SocialAuthController::class, 'redirect'])->name(
 Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('social.callback');
 
 Route::get('/forum', [PresmalanceController::class, 'forum'])->name('forum');
+
+// ================= SIAKAD =================
+Route::prefix('siakad')->name('siakad.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+         ->name('dashboard');
+});
