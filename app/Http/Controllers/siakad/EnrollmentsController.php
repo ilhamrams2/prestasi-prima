@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\siakad;
 
 use App\Http\Controllers\Controller;
+use App\Models\siakad\SiakadEnrollment;
+use App\Models\siakad\SiakadStudent;
+use App\Models\siakad\SiakadSubject;
+use App\Models\siakad\SiakadTeacher;
 use Illuminate\Http\Request;
 
 class EnrollmentsController extends Controller
@@ -12,54 +16,79 @@ class EnrollmentsController extends Controller
      */
     public function index()
     {
-        //
+        $enrollments = SiakadEnrollment::with(['student', 'subject', 'teacher'])
+            ->latest()->paginate(10);
+
+        return view('siakad.enrollments.index', compact('enrollments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $students = SiakadStudent::all();
+        $subjects = SiakadSubject::all();
+        $teachers = SiakadTeacher::all();
+
+        return view('siakad.enrollments.create', compact('students', 'subjects', 'teachers'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'student_id' => 'required|exists:siakad_students,id',
+            'subject_id' => 'required|exists:siakad_subjects,id',
+            'teacher_id' => 'required|exists:siakad_teachers,id',
+            'semester'   => 'required|string|max:20',
+        ]);
+
+        try {
+            SiakadEnrollment::create($validatedData);
+            return redirect()->route('siakad.enrollments.index')
+                ->with('success', 'Data enroll berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $enrollment = SiakadEnrollment::findOrFail($id);
+        $students = SiakadStudent::all();
+        $subjects = SiakadSubject::all();
+        $teachers = SiakadTeacher::all();
+
+        return view('siakad.enrollments.edit', compact('enrollment', 'students', 'subjects', 'teachers'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $enrollment = SiakadEnrollment::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'student_id' => 'required|exists:siakad_students,id',
+            'subject_id' => 'required|exists:siakad_subjects,id',
+            'teacher_id' => 'required|exists:siakad_teachers,id',
+            'semester'   => 'required|string|max:20',
+        ]);
+
+        try {
+            $enrollment->update($validatedData);
+            return redirect()->route('siakad.enrollments.index')
+                ->with('success', 'Data enroll berhasil diperbarui!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        try {
+            $enrollment = SiakadEnrollment::findOrFail($id);
+            $enrollment->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+            return redirect()->route('siakad.enrollments.index')
+                ->with('success', 'Data enroll berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 }
