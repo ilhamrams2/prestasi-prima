@@ -40,25 +40,3 @@ Route::get('/auth/{provider}', [SocialAuthController::class, 'redirect'])->name(
 Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('social.callback');
 
 Route::get('/forum', [PresmalanceController::class, 'forum'])->name('forum');
-<<<<<<< HEAD
-Route::get('/joblist', [PresmalanceController::class, 'joblist'])->name('joblist');
-=======
-
-
-Route::get('/notfound', [Errorcontroller::class, 'notfound'])->name('notfound');
-Route::get('/notinternet', [Errorcontroller::class, 'notinternet'])->name('notinternet');
-
-
-
-
-Route::get('/splash/{screen}', [NewsController::class, 'splashscreen'])
-    ->name('splash.show');
-Route::get('/splash/login/{role}', [NewsController::class, 'splash'])
-    ->name('splash.login');
-
-
-  Route::resource('admin/news', NewsController::class);
-  Route::get('/news', [NewsController::class, 'news'])->name('news.index');
-Route::get('/news/{id}', [NewsController::class, 'newsopen'])->name('news.show');
-
-Route::get('/eligible', [PresmaboardController::class, 'Eligible_profile'])->name('eligible');
