@@ -24,7 +24,7 @@
 
         {{-- Main Content --}}
         <div class="flex-1 flex flex-col">
-            
+
             {{-- Page Content --}}
             <main class="flex-1 p-6">
                 @yield('content')
