@@ -22,7 +22,6 @@
 
 <body>
     @yield('content')
-    awawawa
 </body>
 
 </html>

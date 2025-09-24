@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PresmaboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SambutanController;
 use App\Http\Controllers\Pendaftaran;
@@ -55,4 +56,8 @@ Route::get('/splash/login/{role}', [NewsController::class, 'splash'])
 
   Route::resource('admin/news', NewsController::class);
   Route::get('/news', [NewsController::class, 'news'])->name('news.index');
-Route::get('/news/{id}', [NewsController::class, 'newsopen'])->name('news.show');
+Route::get('/newsopen', action: [NewsController::class, 'newsopen'])->name('news.open');
+
+
+
+Route::get('/eligible', [PresmaboardController::class, 'Eligible_profile'])->name('eligible');
