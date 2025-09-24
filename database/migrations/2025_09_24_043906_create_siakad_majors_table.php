@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('siakad_classes', function (Blueprint $table) {
+        Schema::create('siakad_majors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('major_id')->constrained('siakad_majors')->cascadeOnDelete();
-            $table->string('class_code', 50)->unique();
+            $table->string('major_code', 50)->unique();
             $table->string('name', 100);
             $table->timestamps();
         });
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('siakad_classes');
+        Schema::dropIfExists('siakad_majors');
     }
 };
