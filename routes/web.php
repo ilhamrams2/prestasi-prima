@@ -51,21 +51,7 @@ Route::prefix('siakad')->name('siakad.')->group(function () {
          ->name('dashboard');
 });
 
-
-
-Route::get('/dashboard', [NewsController::class, 'index'])->name('news.index');
-Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
-Route::post('/news', [NewsController::class, 'store'])->name('news.store');
-Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
-Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
-
-
-Route::get('/news', [NewsController::class, 'news'])->name('news.index');
-Route::get('/news/{id}', [NewsController::class, 'show'])->name('news.show');
-Route::get('/eligible', [PresmaboardController::class, 'Eligible_profile'])->name('presmaboard.eligible');
-
-
-Route::get('/notfound', [ErrorController::class, 'notfound'])->name('error.notfound');
-
-// Route for No Internet Error
-Route::get('/notinternet', [ErrorController::class, 'notinternet'])->name('error.notinternet');
+// Route::view('/siakad/login', 'siakad.auth.login')->name('siakad.login');
+Route::get('/siakad/login', function () {
+    return view('siakad.auth.siakad-login');
+});
