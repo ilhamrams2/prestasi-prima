@@ -20,4 +20,9 @@ class PresmalanceController extends Controller
     {
         return view('pressmalancer.forum');
     }
+
+    public function joblist()
+    {
+        return view('pressmalancer.Joblist');
+    }
 }

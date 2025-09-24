@@ -35,3 +35,4 @@ Route::get('/auth/{provider}', [SocialAuthController::class, 'redirect'])->name(
 Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('social.callback');
 
 Route::get('/forum', [PresmalanceController::class, 'forum'])->name('forum');
+Route::get('/joblist', [PresmalanceController::class, 'joblist'])->name('joblist');
