@@ -56,14 +56,15 @@ Route::get('/siakad/login', function () {
     return view('siakad.auth.siakad-login');
 });
 
-
+// siakad
 Route::prefix('siakad')->group(function () {
     Route::get('/login', [SiakadAuthController::class, 'showLogin'])->name('siakad.login');
     Route::post('/login', [SiakadAuthController::class, 'login'])->name('siakad.login.submit');
+    Route::get('/logout', [SiakadAuthController::class, 'logout'])->name('siakad.logout');
 
     Route::middleware('auth:siakad')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])
-            ->name('dashboard');
+            ->name('siakad.dashboard');
         Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
     });

@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('siakad_users', function (Blueprint $table) {
             $table->id();
-            $table->string('username', 50)->unique();
+            $table->string('name', 100);
+            $table->string('teacher_id', 50)->unique(); // NIP / ID Guru
+            $table->string('subject', 100)->nullable(); // Mata pelajaran utama
+            $table->string('position', 100)->nullable(); // Jabatan (wali kelas, kaprodi, dll)
+            $table->string('phone', 20)->nullable();
             $table->string('email', 100)->unique();
             $table->string('password');
-            $table->enum('role', ['admin', 'guru'])->default('guru');
-            $table->foreignId('teacher_id')->nullable()->constrained('siakad_teachers')->onDelete('cascade');
+            $table->enum('role', ['admin', 'teacher'])->default('teacher');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -15,19 +15,28 @@ class SiakadUserSeeder extends Seeder
     public function run(): void
     {
         // Admin
-        SiakadUser::create([
-            'username' => 'Ilham Ramadan',
-            'email' => 'ilhamramadan@smkprestasiprima.sch.id',
-            'password' => Hash::make('password'),
-            'role' => 'admin',
+       SiakadUser::create([
+            'name'       => 'Ilham Ramadan',
+            'teacher_id' => 'ADM001',
+            'subject'    => 'Instructor Lab PPLG',
+            'position'   => 'Instructor Lab PPLG',
+            'phone'      => '081111111111',
+            'email'      => 'ilhamramadan@smkprestasiprima.sch.id',
+            'password'   => Hash::make('password'), // ganti sesuai kebutuhan
+            'role'       => 'admin',
         ]);
 
-        // Guru
+        // Admin
         SiakadUser::create([
-            'username' => 'Agus Nugraha',
-            'email' => 'agusnugraha@smkprestasiprima.sch.id',
-            'password' => Hash::make('password'),
-            'role' => 'guru',
+            'name'       => 'Ilham Ramadan',
+            'teacher_id' => 'TCH001',
+            'subject'    => 'KDKA',
+            'position'   => 'Guru',
+            'phone'      => '081222222222',
+            'email'      => 'agusnugraha@smkprestasiprima.sch.id',
+            'password'   => Hash::make('password'), // ganti sesuai kebutuhan
+            'role'       => 'teacher',
         ]);
+
     }
 }

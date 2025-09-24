@@ -5,8 +5,8 @@
 
   {{-- Banner Sambutan --}}
   <div class="bg-gradient-to-r from-orange-500 to-yellow-400 rounded-xl shadow-md p-6 text-white">
-    <h2 class="text-lg sm:text-xl font-bold">Selamat Datang, Ahmad Rizki!</h2>
-    <p class="text-xs sm:text-sm mt-1">Kelas XII RPL 1 • NIS: 2024001234</p>
+    <h2 class="text-lg sm:text-xl font-bold">Selamat Datang, {{ Auth::guard('siakad')->user()->name }}</h2>
+    <p class="text-xs sm:text-sm mt-1">Teacher ID: {{ Auth::guard('siakad')->user()->teacher_id }}</p>
   </div>
 
   {{-- ====== Statistik Atas ====== --}}

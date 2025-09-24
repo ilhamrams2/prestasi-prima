@@ -19,11 +19,17 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'required|string',
+            'email' => [
+                'required',
+                'email',
+                'regex:/^[a-zA-Z0-9._%+-]+@smkprestasiprima\.sch\.id$/'
+            ],
             'password' => 'required|string',
+        ], [
+            'email.regex' => 'Email harus menggunakan domain @smkprestasiprima.sch.id',
         ]);
 
-        $credentials = $request->only('username', 'password');
+        $credentials = $request->only('email', 'password');
 
         if (Auth::guard('siakad')->attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
@@ -32,25 +38,18 @@ class AuthController extends Controller
 
             // Redirect berdasarkan role
             if ($user->role === 'admin') {
-                return redirect()->route('siakad.admin.dashboard');
-            } elseif ($user->role === 'guru') {
-                return redirect()->route('siakad.guru.dashboard');
-            } else {
-                return redirect()->route('siakad.siswa.dashboard');
+                return redirect()->route('siakad.dashboard')->with('success', 'Anda berhasil login.');
             }
         }
-
-        return back()->withErrors([
-            'username' => 'Username atau password salah.',
-        ])->withInput();
+        return redirect()->route('siakad.dashboard')->with('error', 'Email atau password salah.');
     }
+
 
     public function logout(Request $request)
     {
         Auth::guard('siakad')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        return redirect()->route('siakad.auth.siakad-login');
+        return redirect()->route('siakad.login')->with('error', 'Anda berhasil logout.');
     }
 }
