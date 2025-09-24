@@ -59,6 +59,64 @@ Route::get('/siakad/login', function () {
 
 use App\Http\Controllers\Siakad\AuthController;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// login
 Route::prefix('siakad')->group(function () {
     Route::get('/login', [SiakadAuthController::class, 'showLogin'])->name('siakad.login');
     Route::post('/login', [SiakadAuthController::class, 'login'])->name('siakad.login.submit');
