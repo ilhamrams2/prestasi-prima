@@ -49,8 +49,3 @@ Route::prefix('siakad')->name('siakad.')->group(function () {
            Route::get('/dashboard', [DashboardController::class, 'index'])
          ->name('dashboard');
 });
-
-// Route::view('/siakad/login', 'siakad.auth.login')->name('siakad.login');
-Route::get('/siakad/login', function () {
-    return view('siakad.auth.siakad-login');
-});
