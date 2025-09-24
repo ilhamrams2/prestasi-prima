@@ -4,6 +4,7 @@ namespace App\Http\Controllers\siakad;
 
 use App\Http\Controllers\Controller;
 use App\Models\siakad\SiakadUser;
+use App\Models\SiakadUser as ModelsSiakadUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;

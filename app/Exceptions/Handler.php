@@ -27,4 +27,30 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    protected function unauthenticated($request, \Illuminate\Auth\AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
+
+        $guard = $exception->guards()[0] ?? null;
+
+        switch ($guard) {
+            case 'siakad':
+                $loginRoute = 'siakad.login';
+                break;
+            case 'presmalance':
+                $loginRoute = 'presmalance.login';
+                break;
+            case 'pressmaboard':
+                $loginRoute = 'pressmaboard.login';
+                break;
+            default:
+                $loginRoute = 'login'; // fallback ke default
+                break;
+        }
+
+        return redirect()->guest(route($loginRoute));
+    }
 }
