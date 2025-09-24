@@ -44,89 +44,14 @@ Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'
 Route::get('/forum', [PresmalanceController::class, 'forum'])->name('forum');
 
 // ================= SIAKAD =================
-// Route::prefix('siakad')->name('siakad.')->group(function () {
-//     Route::get('/', [DashboardController::class, 'index'])
-//          ->name('dashboard');
-//            Route::get('/dashboard', [DashboardController::class, 'index'])
-//          ->name('dashboard');
-// });
+Route::prefix('siakad')->name('siakad.')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])
+         ->name('dashboard');
+           Route::get('/dashboard', [DashboardController::class, 'index'])
+         ->name('dashboard');
+});
 
 // Route::view('/siakad/login', 'siakad.auth.login')->name('siakad.login');
 Route::get('/siakad/login', function () {
     return view('siakad.auth.siakad-login');
-});
-
-
-use App\Http\Controllers\Siakad\AuthController;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// login
-Route::prefix('siakad')->group(function () {
-    Route::get('/login', [SiakadAuthController::class, 'showLogin'])->name('siakad.login');
-    Route::post('/login', [SiakadAuthController::class, 'login'])->name('siakad.login.submit');
-    Route::post('/logout', [SiakadAuthController::class, 'logout'])->name('siakad.logout');
-
-    // Dashboard per role
-    Route::middleware('auth:siakad')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])
-            ->name('dashboard');
-        Route::get('/dashboard', [DashboardController::class, 'index'])
-            ->name('dashboard');
-    });
 });
