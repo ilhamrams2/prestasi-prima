@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class SiakadUsers extends Model
 {
     use HasFactory;
+    protected $table = 'siakad_users';
+    protected $fillable = ['username', 'email', 'password', 'role', 'teacher_id'];
+
+    protected $hidden = ['password', 'remember_token'];
+
+    public function teacher()
+    {
+        return $this->belongsTo(SiakadTeacher::class, 'teacher_id');
+    }
 }
