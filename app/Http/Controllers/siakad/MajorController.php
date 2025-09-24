@@ -15,7 +15,7 @@ class MajorController extends Controller
     public function index()
     {
         $majors = SiakadMajor::all();
-        // return view('siakad.pages.majors.index', compact('majors'));
+        return view('siakad.pages.major.index', compact('majors'));
     }
 
     /**

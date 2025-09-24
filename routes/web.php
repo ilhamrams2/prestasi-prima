@@ -12,7 +12,7 @@ use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\Errorcontroller;
 use App\Http\Controllers\siakad\auth\AuthController as SiakadAuthController;
 use App\Http\Controllers\Siakad\DashboardController;
-
+use App\Http\Controllers\siakad\MajorController;
 
 Route::get('/', function () {
     return view('prestasiprima.pages.landing');
@@ -58,14 +58,23 @@ Route::get('/siakad/login', function () {
 
 // siakad
 Route::prefix('siakad')->group(function () {
+    // Auth routes
     Route::get('/login', [SiakadAuthController::class, 'showLogin'])->name('siakad.login');
     Route::post('/login', [SiakadAuthController::class, 'login'])->name('siakad.login.submit');
     Route::get('/logout', [SiakadAuthController::class, 'logout'])->name('siakad.logout');
 
+    // Routes yang butuh login
     Route::middleware('auth:siakad')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])
-            ->name('siakad.dashboard');
-        Route::get('/dashboard', [DashboardController::class, 'index'])
-            ->name('dashboard');
+        // Dashboard
+        Route::get('/', [DashboardController::class, 'index'])->name('siakad.dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        // Majors
+        Route::prefix('majors')->as('majors.')->group(function () {
+            Route::get('/', [MajorController::class, 'index'])->name('index');
+            Route::post('/', [MajorController::class, 'store'])->name('store');
+            Route::put('/{id}', [MajorController::class, 'update'])->name('update');
+            Route::delete('/{id}', [MajorController::class, 'destroy'])->name('destroy');
+        });
     });
 });

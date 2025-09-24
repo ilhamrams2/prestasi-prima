@@ -71,9 +71,9 @@
             {{-- Akademik --}}
             <div>
                 <p class="px-3 mb-2 text-xs font-semibold text-gray-400 uppercase">Akademik</p>
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
+                <a href="{{ route('majors.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
                     <i data-lucide="calendar" class="w-5 h-5"></i>
-                    <span>Jadwal</span>
+                    <span>Majors</span>
                 </a>
                 <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
                     <i data-lucide="check-square" class="w-5 h-5"></i>
