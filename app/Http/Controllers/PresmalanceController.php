@@ -21,8 +21,4 @@ class PresmalanceController extends Controller
         return view('pressmalancer.pages.forum');
     }
 
-    public function joblist()
-    {
-        return view('pressmalancer.pages.Joblist');
-    }
 }

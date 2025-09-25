@@ -7,6 +7,9 @@ use App\Http\Controllers\FormulirController;
 use App\Http\Controllers\PresmalanceController;
 use App\Http\Controllers\PresmaAuthController;
 use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\JoblistController;
+use App\Http\Controllers\AdminJoblistController;
+
 Route::get('/', function () {
     return view('prestasiprima.pages.landing');
 });
@@ -35,4 +38,15 @@ Route::get('/auth/{provider}', [SocialAuthController::class, 'redirect'])->name(
 Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('social.callback');
 
 Route::get('/forum', [PresmalanceController::class, 'forum'])->name('forum');
-Route::get('/joblist', [PresmalanceController::class, 'joblist'])->name('joblist');
+
+Route::prefix('/joblist')->group(function () {
+    Route::get('/', [JoblistController::class, 'index'])->name('joblist.index');
+    Route::get('/create', [JoblistController::class, 'create'])->name('joblist.create');
+    Route::post('/store', [JoblistController::class, 'store'])->name('joblist.store');
+    Route::post('/take/{id}', [JoblistController::class, 'take'])->name('joblist.take');
+    Route::delete('/delete/{id}', [JoblistController::class, 'destroy'])->name('joblist.destroy');
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('jobs', AdminJoblistController::class);
+});
