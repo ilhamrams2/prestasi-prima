@@ -56,7 +56,7 @@ Route::get('/siakad/login', function () {
     return view('siakad.auth.siakad-login');
 });
 
-// siakad
+// siakad new rootes
 Route::prefix('siakad')->group(function () {
     // Auth routes
     Route::get('/login', [SiakadAuthController::class, 'showLogin'])->name('siakad.login');
