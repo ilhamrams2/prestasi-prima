@@ -51,7 +51,8 @@
                         <div class="text-xs text-gray-500 truncate"> {{ Auth::guard('siakad')->user()->email }}</div>
                     </div>
                 </div>
-                <span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-medium">{{ Auth::guard('siakad')->user()->role }}</span>
+                <span
+                    class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-medium">{{ Auth::guard('siakad')->user()->role }}</span>
             </div>
         </div>
 
@@ -71,11 +72,23 @@
             {{-- Akademik --}}
             <div>
                 <p class="px-3 mb-2 text-xs font-semibold text-gray-400 uppercase">Akademik</p>
-                <a href="{{ route('majors.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
+                <a href="{{ route('majors.index') }}"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
                     <i data-lucide="calendar" class="w-5 h-5"></i>
-                    <span>Majors</span>
+                    <span>Jurusan</span>
                 </a>
-                <a href="{{ route('absence.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
+                <a href="{{ route('classes.index') }}"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                    <span>Kelas</span>
+                </a>
+                <a href="{{ route('students.index') }}"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span>Data Siswa</span>
+                </a>
+                <a href="{{ route('absence.index') }}"
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
                     <i data-lucide="check-square" class="w-5 h-5"></i>
                     <span>Absensi</span>
                 </a>
@@ -84,6 +97,7 @@
                     <span>Nilai & Rapor</span>
                 </a>
             </div>
+
 
             {{-- Kegiatan --}}
             <div>

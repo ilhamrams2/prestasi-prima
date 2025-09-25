@@ -11,8 +11,7 @@ class ClassesController extends Controller
  public function index()
     {
         $classes = SiakadClass::all();
-
-        // return view('siakad..page.classes', compact('classes'));
+        return view('siakad.pages.class.index', compact('classes'));
     }
 
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\PresmalanceController;
 use App\Http\Controllers\PresmaAuthController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\Errorcontroller;
+use App\Http\Controllers\Siakad\AbsenceController;
 use App\Http\Controllers\siakad\AttendanceController;
 use App\Http\Controllers\siakad\auth\AuthController as SiakadAuthController;
 use App\Http\Controllers\Siakad\ClassesController;
@@ -130,13 +131,13 @@ Route::prefix('siakad')->group(function () {
             Route::delete('/{id}', [ScoreController::class, 'destroy'])->name('destroy');
         });
 
-        Route::prefix('attendance')->as('attendance.')->group(function () {
-            Route::get('/', [AttendanceController::class, 'index'])->name('index');
-            Route::post('/', [AttendanceController::class, 'store'])->name('store');
-            Route::put('/{id}', [AttendanceController::class, 'update'])->name('update');
-            Route::delete('/{id}', [AttendanceController::class, 'destroy'])->name('destroy');
+        Route::prefix('absence')->as('absence.')->group(function () {
+             Route::get('/', [AbsenceController::class, 'index'])->name('index');
+            Route::post('/', [AbsenceController::class, 'store'])->name('store');
+            Route::put('/{id}', [AbsenceController::class, 'update'])->name('update');
+            Route::delete('/{id}', [AbsenceController::class, 'destroy'])->name('destroy');
         });
-
+        
         Route::prefix('users')->as('users.')->group(function () {
             Route::get('/', [SiakadAuthController::class, 'index'])->name('index');
             Route::post('/', [SiakadAuthController::class, 'store'])->name('store');
