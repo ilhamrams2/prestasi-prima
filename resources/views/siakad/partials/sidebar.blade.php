@@ -61,7 +61,7 @@
             {{-- Utama --}}
             <div>
                 <p class="px-3 mb-2 text-xs font-semibold text-gray-400 uppercase">Utama</p>
-                <a href="#"
+                <a href="{{ route('siakad.dashboard') }}"
                     class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-orange-500 text-white font-medium">
                     <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
                     <span>Dashboard</span>
@@ -75,7 +75,7 @@
                     <i data-lucide="calendar" class="w-5 h-5"></i>
                     <span>Majors</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
+                <a href="{{ route('absence.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
                     <i data-lucide="check-square" class="w-5 h-5"></i>
                     <span>Absensi</span>
                 </a>
@@ -88,10 +88,10 @@
             {{-- Kegiatan --}}
             <div>
                 <p class="px-3 mb-2 text-xs font-semibold text-gray-400 uppercase">Kegiatan</p>
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
+                {{-- <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
                     <i data-lucide="briefcase" class="w-5 h-5"></i>
                     <span>PKL</span>
-                </a>
+                </a> --}}
                 <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
                     <i data-lucide="bell" class="w-5 h-5"></i>
                     <span>Pengumuman</span>
@@ -99,13 +99,13 @@
             </div>
 
             {{-- Komunikasi --}}
-            <div>
+            {{-- <div>
                 <p class="px-3 mb-2 text-xs font-semibold text-gray-400 uppercase">Komunikasi</p>
                 <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50">
                     <i data-lucide="message-square" class="w-5 h-5"></i>
                     <span>Pesan</span>
                 </a>
-            </div>
+            </div> --}}
 
             {{-- Pengaturan --}}
             <div>
