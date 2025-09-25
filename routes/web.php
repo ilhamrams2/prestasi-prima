@@ -10,10 +10,11 @@ use App\Http\Controllers\PresmalanceController;
 use App\Http\Controllers\PresmaAuthController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\Errorcontroller;
+use App\Http\Controllers\siakad\AttendanceController;
 use App\Http\Controllers\siakad\auth\AuthController as SiakadAuthController;
+use App\Http\Controllers\Siakad\ClassesController;
 use App\Http\Controllers\Siakad\DashboardController;
-use App\Http\Controllers\Siakad\MajorController;
-use App\Http\Controllers\Siakad\AbsenceController; // 👈 Tambahkan ini
+use App\Http\Controllers\siakad\MajorController;
 
 Route::get('/', function () {
     return view('prestasiprima.pages.landing');
@@ -76,14 +77,6 @@ Route::prefix('siakad')->group(function () {
             Route::post('/', [MajorController::class, 'store'])->name('store');
             Route::put('/{id}', [MajorController::class, 'update'])->name('update');
             Route::delete('/{id}', [MajorController::class, 'destroy'])->name('destroy');
-        });
-
-        // Absence (Absensi)
-        Route::prefix('absence')->as('absence.')->group(function () {
-            Route::get('/', [AbsenceController::class, 'index'])->name('index');
-            Route::post('/', [AbsenceController::class, 'store'])->name('store');
-            Route::put('/{id}', [AbsenceController::class, 'update'])->name('update');
-            Route::delete('/{id}', [AbsenceController::class, 'destroy'])->name('destroy');
         });
     });
 });
