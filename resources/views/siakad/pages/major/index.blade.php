@@ -1,235 +1,346 @@
 @extends('siakad.index')
 
-@section('title', 'Jurusan - SIAKAD Sekolah')
-
 @section('content')
-<div class="space-y-10" x-data="majorsHandler()">
+<div class="p-6 space-y-6">
+    {{-- ================= HEADER ================= --}}
+    <div class="pb-5 border-b bg-gradient-to-r from-orange-50 to-white rounded-xl px-4 py-3 shadow-sm mb-6">
+        <nav class="flex items-center text-sm text-gray-500 mb-3 space-x-2">
+            <a href="#" class="hover:text-orange-600 transition-colors flex items-center gap-1">
+                <i class="ri-home-4-line text-lg"></i> Dashboard
+            </a>
+            <span>/</span>
+            <span class="text-gray-700 font-semibold flex items-center gap-1">
+                <i class="ri-graduation-cap-line text-lg text-orange-500"></i> Manajemen Jurusan
+            </span>
+        </nav>
 
-    {{-- Header --}}
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-            <h1 class="text-3xl font-extrabold text-gray-900">Manajemen Jurusan</h1>
-            <p class="text-sm text-gray-500">Kelola data jurusan sekolah dengan mudah</p>
+        <div class="flex items-center gap-3">
+            <div class="p-3 bg-orange-100 text-orange-600 rounded-xl">
+                <i class="ri-building-4-line text-3xl"></i>
+            </div>
+            <div>
+                <h1 class="text-3xl font-extrabold text-orange-600">Manajemen Jurusan</h1>
+                <p class="text-gray-600 text-sm mt-1">
+                    Kelola data jurusan, angkatan, jumlah kelas, siswa, dan kepala jurusan
+                </p>
+            </div>
         </div>
-        <button @click="openForm('tambah')" 
-            class="flex items-center px-5 py-2.5 bg-gradient-to-r from-orange-500 to-yellow-500 text-white text-sm font-semibold rounded-xl shadow hover:opacity-90">
-            <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Tambah Jurusan
+    </div>
+
+    {{-- ================= STATISTIK ================= --}}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        @php
+            $stats = [
+                ['icon' => 'ri-folder-3-line', 'color' => 'orange', 'label' => 'Total Jurusan', 'value' => 4],
+                ['icon' => 'ri-stack-line', 'color' => 'yellow', 'label' => 'Total Kelas', 'value' => 24],
+                ['icon' => 'ri-user-line', 'color' => 'emerald', 'label' => 'Total Siswa', 'value' => 320],
+            ];
+        @endphp
+        @foreach($stats as $stat)
+            <div class="bg-white rounded-xl p-4 shadow flex items-center gap-4">
+                <div class="p-3 rounded-lg bg-{{ $stat['color'] }}-50 text-{{ $stat['color'] }}-600">
+                    <i class="{{ $stat['icon'] }} text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500">{{ $stat['label'] }}</p>
+                    <div class="text-lg font-bold">{{ $stat['value'] }}</div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+    {{-- ================= CTA ================= --}}
+    <div class="flex items-center justify-between gap-4">
+        <button onclick="openModal()" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg shadow">
+            + Tambah Jurusan
         </button>
+
+        {{-- Search & Filter --}}
+        <div class="w-full md:w-1/2">
+            <div class="bg-white p-3 rounded-lg shadow flex gap-3 items-center">
+                <div class="relative flex-1">
+                    <i class="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input id="searchInput" type="text" placeholder="Cari nama jurusan / kode / kepala jurusan"
+                           class="w-full border-none rounded-lg pl-10 pr-3 py-2 bg-gray-50 focus:outline-none"/>
+                </div>
+                <select id="statusFilter" class="border rounded-lg px-3 py-2 bg-white">
+                    <option value="all">Semua Status</option>
+                    <option value="aktif">Aktif</option>
+                    <option value="nonaktif">Nonaktif</option>
+                </select>
+            </div>
+        </div>
     </div>
 
-    {{-- Tabel Jurusan --}}
-    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-xs font-semibold text-gray-600 uppercase">#</th>
-                    <th class="px-6 py-3 text-xs font-semibold text-gray-600 uppercase">Nama Jurusan</th>
-                    <th class="px-6 py-3 text-xs font-semibold text-gray-600 uppercase">Kode</th>
-                    <th class="px-6 py-3 text-xs font-semibold text-gray-600 uppercase">Deskripsi</th>
-                    <th class="px-6 py-3 text-xs font-semibold text-gray-600 uppercase text-center">Status</th>
-                    <th class="px-6 py-3 text-xs font-semibold text-gray-600 uppercase text-right">Aksi</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100">
-                @forelse($majors as $i => $jurusan)
-                <tr class="hover:bg-gray-50">
-                    <td class="px-6 py-4 text-sm">{{ $i+1 }}</td>
-                    <td class="px-6 py-4 text-sm font-semibold">{{ $jurusan->name }}</td>
-                    <td class="px-6 py-4 text-sm">{{ $jurusan->major_code }}</td>
-                    <td class="px-6 py-4 text-sm">{{ $jurusan->description }}</td>
-                    <td class="px-6 py-4 text-center">
-                        <span class="px-3 py-1 text-xs font-semibold rounded-full 
-                            {{ $jurusan->status == 'aktif' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-                            {{ ucfirst($jurusan->status) }}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 text-right flex gap-2 justify-end">
-                        <button @click="showDetail(@js($jurusan))" class="p-2 text-purple-600 hover:bg-purple-50 rounded-lg">
-                            <i data-lucide="eye" class="w-5 h-5"></i>
-                        </button>
-                        <button @click="openForm('edit', @js($jurusan))" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
-                            <i data-lucide="edit-3" class="w-5 h-5"></i>
-                        </button>
-                        <button @click="confirmDelete('{{ route('majors.destroy', $jurusan->id) }}', '{{ $jurusan->name }}')" 
-                            class="p-2 text-red-600 hover:bg-red-50 rounded-lg">
-                            <i data-lucide="trash-2" class="w-5 h-5"></i>
-                        </button>
-                    </td>
-                </tr>
-                @empty
-                <tr><td colspan="6" class="px-6 py-4 text-center text-gray-500">Belum ada data jurusan.</td></tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
+    {{-- ================= TABEL ================= --}}
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        {{-- Desktop --}}
+        <div class="hidden md:block">
+            <table class="w-full table-auto">
+                <thead class="bg-gray-50 text-gray-700">
+                    <tr>
+                        @foreach(['nama' => 'Nama Jurusan', 'kode' => 'Kode', 'kepala' => 'Kepala Jurusan', 'kelas' => 'Jumlah Kelas', 'siswa' => 'Jumlah Siswa'] as $key => $label)
+                            <th class="px-4 py-3 text-left cursor-pointer" data-sort="{{ $key }}">
+                                {{ $label }} <span class="sort-indicator text-xs"></span>
+                            </th>
+                        @endforeach
+                        <th class="px-4 py-3 text-left">Status</th>
+                        <th class="px-4 py-3 text-left">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody" class="divide-y"></tbody>
+            </table>
+        </div>
 
-    {{-- ================= MODAL FORM (Tambah/Edit) ================= --}}
-    <div x-show="isFormOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl p-6 relative">
+        {{-- Mobile --}}
+        <div id="cardList" class="md:hidden p-4 space-y-3"></div>
 
-            <button @click="closeForm" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-
-            <h2 class="text-xl font-bold mb-6" 
-                x-text="formMode === 'tambah' ? 'Tambah Jurusan Baru' : 'Edit Jurusan'"></h2>
-
-            <form :action="formMode === 'tambah' ? '{{ route('majors.store') }}' : '{{ url('majors') }}/' + formData.id" 
-                  method="POST" enctype="multipart/form-data" class="space-y-5">
-                @csrf
-                <template x-if="formMode === 'edit'">
-                    <input type="hidden" name="_method" value="PUT">
-                </template>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Nama Jurusan</label>
-                    <input type="text" name="name" x-model="formData.name"
-                           class="mt-1 w-full border-gray-300 rounded-xl shadow-sm focus:ring-orange-500 focus:border-orange-500 text-sm" required>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Kode Jurusan</label>
-                    <input type="text" name="major_code" x-model="formData.major_code"
-                           class="mt-1 w-full border-gray-300 rounded-xl shadow-sm focus:ring-orange-500 focus:border-orange-500 text-sm" required>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Deskripsi</label>
-                    <textarea name="description" x-model="formData.description"
-                              class="mt-1 w-full border-gray-300 rounded-xl shadow-sm focus:ring-orange-500 focus:border-orange-500 text-sm"></textarea>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Logo / Gambar Jurusan</label>
-                    <input type="file" name="image" class="mt-1 w-full text-sm border border-gray-300 rounded-xl"
-                           @change="previewImage($event)">
-                    <template x-if="formData.image">
-                        <img :src="formData.image" alt="Preview" class="mt-2 h-20 rounded-lg border object-cover">
-                    </template>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Status</label>
-                    <select name="status" x-model="formData.status"
-                            class="mt-1 w-full border-gray-300 rounded-xl shadow-sm focus:ring-orange-500 focus:border-orange-500 text-sm">
-                        <option value="aktif">Aktif</option>
-                        <option value="nonaktif">Nonaktif</option>
-                    </select>
-                </div>
-
-                <div class="flex justify-end gap-3 pt-4 border-t">
-                    <button type="button" @click="closeForm"
-                            class="px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition">
-                        Batal
-                    </button>
-                    <button type="submit"
-                            class="px-5 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-semibold shadow hover:opacity-90 transition">
-                        Simpan
-                    </button>
-                </div>
-            </form>
+        {{-- Empty State --}}
+        <div id="emptyState" class="hidden p-8 text-center text-gray-400">
+            <div class="text-3xl mb-2"><i class="ri-folder-open-line"></i></div>
+            <div class="font-semibold mb-1">Belum ada data jurusan</div>
+            <div class="text-sm">Klik tombol <span class="font-medium">Tambah Jurusan</span> untuk menambahkan data baru.</div>
         </div>
     </div>
 
-    {{-- ================= MODAL DETAIL ================= --}}
-    <div x-show="isDetailOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 relative">
-
-            <button @click="isDetailOpen = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-
-            <div class="flex items-center gap-3 mb-6 border-b pb-3">
-                <i data-lucide="info" class="w-6 h-6 text-purple-600"></i>
-                <h2 class="text-xl font-bold">Detail Jurusan</h2>
-            </div>
-
-            <div class="space-y-4 text-sm">
-                <template x-if="detailData.image">
-                    <div class="flex justify-center">
-                        <img :src="detailData.image" alt="Jurusan Image" class="h-28 w-28 rounded-xl border object-cover shadow">
-                    </div>
-                </template>
-
-                <div class="grid grid-cols-3 gap-2">
-                    <p class="text-gray-500">Nama</p>
-                    <p class="col-span-2 font-semibold" x-text="detailData.name"></p>
-                </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <p class="text-gray-500">Kode</p>
-                    <p class="col-span-2 font-semibold" x-text="detailData.major_code"></p>
-                </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <p class="text-gray-500">Deskripsi</p>
-                    <p class="col-span-2 text-gray-700" x-text="detailData.description || '-'"></p>
-                </div>
-                <div class="grid grid-cols-3 gap-2 items-center">
-                    <p class="text-gray-500">Status</p>
-                    <div class="col-span-2">
-                        <span class="inline-flex items-center gap-1 px-3 py-1 text-sm font-medium rounded-full"
-                              :class="detailData.status === 'aktif' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
-                            <i :data-lucide="detailData.status === 'aktif' ? 'check-circle' : 'x-circle'" class="w-4 h-4"></i>
-                            <span x-text="detailData.status"></span>
-                        </span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <p class="text-gray-500">Dibuat</p>
-                    <p class="col-span-2 text-gray-700" x-text="detailData.created_at"></p>
-                </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <p class="text-gray-500">Diupdate</p>
-                    <p class="col-span-2 text-gray-700" x-text="detailData.updated_at"></p>
-                </div>
-            </div>
-        </div>
+    {{-- ================= PAGINATION ================= --}}
+    <div class="flex items-center justify-between mt-4">
+        <div id="summaryText" class="text-sm text-gray-500"></div>
+        <div id="pagination" class="flex items-center gap-2"></div>
     </div>
 </div>
 
-{{-- SweetAlert2 --}}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- ================= MODAL ================= --}}
+<div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40 flex items-center justify-center">
+    <div id="modalBox" class="bg-white w-96 rounded-2xl shadow-2xl p-6 transform translate-y-6 opacity-0 transition">
+        <h2 class="text-lg font-bold mb-3">Tambah Jurusan</h2>
+        <form id="formJurusan" class="space-y-3">
+            <input name="nama" placeholder="Nama Jurusan" class="w-full border rounded px-3 py-2" required>
+            <input name="kode" placeholder="Kode (contoh: RPL)" class="w-full border rounded px-3 py-2" required>
+            <input name="kepala" placeholder="Kepala Jurusan" class="w-full border rounded px-3 py-2" required>
+            <div class="flex gap-2">
+                <input name="jumlah_kelas" placeholder="Jumlah Kelas" class="w-1/2 border rounded px-3 py-2" required>
+                <input name="jumlah_siswa" placeholder="Jumlah Siswa" class="w-1/2 border rounded px-3 py-2" required>
+            </div>
+            <select name="status" class="w-full border rounded px-3 py-2">
+                <option value="aktif">Aktif</option>
+                <option value="nonaktif">Nonaktif</option>
+            </select>
 
+            <div class="flex justify-end gap-2 mt-2">
+                <button type="button" id="btnCancel" class="px-4 py-2 bg-gray-200 rounded">Batal</button>
+                <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- ================= SCRIPT ================= --}}
 <script>
-function majorsHandler() {
-    return {
-        isFormOpen: false,
-        isDetailOpen: false,
-        formMode: 'tambah',
-        formData: {id:'', name:'', major_code:'', description:'', status:'aktif', image:''},
-        detailData: {},
+    /* ---------- Dummy Data ---------- */
+    let data = [
+        { id: 1, nama: 'Rekayasa Perangkat Lunak', kode: 'RPL', kepala: 'Budi Santoso, S.Kom', kelas: 6, siswa: 120, status: 'aktif' },
+        { id: 2, nama: 'Teknik Komputer & Jaringan', kode: 'TKJ', kepala: 'Ahmad Fauzi, M.Pd', kelas: 6, siswa: 90, status: 'aktif' },
+        { id: 3, nama: 'Multimedia', kode: 'MM', kepala: 'Siti Aminah, S.Sn', kelas: 6, siswa: 60, status: 'aktif' },
+        { id: 4, nama: 'Akuntansi', kode: 'AK', kepala: 'Dewi Lestari, S.E', kelas: 6, siswa: 50, status: 'nonaktif' }
+    ];
 
-        openForm(mode, data = null) {
-            this.formMode = mode;
-            this.formData = mode === 'edit' && data ? {...data} : {id:'', name:'', major_code:'', description:'', status:'aktif', image:''};
-            this.isFormOpen = true;
-        },
-        closeForm() { this.isFormOpen = false },
-        showDetail(data) { this.detailData = data; this.isDetailOpen = true },
-        previewImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                this.formData.image = URL.createObjectURL(file);
-            }
-        },
-        confirmDelete(url, name) {
-            Swal.fire({
-                title: 'Hapus Jurusan?',
-                text: `Apakah Anda yakin ingin menghapus jurusan ${name}?`,
-                icon: 'warning', showCancelButton: true,
-                confirmButtonColor: '#e3342f', cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Ya, Hapus', cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const form = document.createElement('form');
-                    form.method = 'POST'; form.action = url;
-                    form.innerHTML = `
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="_method" value="DELETE">`;
-                    document.body.appendChild(form); form.submit();
-                }
-            });
+    /* ---------- State ---------- */
+    let currentPage = 1;
+    const perPage = 5;
+    let currentSort = { key: null, dir: 'asc' };
+
+    /* ---------- Elements ---------- */
+    const tableBody = document.getElementById('tableBody');
+    const cardList = document.getElementById('cardList');
+    const emptyState = document.getElementById('emptyState');
+    const paginationEl = document.getElementById('pagination');
+    const summaryText = document.getElementById('summaryText');
+    const searchInput = document.getElementById('searchInput');
+    const statusFilter = document.getElementById('statusFilter');
+    const modal = document.getElementById('modal');
+    const modalBox = document.getElementById('modalBox');
+    const formJurusan = document.getElementById('formJurusan');
+    const btnCancel = document.getElementById('btnCancel');
+
+    /* ---------- Utility ---------- */
+    function compare(a, b, key, dir='asc') {
+        let va = typeof a[key] === 'string' ? a[key].toLowerCase() : a[key];
+        let vb = typeof b[key] === 'string' ? b[key].toLowerCase() : b[key];
+        if (va < vb) return dir === 'asc' ? -1 : 1;
+        if (va > vb) return dir === 'asc' ? 1 : -1;
+        return 0;
+    }
+
+    /* ---------- Render ---------- */
+    function render() {
+        // filter + search
+        const q = searchInput.value.trim().toLowerCase();
+        const filterVal = statusFilter.value;
+        let filtered = data.filter(d => {
+            const matchQ = [d.nama, d.kode, d.kepala].join(' ').toLowerCase().includes(q);
+            const matchStatus = (filterVal === 'all') || (d.status === filterVal);
+            return matchQ && matchStatus;
+        });
+
+        // sort
+        if (currentSort.key) filtered.sort((a,b) => compare(a,b,currentSort.key,currentSort.dir));
+
+        // pagination
+        const total = filtered.length;
+        const totalPages = Math.max(1, Math.ceil(total / perPage));
+        if (currentPage > totalPages) currentPage = totalPages;
+        const start = (currentPage - 1) * perPage;
+        const pageData = filtered.slice(start, start + perPage);
+
+        // summary
+        summaryText.textContent = total
+            ? `Menampilkan ${start+1}-${start+pageData.length} dari ${total} jurusan`
+            : "Tidak ada data";
+
+        // render rows/cards
+        renderTable(pageData);
+        renderCards(pageData);
+        renderPagination(totalPages, total);
+    }
+
+    function renderTable(pageData) {
+        tableBody.innerHTML = '';
+        if (!pageData.length) return emptyState.classList.remove('hidden');
+        emptyState.classList.add('hidden');
+
+        pageData.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.className = 'hover:bg-gray-50';
+            tr.innerHTML = `
+                <td class="px-4 py-3">${row.nama}</td>
+                <td class="px-4 py-3">${row.kode}</td>
+                <td class="px-4 py-3">${row.kepala}</td>
+                <td class="px-4 py-3">${row.kelas}</td>
+                <td class="px-4 py-3">${row.siswa}</td>
+                <td class="px-4 py-3">
+                    <span class="px-2 py-1 rounded text-sm ${row.status === 'aktif' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                        ${row.status}
+                    </span>
+                </td>
+                <td class="px-4 py-3 flex gap-2">
+                    <button onclick="viewJurusan(${row.id})" class="text-gray-500 hover:text-gray-800"><i class="ri-eye-line"></i></button>
+                    <button onclick="editJurusan(${row.id})" class="text-orange-500 hover:text-orange-700"><i class="ri-edit-line"></i></button>
+                    <button onclick="deleteJurusan(${row.id})" class="text-red-500 hover:text-red-700"><i class="ri-delete-bin-line"></i></button>
+                </td>`;
+            tableBody.appendChild(tr);
+        });
+    }
+
+    function renderCards(pageData) {
+        cardList.innerHTML = '';
+        pageData.forEach(row => {
+            const div = document.createElement('div');
+            div.className = 'bg-white p-4 rounded-lg shadow';
+            div.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="font-semibold">${row.nama}</div>
+                        <div class="text-xs text-gray-500">${row.kode} • ${row.kepala}</div>
+                    </div>
+                    <div class="text-sm font-medium ${row.status === 'aktif' ? 'text-green-600' : 'text-red-600'}">${row.status}</div>
+                </div>
+                <div class="mt-3 text-sm text-gray-600">Kelas: ${row.kelas} • Siswa: ${row.siswa}</div>
+                <div class="mt-3 flex gap-3">
+                    <button onclick="viewJurusan(${row.id})" class="text-gray-500 hover:text-gray-800"><i class="ri-eye-line"></i></button>
+                    <button onclick="editJurusan(${row.id})" class="text-orange-500 hover:text-orange-700"><i class="ri-edit-line"></i></button>
+                    <button onclick="deleteJurusan(${row.id})" class="text-red-500 hover:text-red-700"><i class="ri-delete-bin-line"></i></button>
+                </div>`;
+            cardList.appendChild(div);
+        });
+    }
+
+    function renderPagination(totalPages) {
+        paginationEl.innerHTML = '';
+
+        const prevBtn = createPageBtn('« Prev', currentPage > 1, () => { currentPage--; render(); });
+        paginationEl.appendChild(prevBtn);
+
+        for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+            const btn = createPageBtn(i, true, () => { currentPage = i; render(); }, i === currentPage);
+            paginationEl.appendChild(btn);
+        }
+
+        const nextBtn = createPageBtn('Next »', currentPage < totalPages, () => { currentPage++; render(); });
+        paginationEl.appendChild(nextBtn);
+    }
+
+    function createPageBtn(label, enabled, onClick, active=false) {
+        const btn = document.createElement('button');
+        btn.textContent = label;
+        btn.className = 'px-3 py-1 border rounded';
+        if (active) btn.classList.add('bg-orange-500','text-white');
+        btn.disabled = !enabled;
+        btn.onclick = onClick;
+        return btn;
+    }
+
+    /* ---------- Modal ---------- */
+    function openModal() {
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modalBox.classList.remove('translate-y-6','opacity-0');
+            modalBox.classList.add('translate-y-0','opacity-100');
+        }, 20);
+    }
+
+    function closeModal() {
+        modalBox.classList.remove('translate-y-0','opacity-100');
+        modalBox.classList.add('translate-y-6','opacity-0');
+        setTimeout(() => modal.classList.add('hidden'), 180);
+        formJurusan.reset();
+    }
+
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    btnCancel.addEventListener('click', closeModal);
+
+    formJurusan.addEventListener('submit', e => {
+        e.preventDefault();
+        const fd = new FormData(formJurusan);
+        data.unshift({
+            id: Date.now(),
+            nama: fd.get('nama'),
+            kode: fd.get('kode'),
+            kepala: fd.get('kepala'),
+            kelas: Number(fd.get('jumlah_kelas')),
+            siswa: Number(fd.get('jumlah_siswa')),
+            status: fd.get('status')
+        });
+        closeModal();
+        currentPage = 1;
+        render();
+    });
+
+    /* ---------- Actions ---------- */
+    function viewJurusan(id) { alert(`View jurusan id: ${id}`); }
+    function editJurusan(id) { alert(`Edit jurusan id: ${id}`); }
+    function deleteJurusan(id) {
+        if (confirm('Hapus jurusan ini?')) {
+            data = data.filter(d => d.id !== id);
+            render();
         }
     }
-}
+
+    /* ---------- Init ---------- */
+    searchInput.addEventListener('input', () => { currentPage = 1; render(); });
+    statusFilter.addEventListener('change', () => { currentPage = 1; render(); });
+    document.querySelectorAll('th[data-sort]').forEach(th => {
+        th.addEventListener('click', () => {
+            const key = th.dataset.sort;
+            currentSort = (currentSort.key === key)
+                ? { key, dir: currentSort.dir === 'asc' ? 'desc' : 'asc' }
+                : { key, dir: 'asc' };
+            document.querySelectorAll('.sort-indicator').forEach(el => el.textContent = '');
+            th.querySelector('.sort-indicator').textContent = currentSort.dir === 'asc' ? '↑' : '↓';
+            render();
+        });
+    });
+
+    render();
 </script>
 @endsection

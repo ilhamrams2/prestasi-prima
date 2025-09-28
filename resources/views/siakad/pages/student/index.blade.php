@@ -1,105 +1,107 @@
-<!-- Bungkus semua konten utama dengan x-data -->
-<main x-data="classHandler()" class="flex-1 p-6 space-y-6">
-    <!-- Header -->
-    <div>
-        <h1 class="text-2xl font-bold">Manajemen Kelas</h1>
-        <p class="text-sm text-gray-600">Kelola data kelas, wali kelas, dan ruangan</p>
+@extends('siakad.index') {{-- sesuaikan layout mu --}}
+
+@section('content')
+<div class="px-6 py-6">
+    {{-- Breadcrumb --}}
+    <div class="mb-4 text-sm text-gray-500">
+        Dashboard / <span class="font-medium text-gray-700">Manajemen Siswa</span>
     </div>
 
-    <!-- Stats -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-white rounded-lg shadow p-4 text-center">
-            <p class="text-2xl font-bold">8</p>
-            <p class="text-sm text-gray-600">Total Kelas</p>
+    {{-- Header --}}
+    <div class="bg-orange-50 rounded-xl p-6 mb-6 shadow">
+        <h1 class="text-2xl font-semibold text-orange-600">Manajemen Siswa</h1>
+        <p class="text-gray-600">Kelola data siswa, kelas, jurusan, dan status siswa</p>
+    </div>
+
+    {{-- Info Cards --}}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="text-gray-500 text-sm">Total Siswa</div>
+            <div class="text-2xl font-bold text-gray-800">320</div>
         </div>
-        <div class="bg-white rounded-lg shadow p-4 text-center">
-            <p class="text-2xl font-bold">7</p>
-            <p class="text-sm text-gray-600">Guru Aktif</p>
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="text-gray-500 text-sm">Kelas Aktif</div>
+            <div class="text-2xl font-bold text-gray-800">24</div>
         </div>
-        <div class="bg-white rounded-lg shadow p-4 text-center">
-            <p class="text-2xl font-bold">3</p>
-            <p class="text-sm text-gray-600">Kepala Jurusan</p>
-        </div>
-        <div class="bg-white rounded-lg shadow p-4 text-center">
-            <p class="text-2xl font-bold">3</p>
-            <p class="text-sm text-gray-600">Wali Kelas</p>
+        <div class="bg-white rounded-lg shadow p-4">
+            <div class="text-gray-500 text-sm">Siswa Baru Tahun Ini</div>
+            <div class="text-2xl font-bold text-gray-800">120</div>
         </div>
     </div>
 
-    <!-- Tombol tambah -->
-    <button 
-        @click="isClassFormOpen = true" 
-        class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">
-        + Tambah Kelas
-    </button>
+    {{-- Tombol tambah --}}
+    <div class="flex items-center justify-between mb-4">
+        <button class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg shadow">
+            + Tambah Siswa
+        </button>
+        <div class="flex space-x-2">
+            <select class="border border-gray-300 rounded-lg px-3 py-2">
+                <option>Semua Kelas</option>
+                <option>X RPL</option>
+                <option>XI TKJ</option>
+            </select>
+            <select class="border border-gray-300 rounded-lg px-3 py-2">
+                <option>Semua Status</option>
+                <option>Aktif</option>
+                <option>Nonaktif</option>
+            </select>
+            <input type="text" placeholder="Cari nama / NIS" 
+                class="border border-gray-300 rounded-lg px-3 py-2">
+        </div>
+    </div>
 
-    <!-- Table -->
-    <div class="overflow-x-auto bg-white rounded-lg shadow mt-6">
-        <table class="w-full text-sm text-left">
-            <thead class="bg-gray-50 text-gray-700">
+    {{-- Table --}}
+    <div class="bg-white rounded-lg shadow overflow-x-auto">
+        <table class="min-w-full text-left">
+            <thead class="bg-gray-100">
                 <tr>
-                    <th class="px-4 py-2">Nama Kelas</th>
-                    <th class="px-4 py-2">Jurusan</th>
-                    <th class="px-4 py-2">Jumlah Siswa</th>
-                    <th class="px-4 py-2">Wali Kelas</th>
-                    <th class="px-4 py-2">Aksi</th>
-                    <th class="px-4 py-2">Status</th>
-                    <th class="px-4 py-2">Aksi</th>
+                    <th class="py-3 px-4">Nama Siswa</th>
+                    <th class="py-3 px-4">NIS</th>
+                    <th class="py-3 px-4">Kelas</th>
+                    <th class="py-3 px-4">Jurusan</th>
+                    <th class="py-3 px-4">Status</th>
+                    <th class="py-3 px-4 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="border-t">
-                    <td class="px-4 py-2">X PPLG 1</td>
-                    <td class="px-4 py-2"><span class="px-2 py-1 rounded bg-gray-100">PPLG</span></td>
-                    <td class="px-4 py-2">32/35</td>
-                    <td class="px-4 py-2">Siti Nurhaliza, S.Kom</td>
-                    <td class="px-4 py-2">Ruang 14</td>
-                    <td class="px-4 py-2"><span class="px-2 py-1 bg-green-100 text-green-700 rounded">Aktif</span></td>
-                    <td class="px-4 py-2 flex gap-2">
-                        <button class="text-blue-500 hover:text-blue-700"><i data-lucide="eye" class="w-5 h-5"></i></button>
-                        <button class="text-orange-500 hover:text-orange-700"><i data-lucide="edit" class="w-5 h-5"></i></button>
-                        <button class="text-red-500 hover:text-red-700"><i data-lucide="trash" class="w-5 h-5"></i></button>
+                    <td class="py-3 px-4">Ahmad Rudi</td>
+                    <td class="py-3 px-4">2023001</td>
+                    <td class="py-3 px-4">X RPL 1</td>
+                    <td class="py-3 px-4">RPL</td>
+                    <td class="py-3 px-4">
+                        <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-sm">Aktif</span>
+                    </td>
+                    <td class="py-3 px-4 text-center space-x-2">
+                        <button class="text-blue-500 hover:text-blue-700">👁️</button>
+                        <button class="text-yellow-500 hover:text-yellow-700">✏️</button>
+                        <button class="text-red-500 hover:text-red-700">🗑️</button>
+                    </td>
+                </tr>
+                <tr class="border-t">
+                    <td class="py-3 px-4">Siti Aminah</td>
+                    <td class="py-3 px-4">2023002</td>
+                    <td class="py-3 px-4">XI TKJ 2</td>
+                    <td class="py-3 px-4">TKJ</td>
+                    <td class="py-3 px-4">
+                        <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-sm">Nonaktif</span>
+                    </td>
+                    <td class="py-3 px-4 text-center space-x-2">
+                        <button class="text-blue-500 hover:text-blue-700">👁️</button>
+                        <button class="text-yellow-500 hover:text-yellow-700">✏️</button>
+                        <button class="text-red-500 hover:text-red-700">🗑️</button>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div>
-
-    <!-- Modal Tambah Kelas -->
-    <div 
-        x-show="isClassFormOpen" 
-        x-cloak
-        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" 
-        @click.self="isClassFormOpen = false"
-        x-transition.opacity>
-        <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 space-y-4" x-transition.scale>
-            <h2 class="text-lg font-bold">Tambah Kelas</h2>
-            <div class="space-y-3">
-                <input type="text" placeholder="Nama Kelas" class="w-full border rounded-lg px-3 py-2 text-sm">
-                <select class="w-full border rounded-lg px-3 py-2 text-sm">
-                    <option>Pilih Jurusan</option>
-                    <option>PPLG</option>
-                    <option>TKJ</option>
-                </select>
-                <input type="number" placeholder="Jumlah Siswa" class="w-full border rounded-lg px-3 py-2 text-sm">
-                <input type="text" placeholder="Wali Kelas" class="w-full border rounded-lg px-3 py-2 text-sm">
-            </div>
-            <div class="flex justify-end gap-3 pt-4">
-                <button @click="isClassFormOpen = false" class="px-4 py-2 rounded-lg border">Batal</button>
-                <button class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">Simpan</button>
-            </div>
+        {{-- Pagination --}}
+        <div class="flex justify-end items-center px-4 py-3">
+            <nav class="flex space-x-2">
+                <a href="#" class="px-3 py-1 border rounded">« Prev</a>
+                <a href="#" class="px-3 py-1 border bg-orange-500 text-white rounded">1</a>
+                <a href="#" class="px-3 py-1 border rounded">Next »</a>
+            </nav>
         </div>
     </div>
-</main>
-
-<!-- Script -->
-<script>
-    function classHandler() {
-        return {
-            isClassFormOpen: false,
-        }
-    }
-</script>
-<script src="//unpkg.com/alpinejs" defer></script>
-<script src="https://unpkg.com/lucide@latest"></script>
-<script> lucide.createIcons(); </script>
+</div>
+@endsection

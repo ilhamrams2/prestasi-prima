@@ -1,50 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title', 'SIAKAD Sekolah')</title>
+    <title>SIAKAD - @yield('title')</title>
 
-    {{-- Tailwind (via Vite) --}}
-    @vite('resources/css/app.css')
-
-    {{-- Font Awesome (opsional kalau masih dipakai) --}}
+    {{-- Remixicon & Font Awesome --}}
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    {{-- Lucide Icons --}}
-    <script src="https://unpkg.com/lucide@latest"></script>
+    {{-- Vite (Tailwind / Custom CSS) --}}
+    @vite('resources/css/app.css')
 </head>
-
 <body class="bg-gray-100">
 
-    <div class="flex min-h-screen">
+    {{-- Sidebar --}}
+    @include('siakad.partials.sidebar')
 
-        {{-- Sidebar --}}
-        @include('siakad.partials.sidebar')
+    {{-- Content --}}
+    <main class="ml-64 p-6"> {{-- Margin-left sesuai sidebar --}}
+        @yield('content')
+    </main>
 
-        {{-- Main Content --}}
-        <div class="flex-1 flex flex-col">
+    {{-- Library Scripts --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-            {{-- Page Content --}}
-            <main class="flex-1 p-6">
-                @yield('content')
-            </main>
-
-            {{-- Footer --}}
-            <footer class="bg-white text-center py-3 border-t">
-                <p class="text-sm text-gray-500">&copy; {{ date('Y') }} SIAKAD Sekolah</p>
-            </footer>
-        </div>
-    </div>
-
-    {{-- Inisialisasi lucide agar ikon muncul --}}
+    {{-- Inisialisasi Lucide --}}
     <script>
         lucide.createIcons();
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{-- SweetAlert --}}
+
+    {{-- SweetAlert Notifications --}}
     @if ($errors->any())
         <script>
             Swal.fire({
@@ -74,7 +61,9 @@
         </script>
     @endif
 
-
+    {{-- App Scripts (Vite) --}}
+    @vite('resources/js/app.js')
 </body>
-
 </html>
+
+{{-- done --}}
