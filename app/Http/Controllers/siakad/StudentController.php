@@ -9,14 +9,14 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    /**
-     * Tampilkan daftar siswa
-     */
-    public function index()
+
+public function index()
     {
         $students = SiakadStudent::with('class')->get(); // Ambil data siswa beserta relasi kelas
 
-        return view('siakad.pages.student.index', compact('students'));
+        $students = SiakadStudent::with('class')->get(); // Mengambil data siswa beserta kelasnya
+
+        // return view('siakad.students.index', compact('students'));
     }
 
     /**
