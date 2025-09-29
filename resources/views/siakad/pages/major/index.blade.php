@@ -3,7 +3,7 @@
 @section('title', 'Manajemen Jurusan')
 
 @section('content')
-<div class="space-y-10" x-data="majorsHandler()">
+    <div class="space-y-10" x-data="majorsHandler()">
 
     {{-- Header --}}
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -108,137 +108,166 @@
                             class="mt-1 w-full border-gray-300 rounded-xl shadow-sm focus:ring-orange-500 focus:border-orange-500 text-sm"></textarea>
                     </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Logo / Gambar Jurusan</label>
-                    <input type="file" name="image" class="mt-1 w-full text-sm border border-gray-300 rounded-xl"
-                           @change="previewImage($event)">
-                    <template x-if="formData.image">
-                        <img :src="formData.image" alt="Preview" class="mt-2 h-20 rounded-lg border object-cover">
-                    </template>
-                </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Logo / Gambar Jurusan</label>
+                        <input type="file" name="image" class="mt-1 w-full text-sm border border-gray-300 rounded-xl"
+                            @change="previewImage($event)">
+                        <template x-if="formData.image">
+                            <img :src="formData.image" alt="Preview" class="mt-2 h-20 rounded-lg border object-cover">
+                        </template>
+                    </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Status</label>
-                    <select name="status" x-model="formData.status"
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Status</label>
+                        <select name="status" x-model="formData.status"
                             class="mt-1 w-full border-gray-300 rounded-xl shadow-sm focus:ring-orange-500 focus:border-orange-500 text-sm">
-                        <option value="aktif">Aktif</option>
-                        <option value="nonaktif">Nonaktif</option>
-                    </select>
-                </div>
+                            <option value="aktif">Aktif</option>
+                            <option value="nonaktif">Nonaktif</option>
+                        </select>
+                    </div>
 
-                <div class="flex justify-end gap-3 pt-4 border-t">
-                    <button type="button" @click="closeForm"
+                    <div class="flex justify-end gap-3 pt-4 border-t">
+                        <button type="button" @click="closeForm"
                             class="px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition">
-                        Batal
-                    </button>
-                    <button type="submit"
+                            Batal
+                        </button>
+                        <button type="submit"
                             class="px-5 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-semibold shadow hover:opacity-90 transition">
-                        Simpan
-                    </button>
+                            Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {{-- ================= MODAL DETAIL ================= --}}
+        <div x-show="isDetailOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+            <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 relative">
+
+                <button @click="isDetailOpen = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+
+                <div class="flex items-center gap-3 mb-6 border-b pb-3">
+                    <i data-lucide="info" class="w-6 h-6 text-purple-600"></i>
+                    <h2 class="text-xl font-bold">Detail Jurusan</h2>
                 </div>
-            </form>
+
+                <div class="space-y-4 text-sm">
+                    <template x-if="detailData.image">
+                        <div class="flex justify-center">
+                            <img :src="detailData.image" alt="Jurusan Image"
+                                class="h-28 w-28 rounded-xl border object-cover shadow">
+                        </div>
+                    </template>
+
+                    <div class="grid grid-cols-3 gap-2">
+                        <p class="text-gray-500">Nama</p>
+                        <p class="col-span-2 font-semibold" x-text="detailData.name"></p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <p class="text-gray-500">Kode</p>
+                        <p class="col-span-2 font-semibold" x-text="detailData.major_code"></p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <p class="text-gray-500">Deskripsi</p>
+                        <p class="col-span-2 text-gray-700" x-text="detailData.description || '-'"></p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 items-center">
+                        <p class="text-gray-500">Status</p>
+                        <div class="col-span-2">
+                            <span class="inline-flex items-center gap-1 px-3 py-1 text-sm font-medium rounded-full"
+                                :class="detailData.status === 'aktif' ? 'bg-green-100 text-green-700' :
+                                    'bg-red-100 text-red-700'">
+                                <i :data-lucide="detailData.status === 'aktif' ? 'check-circle' : 'x-circle'"
+                                    class="w-4 h-4"></i>
+                                <span x-text="detailData.status"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <p class="text-gray-500">Dibuat</p>
+                        <p class="col-span-2 text-gray-700" x-text="detailData.created_at"></p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <p class="text-gray-500">Diupdate</p>
+                        <p class="col-span-2 text-gray-700" x-text="detailData.updated_at"></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    {{-- ================= MODAL DETAIL ================= --}}
-    <div x-show="isDetailOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 relative">
+    {{-- SweetAlert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-            <button @click="isDetailOpen = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
+    <script>
+        function majorsHandler() {
+            return {
+                isFormOpen: false,
+                isDetailOpen: false,
+                formMode: 'tambah',
+                formData: {
+                    id: '',
+                    name: '',
+                    major_code: '',
+                    description: '',
+                    status: 'aktif',
+                    image: ''
+                },
+                detailData: {},
 
-            <div class="flex items-center gap-3 mb-6 border-b pb-3">
-                <i data-lucide="info" class="w-6 h-6 text-purple-600"></i>
-                <h2 class="text-xl font-bold">Detail Jurusan</h2>
-            </div>
-
-            <div class="space-y-4 text-sm">
-                <template x-if="detailData.image">
-                    <div class="flex justify-center">
-                        <img :src="detailData.image" alt="Jurusan Image" class="h-28 w-28 rounded-xl border object-cover shadow">
-                    </div>
-                </template>
-
-                <div class="grid grid-cols-3 gap-2">
-                    <p class="text-gray-500">Nama</p>
-                    <p class="col-span-2 font-semibold" x-text="detailData.name"></p>
-                </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <p class="text-gray-500">Kode</p>
-                    <p class="col-span-2 font-semibold" x-text="detailData.major_code"></p>
-                </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <p class="text-gray-500">Deskripsi</p>
-                    <p class="col-span-2 text-gray-700" x-text="detailData.description || '-'"></p>
-                </div>
-                <div class="grid grid-cols-3 gap-2 items-center">
-                    <p class="text-gray-500">Status</p>
-                    <div class="col-span-2">
-                        <span class="inline-flex items-center gap-1 px-3 py-1 text-sm font-medium rounded-full"
-                              :class="detailData.status === 'aktif' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
-                            <i :data-lucide="detailData.status === 'aktif' ? 'check-circle' : 'x-circle'" class="w-4 h-4"></i>
-                            <span x-text="detailData.status"></span>
-                        </span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <p class="text-gray-500">Dibuat</p>
-                    <p class="col-span-2 text-gray-700" x-text="detailData.created_at"></p>
-                </div>
-                <div class="grid grid-cols-3 gap-2">
-                    <p class="text-gray-500">Diupdate</p>
-                    <p class="col-span-2 text-gray-700" x-text="detailData.updated_at"></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- SweetAlert2 --}}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-function majorsHandler() {
-    return {
-        isFormOpen: false,
-        isDetailOpen: false,
-        formMode: 'tambah',
-        formData: {id:'', name:'', major_code:'', description:'', status:'aktif', image:''},
-        detailData: {},
-
-        openForm(mode, data = null) {
-            this.formMode = mode;
-            this.formData = mode === 'edit' && data ? {...data} : {id:'', name:'', major_code:'', description:'', status:'aktif', image:''};
-            this.isFormOpen = true;
-        },
-        closeForm() { this.isFormOpen = false },
-        showDetail(data) { this.detailData = data; this.isDetailOpen = true },
-        previewImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                this.formData.image = URL.createObjectURL(file);
-            }
-        },
-        confirmDelete(url, name) {
-            Swal.fire({
-                title: 'Hapus Jurusan?',
-                text: `Apakah Anda yakin ingin menghapus jurusan ${name}?`,
-                icon: 'warning', showCancelButton: true,
-                confirmButtonColor: '#e3342f', cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Ya, Hapus', cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const form = document.createElement('form');
-                    form.method = 'POST'; form.action = url;
-                    form.innerHTML = `
+                openForm(mode, data = null) {
+                    this.formMode = mode;
+                    this.formData = mode === 'edit' && data ? {
+                        ...data
+                    } : {
+                        id: '',
+                        name: '',
+                        major_code: '',
+                        description: '',
+                        status: 'aktif',
+                        image: ''
+                    };
+                    this.isFormOpen = true;
+                },
+                closeForm() {
+                    this.isFormOpen = false
+                },
+                showDetail(data) {
+                    this.detailData = data;
+                    this.isDetailOpen = true
+                },
+                previewImage(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.formData.image = URL.createObjectURL(file);
+                    }
+                },
+                confirmDelete(url, name) {
+                    Swal.fire({
+                        title: 'Hapus Jurusan?',
+                        text: `Apakah Anda yakin ingin menghapus jurusan ${name}?`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#e3342f',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Ya, Hapus',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const form = document.createElement('form');
+                            form.method = 'POST';
+                            form.action = url;
+                            form.innerHTML = `
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="DELETE">`;
-                    document.body.appendChild(form); form.submit();
+                            document.body.appendChild(form);
+                            form.submit();
+                        }
+                    });
                 }
-            });
+            }
         }
-    }
-}
-</script>
+    </script>
 @endsection

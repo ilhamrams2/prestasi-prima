@@ -35,6 +35,18 @@ Route::post('/logout', [ContentManagementController::class, 'logout'])->name('lo
 Route::get('/splash/login/{role?}', [ContentManagementController::class, 'splash'])
     ->name('splash.login');
 
+
+Route::resource('news', ContentManagementController::class);
+
+Route::get('/splash/{screen}', [ContentManagementController::class, 'splashscreen'])
+    ->where('screen', '[1-4]+')
+    ->name('splash.screen');
+Route::post('/logout', [ContentManagementController::class, 'logout'])->name('logout');
+
+// Route untuk login splash (role opsional)
+Route::get('/splash/login/{role?}', [ContentManagementController::class, 'splash'])
+    ->name('splash.login');
+
 Route::get('/', function () {
     return view('prestasiprima.pages.landing');
 });
