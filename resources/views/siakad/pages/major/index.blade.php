@@ -28,38 +28,93 @@
                 </p>
             </div>
         </div>
+        <button @click="openForm('tambah')"
+            class="flex items-center px-5 py-2.5 bg-gradient-to-r from-orange-500 to-yellow-500 text-white text-sm font-semibold rounded-xl shadow hover:opacity-90">
+            <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Tambah Jurusan
+        </button>
     </div>
 
-    {{-- ================= STATISTIK ================= --}}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-white rounded-xl p-4 shadow flex items-center gap-4">
-            <div class="p-3 rounded-lg bg-orange-50 text-orange-600">
-                <i class="ri-folder-3-line text-2xl"></i>
-            </div>
-            <div>
-                <p class="text-xs text-gray-500">Total Jurusan</p>
-                <div id="statJurusan" class="text-lg font-bold">0</div>
-            </div>
-        </div>
-        <div class="bg-white rounded-xl p-4 shadow flex items-center gap-4">
-            <div class="p-3 rounded-lg bg-yellow-50 text-yellow-600">
-                <i class="ri-stack-line text-2xl"></i>
-            </div>
-            <div>
-                <p class="text-xs text-gray-500">Total Kelas</p>
-                <div id="statKelas" class="text-lg font-bold">0</div>
-            </div>
-        </div>
-        <div class="bg-white rounded-xl p-4 shadow flex items-center gap-4">
-            <div class="p-3 rounded-lg bg-emerald-50 text-emerald-600">
-                <i class="ri-user-line text-2xl"></i>
-            </div>
-            <div>
-                <p class="text-xs text-gray-500">Total Siswa</p>
-                <div id="statSiswa" class="text-lg font-bold">0</div>
-            </div>
-        </div>
+    {{-- Tabel Jurusan --}}
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-xs font-semibold text-gray-600 uppercase">#</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-gray-600 uppercase">Nama Jurusan</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-gray-600 uppercase">Kode</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-gray-600 uppercase">Deskripsi</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-gray-600 uppercase text-center">Status</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-gray-600 uppercase text-right">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @forelse($majors as $i => $jurusan)
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 text-sm">{{ $i+1 }}</td>
+                    <td class="px-6 py-4 text-sm font-semibold">{{ $jurusan->name }}</td>
+                    <td class="px-6 py-4 text-sm">{{ $jurusan->major_code }}</td>
+                    <td class="px-6 py-4 text-sm">{{ $jurusan->description }}</td>
+                    <td class="px-6 py-4 text-center">
+                        <span class="px-3 py-1 text-xs font-semibold rounded-full
+                            {{ $jurusan->status == 'aktif' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                            {{ ucfirst($jurusan->status) }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-right flex gap-2 justify-end">
+                        <button @click="showDetail(@js($jurusan))" class="p-2 text-purple-600 hover:bg-purple-50 rounded-lg">
+                            <i data-lucide="eye" class="w-5 h-5"></i>
+                        </button>
+                        <button @click="openForm('edit', @js($jurusan))" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                            <i data-lucide="edit-3" class="w-5 h-5"></i>
+                        </button>
+                        <button @click="confirmDelete('{{ route('majors.destroy', $jurusan->id) }}', '{{ $jurusan->name }}')"
+                            class="p-2 text-red-600 hover:bg-red-50 rounded-lg">
+                            <i data-lucide="trash-2" class="w-5 h-5"></i>
+                        </button>
+                    </td>
+                </tr>
+                @empty
+                <tr><td colspan="6" class="px-6 py-4 text-center text-gray-500">Belum ada data jurusan.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
+
+    {{-- ================= MODAL FORM (Tambah/Edit) ================= --}}
+    <div x-show="isFormOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl p-6 relative">
+
+            <button @click="closeForm" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <h2 class="text-xl font-bold mb-6"
+                x-text="formMode === 'tambah' ? 'Tambah Jurusan Baru' : 'Edit Jurusan'"></h2>
+
+            <form :action="formMode === 'tambah' ? '{{ route('majors.store') }}' : '{{ url('majors') }}/' + formData.id"
+                  method="POST" enctype="multipart/form-data" class="space-y-5">
+                @csrf
+                <template x-if="formMode === 'edit'">
+                    <input type="hidden" name="_method" value="PUT">
+                </template>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Nama Jurusan</label>
+                    <input type="text" name="name" x-model="formData.name"
+                           class="mt-1 w-full border-gray-300 rounded-xl shadow-sm focus:ring-orange-500 focus:border-orange-500 text-sm" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Kode Jurusan</label>
+                    <input type="text" name="major_code" x-model="formData.major_code"
+                           class="mt-1 w-full border-gray-300 rounded-xl shadow-sm focus:ring-orange-500 focus:border-orange-500 text-sm" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Deskripsi</label>
+                    <textarea name="description" x-model="formData.description"
+                              class="mt-1 w-full border-gray-300 rounded-xl shadow-sm focus:ring-orange-500 focus:border-orange-500 text-sm"></textarea>
+                </div>
 
     {{-- ================= CTA ================= --}}
     <div class="flex items-center justify-between gap-4">
@@ -422,5 +477,3 @@
     render();
 </script>
 @endsection
-
-{{--  --}}

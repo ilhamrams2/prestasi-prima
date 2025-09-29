@@ -13,4 +13,12 @@ class PresmaboardController extends Controller
         return view('presmaboard.eligible') ;
 
     }
+
+         public function leaderboard()
+    {
+
+
+        return view('presmaboard.leaderboard') ;
+
+    }
 }

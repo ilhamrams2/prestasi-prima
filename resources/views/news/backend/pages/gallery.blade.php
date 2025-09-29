@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <div class="flex justify-center items-center min-h-screen mt-12 px-4"
      x-data="{
         openModal: false,
@@ -11,8 +10,6 @@
         deleteId: null,
         editData: {}
      }">
-
-
 
     <div class="flex flex-col md:flex-row overflow-hidden gap-4 w-full max-w-[1280px]">
 
@@ -23,33 +20,31 @@
 
             <!-- Header -->
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-
                 <!-- Filter -->
-              <div class="flex items-center bg-[#F9FAFC] rounded-2xl shadow-md px-4 py-2 w-full md:w-[530px] h-[57px]">
-    <div class="flex items-center gap-2 pr-4 border-r border-gray-300">
-        <img src="{{ asset('assets/images/news/filter.svg') }}" alt="Filter" class="w-5 h-5">
-        <span class="text-orange-500 font-medium">Filter By</span>
-    </div>
-    <div class="flex items-center px-4 border-r border-gray-300">
-        <select class="bg-transparent text-orange-500 font-medium focus:outline-none">
-            <option class="font-medium">Kategori</option>
-        </select>
-    </div>
-    <div class="flex items-center px-4 border-r border-gray-300">
-        <select class="bg-transparent text-orange-500 font-medium focus:outline-none">
-            <option class="font-medium">Status</option>
-        </select>
-    </div>
-    <div class="flex items-center px-4">
-        <input type="date" class="text-orange-500 font-medium focus:outline-none bg-transparent"/>
-    </div>
-</div>
-
+                <div class="flex items-center bg-[#F9FAFC] rounded-2xl shadow px-4 w-full md:w-[530px] h-[57px]">
+                    <div class="flex items-center gap-2 pr-4 border-r border-gray-300">
+                        <img src="{{ asset('assets/images/news/filter.svg') }}" alt="Filter" class="w-5 h-5">
+                        <span class="text-orange-500 font-medium">Filter By</span>
+                    </div>
+                    <div class="flex items-center px-4 border-r border-gray-300">
+                        <select class="bg-transparent text-orange-500 font-medium focus:outline-none">
+                            <option class="font-medium">Kategori</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center px-4 border-r border-gray-300">
+                        <select class="bg-transparent text-orange-500 font-medium focus:outline-none">
+                            <option class="font-medium">Status</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center px-4">
+                        <input type="date" class="text-orange-500 font-medium focus:outline-none bg-transparent"/>
+                    </div>
+                </div>
 
                 <!-- Button Tambah -->
                 <button @click="openModal = true"
                     class="bg-orange-500 text-white text-center rounded-lg shadow flex items-center justify-center gap-2 font-medium w-full md:w-[196px] h-[57px]">
-                    <i data-feather="plus" width="20" height="20"></i> Tambah Berita
+                    <i data-feather="plus" width="20" height="20"></i> Tambah Gallery
                 </button>
             </div>
 
@@ -57,7 +52,7 @@
             <div class="rounded-2xl shadow-inner p-4 bg-white flex-1">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[25px] overflow-y-auto pr-2"
                      style="max-height: 700px; overflow-x: hidden;">
-                    @forelse ($news as $item)
+                    @forelse ($galleries as $item)
                         <div class="bg-white border rounded-2xl shadow flex flex-col items-center justify-between p-3 h-[285px]">
                             <div class="w-full h-40 flex items-center justify-center bg-gray-100 rounded-lg overflow-hidden">
                                 @if($item->image)
@@ -83,30 +78,29 @@
                             </div>
                         </div>
                     @empty
-                        <p class="text-center text-gray-500 col-span-4">Belum ada berita.</p>
+                        <p class="text-center text-gray-500 col-span-4">Belum ada gallery.</p>
                     @endforelse
                 </div>
             </div>
-
         </main>
     </div>
 
-    <!-- Modal Edit Berita -->
+    <!-- Modal Edit Gallery -->
     <div x-show="openEditModal" x-transition class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
         <div class="bg-white rounded-3xl shadow-lg w-[800px] p-8 relative" x-transition.scale>
             <!-- Tombol Close -->
             <button @click="openEditModal = false"
                 class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xl font-bold">✕</button>
 
-            <h2 class="text-2xl font-bold text-orange-500 text-center mb-2">Edit Berita</h2>
+            <h2 class="text-2xl font-bold text-orange-500 text-center mb-2">Edit Gallery</h2>
 
-            <form :action="`/news/${editData.id}`" method="POST" enctype="multipart/form-data">
+            <form :action="`/gallery/${editData.id}`" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                     <div>
-                        <label class="block text-orange-500 font-medium mb-1">Judul Berita</label>
+                        <label class="block text-orange-500 font-medium mb-1">Nama Gallery</label>
                         <input type="text" name="title" :value="editData.title"
                                class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-orange-500" required>
                     </div>
@@ -127,17 +121,9 @@
                 </div>
 
                 <div class="mb-6">
-                    <label class="block text-orange-500 font-medium mb-1">Isi Berita</label>
-                    <textarea name="content" class="w-full border rounded-lg p-3 h-32 focus:ring-2 focus:ring-orange-500" required
-                              x-text="editData.content"></textarea>
-                </div>
-
-                <div class="mb-6">
-                    <label class="block text-orange-500 font-medium mb-1">Status</label>
-                    <select name="status" class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-orange-500" required>
-                        <option value="draft" :selected="editData.status === 'draft'">Draft</option>
-                        <option value="published" :selected="editData.status === 'published'">Published</option>
-                    </select>
+                    <label class="block text-orange-500 font-medium mb-1">Link YouTube</label>
+                    <input type="url" name="youtube_link" :value="editData.youtube_link"
+                           class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-orange-500" required>
                 </div>
 
                 <div class="flex justify-center">
@@ -150,7 +136,7 @@
         </div>
     </div>
 
-    <!-- Modal Tambah Berita -->
+    <!-- Modal Tambah Gallery -->
     <div x-show="openModal" x-transition class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
         <div class="bg-white rounded-3xl shadow-lg w-[800px] p-8 relative" x-transition.scale>
 
@@ -158,15 +144,15 @@
             <button @click="openModal = false"
                 class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xl font-bold">✕</button>
 
-            <h2 class="text-2xl font-bold text-orange-500 text-center mb-2">Tambah Berita</h2>
+            <h2 class="text-2xl font-bold text-orange-500 text-center mb-2">Tambah Gallery</h2>
 
-            <form action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('gallery.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                     <div>
-                        <label class="block text-orange-500 font-medium mb-1">Judul Berita</label>
-                        <input type="text" name="title" placeholder="Judul Berita"
+                        <label class="block text-orange-500 font-medium mb-1">Nama Gallery</label>
+                        <input type="text" name="title" placeholder="Nama Gallery"
                                class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-orange-500" required>
                     </div>
                     <div>
@@ -185,44 +171,10 @@
                     </select>
                 </div>
 
-                <!-- Upload Gambar dengan Dropzone -->
-                <div class="mb-4" x-data="{ isDragging: false, fileName: '' }">
-                    <label class="block text-orange-500 font-medium mb-2">Upload Gambar</label>
-
-                    <div
-                        @dragover.prevent="isDragging = true"
-                        @dragleave.prevent="isDragging = false"
-                        @drop.prevent="isDragging = false; $refs.fileInput.files = $event.dataTransfer.files; fileName = $event.dataTransfer.files[0].name"
-                        class="w-full border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer transition"
-                        :class="isDragging ? 'border-orange-500 bg-orange-50' : 'border-gray-300 bg-gray-50'"
-                        @click="$refs.fileInput.click()"
-                    >
-                        <!-- Ikon Upload -->
-                        <img src="{{ asset('assets/images/news/upload.svg') }}" alt="Upload" class="w-12 h-12 mb-3 opacity-70">
-
-                        <!-- Teks -->
-                        <p class="text-gray-600 text-center">
-                            <span class="font-medium text-orange-500">Klik untuk upload</span> atau drag & drop file di sini
-                        </p>
-                        <p x-show="fileName" class="mt-2 text-sm text-gray-500">
-                            File dipilih: <span class="font-medium" x-text="fileName"></span>
-                        </p>
-
-                        <!-- Input File Hidden -->
-                        <input
-                            type="file"
-                            name="image"
-                            x-ref="fileInput"
-                            class="hidden"
-                            @change="fileName = $refs.fileInput.files[0]?.name || ''"
-                        >
-                    </div>
-                </div>
-
-                <div class="mb-6">
-                    <label class="block text-orange-500 font-medium mb-1">Isi Berita</label>
-                    <textarea name="content"
-                              class="w-full border rounded-lg p-3 h-32 focus:ring-2 focus:ring-orange-500" required></textarea>
+                <div class="mb-4">
+                    <label class="block text-orange-500 font-medium mb-1">Link YouTube</label>
+                    <input type="url" name="youtube_link"
+                           class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-orange-500" required>
                 </div>
 
                 <div class="mb-6">
@@ -243,7 +195,7 @@
         </div>
     </div>
 
-    <!-- Modal Delete Berita -->
+    <!-- Modal Delete Gallery -->
     <div x-show="deleteModal" x-transition class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
         <div class="bg-white rounded-3xl shadow-lg w-[500px] p-8 relative" x-transition.scale>
             <!-- Tombol Close -->
@@ -252,11 +204,11 @@
 
             <h2 class="text-2xl font-bold text-red-500 text-center mb-4">Konfirmasi Hapus</h2>
             <p class="text-gray-600 text-center mb-6">
-                Apakah Anda yakin ingin menghapus berita ini?<br>
+                Apakah Anda yakin ingin menghapus gallery ini?<br>
                 Tindakan ini tidak bisa dibatalkan.
             </p>
 
-            <form :action="`/news/${deleteId}`" method="POST" class="flex justify-center gap-4">
+            <form :action="`/gallery/${deleteId}`" method="POST" class="flex justify-center gap-4">
                 @csrf
                 @method('DELETE')
                 <button type="button" @click="deleteModal = false"
@@ -271,4 +223,5 @@
         </div>
     </div>
 </div>
+
 @endsection

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ContentManagementController;
 use App\Http\Controllers\PresmaboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SambutanController;
@@ -23,9 +23,42 @@ use App\Http\Controllers\siakad\SubjectController;
 use App\Http\Controllers\siakad\TeacherController;
 use App\Http\Controllers\Siakad\AnnouncementController;
 
+
+Route::resource('news', ContentManagementController::class);
+
+Route::get('/splash/{screen}', [ContentManagementController::class, 'splashscreen'])
+    ->where('screen', '[1-4]+')
+    ->name('splash.screen');
+Route::post('/logout', [ContentManagementController::class, 'logout'])->name('logout');
+
+// Route untuk login splash (role opsional)
+Route::get('/splash/login/{role?}', [ContentManagementController::class, 'splash'])
+    ->name('splash.login');
+
 Route::get('/', function () {
     return view('prestasiprima.pages.landing');
 });
+
+Route::prefix('erorpage')->group(function () {
+    Route::get('/notinternet', function () {
+        return view('prestasiprima.pages.erorpage.notinternet');
+    });
+
+    Route::get('/notfound', function () {
+        return view('prestasiprima.pages.erorpage.notfound');
+    });
+});
+
+Route::get('/gallery', [ContentManagementController::class, 'gallery'])->name('gallery.index');
+
+
+Route::prefix('presmaboard')->group(function () {
+    Route::get('/eligible', [PresmaboardController::class, 'Eligible_profile'])->name('eligible');
+    Route::get('/leaderboard', [PresmaboardController::class, 'leaderboard'])->name('leaderboard');
+});
+
+
+
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -93,7 +126,7 @@ Route::prefix('siakad')->group(function () {
             Route::put('/{id}', [ClassesController::class, 'update'])->name('update');
             Route::delete('/{id}', [ClassesController::class, 'destroy'])->name('destroy');
         });
-        
+
         // Classes
         Route::prefix('students')->as('students.')->group(function () {
             Route::get('/', [StudentController::class, 'index'])->name('index');
@@ -132,13 +165,16 @@ Route::prefix('siakad')->group(function () {
             Route::delete('/{id}', [ScoreController::class, 'destroy'])->name('destroy');
         });
 
+
+
+
         Route::prefix('absence')->as('absence.')->group(function () {
             Route::get('/', [AbsenceController::class, 'index'])->name('index');
             Route::post('/', [AbsenceController::class, 'store'])->name('store');
             Route::put('/{id}', [AbsenceController::class, 'update'])->name('update');
             Route::delete('/{id}', [AbsenceController::class, 'destroy'])->name('destroy');
         });
-        
+
         Route::prefix('users')->as('users.')->group(function () {
             Route::get('/', [SiakadAuthController::class, 'index'])->name('index');
             Route::post('/', [SiakadAuthController::class, 'store'])->name('store');

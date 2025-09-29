@@ -2,12 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gallery;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
-class NewsController extends Controller
+class ContentManagementController extends Controller
 {
+
+    public function gallery()
+{
+
+    $galleries = Gallery::all();
+
+
+    return view('news.backend.pages.gallery', compact('galleries'));
+}
+
+
+
+
+
+
     public function index(Request $request)
     {
         $query = News::query();
@@ -34,7 +52,7 @@ class NewsController extends Controller
     }
 public function show($id)
 {
-    $newsItem = News::findOrFail($id); // Get the news item by its ID
+    $newsItem = News::findOrFail($id);
     return view('news.backend.pages.newsopen', compact('newsItem'));
 }
 
@@ -76,14 +94,11 @@ public function update(Request $request, News $news)
     ]);
 
     if ($request->hasFile('image')) {
-        // hapus gambar lama
         if ($news->image) {
             Storage::disk('public')->delete($news->image);
         }
-        // simpan gambar baru
         $validated['image'] = $request->file('image')->store('news', 'public');
     } else {
-        // tetap gunakan gambar lama jika tidak ada upload baru
         $validated['image'] = $news->image;
     }
 
@@ -127,4 +142,16 @@ public function update(Request $request, News $news)
             'role'   => $role
         ]);
     }
+
+     public function logout()
+    {
+
+        Auth::logout();
+        Session::flush();
+
+        return redirect()->route('news.backend.pages.News_Splash_Screen', ['role' => 'login']);
+    }
+
+
+
 }
