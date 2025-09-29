@@ -3,16 +3,40 @@
 @section('title', 'Absensi')
 
 @section('content')
-<div class="p-6">
-    <!-- Header -->
-    <h2 class="text-2xl font-bold mb-2">Manajemen Absensi</h2>
-    <p class="text-gray-600 mb-6">Lihat riwayat kehadiran Anda</p>
+<div class="p-6 space-y-8">
 
-    <!-- Statistik Ringkas -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+    {{-- ================= HEADER ================= --}}
+    <div class="pb-5 border-b bg-gradient-to-r from-orange-50 to-white rounded-xl px-4 py-3 shadow-sm mb-6">
+        <nav class="flex items-center text-sm text-gray-500 mb-3 space-x-2">
+            <a href="{{ route('siakad.dashboard') }}" class="hover:text-orange-600 transition-colors flex items-center gap-1">
+                <i class="ri-home-4-line text-lg"></i> Dashboard
+            </a>
+            <span>/</span>
+            <span class="text-gray-700 font-semibold flex items-center gap-1">
+                <i class="ri-clipboard-line text-lg text-orange-500"></i> Absensi
+            </span>
+        </nav>
+
+        <div class="flex items-center gap-3">
+            <div class="p-3 bg-orange-100 text-orange-600 rounded-xl">
+                <i class="ri-clipboard-fill text-3xl"></i>
+            </div>
+            <div>
+                <h1 class="text-3xl font-extrabold text-orange-600">Manajemen Absensi</h1>
+                <p class="text-gray-600 text-sm mt-1">
+                    Lihat riwayat kehadiran harian dan bulanan Anda dengan detail
+                </p>
+            </div>
+        </div>
+    </div>
+
+    {{-- ================= STATISTIK ================= --}}
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
         <!-- Hadir -->
-        <div class="flex items-center bg-green-50 border border-green-200 rounded-xl p-4">
-            <span class="text-green-600 text-2xl mr-3"><i class="fas fa-check-circle"></i></span>
+        <div class="flex items-center bg-green-50 rounded-xl p-5 shadow hover:shadow-md transition">
+            <div class="p-3 bg-green-100 text-green-600 rounded-full mr-3">
+                <i class="ri-checkbox-circle-line text-2xl"></i>
+            </div>
             <div>
                 <h3 class="text-2xl font-bold text-green-700">156</h3>
                 <p class="text-sm text-green-600 font-medium">Hadir</p>
@@ -20,8 +44,10 @@
         </div>
 
         <!-- Tidak Hadir -->
-        <div class="flex items-center bg-red-50 border border-red-200 rounded-xl p-4">
-            <span class="text-red-600 text-2xl mr-3"><i class="fas fa-times-circle"></i></span>
+        <div class="flex items-center bg-red-50 rounded-xl p-5 shadow hover:shadow-md transition">
+            <div class="p-3 bg-red-100 text-red-600 rounded-full mr-3">
+                <i class="ri-close-circle-line text-2xl"></i>
+            </div>
             <div>
                 <h3 class="text-2xl font-bold text-red-700">17</h3>
                 <p class="text-sm text-red-600 font-medium">Tidak Hadir</p>
@@ -29,8 +55,10 @@
         </div>
 
         <!-- Terlambat -->
-        <div class="flex items-center bg-yellow-50 border border-yellow-200 rounded-xl p-4">
-            <span class="text-yellow-600 text-2xl mr-3"><i class="fas fa-clock"></i></span>
+        <div class="flex items-center bg-yellow-50 rounded-xl p-5 shadow hover:shadow-md transition">
+            <div class="p-3 bg-yellow-100 text-yellow-600 rounded-full mr-3">
+                <i class="ri-time-line text-2xl"></i>
+            </div>
             <div>
                 <h3 class="text-2xl font-bold text-yellow-700">20</h3>
                 <p class="text-sm text-yellow-600 font-medium">Terlambat</p>
@@ -38,8 +66,10 @@
         </div>
 
         <!-- Izin -->
-        <div class="flex items-center bg-blue-50 border border-blue-200 rounded-xl p-4">
-            <span class="text-blue-600 text-2xl mr-3"><i class="fas fa-info-circle"></i></span>
+        <div class="flex items-center bg-blue-50 rounded-xl p-5 shadow hover:shadow-md transition">
+            <div class="p-3 bg-blue-100 text-blue-600 rounded-full mr-3">
+                <i class="ri-information-line text-2xl"></i>
+            </div>
             <div>
                 <h3 class="text-2xl font-bold text-blue-700">8</h3>
                 <p class="text-sm text-blue-600 font-medium">Izin</p>
@@ -47,21 +77,23 @@
         </div>
     </div>
 
-    <!-- Tab Menu -->
+    {{-- ================= TAB MENU ================= --}}
     <div class="flex border-b border-gray-200 mb-6">
-        <button id="tab-harian" 
-            class="flex items-center gap-2 px-4 py-2 -mb-px border-b-2 border-orange-500 font-medium text-orange-600">
-            <i class="fas fa-list"></i> Daftar Absensi
+        <button id="tab-harian"
+            class="flex items-center gap-2 px-5 py-3 -mb-px border-b-2 border-orange-500 font-medium text-orange-600 transition">
+            <i class="ri-list-check"></i> Daftar Absensi
         </button>
-        <button id="tab-kalender" 
-            class="flex items-center gap-2 px-4 py-2 font-medium text-gray-500 hover:text-gray-700">
-            <i class="fas fa-calendar-alt"></i> Kalender
+        <button id="tab-kalender"
+            class="flex items-center gap-2 px-5 py-3 font-medium text-gray-500 hover:text-gray-700 transition">
+            <i class="ri-calendar-line"></i> Kalender
         </button>
     </div>
 
-    <!-- Absensi Harian -->
-    <div id="content-harian" class="bg-white shadow rounded-xl p-4">
-        <h3 class="text-gray-700 font-medium mb-4">Absensi Harian</h3>
+    {{-- ================= ABSENSI HARIAN ================= --}}
+    <div id="content-harian" class="bg-white shadow rounded-xl p-5">
+        <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
+            <i class="ri-calendar-todo-line text-orange-500"></i> Absensi Harian
+        </h3>
         <p class="text-sm text-gray-500 mb-6">Kehadiran Anda dari hari Senin sampai Jumat</p>
 
         <div class="space-y-3">
@@ -83,19 +115,25 @@
                         "Izin" => "blue",
                         default => "red"
                     };
+                    $icon = match($absen['status']) {
+                        "Hadir" => "checkbox-circle-line",
+                        "Terlambat" => "time-line",
+                        "Izin" => "information-line",
+                        default => "close-circle-line"
+                    };
                 @endphp
 
-                <div class="flex items-center justify-between bg-gray-50 px-4 py-3 rounded-lg">
+                <div class="flex items-center justify-between bg-gray-50 px-4 py-3 rounded-lg shadow-sm">
                     <div class="flex items-center gap-3">
-                        <span class="text-{{ $color }}-500">
-                            <i class="fas fa-{{ $absen['status'] == 'Hadir' ? 'check-circle' : ($absen['status'] == 'Terlambat' ? 'clock' : ($absen['status'] == 'Izin' ? 'info-circle' : 'times-circle')) }}"></i>
+                        <span class="text-{{ $color }}-500 text-lg">
+                            <i class="ri-{{ $icon }}"></i>
                         </span>
                         <div>
                             <p class="font-medium text-gray-800">{{ $absen['hari'] }}</p>
                             <p class="text-sm text-gray-500">Jam Masuk: {{ $absen['jam'] }}</p>
                         </div>
                     </div>
-                    <span class="px-2 py-1 rounded text-xs font-medium bg-{{ $color }}-100 text-{{ $color }}-700">
+                    <span class="px-3 py-1 rounded-full text-xs font-medium bg-{{ $color }}-100 text-{{ $color }}-700">
                         {{ $absen['status'] }}
                     </span>
                 </div>
@@ -103,12 +141,14 @@
         </div>
     </div>
 
-    <!-- Kalender -->
-    <div id="content-kalender" class="hidden bg-white shadow rounded-xl p-4">
+    {{-- ================= KALENDER ================= --}}
+    <div id="content-kalender" class="hidden bg-white shadow rounded-xl p-5">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Kalender Grid -->
-            <div class="border rounded-xl p-3 w-[240px]">
-                <h3 class="font-semibold mb-2 text-sm">Pilih Tanggal</h3>
+            <div class="border rounded-xl p-4 shadow-sm">
+                <h3 class="font-semibold mb-3 text-sm flex items-center gap-2">
+                    <i class="ri-calendar-event-line text-orange-500"></i> Pilih Tanggal
+                </h3>
                 <div id="calendar" class="grid grid-cols-7 gap-1 text-center text-xs">
                     <div class="font-semibold">Mon</div>
                     <div class="font-semibold">Tue</div>
@@ -120,7 +160,7 @@
 
                     @for($i = 1; $i <= 30; $i++)
                         <div onclick="showSchedule({{ $i }})"
-                             class="cursor-pointer h-8 flex items-center justify-center rounded-lg border hover:bg-orange-100 text-sm">
+                             class="cursor-pointer h-8 flex items-center justify-center rounded-lg border hover:bg-orange-100 hover:border-orange-400 transition text-sm">
                             {{ $i }}
                         </div>
                     @endfor
@@ -128,7 +168,7 @@
             </div>
 
             <!-- Detail Absensi -->
-            <div class="border rounded-xl p-4 flex-1 col-span-2">
+            <div class="border rounded-xl p-4 flex-1 col-span-2 shadow-sm">
                 <h3 id="selected-date" class="font-semibold mb-3">Absensi Tanggal 16/9/2025</h3>
                 <div id="schedule-list" class="space-y-3">
                     <div class="flex items-center justify-between p-4 rounded-lg border bg-green-50">
@@ -136,40 +176,27 @@
                             <p class="font-medium text-gray-800">Senin</p>
                             <p class="text-sm text-gray-500">Jam Masuk: 07:00</p>
                         </div>
-                        <span class="px-3 py-1 rounded text-sm font-medium bg-green-100 text-green-700">Hadir</span>
+                        <span class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-700">Hadir</span>
                     </div>
                 </div>
             </div>
 
             <!-- Ringkasan Bulanan -->
-            <div class="border rounded-xl p-4">
+            <div class="border rounded-xl p-4 shadow-sm">
                 <h3 class="font-semibold mb-3">Ringkasan Bulan Ini</h3>
                 <ul class="space-y-2 text-sm">
-                    <li class="flex justify-between">
-                        <span>Hadir</span>
-                        <span class="font-medium text-green-600">18 Hari</span>
-                    </li>
-                    <li class="flex justify-between">
-                        <span>Izin</span>
-                        <span class="font-medium text-blue-600">2 Hari</span>
-                    </li>
-                    <li class="flex justify-between">
-                        <span>Sakit</span>
-                        <span class="font-medium text-yellow-600">1 Hari</span>
-                    </li>
-                    <li class="flex justify-between">
-                        <span>Alfa</span>
-                        <span class="font-medium text-red-600">0 Hari</span>
-                    </li>
+                    <li class="flex justify-between"><span>Hadir</span><span class="font-medium text-green-600">18 Hari</span></li>
+                    <li class="flex justify-between"><span>Izin</span><span class="font-medium text-blue-600">2 Hari</span></li>
+                    <li class="flex justify-between"><span>Sakit</span><span class="font-medium text-yellow-600">1 Hari</span></li>
+                    <li class="flex justify-between"><span>Alfa</span><span class="font-medium text-red-600">0 Hari</span></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Script Tab & Dummy Kalender -->
+{{-- ================= SCRIPT ================= --}}
 <script>
-    // Tab switch
     const tabHarian = document.getElementById('tab-harian');
     const tabKalender = document.getElementById('tab-kalender');
     const contentHarian = document.getElementById('content-harian');
@@ -191,7 +218,7 @@
         tabHarian.classList.add('text-gray-500');
     });
 
-    // Dummy data kalender
+    // Dummy kalender
     function showSchedule(day) {
         const scheduleList = document.getElementById('schedule-list');
         const selectedDate = document.getElementById('selected-date');
@@ -216,23 +243,22 @@
             data[day].forEach(item => {
                 let statusColor, icon;
                 switch (item.status) {
-                    case "Hadir":
-                        statusColor = "green"; icon = "check-circle"; break;
-                    case "Terlambat":
-                        statusColor = "yellow"; icon = "clock"; break;
-                    case "Izin":
-                        statusColor = "blue"; icon = "info-circle"; break;
-                    default:
-                        statusColor = "red"; icon = "times-circle";
+                    case "Hadir": statusColor = "green"; icon = "checkbox-circle-line"; break;
+                    case "Terlambat": statusColor = "yellow"; icon = "time-line"; break;
+                    case "Izin": statusColor = "blue"; icon = "information-line"; break;
+                    default: statusColor = "red"; icon = "close-circle-line";
                 }
 
                 scheduleList.innerHTML += `
-                    <div class="flex items-center justify-between p-3 rounded-lg border bg-${statusColor}-50">
-                        <div>
-                            <p class="font-medium text-gray-800">${item.hari}</p>
-                            <p class="text-sm text-gray-500">Jam Masuk: ${item.jam}</p>
+                    <div class="flex items-center justify-between p-3 rounded-lg border bg-${statusColor}-50 shadow-sm">
+                        <div class="flex items-center gap-2">
+                            <i class="ri-${icon} text-${statusColor}-600"></i>
+                            <div>
+                                <p class="font-medium text-gray-800">${item.hari}</p>
+                                <p class="text-sm text-gray-500">Jam Masuk: ${item.jam}</p>
+                            </div>
                         </div>
-                        <span class="px-2 py-1 rounded text-xs font-medium bg-${statusColor}-100 text-${statusColor}-700">
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-${statusColor}-100 text-${statusColor}-700">
                             ${item.status}
                         </span>
                     </div>

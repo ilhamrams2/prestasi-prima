@@ -21,6 +21,7 @@ use App\Http\Controllers\Siakad\ScoreController;
 use App\Http\Controllers\Siakad\StudentController;
 use App\Http\Controllers\siakad\SubjectController;
 use App\Http\Controllers\siakad\TeacherController;
+use App\Http\Controllers\Siakad\AnnouncementController;
 
 Route::get('/', function () {
     return view('prestasiprima.pages.landing');
@@ -132,7 +133,7 @@ Route::prefix('siakad')->group(function () {
         });
 
         Route::prefix('absence')->as('absence.')->group(function () {
-             Route::get('/', [AbsenceController::class, 'index'])->name('index');
+            Route::get('/', [AbsenceController::class, 'index'])->name('index');
             Route::post('/', [AbsenceController::class, 'store'])->name('store');
             Route::put('/{id}', [AbsenceController::class, 'update'])->name('update');
             Route::delete('/{id}', [AbsenceController::class, 'destroy'])->name('destroy');
@@ -143,6 +144,13 @@ Route::prefix('siakad')->group(function () {
             Route::post('/', [SiakadAuthController::class, 'store'])->name('store');
             Route::put('/{id}', [SiakadAuthController::class, 'update'])->name('update');
             Route::delete('/{id}', [SiakadAuthController::class, 'destroy'])->name('destroy');
+        });
+        Route::prefix('announcements')->as('announcements.')->group(function () {
+            Route::get('/', [AnnouncementController::class, 'index'])->name('index');   // list semua pengumuman
+            Route::post('/', [AnnouncementController::class, 'store'])->name('store');  // tambah pengumuman
+            Route::get('/{id}', [AnnouncementController::class, 'show'])->name('show'); // detail pengumuman
+            Route::put('/{id}', [AnnouncementController::class, 'update'])->name('update'); // update pengumuman
+            Route::delete('/{id}', [AnnouncementController::class, 'destroy'])->name('destroy'); // hapus pengumuman
         });
     });
 });

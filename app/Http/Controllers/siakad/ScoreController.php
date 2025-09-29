@@ -13,7 +13,7 @@ class ScoreController extends Controller
     {
         $scores = SiakadScore::with('enrollment')->get(); // Mengambil data skor beserta enrollmentnya
 
-        return view('siakad.scores.index', compact('scores'));
+        return view('siakad.pages.score.index', compact('scores'));
     }
 
 

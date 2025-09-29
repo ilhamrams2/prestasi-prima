@@ -84,11 +84,13 @@
 
         <!-- KEGIATAN -->
         <p class="text-gray-400 uppercase text-xs font-semibold mb-2 mt-4">Kegiatan</p>
-        <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg transition 
-            text-gray-700 hover:bg-orange-50 hover:text-orange-600">
-            <i class="ri-megaphone-line text-lg"></i>
-            <span>Pengumuman</span>
-        </a>
+        <a href="{{ route('announcements.index') }}" 
+   class="flex items-center space-x-3 px-3 py-2 rounded-lg transition 
+          text-gray-700 hover:bg-orange-50 hover:text-orange-600">
+    <i class="ri-megaphone-line text-lg"></i>
+    <span>Pengumuman</span>
+</a>
+
 
         <!-- LOGOUT -->
         <div class="border-t mt-4 pt-3">
