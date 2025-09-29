@@ -104,7 +104,7 @@
                             animate-fadeInUp transform transition duration-300 hover:-translate-y-1 hover:shadow-lg group">
                     <div class="bg-orange-500 rounded-xl flex items-center justify-center w-10 h-10 md:w-12 md:h-12 flex-shrink-0 relative overflow-hidden">
                         <span class="absolute inset-0 rounded-xl border-2 border-orange-400 opacity-0 group-hover:opacity-100 animate-ping"></span>
-                        <img src="{{ asset('assets/images/presmaboard/user.svg') }}" alt="icon" class="w-4 h-4 md:w-[17px] md:h-[18px] relative z-10">
+                        <img src="{{ asset(path: 'assets/images/presmaboard/user.svg') }}" alt="icon" class="w-4 h-4 md:w-[17px] md:h-[18px] relative z-10">
                     </div>
                     <div class="flex flex-col">
                         <p class="text-gray-500 text-xs md:text-sm font-medium">Jurusan</p>

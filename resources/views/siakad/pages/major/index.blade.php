@@ -11,7 +11,7 @@
             <h1 class="text-3xl font-extrabold text-gray-900">Manajemen Jurusan</h1>
             <p class="text-sm text-gray-500">Kelola data jurusan sekolah dengan mudah</p>
         </div>
-        <button @click="openForm('tambah')" 
+        <button @click="openForm('tambah')"
             class="flex items-center px-5 py-2.5 bg-gradient-to-r from-orange-500 to-yellow-500 text-white text-sm font-semibold rounded-xl shadow hover:opacity-90">
             <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Tambah Jurusan
         </button>
@@ -38,7 +38,7 @@
                     <td class="px-6 py-4 text-sm">{{ $jurusan->major_code }}</td>
                     <td class="px-6 py-4 text-sm">{{ $jurusan->description }}</td>
                     <td class="px-6 py-4 text-center">
-                        <span class="px-3 py-1 text-xs font-semibold rounded-full 
+                        <span class="px-3 py-1 text-xs font-semibold rounded-full
                             {{ $jurusan->status == 'aktif' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
                             {{ ucfirst($jurusan->status) }}
                         </span>
@@ -50,7 +50,7 @@
                         <button @click="openForm('edit', @js($jurusan))" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
                             <i data-lucide="edit-3" class="w-5 h-5"></i>
                         </button>
-                        <button @click="confirmDelete('{{ route('majors.destroy', $jurusan->id) }}', '{{ $jurusan->name }}')" 
+                        <button @click="confirmDelete('{{ route('majors.destroy', $jurusan->id) }}', '{{ $jurusan->name }}')"
                             class="p-2 text-red-600 hover:bg-red-50 rounded-lg">
                             <i data-lucide="trash-2" class="w-5 h-5"></i>
                         </button>
@@ -71,10 +71,10 @@
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
 
-            <h2 class="text-xl font-bold mb-6" 
+            <h2 class="text-xl font-bold mb-6"
                 x-text="formMode === 'tambah' ? 'Tambah Jurusan Baru' : 'Edit Jurusan'"></h2>
 
-            <form :action="formMode === 'tambah' ? '{{ route('majors.store') }}' : '{{ url('majors') }}/' + formData.id" 
+            <form :action="formMode === 'tambah' ? '{{ route('majors.store') }}' : '{{ url('majors') }}/' + formData.id"
                   method="POST" enctype="multipart/form-data" class="space-y-5">
                 @csrf
                 <template x-if="formMode === 'edit'">
