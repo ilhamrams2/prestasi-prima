@@ -10,12 +10,12 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
 
-public function index()
+    public function index()
     {
 
         $students = SiakadStudent::with('class')->get(); // Mengambil data siswa beserta kelasnya
 
-        // return view('siakad.students.index', compact('students'));
+        return view('siakad.pages.student.index', compact('students'));
     }
 
     public function store(Request $request)
