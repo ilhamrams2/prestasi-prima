@@ -123,13 +123,17 @@ Route::prefix('siakad')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('siakad.dashboard');
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        // Majors
+  Route::prefix('siakad')->group(function () {
+    Route::middleware('auth:siakad')->group(function () {
         Route::prefix('majors')->as('majors.')->group(function () {
             Route::get('/', [MajorController::class, 'index'])->name('index');
             Route::post('/', [MajorController::class, 'store'])->name('store');
             Route::put('/{id}', [MajorController::class, 'update'])->name('update');
             Route::delete('/{id}', [MajorController::class, 'destroy'])->name('destroy');
         });
+    });
+});
+
 
         // Classes
         Route::prefix('classes')->as('classes.')->group(function () {
@@ -140,20 +144,46 @@ Route::prefix('siakad')->group(function () {
         });
 
         // Classes
-        Route::prefix('students')->as('students.')->group(function () {
+        Route::prefix('teacher')->as('teacher.')->group(function () {
+            Route::get('/', [TeacherController::class, 'index'])->name('index');
+            Route::post('/', [TeacherController::class, 'store'])->name('store');
+            Route::put('/{id}', [TeacherController::class, 'update'])->name('siakad.teacher.update');
+            Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('destroy');
+            Route::get('/{id}', [TeacherController::class, 'show']);
+
+        });
+
+               Route::prefix('students')->as('students.')->group(function () {
             Route::get('/', [StudentController::class, 'index'])->name('index');
             Route::post('/', [StudentController::class, 'store'])->name('store');
             Route::put('/{id}', [StudentController::class, 'update'])->name('update');
             Route::delete('/{id}', [StudentController::class, 'destroy'])->name('destroy');
         });
 
-        // Classes
-        Route::prefix('teachers')->as('teachers.')->group(function () {
-            Route::get('/', [TeacherController::class, 'index'])->name('index');
-            Route::post('/', [TeacherController::class, 'store'])->name('store');
-            Route::put('/{id}', [TeacherController::class, 'update'])->name('update');
-            Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('destroy');
-        });
+
+
+
+Route::prefix('siakad')->as('siakad.')->group(function () {
+    Route::prefix('teacher')->as('teacher.')->group(function () {
+        Route::get('/', [TeacherController::class, 'index'])->name('index');
+        Route::post('/', [TeacherController::class, 'store'])->name('store');
+
+        // pastikan ini sebelum destroy
+  Route::get('/teacher/{id}', [TeacherController::class, 'show']);
+
+
+        Route::put('/{id}', [TeacherController::class, 'update'])->name('update');
+        Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('destroy');
+    });
+});
+
+
+
+
+
+
+
+
 
         // Classes
         Route::prefix('subjects')->as('subjects.')->group(function () {

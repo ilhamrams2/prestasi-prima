@@ -14,11 +14,7 @@ class ClassesController extends Controller
         return view('siakad.pages.class.index', compact('classes'));
     }
 
-
-
-
-
-    public function store(Request $request)
+public function store(Request $request)
     {
         $validatedData = $request->validate([
             'class_name' => 'required|string|max:255',
@@ -34,12 +30,6 @@ class ClassesController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
-
-
-
-
-
-
 
  public function update(Request $request, $id)
     {
@@ -61,9 +51,7 @@ class ClassesController extends Controller
         }
     }
 
-
-
-     public function destroy($id)
+    public function destroy($id)
     {
         try {
 

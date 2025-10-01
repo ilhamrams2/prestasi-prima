@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('subject', 100)->nullable(); // Mata pelajaran utama
             $table->string('position', 100)->nullable();
+              $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->string('email', 100)->nullable();
             $table->string('phone', 20)->nullable();
             $table->timestamps();

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class SiakadMajor extends Model
 {
     use HasFactory;
+
+       protected $fillable = [
+        'major_code',
+        'name',
+    ];
+    
 }

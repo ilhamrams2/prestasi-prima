@@ -7,11 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class SiakadTeacher extends Model
 {
-    use HasFactory;
-    
+      use HasFactory;
+
     protected $table = 'siakad_teachers';
+
     protected $fillable = [
-        'teacher_id', 'name', 'subject', 'position', 'email', 'phone'
+        'teacher_id',
+        'name',
+        'subject',
+        'position',
+        'email',
+        'phone',
+        'status',
     ];
 
     public function enrollments()
@@ -22,5 +29,13 @@ class SiakadTeacher extends Model
     public function user()
     {
         return $this->hasOne(SiakadUser::class, 'teacher_id');
+    }
+
+    /**
+     * Helper: ambil subject sebagai array
+     */
+    public function getSubjectsArrayAttribute()
+    {
+        return $this->subject ? array_map('trim', explode(',', $this->subject)) : [];
     }
 }

@@ -73,8 +73,8 @@
 
     {{-- ================= CTA + FILTER ================= --}}
     <div class="flex items-center justify-between flex-wrap gap-4">
-        <button 
-            onclick="openModal()" 
+        <button
+            onclick="openModal()"
             class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-lg shadow transition">
             + Tambah Kelas
         </button>
@@ -92,9 +92,9 @@
                 </select>
                 <div class="relative">
                     <i class="ri-search-line absolute left-3 top-2.5 text-gray-400"></i>
-                    <input 
-                        id="searchInput" 
-                        type="text" 
+                    <input
+                        id="searchInput"
+                        type="text"
                         placeholder="Cari nama kelas / wali / ruangan"
                         class="w-full border rounded-lg pl-10 pr-3 py-2 bg-gray-50 focus:ring-2 focus:ring-orange-400">
                 </div>
@@ -229,7 +229,7 @@
         const row  = document.createElement('tr');
         row.classList.add('border-t', 'hover:bg-gray-50', 'transition');
 
-        row.innerHTML = `
+        row.innerHTML =
             <td class="px-4 py-3">${data.get('nama_kelas')}</td>
             <td class="px-4 py-3">
                 <span class="bg-gray-100 text-gray-700 text-sm px-2 py-1 rounded">${data.get('jurusan')}</span>
@@ -255,7 +255,7 @@
                     <i class="ri-delete-bin-line"></i>
                 </button>
             </td>
-        `;
+        ;
 
         tableBody.appendChild(row);
         closeModal();
@@ -280,4 +280,4 @@
         }
     });
 </script>
-@endsection
+@endsection 

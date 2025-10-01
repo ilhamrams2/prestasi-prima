@@ -1,27 +1,47 @@
 <?php
-
-namespace App\Http\Controllers\siakad;
+namespace App\Http\Controllers\Siakad;
 
 use App\Http\Controllers\Controller;
-use App\Models\siakad\SiakadTeacher;
+use App\Models\Siakad\SiakadTeacher;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class TeacherController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Show teacher list.
      */
     public function index()
     {
-        $teachers = SiakadTeacher::latest()->paginate(10);
-        return view('siakad.teacher.index', compact('teachers'));
+        // Pagination biar rapi (10 per halaman)
+        $teachers = SiakadTeacher::orderBy('name')->paginate(10);
+
+        // Statistics
+        $totalTeachers    = SiakadTeacher::count();
+        $activeTeachers   = SiakadTeacher::where('status', 'Active')->count();
+        $headOfDepartment = SiakadTeacher::where('position', 'Head of Department')->count();
+        $homeroomTeachers = SiakadTeacher::where('position', 'Homeroom Teacher')->count();
+
+        return view('siakad.pages.teacher.index', compact(
+            'teachers',
+            'totalTeachers',
+            'activeTeachers',
+            'headOfDepartment',
+            'homeroomTeachers'
+        ));
     }
 
+    /**
+     * Show create form.
+     */
     public function create()
     {
-        return view('siakad.teacher.create');
+        return view('siakad.pages.teacher.create');
     }
 
+    /**
+     * Store teacher.
+     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -29,6 +49,7 @@ class TeacherController extends Controller
             'name'       => 'required|string|max:100',
             'subject'    => 'nullable|string|max:100',
             'position'   => 'nullable|string|max:100',
+            'status'     => 'required|in:Active,Inactive',
             'email'      => 'nullable|email|max:100',
             'phone'      => 'nullable|string|max:20',
         ]);
@@ -36,27 +57,34 @@ class TeacherController extends Controller
         try {
             SiakadTeacher::create($validatedData);
             return redirect()->route('siakad.teacher.index')
-                ->with('success', 'Guru berhasil ditambahkan!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+                ->with('success', 'Teacher added successfully!');
+        } catch (QueryException $e) {
+            return back()->withInput()->with('error', 'Database error: '.$e->getMessage());
         }
     }
 
-    public function edit($id)
+    /**
+     * Show edit form.
+     */
+    public function edit(int $id)
     {
         $teacher = SiakadTeacher::findOrFail($id);
-        return view('siakad.teacher.edit', compact('teacher'));
+        return view('siakad.pages.teacher.edit', compact('teacher'));
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Update teacher.
+     */
+    public function update(Request $request, int $id)
     {
         $teacher = SiakadTeacher::findOrFail($id);
 
         $validatedData = $request->validate([
-            'teacher_id' => 'required|string|max:50|unique:siakad_teachers,teacher_id,' . $teacher->id,
+            'teacher_id' => 'required|string|max:50|unique:siakad_teachers,teacher_id,'.$teacher->id,
             'name'       => 'required|string|max:100',
             'subject'    => 'nullable|string|max:100',
             'position'   => 'nullable|string|max:100',
+            'status'     => 'required|in:Active,Inactive',
             'email'      => 'nullable|email|max:100',
             'phone'      => 'nullable|string|max:20',
         ]);
@@ -64,22 +92,43 @@ class TeacherController extends Controller
         try {
             $teacher->update($validatedData);
             return redirect()->route('siakad.teacher.index')
-                ->with('success', 'Guru berhasil diperbarui!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+                ->with('success', 'Teacher updated successfully!');
+        } catch (QueryException $e) {
+            return back()->withInput()->with('error', 'Database error: '.$e->getMessage());
         }
     }
 
-    public function destroy($id)
+    /**
+     * Delete teacher.
+     */
+    public function destroy(int $id)
     {
         try {
             $teacher = SiakadTeacher::findOrFail($id);
             $teacher->delete();
-
             return redirect()->route('siakad.teacher.index')
-                ->with('success', 'Guru berhasil dihapus!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+                ->with('success', 'Teacher deleted successfully!');
+        } catch (QueryException $e) {
+            return back()->with('error', 'Database error: '.$e->getMessage());
         }
     }
+
+public function show($id)
+{
+    $teacher = SiakadTeacher::find($id);
+    if (!$teacher) {
+        return response()->json(['error' => 'Teacher not found'], 404);
+    }
+
+    // Jika mata pelajaran disimpan dalam relasi atau json
+    $teacher->subjects = $teacher->subjects ? explode(',', $teacher->subjects) : [];
+
+    return response()->json($teacher);
+}
+
+
+
+
+
+
 }
