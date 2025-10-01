@@ -176,15 +176,6 @@ Route::prefix('siakad')->as('siakad.')->group(function () {
         Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('destroy');
     });
 });
-
-
-
-
-
-
-
-
-
         // Classes
         Route::prefix('subjects')->as('subjects.')->group(function () {
             Route::get('/', [SubjectController::class, 'index'])->name('index');
@@ -206,9 +197,6 @@ Route::prefix('siakad')->as('siakad.')->group(function () {
             Route::put('/{id}', [ScoreController::class, 'update'])->name('update');
             Route::delete('/{id}', [ScoreController::class, 'destroy'])->name('destroy');
         });
-
-
-
 
         Route::prefix('absence')->as('absence.')->group(function () {
             Route::get('/', [AbsenceController::class, 'index'])->name('index');

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('siakad_subjects', function (Blueprint $table) {
             $table->id();
-            $table->string('subject_code', 50)->unique();
-            $table->string('name', 100);
-            $table->string('group', 50)->nullable(); // Kelompok A, B, C
+            $table->string('subject_code', 50)->unique();   // Kode Mapel
+            $table->string('subject_name', 100);            // Nama Mapel
+            $table->string('subject_group', 50)->nullable(); // Kelompok A, B, C
             $table->timestamps();
         });
     }
