@@ -12,12 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('siakad_majors', function (Blueprint $table) {
-            $table->id();
+           $table->id();
             $table->string('major_code', 50)->unique();
+            $table->string('image', 200)->nullable();
             $table->string('name', 100);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
+
+
+  
 
     /**
      * Reverse the migrations.

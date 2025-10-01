@@ -9,9 +9,8 @@ class SiakadMajor extends Model
 {
     use HasFactory;
 
-       protected $fillable = [
-        'major_code',
-        'name',
-    ];
-    
+   protected $table = 'siakad_majors';
+    protected $guarded=['id'];
+
+
 }
