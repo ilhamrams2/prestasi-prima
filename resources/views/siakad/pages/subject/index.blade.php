@@ -30,37 +30,6 @@
         </div>
     </div>
 
-    {{-- ================= STATISTIK ================= --}}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-white rounded-xl p-4 shadow-md hover:shadow-lg transition flex items-center gap-4">
-            <div class="p-3 rounded-lg bg-orange-50 text-orange-600">
-                <i class="ri-bookmark-line text-2xl"></i>
-            </div>
-            <div>
-                <p class="text-xs text-gray-500">Total Mapel</p>
-                <div id="statMapel" class="text-lg font-bold text-gray-800">0</div>
-            </div>
-        </div>
-        <div class="bg-white rounded-xl p-4 shadow-md hover:shadow-lg transition flex items-center gap-4">
-            <div class="p-3 rounded-lg bg-yellow-50 text-yellow-600">
-                <i class="ri-user-star-line text-2xl"></i>
-            </div>
-            <div>
-                <p class="text-xs text-gray-500">Guru Pengampu</p>
-                <div id="statGuru" class="text-lg font-bold text-gray-800">0</div>
-            </div>
-        </div>
-        <div class="bg-white rounded-xl p-4 shadow-md hover:shadow-lg transition flex items-center gap-4">
-            <div class="p-3 rounded-lg bg-emerald-50 text-emerald-600">
-                <i class="ri-timer-2-line text-2xl"></i>
-            </div>
-            <div>
-                <p class="text-xs text-gray-500">Jam Belajar</p>
-                <div id="statJam" class="text-lg font-bold text-gray-800">0</div>
-            </div>
-        </div>
-    </div>
-
     {{-- ================= CTA ================= --}}
     <div class="flex items-center justify-between gap-4">
         <button onclick="openModal('add')" 
@@ -75,9 +44,10 @@
                     <i class="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
                     <input id="searchInput" type="text" 
                            placeholder="Cari nama mapel / kode / guru pengampu"
-                           class="w-full border-none rounded-lg pl-10 pr-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400"/>
+                           class="w-full border-none rounded-lg pl-10 pr-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                           onkeyup="renderTable()"/>
                 </div>
-                <select id="statusFilter" class="border rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-orange-400">
+                <select id="statusFilter" class="border rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-orange-400" onchange="renderTable()">
                     <option value="all">Semua Status</option>
                     <option value="aktif">Aktif</option>
                     <option value="nonaktif">Nonaktif</option>
@@ -87,27 +57,20 @@
     </div>
 
     {{-- ================= TABEL ================= --}}
-    <div class="bg-white rounded-lg shadow overflow-hidden">
-        {{-- Desktop --}}
-        <div class="hidden md:block">
-            <table class="w-full table-auto">
-                <thead class="bg-gray-50 text-gray-700">
-                    <tr>
-                        @foreach(['nama' => 'Nama Mapel', 'kode' => 'Kode', 'guru' => 'Guru Pengampu', 'jam' => 'Jam Pelajaran'] as $key => $label)
-                            <th class="px-4 py-3 text-left cursor-pointer hover:text-orange-600 transition" data-sort="{{ $key }}">
-                                {{ $label }} <span class="sort-indicator text-xs"></span>
-                            </th>
-                        @endforeach
-                        <th class="px-4 py-3 text-left">Status</th>
-                        <th class="px-4 py-3 text-left">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody" class="divide-y"></tbody>
-            </table>
-        </div>
-
-        {{-- Mobile --}}
-        <div id="cardList" class="md:hidden p-4 space-y-3"></div>
+    <div class="bg-white rounded-xl shadow mt-6 overflow-hidden border border-gray-100">
+        <table class="w-full text-sm text-gray-700">
+            <thead class="bg-gray-50 text-gray-700 text-sm font-semibold">
+                <tr>
+                    <th class="px-6 py-3 text-left">Nama Mapel</th>
+                    <th class="px-6 py-3 text-left">Kode</th>
+                    <th class="px-6 py-3 text-left">Guru Pengampu</th>
+                    <th class="px-6 py-3 text-left">Jam</th>
+                    <th class="px-6 py-3 text-left">Status</th>
+                    <th class="px-6 py-3 text-center">Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody" class="divide-y divide-gray-100"></tbody>
+        </table>
 
         {{-- Empty State --}}
         <div id="emptyState" class="hidden p-8 text-center text-gray-400">
@@ -116,31 +79,59 @@
             <div class="text-sm">Klik tombol <span class="font-medium text-orange-600">Tambah Mata Pelajaran</span> untuk menambahkan data baru.</div>
         </div>
     </div>
-
-    {{-- ================= PAGINATION ================= --}}
-    <div class="flex items-center justify-between mt-4">
-        <div id="summaryText" class="text-sm text-gray-500"></div>
-        <div id="pagination" class="flex items-center gap-2"></div>
-    </div>
 </div>
 
-{{-- ================= MODAL (Tambah/Edit) ================= --}}
-<div id="modal" class="fixed inset-0 bg-black/50 hidden z-40 flex items-center justify-center">
-    <div id="modalBox" class="bg-white w-96 rounded-2xl shadow-2xl p-6 transform translate-y-6 opacity-0 transition">
-        <h2 id="modalTitle" class="text-lg font-bold mb-3 text-orange-600"></h2>
-        <form id="formMapel" class="space-y-3">
+{{-- ================= MODAL FORM ================= --}}
+<div id="modal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+    <div id="modalBox" class="bg-white rounded-2xl shadow-xl w-full max-w-2xl mx-4 p-6 transform transition-all scale-95 opacity-0">
+        <h2 id="modalTitle" class="text-xl font-bold text-gray-800 mb-6"></h2>
+        <form id="formMapel" class="space-y-5">
             <input type="hidden" name="id">
-            <input name="nama" placeholder="Nama Mapel" class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-orange-400" required>
-            <input name="kode" placeholder="Kode (contoh: MTK01)" class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-orange-400" required>
-            <input name="guru" placeholder="Guru Pengampu" class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-orange-400" required>
-            <input name="jam" placeholder="Jumlah Jam (contoh: 4)" type="number" class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-orange-400" required>
-            <select name="status" class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-orange-400">
-                <option value="aktif">Aktif</option>
-                <option value="nonaktif">Nonaktif</option>
-            </select>
-            <div class="flex justify-end gap-2 mt-2">
-                <button type="button" id="btnCancel" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition">Batal</button>
-                <button type="submit" class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded shadow">Simpan</button>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Nama Mapel</label>
+                    <input type="text" name="nama" placeholder="Nama Mata Pelajaran" required
+                        class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Kode Mapel</label>
+                    <input type="text" name="kode" placeholder="Contoh: MTK01" required
+                        class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Guru Pengampu</label>
+                    <input type="text" name="guru" placeholder="Nama Guru" required
+                        class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Jumlah Jam</label>
+                    <input type="number" name="jam" placeholder="Contoh: 3" required
+                        class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-600 mb-1">Status</label>
+                <select name="status" 
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
+                    <option value="aktif">Aktif</option>
+                    <option value="nonaktif">Nonaktif</option>
+                </select>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t">
+                <button type="button" onclick="closeModal('form')" 
+                        class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition">
+                    Batal
+                </button>
+                <button type="submit" 
+                        class="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 transition">
+                    Simpan
+                </button>
             </div>
         </form>
     </div>
@@ -159,4 +150,124 @@
         <span id="viewStatus" class="px-2 py-1 rounded text-sm"></span>
     </div>
 </div>
+
+<script>
+let mapels = [
+    {id:1, nama:"Matematika", kode:"MTK01", guru:"Budi Santoso", jam:4, status:"aktif"},
+    {id:2, nama:"Bahasa Indonesia", kode:"IND01", guru:"Siti Aminah", jam:3, status:"aktif"},
+    {id:3, nama:"Fisika", kode:"FIS01", guru:"Agus Prasetyo", jam:2, status:"nonaktif"},
+];
+let editingId = null;
+
+function renderTable() {
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = "";
+    const keyword = document.getElementById('searchInput').value.toLowerCase();
+    const filter = document.getElementById('statusFilter').value;
+
+    const filtered = mapels.filter(m => {
+        const matchKeyword = m.nama.toLowerCase().includes(keyword) || m.kode.toLowerCase().includes(keyword) || m.guru.toLowerCase().includes(keyword);
+        const matchStatus = (filter === "all" || m.status === filter);
+        return matchKeyword && matchStatus;
+    });
+
+    if(filtered.length === 0){
+        document.getElementById("emptyState").classList.remove("hidden");
+        return;
+    } else {
+        document.getElementById("emptyState").classList.add("hidden");
+    }
+
+    filtered.forEach(m => {
+        const tr = document.createElement("tr");
+        tr.classList.add("hover:bg-gray-50");
+
+        tr.innerHTML = `
+            <td class="px-6 py-3 font-medium text-gray-800">${m.nama}</td>
+            <td class="px-6 py-3">${m.kode}</td>
+            <td class="px-6 py-3">${m.guru}</td>
+            <td class="px-6 py-3">${m.jam}</td>
+            <td class="px-6 py-3">
+                <span class="px-2 py-1 rounded text-xs font-medium ${m.status==='aktif'?'bg-green-100 text-green-600':'bg-red-100 text-red-600'}">${m.status}</span>
+            </td>
+            <td class="px-6 py-3 flex items-center gap-3 justify-center">
+                <button onclick="openModal('view', ${m.id})" class="text-blue-500 hover:text-blue-700"><i class="ri-eye-line text-lg"></i></button>
+                <button onclick="openModal('edit', ${m.id})" class="text-yellow-500 hover:text-yellow-700"><i class="ri-pencil-line text-lg"></i></button>
+                <button onclick="deleteMapel(${m.id})" class="text-red-500 hover:text-red-700"><i class="ri-delete-bin-line text-lg"></i></button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function openModal(type, id=null){
+    const modal = document.getElementById('modal');
+    const modalBox = document.getElementById('modalBox');
+    const title = document.getElementById('modalTitle');
+    const form = document.getElementById('formMapel');
+
+    if(type==="add"){
+        editingId=null;
+        form.reset();
+        title.textContent="Tambah Mata Pelajaran";
+        modal.classList.remove("hidden");
+    } else if(type==="edit"){
+        editingId=id;
+        const data = mapels.find(m=>m.id===id);
+        form.nama.value=data.nama;
+        form.kode.value=data.kode;
+        form.guru.value=data.guru;
+        form.jam.value=data.jam;
+        form.status.value=data.status;
+        title.textContent="Edit Mata Pelajaran";
+        modal.classList.remove("hidden");
+    } else if(type==="view"){
+        const data = mapels.find(m=>m.id===id);
+        document.getElementById('viewNama').textContent=data.nama;
+        document.getElementById('viewGuru').textContent=data.guru;
+        document.getElementById('viewKode').textContent=data.kode;
+        document.getElementById('viewJam').textContent=data.jam;
+        const statusEl=document.getElementById('viewStatus');
+        statusEl.textContent=data.status;
+        statusEl.className = "px-2 py-1 rounded text-sm "+(data.status==='aktif'?'bg-green-100 text-green-600':'bg-red-100 text-red-600');
+        document.getElementById('modalView').classList.remove("hidden");
+    }
+    setTimeout(()=>modalBox.classList.remove("scale-95","opacity-0"),50);
+}
+
+function closeModal(type){
+    if(type==='form') document.getElementById('modal').classList.add('hidden');
+    if(type==='view') document.getElementById('modalView').classList.add('hidden');
+}
+
+document.getElementById('formMapel').addEventListener('submit', function(e){
+    e.preventDefault();
+    const form = e.target;
+    const data = {
+        id: editingId || Date.now(),
+        nama: form.nama.value,
+        kode: form.kode.value,
+        guru: form.guru.value,
+        jam: form.jam.value,
+        status: form.status.value
+    };
+    if(editingId){
+        const idx = mapels.findIndex(m=>m.id===editingId);
+        mapels[idx]=data;
+    } else {
+        mapels.push(data);
+    }
+    closeModal('form');
+    renderTable();
+});
+
+function deleteMapel(id){
+    if(confirm("Yakin ingin menghapus data ini?")){
+        mapels = mapels.filter(m=>m.id!==id);
+        renderTable();
+    }
+}
+
+renderTable();
+</script>
 @endsection
