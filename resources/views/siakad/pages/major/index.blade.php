@@ -1,4 +1,4 @@
-@extends('siakad.index')
+   @extends('siakad.index')
 
 @section('title', 'Manajemen Jurusan')
 
@@ -421,6 +421,7 @@
 
     render();
 </script>
+
 @endsection
 
-{{--  --}}
+
