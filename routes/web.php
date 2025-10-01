@@ -163,18 +163,10 @@ Route::prefix('siakad')->group(function () {
                 Route::get('/teacher/{id}', [TeacherController::class, 'show']);
 
 
-        Route::put('/{id}', [TeacherController::class, 'update'])->name('update');
-        Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('destroy');
-    });
-});
-
-
-
-
-
-
-
-
+                Route::put('/{id}', [TeacherController::class, 'update'])->name('update');
+                Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('destroy');
+            });
+        });
 
         // Classes
         Route::prefix('subjects')->as('subjects.')->group(function () {
