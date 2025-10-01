@@ -178,13 +178,15 @@ Route::prefix('siakad')->as('siakad.')->group(function () {
         Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('destroy');
     });
 });
-=======
-                Route::put('/{id}', [TeacherController::class, 'update'])->name('update');
-                Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('destroy');
-            });
-        });
 
->>>>>>> df8a31c (abi anj)
+
+
+
+
+
+
+
+
         // Classes
         Route::prefix('subjects')->as('subjects.')->group(function () {
             Route::get('/', [SubjectController::class, 'index'])->name('index');
