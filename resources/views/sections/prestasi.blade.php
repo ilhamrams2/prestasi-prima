@@ -1,5 +1,5 @@
 <!-- ================= SECTION PRESTASI ================= -->
-<section id="prestasi" class="py-20 bg-white relative">
+<section id="prestasi" class="py-20 bg-white relative overflow-hidden">
   <div class="max-w-7xl mx-auto px-4 md:px-8 text-center">
 
     <!-- Header -->
@@ -73,6 +73,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
+  // Swiper Config
   const swiper = new Swiper(".mySwiper", {
     slidesPerView: 1,
     spaceBetween: 20,
@@ -94,5 +95,26 @@
       768: { slidesPerView: 3 },
       1024: { slidesPerView: 4 },
     },
+  });
+
+  // Tambahkan background network & race pakai JS
+  document.addEventListener("DOMContentLoaded", () => {
+    const prestasiSection = document.getElementById("prestasi");
+
+    // Logo Network
+    const networkImg = document.createElement("img");
+    networkImg.src = "assets/images/section/prestasi/netowrk.svg";
+    networkImg.alt = "Network";
+    networkImg.className =
+      "absolute -bottom-16 -left-48 w-[460px] md:w-[560px] opacity-40 select-none pointer-events-none";
+    prestasiSection.appendChild(networkImg);
+
+    // Logo Race
+    const raceImg = document.createElement("img");
+    raceImg.src = "assets/images/section/tentang/race.svg";
+    raceImg.alt = "Race";
+    raceImg.className =
+      "absolute -bottom-80 -right-24 w-[480px] md:w-[600px] opacity-40 select-none pointer-events-none";
+    prestasiSection.appendChild(raceImg);
   });
 </script>
