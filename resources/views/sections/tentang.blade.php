@@ -1,21 +1,21 @@
 <!-- ================= SECTION TENTANG KAMI ================= -->
 <section id="tentang" class="relative bg-white py-20 overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-center gap-14 md:gap-20">
+  
+  <!-- ========== Background Dekoratif ========== -->
+  <div class="absolute inset-0 pointer-events-none">
+    <!-- Gambar lingkaran kanan bawah -->
+    <img src="assets/images/section/tentang/bulet.svg"
+         alt="Dekorasi Lingkaran"
+         class="absolute -bottom-[80px] -right-[90px] w-[280px] md:w-[420px] opacity-30 object-contain select-none">
+  </div>
 
-    <!-- ========== Background Dekoratif ========== -->
-    <div class="absolute inset-0 pointer-events-none">
-      <img src="assets/images/section/tentang/bulet.svg"
-          alt="Dekorasi Lingkaran"
-          class="absolute -bottom-[80px] -right-[90px] w-[280px] md:w-[420px] opacity-30 object-contain select-none">
-    </div>
-
+  <!-- ========== Konten Utama ========== -->
+  <div class="relative max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-center gap-14 md:gap-20">
 
     <!-- Gambar Kepala Sekolah -->
     <div class="relative flex justify-center fade-in-right">
-      <!-- Kotak Biru -->
       <div class="absolute -top-8 -left-8 w-72 h-[26rem] md:w-96 md:h-[32rem] bg-blue-900 hidden sm:block"></div>
 
-      <!-- Kotak Orange dengan Gambar -->
       <div class="relative z-10 w-72 h-[26rem] md:w-96 md:h-[32rem] bg-orange-500 overflow-hidden shadow-xl rounded-lg md:rounded-none">
         <img src="assets/images/section/tentang/kepala-sekolah.png"
              alt="Kepala Sekolah"
@@ -23,6 +23,12 @@
 
         <!-- Nama Kepala Sekolah -->
         <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-[90%] md:w-[85%] bg-white/95 backdrop-blur-md shadow-lg px-4 md:px-5 py-3 text-left rounded-md">
+          <p class="text-sm md:text-base font-bold text-orange-600 leading-snug">
+            Hendry Kurniawan, S.Kom., M.I.Kom.
+          </p>
+          <p class="text-[11px] md:text-xs text-black font-medium tracking-wide">
+            Kepala Sekolah SMK Prestasi Prima
+          </p>
           <p class="text-sm md:text-base font-bold text-orange-600 leading-snug">
             Hendry Kurniawan, S.Kom., M.I.Kom.
           </p>
@@ -85,69 +91,44 @@
       </div>
 
       <!-- Tombol -->
-      <a href="#" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 md:px-8 py-2.5 md:py-3 shadow-lg rounded-lg transition transform hover:scale-105 hover:shadow-xl">
+      <a href="#"
+         class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 md:px-8 py-2.5 md:py-3 shadow-lg rounded-lg transition transform hover:scale-105 hover:shadow-xl">
         Selengkapnya →
       </a>
     </div>
   </div>
 </section>
 
-<!-- ================= STYLE ANIMASI ================= -->
-<style>
-.fade-in-up, .fade-in-left, .fade-in-right {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.8s ease-out;
-}
-.fade-in-left { transform: translateX(-15px); }
-.fade-in-right { transform: translateX(15px); }
-
-.show { opacity: 1; transform: translate(0,0); }
-
-.delay-100 { transition-delay: 0.1s; }
-.delay-200 { transition-delay: 0.2s; }
-.delay-300 { transition-delay: 0.3s; }
-
-@media (max-width: 768px) {
-  .fade-in-left, .fade-in-right { transform: translateX(0); }
-}
-</style>
-
-<!-- ================= SCRIPT ANIMASI + STATISTIK ================= -->
+<!-- ================= SCRIPT: Animasi Angka Statistik ================= -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const fadeElems = document.querySelectorAll(".fade-in-up, .fade-in-left, .fade-in-right");
   const statNumbers = document.querySelectorAll(".stat-number");
 
-  // Fungsi animasi angka
-  const animateNumber = (el) => {
-    const target = +el.dataset.target;
-    const duration = 2000; // durasi 2 detik
-    const startTime = performance.now();
-
-    const update = (now) => {
-      const progress = Math.min((now - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // easing agar halus
-      const value = Math.floor(eased * target);
-      el.textContent = value.toLocaleString() + (target >= 100 ? "+" : "");
-      if (progress < 1) requestAnimationFrame(update);
+  const animateCount = (el, target) => {
+    let current = 0;
+    const increment = target / 80;
+    const update = () => {
+      current += increment;
+      if (current < target) {
+        el.textContent = Math.floor(current);
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = target.toLocaleString();
+      }
     };
-    requestAnimationFrame(update);
+    update();
   };
 
-  // Observer untuk animasi fade dan angka
-  const observer = new IntersectionObserver(entries => {
+  const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-        if (entry.target.classList.contains("stat-number")) {
-          animateNumber(entry.target);
-        }
+        const el = entry.target;
+        animateCount(el, parseInt(el.dataset.target));
+        obs.unobserve(el);
       }
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0.6 });
 
-  fadeElems.forEach(el => observer.observe(el));
-  statNumbers.forEach(el => observer.observe(el));
+  statNumbers.forEach(num => observer.observe(num));
 });
 </script>
