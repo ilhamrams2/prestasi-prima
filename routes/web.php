@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SambutanController;
 use App\Http\Controllers\Pendaftaran;
@@ -8,7 +7,8 @@ use App\Http\Controllers\PresmalanceController;
 use App\Http\Controllers\PresmaAuthController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\JoblistController;
-use App\Http\Controllers\AdminJoblistController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\RegisterLanceController;
 
 Route::get('/', function () {
     return view('prestasiprima.pages.landing');
@@ -31,22 +31,48 @@ Route::post('/formulir', [FormulirController::class, 'store'])->name('pendaftara
 // Validasi Pendaftaran
 Route::get('/validasi', [FormulirController::class, 'validasi'])->name('pendaftaran.validasi');
 Route::get('/presmalance', [PresmalanceController::class, 'presmalance'])->name('presmalancer.presmalance');
+
+// Login Routes
 Route::get('/login', [PresmalanceController::class, 'login'])->name('login');
 Route::post('/login', [PresmaAuthController::class, 'login'])->name('login.post');
 
+// Registration Routes
+Route::get('/register', [RegisterLanceController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterLanceController::class, 'register'])->name('register.post');
+
+// Social Authentication Routes
 Route::get('/auth/{provider}', [SocialAuthController::class, 'redirect'])->name('social.redirect');
 Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('social.callback');
 
 Route::get('/forum', [PresmalanceController::class, 'forum'])->name('forum');
 
-Route::prefix('/joblist')->group(function () {
-    Route::get('/', [JoblistController::class, 'index'])->name('joblist.index');
-    Route::get('/create', [JoblistController::class, 'create'])->name('joblist.create');
-    Route::post('/store', [JoblistController::class, 'store'])->name('joblist.store');
-    Route::post('/take/{id}', [JoblistController::class, 'take'])->name('joblist.take');
-    Route::delete('/delete/{id}', [JoblistController::class, 'destroy'])->name('joblist.destroy');
+// Public Job Listing Routes
+Route::get('/jobs', [JoblistController::class, 'index'])->name('jobs.index');
+Route::get('/jobs/{job}', [JoblistController::class, 'show'])->name('jobs.show');
+Route::get('/jobs/{job}/apply', function($id) {
+    return redirect()->route('jobs.show', $id)->with('info', 'Form lamaran akan tersedia di sini');
+})->name('jobs.apply');
+
+// Admin Routes (Add authentication middleware in production)
+Route::prefix('admin')->name('admin.')->group(function () {
+    
+    // Jobs Management
+    Route::get('/jobs', [JoblistController::class, 'adminIndex'])->name('jobs.index');
+    Route::get('/jobs/create', [JoblistController::class, 'create'])->name('jobs.create');
+    Route::post('/jobs', [JoblistController::class, 'store'])->name('jobs.store');
+    Route::get('/jobs/{job}/edit', [JoblistController::class, 'edit'])->name('jobs.edit');
+    Route::put('/jobs/{job}', [JoblistController::class, 'update'])->name('jobs.update');
+    Route::delete('/jobs/{job}', [JoblistController::class, 'destroy'])->name('jobs.destroy');
+    Route::patch('/jobs/{job}/toggle-status', [JoblistController::class, 'toggleStatus'])->name('jobs.toggle-status');
+    
+    // Companies Management
+    Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
+    Route::get('/companies/create', [CompanyController::class, 'create'])->name('companies.create');
+    Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store');
+    Route::get('/companies/{company}', [CompanyController::class, 'show'])->name('companies.show');
+    Route::get('/companies/{company}/edit', [CompanyController::class, 'edit'])->name('companies.edit');
+    Route::put('/companies/{company}', [CompanyController::class, 'update'])->name('companies.update');
+    Route::delete('/companies/{company}', [CompanyController::class, 'destroy'])->name('companies.destroy');
 });
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('jobs', AdminJoblistController::class);
-});
+Route::get('/profile', [PresmalanceController::class, 'profile'])->name('profile.show');

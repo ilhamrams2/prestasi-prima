@@ -21,4 +21,10 @@ class PresmalanceController extends Controller
         return view('pressmalancer.pages.forum');
     }
 
+    public function profile()
+    {
+        return view('pressmalancer.pages.profile');
+    }
+
+
 }

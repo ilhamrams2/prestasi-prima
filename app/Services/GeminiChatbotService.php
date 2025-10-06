@@ -4,29 +4,53 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Exception;
+use Throwable;
 
 class GeminiChatbotService
 {
     public const CHAT_HISTORY_KEY = 'gemini.chat_history';
     protected string $apiKey;
-    protected string $model = 'gemini-1.5-flash-latest';
     protected string $apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/';
+    
+    // Daftar halaman penting untuk System Instruction
+    protected array $importantPages = [
+        '- Halaman Utama: /',
+        '- Penerimaan Siswa Baru: /pendaftaran',
+        '- Prestasi: /prestasi',
+        '- Formulir Pendaftaran: /formulir',
+        '- Galeri: /galeri',
+        '- Sambutan: /sambutan',
+        '- Kontak: /contact',
+        '- Presmalancer: /presmalance',
+    ];
 
     public function __construct()
     {
+        // Mengambil kunci API dari environment
         $this->apiKey = env('GEMINI_API_KEY');
     }
 
-    public function sendMessage(string $message): string
+    /**
+     * Mengirim pesan ke Gemini AI, menggunakan logika pre-processing untuk navigasi cepat.
+     *
+     * @param string $message Pesan dari pengguna.
+     * @param string $modelName Nama model Gemini yang akan digunakan (mis. gemini-2.5-flash).
+     * @return string Balasan dari chatbot (termasuk tag NAVIGATE_TO jika ada).
+     */
+    public function sendMessage(string $message, string $modelName): string
     {
         $history = Session::get(self::CHAT_HISTORY_KEY, []);
         $messageLower = strtolower($message);
+        $reply = null;
 
+        // 1. Simpan pesan pengguna ke riwayat sementara
         $history[] = [
             'role' => 'user',
             'text' => $message,
         ];
 
+        // 2. Logika Pre-processing (Jawaban Cepat Tanpa Panggil API)
         $responseVariations = [
             'registration' => [
                 "Tentu, silakan gunakan tombol berikut untuk melanjutkan pendaftaran.",
@@ -39,11 +63,6 @@ class GeminiChatbotService
                 "Ingin melihat keseruan di sekolah kami? Klik tombol di bawah ini untuk melihat galeri foto.",
                 "Kami memiliki banyak momen berharga di galeri foto. Silakan kunjungi melalui tombol ini."
             ],
-            'greeting' => [
-                "Halo! Saya asisten virtual SMK Prestasi Prima. Ada yang bisa saya bantu?",
-                "Selamat datang! Saya siap membantu Anda. Silakan ketik pertanyaan Anda.",
-                "Hai, saya chatbot dari SMK Prestasi Prima. Apa yang bisa saya bantu hari ini?",
-            ],
             'principal_speech' => [
                 "Silakan baca sambutan dari kepala sekolah kami.",
                 "Untuk mengetahui visi dan misi sekolah, silakan baca sambutan kepala sekolah di halaman ini.",
@@ -51,8 +70,6 @@ class GeminiChatbotService
             ]
         ];
 
-        $reply = null;
-        
         if (str_contains($messageLower, 'daftar') || str_contains($messageLower, 'pendaftaran') || str_contains($messageLower, 'formulir')) {
             $randomReply = $responseVariations['registration'][array_rand($responseVariations['registration'])];
             $reply = $randomReply . "\n\n[NAVIGATE_TO:Formulir Pendaftaran|/pendaftaran]";
@@ -61,11 +78,15 @@ class GeminiChatbotService
             $reply = $randomReply . "\n\n[NAVIGATE_TO:Galeri Sekolah|/galeri]";
         } elseif (str_contains($messageLower, 'sambutan') || str_contains($messageLower, 'kepala sekolah') || str_contains($messageLower, 'direktur')) {
             $randomReply = $responseVariations['principal_speech'][array_rand($responseVariations['principal_speech'])];
-            $reply = $randomReply . "\n\n[NAVIGATE_TO:Sambutan|/sambutan]";
-        } else {
-            $reply = $this->getResponse($message, $history);
+            $reply = $randomReply . "\n\n[NAVIGATE_TO:Sambutan Kepala Sekolah|/sambutan]";
+        } 
+        
+        // 3. Jika tidak ada jawaban cepat, panggil API Gemini
+        else {
+            $reply = $this->getResponse($message, $modelName, $history);
         }
 
+        // 4. Simpan balasan AI ke riwayat
         $history[] = [
             'role' => 'model',
             'text' => $reply,
@@ -76,59 +97,57 @@ class GeminiChatbotService
         return $reply;
     }
 
-    public function getResponse(string $prompt, array $history = []): string
+    /**
+     * Mengirim permintaan ke API Gemini.
+     *
+     * @param string $prompt Pesan pengguna saat ini.
+     * @param string $modelName Nama model Gemini.
+     * @param array $history Riwayat chat.
+     * @return string Balasan dari AI.
+     */
+    protected function getResponse(string $prompt, string $modelName, array $history = []): string
     {
         if (empty($this->apiKey)) {
             return "Maaf, kunci API tidak ditemukan. Silakan tambahkan GEMINI_API_KEY ke file .env Anda.";
         }
 
         try {
-            // Instruksi sistem untuk AI
-            $systemInstruction = "Anda adalah asisten virtual untuk website SMK Prestasi Prima. Tugas Anda adalah membantu pengguna menemukan informasi di website. Jika pengguna meminta untuk dinavigasikan ke suatu halaman, berikan respons yang menyisipkan tag navigasi di dalamnya. Tag harus dalam format: [NAVIGATE_TO:[Teks Tombol]|/url]. Jika tidak, jawablah secara normal.
+            // Instruksi sistem
+            $systemInstruction = "Anda adalah asisten virtual untuk website SMK Prestasi Prima. Tugas Anda adalah membantu pengguna menemukan informasi di website. Selalu berikan respons dalam Bahasa Indonesia yang formal dan sopan. Jika pengguna meminta untuk dinavigasikan ke suatu halaman atau Anda merasa sebuah halaman relevan, berikan respons yang menyisipkan tag navigasi di dalamnya. Tag harus dalam format: [NAVIGATE_TO:[Teks Tombol]|/url].
 
-            Contoh:
-            pengguna: 'Siapa orang paling ganteng di seluruh smk prestasi prima?'
-            Respons AI: 'Orang yang paling ganteng di smk prestasi prima adalah subyektif dan tergantung pada preferensi masing-masing orang. Kami sarankan Anda mengunjungi galeri foto kami untuk melihat siswa-siswa kami: [NAVIGATE_TO:Galeri Foto|/galeri]'
-            Pengguna: 'Bawa saya ke halaman pendaftaran'
-            Respons AI: 'Tentu, silakan klik tombol di bawah ini: [NAVIGATE_TO:Halaman Pendaftaran Siswa|/pendaftaran]'.
+            Contoh Respons dengan Navigasi:
+            'Untuk info lebih lanjut tentang prestasi sekolah, silakan kunjungi halaman ini: [NAVIGATE_TO:Lihat Prestasi Kami|/prestasi]'
             
             Berikut adalah daftar halaman penting yang bisa Anda rekomendasikan:
-            - Halaman Utama: /
-            - Penerimaan Siswa Baru: /pendaftaran
-            - prestasi: /prestasi
-            - Formulir Pendaftaran: /formulir
-            - Galeri: /galeri
-            - Sambutan: /sambutan
-            - Kontak: /contact
-            - Presmalancer: /presmalance
-            ";
+            " . implode("\n", $this->importantPages);
 
             $contents = [];
-            if (empty($history)) {
-                $promptWithInstruction = $systemInstruction . "\n\n" . $prompt;
+            
+            // Konversi riwayat ke format API, selalu masukkan systemInstruction sebagai teks pertama
+            foreach ($history as $message) {
+                // Pastikan role-nya sesuai (user/model) dan tidak terlalu banyak untuk menghindari error payload besar.
                 $contents[] = [
-                    'role' => 'user',
-                    'parts' => [['text' => $promptWithInstruction]]
-                ];
-            } else {
-                foreach ($history as $message) {
-                    $contents[] = [
-                        'role' => $message['role'],
-                        'parts' => [
-                            ['text' => $message['text']]
-                        ]
-                    ];
-                }
-                
-                $contents[] = [
-                    'role' => 'user',
-                    'parts' => [['text' => $prompt]]
+                    'role' => $message['role'],
+                    'parts' => [
+                        ['text' => $message['text']]
+                    ]
                 ];
             }
+            
+            // Tambahkan System Instruction ke awal array contents jika ini adalah sesi baru (atau di setiap prompt sebagai system instruction)
+            // Namun, karena Gemini API mendukung System Instruction terpisah, kita akan menggunakan fitur itu:
+            
+            $payload = [
+                'contents' => $contents,
+                'systemInstruction' => [
+                    'parts' => [
+                        ['text' => $systemInstruction]
+                    ]
+                ]
+            ];
 
-            $response = Http::post($this->apiUrl . $this->model . ':generateContent?key=' . $this->apiKey, [
-                'contents' => $contents
-            ]);
+            $response = Http::withHeaders(['Content-Type' => 'application/json'])
+                ->post($this->apiUrl . $modelName . ':generateContent?key=' . $this->apiKey, $payload);
 
             if ($response->successful()) {
                 $content = $response->json();
@@ -137,22 +156,32 @@ class GeminiChatbotService
                     return $content['candidates'][0]['content']['parts'][0]['text'];
                 }
                 
-                return "Maaf, terjadi kesalahan saat memproses balasan dari AI.";
+                return "Maaf, AI tidak memberikan balasan yang valid. Silakan coba pertanyaan lain.";
             } else {
                 $errorInfo = $response->json();
                 $errorMessage = $errorInfo['error']['message'] ?? 'Kesalahan tidak diketahui.';
 
-                if (strpos($errorMessage, 'The model is overloaded') !== false || strpos($errorMessage, 'quota') !== false || strpos($errorMessage, 'rate') !== false || $response->status() === 503) {
-                    return "Maaf, AI Prestasi Prima sedang kebanyakan menerima request, mohon coba lagi.";
+                // Penanganan Error Overload/Quota
+                if (str_contains($errorMessage, 'The model is overloaded') || str_contains($errorMessage, 'quota') || str_contains($errorMessage, 'rate') || $response->status() === 503 || $response->status() === 429) {
+                    // Pesan ini dikirim jika terjadi overload atau rate limit.
+                    return "Maaf, AI Prestasi Prima sedang mengalami beban tinggi (overloaded). Silakan tunggu sebentar dan coba lagi. Ini bukan kesalahan Anda.";
                 }
 
-                return "Maaf, terjadi kesalahan saat menghubungi AI: " . $errorMessage;
+                // Penanganan Error API key
+                if ($response->status() === 400 && str_contains($errorMessage, 'API key')) {
+                    return "Maaf, Kunci API Anda tidak valid atau kuota habis. Silakan periksa kunci GEMINI_API_KEY di file .env Anda.";
+                }
+
+                return "Maaf, terjadi kesalahan saat menghubungi AI: " . $errorMessage . " (Code: " . $response->status() . ")";
             }
-        } catch (\Exception $e) {
-            return "Maaf, terjadi kesalahan saat menghubungi AI: " . $e->getMessage();
+        } catch (Throwable $e) {
+            return "Maaf, terjadi kesalahan tak terduga: " . $e->getMessage();
         }
     }
 
+    /**
+     * Menghapus riwayat chat dari session.
+     */
     public function clearChatHistory(): void
     {
         Session::forget(self::CHAT_HISTORY_KEY);

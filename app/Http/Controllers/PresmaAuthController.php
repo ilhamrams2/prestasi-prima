@@ -16,12 +16,12 @@ class PresmaAuthController extends Controller
         'password' => 'required',
     ]);
 
-    $pengguna = User::where('Email', $request->email)->first();
+    $pengguna = User::where('email', $request->email)->first();
 
-    if ($pengguna && Hash::check($request->password, $pengguna->pass)) {
+    if ($pengguna && Hash::check($request->password, $pengguna->password)) {
 
         Auth::login($pengguna);
-        return redirect()->route('presmalancer.presmalance')->with('success', 'Login berhasil!');
+        return redirect()->route('jobs.index')->with('success', 'Login berhasil!');
     }
 
     return back()->withErrors(['email' => 'Email atau password salah.']);

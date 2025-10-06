@@ -55,7 +55,7 @@
         {{-- Link Register --}}
         <p class="text-center text-gray-600 text-sm mt-4">
             Don’t have an account?
-            <a href="#" class="text-orange-500 font-medium hover:underline">Register</a>
+            <a href="/register" class="text-orange-500 font-medium hover:underline">Register</a>
         </p>
     </div>
 </div>

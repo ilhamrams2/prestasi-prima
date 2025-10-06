@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')
-                ->constrained('presmalancer_companies')
-                ->onDelete('cascade');
             $table->string('title');
-            $table->text('description');
+            $table->string('company');
             $table->string('location');
-            $table->decimal('salary', 12, 2)->nullable();
-            $table->boolean('is_taken')->default(false);
+            $table->string('salary');
+            $table->enum('type', ['Full Time', 'Part Time', 'Contract', 'Freelance', 'Internship'])->default('Full Time');
+            $table->text('description');
+            $table->json('requirements'); // Store requirements as JSON array
+            $table->string('logo')->nullable(); // Company logo URL
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
