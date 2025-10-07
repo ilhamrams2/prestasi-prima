@@ -302,7 +302,7 @@
                 </div>
 
                 <!-- Job Detail Sidebar - Right Side -->
-                <div class="lg:col-span-1">
+                <div class="lg:col-span-1 ">
                     <div class="company-sidebar sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                         <!-- Empty State -->
                         <div x-show="!selectedJobData" class="bg-white rounded-lg shadow-sm p-8 text-center">
@@ -393,7 +393,7 @@
                                         Kualifikasi & Keahlian yang Diperlukan
                                     </h4>
                                     
-                                    <div class="grid grid-cols-1 gap-3">
+                                    <div class="grid grid-cols-1 gap-5">
                                         <template x-for="(requirement, index) in selectedJobData?.requirements || []" :key="index">
                                             <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
                                                 <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">

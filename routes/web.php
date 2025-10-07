@@ -12,6 +12,7 @@ use App\Http\Controllers\RegisterLanceController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminJobController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('prestasiprima.pages.landing');
@@ -82,3 +83,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login');
+})->name('logout');

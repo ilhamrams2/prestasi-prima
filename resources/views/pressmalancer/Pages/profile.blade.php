@@ -232,7 +232,7 @@
                         <div class="flex gap-2 mt-4">
                             <input type="text" 
                                    x-model="newSkill"
-                                   @keypress.enter.prevent="addSkill()"
+                                   @keydown.enter.prevent="addSkill()"
                                    placeholder="Tambah keahlian baru..."
                                    class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                             <button @click="addSkill()" 
@@ -261,7 +261,7 @@ function profileEditor() {
             avatar: '{{ auth()->user()->avatar ?? "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" }}',
             role: '{{ auth()->user()->profile->role ?? "Job Seeker" }}',
             bio: '{{ auth()->user()->profile->bio ?? "Passionate web developer with 3+ years of experience..." }}',
-            skills: {!! json_encode(auth()->user()->profile->skills ?? ['React', 'Node.js', 'TypeScript', 'Laravel', 'Tailwind CSS']) !!}
+                skills: {!! json_encode(json_decode(auth()->user()->profile->skills ?? '[]')) !!}
         },
         originalProfile: {},
         
@@ -276,40 +276,80 @@ function profileEditor() {
             this.newSkill = '';
         },
         
-        saveProfile() {
-            // Here you would send the data to the server
-            // For now, just show a success message
-            alert('Profil berhasil diperbarui! ✅');
-            this.isEditing = false;
-            
-            // Example AJAX call:
-            // fetch('/profile/update', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            //     },
-            //     body: JSON.stringify(this.profile)
-            // }).then(response => response.json())
-            //   .then(data => {
-            //       alert('Profil berhasil diperbarui!');
-            //       this.isEditing = false;
-            //   });
-        },
+            async saveProfile() {
+                try {
+                    // Pastikan skills dikirim sebagai array
+                    const payload = { ...this.profile };
+                    // Jangan kirim avatar ke backend, avatar hanya URL
+                    delete payload.avatar;
+                    if (typeof payload.skills === 'string') {
+                        payload.skills = payload.skills.split(',').map(s => s.trim()).filter(Boolean);
+                    }
+                    if (!Array.isArray(payload.skills)) {
+                        payload.skills = [];
+                    }
+                    const response = await fetch('/profile/update', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        alert('Profil berhasil diperbarui! ✅');
+                        this.isEditing = false;
+                    } else {
+                        let errorMsg = data.message || 'Cek data Anda.';
+                        if (data.errors) {
+                            errorMsg += '\n';
+                            for (const [field, messages] of Object.entries(data.errors)) {
+                                errorMsg += `- ${field}: ${messages.join(', ')}\n`;
+                            }
+                        }
+                        alert('Gagal memperbarui profil:\n' + errorMsg);
+                    }
+                } catch (e) {
+                    alert('Terjadi error: ' + e.message);
+                }
+            },
         
-        handleAvatarChange(event) {
+        async handleAvatarChange(event) {
             const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    this.profile.avatar = e.target.result;
-                };
-                reader.readAsDataURL(file);
+            if (!file) return;
+            const formData = new FormData();
+            formData.append('avatar', file);
+            formData.append('_token', document.querySelector('meta[name="csrf-token"]').content);
+            try {
+                const response = await fetch('/profile/upload-avatar', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.success && data.avatar_url) {
+                    this.profile.avatar = data.avatar_url;
+                    alert('Avatar berhasil diupload!');
+                } else {
+                    let errorMsg = data.message || 'Gagal upload avatar.';
+                    if (data.errors) {
+                        errorMsg += '\n';
+                        for (const [field, messages] of Object.entries(data.errors)) {
+                            errorMsg += `- ${field}: ${messages.join(', ')}\n`;
+                        }
+                    }
+                    alert(errorMsg);
+                }
+            } catch (e) {
+                alert('Terjadi error: ' + e.message);
             }
         },
         
         addSkill() {
             if (this.newSkill.trim() && !this.profile.skills.includes(this.newSkill.trim())) {
+                if (!Array.isArray(this.profile.skills)) {
+                    this.profile.skills = [];
+                }
                 this.profile.skills.push(this.newSkill.trim());
                 this.newSkill = '';
             }

@@ -198,7 +198,7 @@ class="sidebar-wrapper">
 
             {{-- Logout Button - Fixed at bottom --}}
             <div :class="isCollapsed ? 'p-2' : 'p-4'" class="border-t border-gray-200 bg-gray-50">
-                <form method="POST" action="{{ route('login') }}" id="logout-form" class="w-full">
+                <form method="POST" action="{{ route('logout') }}" id="logout-form" class="w-full">
                     @csrf
                     <button type="button"
                             onclick="if(confirm('Apakah Anda yakin ingin keluar?')) { document.getElementById('logout-form').submit(); }"
@@ -313,7 +313,7 @@ class="sidebar-wrapper">
 
             {{-- Mobile Logout --}}
             <div class="p-4 border-t border-gray-200 bg-gray-50">
-                <form method="POST" action="{{ route('login') }}" id="logout-form-mobile" class="w-full">
+                <form method="POST" action="{{ route('logout') }}" id="logout-form-mobile" class="w-full">
                     @csrf
                     <button type="button"
                             onclick="if(confirm('Apakah Anda yakin ingin keluar?')) { document.getElementById('logout-form-mobile').submit(); }"

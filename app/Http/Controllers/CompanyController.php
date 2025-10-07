@@ -54,7 +54,11 @@ class CompanyController extends Controller
             'user_id' => 'required|exists:presmalancer_users,id|unique:presmalancer_companies,user_id',
             'company_name' => 'required|string|max:150',
             'industry' => 'nullable|string|max:100',
-            'website' => 'nullable|url|max:255',
+            'website' => [
+                'nullable',
+                'max:255',
+                'regex:/^(https?:\/\/)?([\w\-]+\.)+[\w\-]{2,}(\/.*)?$/i'
+            ],
             'description' => 'nullable|string',
             'address' => 'nullable|string',
             'logo' => 'nullable|url|max:255',
@@ -102,7 +106,11 @@ class CompanyController extends Controller
         $validator = Validator::make($request->all(), [
             'company_name' => 'required|string|max:150',
             'industry' => 'nullable|string|max:100',
-            'website' => 'nullable|url|max:255',
+            'website' => [
+                'nullable',
+                'max:255',
+                'regex:/^(https?:\/\/)?([\w\-]+\.)+[\w\-]{2,}(\/.*)?$/i'
+            ],
             'description' => 'nullable|string',
             'address' => 'nullable|string',
             'logo' => 'nullable|url|max:255',

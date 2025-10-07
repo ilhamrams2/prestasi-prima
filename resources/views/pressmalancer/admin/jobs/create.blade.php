@@ -50,21 +50,18 @@
                         @enderror
                     </div>
 
-                    <!-- Company Name -->
+                    <!-- Company (Dropdown) -->
                     <div>
-                        <label for="company" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="company_id" class="block text-sm font-medium text-gray-700 mb-2">
                             Nama Perusahaan <span class="text-red-500">*</span>
                         </label>
-                        <input 
-                            type="text" 
-                            name="company" 
-                            id="company"
-                            value="{{ old('company') }}"
-                            required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 @error('company') border-red-500 @enderror"
-                            placeholder="Contoh: PT Aditya Birla"
-                        >
-                        @error('company')
+                        <select name="company_id" id="company_id" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 @error('company_id') border-red-500 @enderror">
+                            <option value="">Pilih Perusahaan</option>
+                            @foreach($companies as $company)
+                                <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>{{ $company->company_name }}</option>
+                            @endforeach
+                        </select>
+                        @error('company_id')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -94,38 +91,38 @@
                             Tipe Pekerjaan <span class="text-red-500">*</span>
                         </label>
                         <select 
-                            name="type" 
-                            id="type"
+                            name="job_type" 
+                            id="job_type"
                             required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 @error('type') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 @error('job_type') border-red-500 @enderror"
                         >
                             <option value="">Pilih Tipe</option>
-                            <option value="Full Time" {{ old('type') === 'Full Time' ? 'selected' : '' }}>Full Time</option>
-                            <option value="Part Time" {{ old('type') === 'Part Time' ? 'selected' : '' }}>Part Time</option>
-                            <option value="Contract" {{ old('type') === 'Contract' ? 'selected' : '' }}>Contract</option>
-                            <option value="Freelance" {{ old('type') === 'Freelance' ? 'selected' : '' }}>Freelance</option>
-                            <option value="Internship" {{ old('type') === 'Internship' ? 'selected' : '' }}>Internship</option>
+                            <option value="Full Time" {{ old('job_type') === 'Full Time' ? 'selected' : '' }}>Full Time</option>
+                            <option value="Part Time" {{ old('job_type') === 'Part Time' ? 'selected' : '' }}>Part Time</option>
+                            <option value="Contract" {{ old('job_type') === 'Contract' ? 'selected' : '' }}>Contract</option>
+                            <option value="Freelance" {{ old('job_type') === 'Freelance' ? 'selected' : '' }}>Freelance</option>
+                            <option value="Internship" {{ old('job_type') === 'Internship' ? 'selected' : '' }}>Internship</option>
                         </select>
-                        @error('type')
+                        @error('job_type')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Salary -->
                     <div>
-                        <label for="salary" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="salary_range" class="block text-sm font-medium text-gray-700 mb-2">
                             Gaji <span class="text-red-500">*</span>
                         </label>
                         <input 
                             type="text" 
-                            name="salary" 
-                            id="salary"
-                            value="{{ old('salary') }}"
+                            name="salary_range" 
+                            id="salary_range"
+                            value="{{ old('salary_range') }}"
                             required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 @error('salary') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 @error('salary_range') border-red-500 @enderror"
                             placeholder="Contoh: Rp 8-12 juta"
                         >
-                        @error('salary')
+                        @error('salary_range')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>

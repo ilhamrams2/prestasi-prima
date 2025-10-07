@@ -98,13 +98,21 @@
         </div>
 
         <!-- Actions Bar -->
-       <div class="bg-white rounded-lg shadow-sm overflow-hidden" 
-     x-data="{ search: '' }">
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden" x-data="{ search: '' }">
+            @if ($errors->any())
+                <div class="mb-4 bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
+                    <ul class="text-red-700 text-sm list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
     
     <!-- Live Search Bar -->
     <div class="p-6 border-b bg-gray-50 flex justify-between items-center flex-wrap gap-4">
         <div class="relative w-full sm:w-96">
-            <input 
+            <input
                 type="text"
                 placeholder="Cari lowongan (judul, perusahaan, lokasi)..."
                 x-model="search"
@@ -152,7 +160,7 @@
                 @foreach($jobs as $job)
                     <tr class="hover:bg-gray-50 transition-colors"
                         x-show="
-                            '{{ strtolower($job->title) }}'.includes(search.toLowerCase()) || 
+                            '{{ strtolower($job->title) }}'.includes(search.toLowerCase()) ||
                             '{{ strtolower(optional($job->company)->company_name ?? '') }}'.includes(search.toLowerCase()) ||
                             '{{ strtolower($job->location) }}'.includes(search.toLowerCase()) ||
                             '{{ strtolower($job->job_type) }}'.includes(search.toLowerCase())
@@ -184,7 +192,7 @@
 
                         <!-- Tipe -->
                         <td class="px-6 py-4">
-                            <span class="px-3 py-1 text-xs font-medium rounded-full whitespace-nowrap 
+                            <span class="px-3 py-1 text-xs font-medium rounded-full whitespace-nowrap
                                 @if($job->job_type === 'Full Time') bg-blue-100 text-blue-800
                                 @elseif($job->job_type === 'Part Time') bg-green-100 text-green-800
                                 @elseif($job->job_type === 'Contract') bg-purple-100 text-purple-800
@@ -283,8 +291,8 @@
 
   <!-- Filter & Add Button -->
                 {{-- <div class="flex gap-2 w-full lg:w-auto">
-                    <select 
-                        name="status" 
+                    <select
+                        name="status"
                         onchange="window.location.href='{{ route('admin.jobs.index') }}?status=' + this.value"
                         class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                     >

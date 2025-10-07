@@ -27,6 +27,15 @@
                 <form action="{{ route('admin.companies.update', $company) }}" method="POST">
                     @csrf
                     @method('PUT')
+                    @if ($errors->any())
+                        <div class="mb-4 bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
+                            <ul class="text-red-700 text-sm list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
                     <!-- Company Name -->
                     <div class="mb-6">
@@ -34,11 +43,11 @@
                             Nama Perusahaan <span class="text-red-500">*</span>
                         </label>
                         <input 
-                            type="text" 
+                            type="text"
                             id="company_name"
-                            name="company_name" 
+                            name="company_name"
                             value="{{ old('company_name', $company->company_name) }}"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('company_name') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('company_name') border-red-500 @enderror"
                             required
                         >
                         @error('company_name')
@@ -52,11 +61,11 @@
                             Nama Singkat <span class="text-red-500">*</span>
                         </label>
                         <input 
-                            type="text" 
+                            type="text"
                             id="name"
-                            name="name" 
-                            value="{{ old('name', $company->name) }}"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('name') border-red-500 @enderror"
+                            name="name"
+                            value="{{ old('name') !== null ? old('name') : $company->name }}"
+                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('name') border-red-500 @enderror"
                             required
                         >
                         @error('name')
@@ -73,7 +82,7 @@
                             <select 
                                 id="industry"
                                 name="industry" 
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('industry') border-red-500 @enderror"
                             >
                                 <option value="">Pilih Industri</option>
                                 <option value="Technology" {{ old('industry', $company->industry) == 'Technology' ? 'selected' : '' }}>Technology</option>
@@ -97,8 +106,8 @@
                                 type="text" 
                                 id="location"
                                 name="location" 
-                                value="{{ old('location', $company->location) }}"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                                value="{{ old('location') !== null ? old('location') : $company->location }}"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('location') border-red-500 @enderror"
                             >
                         </div>
                     </div>
@@ -112,7 +121,7 @@
                             id="description"
                             name="description" 
                             rows="4"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('description') border-red-500 @enderror"
                         >{{ old('description', $company->description) }}</textarea>
                     </div>
 
@@ -127,7 +136,7 @@
                                 id="email"
                                 name="email" 
                                 value="{{ old('email', $company->email) }}"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('email') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('email') border-red-500 @enderror"
                                 required
                             >
                             @error('email')
@@ -144,7 +153,7 @@
                                 id="phone"
                                 name="phone" 
                                 value="{{ old('phone', $company->phone) }}"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('phone') border-red-500 @enderror"
                             >
                         </div>
                     </div>
@@ -160,7 +169,7 @@
                                 id="website"
                                 name="website" 
                                 value="{{ old('website', $company->website) }}"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('website') border-red-500 @enderror"
                             >
                         </div>
 
@@ -173,7 +182,7 @@
                                 id="logo"
                                 name="logo" 
                                 value="{{ old('logo', $company->logo) }}"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('logo') border-red-500 @enderror"
                             >
                         </div>
                     </div>

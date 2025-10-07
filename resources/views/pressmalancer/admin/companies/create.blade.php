@@ -26,6 +26,16 @@
             <div class="p-8">
                 <form action="{{ route('admin.companies.store') }}" method="POST" id="companyForm">
                     @csrf
+                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                    @if ($errors->any())
+                        <div class="mb-4 bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
+                            <ul class="text-red-700 text-sm list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
                     <!-- Company Name -->
                     <div class="mb-6">
@@ -37,7 +47,7 @@
                             id="company_name"
                             name="company_name" 
                             value="{{ old('company_name') }}"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('company_name') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('company_name') border-red-500 @enderror"
                             placeholder="Contoh: PT Teknologi Indonesia"
                             required
                         >
@@ -56,7 +66,7 @@
                             id="name"
                             name="name" 
                             value="{{ old('name') }}"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('name') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('name') border-red-500 @enderror"
                             placeholder="Contoh: PT Teknologi Maju"
                             required
                         >
@@ -75,7 +85,7 @@
                             <select 
                                 id="industry"
                                 name="industry" 
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('industry') border-red-500 @enderror"
                             >
                                 <option value="">Pilih Industri</option>
                                 <option value="Technology" {{ old('industry') == 'Technology' ? 'selected' : '' }}>Technology</option>
@@ -100,7 +110,7 @@
                                 id="location"
                                 name="location" 
                                 value="{{ old('location') }}"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('location') border-red-500 @enderror"
                                 placeholder="Contoh: Jakarta"
                             >
                         </div>
@@ -115,7 +125,7 @@
                             id="description"
                             name="description" 
                             rows="4"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('description') border-red-500 @enderror"
                             placeholder="Ceritakan tentang perusahaan Anda..."
                         >{{ old('description') }}</textarea>
                     </div>
@@ -131,7 +141,7 @@
                                 id="email"
                                 name="email" 
                                 value="{{ old('email') }}"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('email') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('email') border-red-500 @enderror"
                                 placeholder="info@company.com"
                                 required
                             >
@@ -149,7 +159,7 @@
                                 id="phone"
                                 name="phone" 
                                 value="{{ old('phone') }}"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('phone') border-red-500 @enderror"
                                 placeholder="021-12345678"
                             >
                         </div>
@@ -166,7 +176,7 @@
                                 id="website"
                                 name="website" 
                                 value="{{ old('website') }}"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('website') border-red-500 @enderror"
                                 placeholder="https://company.com"
                             >
                         </div>
@@ -180,7 +190,7 @@
                                 id="logo"
                                 name="logo" 
                                 value="{{ old('logo') }}"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('logo') border-red-500 @enderror"
                                 placeholder="https://example.com/logo.png"
                             >
                         </div>
