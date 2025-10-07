@@ -2,77 +2,58 @@
 
 @section('content')
 <div class="p-6 space-y-6">
+
     {{-- ================= HEADER ================= --}}
-<div class="pb-5 border-b bg-gradient-to-r from-orange-50 to-white rounded-xl px-4 py-3 shadow-sm mb-6">
+    <div class="pb-5 border-b bg-gradient-to-r from-orange-50 to-white rounded-xl px-4 py-3 shadow-sm mb-6">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center text-sm text-gray-500 mb-3 space-x-2">
+            <a href="#" class="hover:text-orange-600 flex items-center gap-1 transition-colors">
+                <i class="ri-home-4-line text-lg"></i> Dashboard
+            </a>
+            <span>/</span>
+            <span class="text-gray-700 font-semibold flex items-center gap-1">
+                <i class="ri-team-line text-lg text-orange-500"></i> Manajemen Siswa
+            </span>
+        </nav>
 
-    <!-- Breadcrumb -->
-    <nav class="flex items-center text-sm text-gray-500 mb-3 space-x-2">
-        <a href="#" class="hover:text-orange-600 transition-colors flex items-center gap-1">
-            <i class="ri-home-4-line text-lg"></i> Dashboard
-        </a>
-        <span>/</span>
-        <span class="text-gray-700 font-semibold flex items-center gap-1">
-            <i class="ri-team-line text-lg text-orange-500"></i> Manajemen Siswa
-        </span>
-    </nav>
-
-    <!-- Judul + Aksi -->
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div class="flex items-center gap-3">
-            <div class="p-3 bg-orange-100 text-orange-600 rounded-xl">
-                <i class="ri-team-line text-3xl"></i>
-            </div>
-            <div>
-                <h1 class="text-3xl font-extrabold text-orange-600">Manajemen Siswa</h1>
-                <p class="text-gray-600 text-sm mt-1">
-                    Kelola data siswa, kelas, jurusan, dan informasi akademik
-                </p>
+        <!-- Judul -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-3 bg-orange-100 text-orange-600 rounded-xl">
+                    <i class="ri-team-line text-3xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-extrabold text-orange-600">Manajemen Siswa</h1>
+                    <p class="text-gray-600 text-sm mt-1">Kelola data siswa, kelas, jurusan, dan informasi akademik</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-    <!-- Statistik -->
+    {{-- ================= STATISTIK ================= --}}
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div class="bg-white p-4 rounded-xl shadow flex items-center space-x-3">
-            <div class="bg-orange-100 text-orange-600 p-3 rounded-lg">
-                <i class="ri-team-line text-2xl"></i>
+        @php
+            $stats = [
+                ['icon'=>'ri-team-line','bg'=>'bg-orange-100','text'=>'text-orange-600','label'=>'Total Siswa','value'=>'320'],
+                ['icon'=>'ri-men-line','bg'=>'bg-blue-100','text'=>'text-blue-600','label'=>'Laki-laki','value'=>'180'],
+                ['icon'=>'ri-women-line','bg'=>'bg-pink-100','text'=>'text-pink-600','label'=>'Perempuan','value'=>'140'],
+                ['icon'=>'ri-book-line','bg'=>'bg-green-100','text'=>'text-green-600','label'=>'Jumlah Kelas','value'=>'12']
+            ];
+        @endphp
+        @foreach ($stats as $s)
+            <div class="bg-white p-4 rounded-xl shadow flex items-center space-x-3">
+                <div class="{{ $s['bg'].' '.$s['text'] }} p-3 rounded-lg">
+                    <i class="{{ $s['icon'] }} text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">{{ $s['label'] }}</p>
+                    <h2 class="text-xl font-bold">{{ $s['value'] }}</h2>
+                </div>
             </div>
-            <div>
-                <p class="text-sm text-gray-500">Total Siswa</p>
-                <h2 class="text-xl font-bold">320</h2>
-            </div>
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow flex items-center space-x-3">
-            <div class="bg-blue-100 text-blue-600 p-3 rounded-lg">
-                <i class="ri-men-line text-2xl"></i>
-            </div>
-            <div>
-                <p class="text-sm text-gray-500">Laki-laki</p>
-                <h2 class="text-xl font-bold">180</h2>
-            </div>
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow flex items-center space-x-3">
-            <div class="bg-pink-100 text-pink-600 p-3 rounded-lg">
-                <i class="ri-women-line text-2xl"></i>
-            </div>
-            <div>
-                <p class="text-sm text-gray-500">Perempuan</p>
-                <h2 class="text-xl font-bold">140</h2>
-            </div>
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow flex items-center space-x-3">
-            <div class="bg-green-100 text-green-600 p-3 rounded-lg">
-                <i class="ri-book-line text-2xl"></i>
-            </div>
-            <div>
-                <p class="text-sm text-gray-500">Jumlah Kelas</p>
-                <h2 class="text-xl font-bold">12</h2>
-            </div>
-        </div>
+        @endforeach
     </div>
 
-    <!-- Filter -->
+    {{-- ================= FILTER ================= --}}
     <div class="bg-white p-4 rounded-lg shadow grid grid-cols-1 md:grid-cols-4 gap-4">
         <select class="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400">
             <option>Semua Jurusan</option>
@@ -84,10 +65,10 @@
             <option>Jenis Kelamin</option>
         </select>
         <input id="searchInput" type="text" placeholder="Cari nama siswa / NIS"
-            class="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400">
+               class="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400">
     </div>
 
-    <!-- Tabel Siswa -->
+    {{-- ================= TABEL SISWA ================= --}}
     <div class="bg-white rounded-lg shadow overflow-x-auto">
         <table id="siswaTable" class="w-full text-left border-collapse">
             <thead class="bg-gray-100 text-gray-700">
@@ -102,38 +83,31 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Dummy -->
+                @foreach ([
+                    ['2025001','Ahmad Fauzi','X PPLG 1','PPLG','Laki-laki','Aktif'],
+                    ['2025002','Siti Nurhaliza','XI TKJ 2','TKJ','Perempuan','Aktif']
+                ] as $s)
                 <tr class="border-t hover:bg-gray-50 transition">
-                    <td class="px-4 py-3">2025001</td>
-                    <td class="px-4 py-3 font-medium">Ahmad Fauzi</td>
-                    <td class="px-4 py-3">X PPLG 1</td>
-                    <td class="px-4 py-3"><span class="bg-gray-100 px-2 py-1 rounded text-sm">PPLG</span></td>
-                    <td class="px-4 py-3">Laki-laki</td>
-                    <td class="px-4 py-3"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-sm">Aktif</span></td>
+                    <td class="px-4 py-3">{{ $s[0] }}</td>
+                    <td class="px-4 py-3 font-medium">{{ $s[1] }}</td>
+                    <td class="px-4 py-3">{{ $s[2] }}</td>
+                    <td class="px-4 py-3"><span class="bg-gray-100 px-2 py-1 rounded text-sm">{{ $s[3] }}</span></td>
+                    <td class="px-4 py-3">{{ $s[4] }}</td>
+                    <td class="px-4 py-3">
+                        <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-sm">{{ $s[5] }}</span>
+                    </td>
                     <td class="px-4 py-3 flex space-x-3">
-                        <button title="Lihat" class="text-blue-500 hover:text-blue-700"><i class="ri-eye-line"></i></button>
-                        <button title="Edit" class="text-orange-500 hover:text-orange-700"><i class="ri-edit-line"></i></button>
-                        <button title="Hapus" onclick="confirmDelete(this)" class="text-red-500 hover:text-red-700"><i class="ri-delete-bin-line"></i></button>
+                        <button class="text-blue-500 hover:text-blue-700" title="Lihat"><i class="ri-eye-line"></i></button>
+                        <button class="text-orange-500 hover:text-orange-700" title="Edit"><i class="ri-edit-line"></i></button>
+                        <button class="text-red-500 hover:text-red-700" onclick="confirmDelete(this)" title="Hapus"><i class="ri-delete-bin-line"></i></button>
                     </td>
                 </tr>
-                <tr class="border-t hover:bg-gray-50 transition">
-                    <td class="px-4 py-3">2025002</td>
-                    <td class="px-4 py-3 font-medium">Siti Nurhaliza</td>
-                    <td class="px-4 py-3">XI TKJ 2</td>
-                    <td class="px-4 py-3"><span class="bg-gray-100 px-2 py-1 rounded text-sm">TKJ</span></td>
-                    <td class="px-4 py-3">Perempuan</td>
-                    <td class="px-4 py-3"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-sm">Aktif</span></td>
-                    <td class="px-4 py-3 flex space-x-3">
-                        <button title="Lihat" class="text-blue-500 hover:text-blue-700"><i class="ri-eye-line"></i></button>
-                        <button title="Edit" class="text-orange-500 hover:text-orange-700"><i class="ri-edit-line"></i></button>
-                        <button title="Hapus" onclick="confirmDelete(this)" class="text-red-500 hover:text-red-700"><i class="ri-delete-bin-line"></i></button>
-                    </td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
 
-    <!-- Pagination Dummy -->
+    {{-- ================= PAGINATION ================= --}}
     <div class="flex justify-between items-center mt-4">
         <p class="text-sm text-gray-500">Menampilkan 1-2 dari 320 siswa</p>
         <div class="space-x-2">
@@ -145,15 +119,14 @@
     </div>
 </div>
 
-<!-- Modal Tambah -->
-<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-    <div class="bg-white rounded-lg shadow-lg w-96 p-6 transform scale-95 opacity-0 transition" id="modalBox">
+{{-- ================= MODAL TAMBAH ================= --}}
+<div id="modal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center">
+    <div id="modalBox" class="bg-white rounded-lg shadow-lg w-96 p-6 transform scale-95 opacity-0 transition">
         <h2 class="text-lg font-bold mb-4">Tambah Siswa</h2>
         <form id="siswaForm" class="space-y-4">
-            <input type="text" name="nis" placeholder="NIS" class="w-full border rounded px-3 py-2">
-            <input type="text" name="nama" placeholder="Nama Lengkap" class="w-full border rounded px-3 py-2">
-            <input type="text" name="kelas" placeholder="Kelas" class="w-full border rounded px-3 py-2">
-            <input type="text" name="jurusan" placeholder="Jurusan" class="w-full border rounded px-3 py-2">
+            @foreach (['nis'=>'NIS','nama'=>'Nama Lengkap','kelas'=>'Kelas','jurusan'=>'Jurusan'] as $name => $ph)
+                <input type="text" name="{{ $name }}" placeholder="{{ $ph }}" class="w-full border rounded px-3 py-2">
+            @endforeach
             <select name="gender" class="w-full border rounded px-3 py-2">
                 <option value="Laki-laki">Laki-laki</option>
                 <option value="Perempuan">Perempuan</option>
@@ -171,61 +144,57 @@
     </div>
 </div>
 
+{{-- ================= SCRIPT ================= --}}
 <script>
-    const modal = document.getElementById('modal');
-    const modalBox = document.getElementById('modalBox');
-    const form = document.getElementById('siswaForm');
-    const tableBody = document.querySelector('#siswaTable tbody');
-    const searchInput = document.getElementById('searchInput');
+const modal = document.getElementById('modal'),
+      modalBox = document.getElementById('modalBox'),
+      form = document.getElementById('siswaForm'),
+      tableBody = document.querySelector('#siswaTable tbody'),
+      searchInput = document.getElementById('searchInput');
 
-    function openModal() {
-        modal.classList.remove('hidden');
-        setTimeout(() => modalBox.classList.remove('scale-95','opacity-0'), 50);
-    }
+function openModal() {
+    modal.classList.remove('hidden');
+    setTimeout(() => modalBox.classList.remove('scale-95','opacity-0'), 50);
+}
+function closeModal() {
+    modalBox.classList.add('scale-95','opacity-0');
+    setTimeout(() => { modal.classList.add('hidden'); form.reset(); }, 200);
+}
 
-    function closeModal() {
-        modalBox.classList.add('scale-95','opacity-0');
-        setTimeout(() => {
-            modal.classList.add('hidden');
-            form.reset();
-        }, 200);
-    }
-
-    // Tambah data dummy ke tabel
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const data = new FormData(form);
-        const row = document.createElement('tr');
-        row.classList.add('border-t','hover:bg-gray-50','transition');
-        row.innerHTML = `
-            <td class="px-4 py-3">${data.get('nis')}</td>
-            <td class="px-4 py-3 font-medium">${data.get('nama')}</td>
-            <td class="px-4 py-3">${data.get('kelas')}</td>
-            <td class="px-4 py-3"><span class="bg-gray-100 px-2 py-1 rounded text-sm">${data.get('jurusan')}</span></td>
-            <td class="px-4 py-3">${data.get('gender')}</td>
-            <td class="px-4 py-3"><span class="${data.get('status')==='Aktif' ? 'bg-green-100 text-green-700':'bg-red-100 text-red-700'} px-2 py-1 rounded text-sm">${data.get('status')}</span></td>
+// Tambah data ke tabel
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(form));
+    tableBody.insertAdjacentHTML('beforeend', `
+        <tr class="border-t hover:bg-gray-50 transition">
+            <td class="px-4 py-3">${d.nis}</td>
+            <td class="px-4 py-3 font-medium">${d.nama}</td>
+            <td class="px-4 py-3">${d.kelas}</td>
+            <td class="px-4 py-3"><span class="bg-gray-100 px-2 py-1 rounded text-sm">${d.jurusan}</span></td>
+            <td class="px-4 py-3">${d.gender}</td>
+            <td class="px-4 py-3">
+                <span class="${d.status === 'Aktif' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'} px-2 py-1 rounded text-sm">${d.status}</span>
+            </td>
             <td class="px-4 py-3 flex space-x-3">
-                <button title="Lihat" class="text-blue-500 hover:text-blue-700"><i class="ri-eye-line"></i></button>
-                <button title="Edit" class="text-orange-500 hover:text-orange-700"><i class="ri-edit-line"></i></button>
-                <button title="Hapus" onclick="confirmDelete(this)" class="text-red-500 hover:text-red-700"><i class="ri-delete-bin-line"></i></button>
-            </td>`;
-        tableBody.appendChild(row);
-        closeModal();
-    });
+                <button class="text-blue-500 hover:text-blue-700" title="Lihat"><i class="ri-eye-line"></i></button>
+                <button class="text-orange-500 hover:text-orange-700" title="Edit"><i class="ri-edit-line"></i></button>
+                <button class="text-red-500 hover:text-red-700" onclick="confirmDelete(this)" title="Hapus"><i class="ri-delete-bin-line"></i></button>
+            </td>
+        </tr>`);
+    closeModal();
+});
 
-    // Search real-time
-    searchInput.addEventListener('keyup', function() {
-        const value = this.value.toLowerCase();
-        document.querySelectorAll('#siswaTable tbody tr').forEach(row => {
-            row.style.display = row.innerText.toLowerCase().includes(value) ? '' : 'none';
-        });
+// Pencarian real-time
+searchInput.addEventListener('keyup', e => {
+    const val = e.target.value.toLowerCase();
+    document.querySelectorAll('#siswaTable tbody tr').forEach(r => {
+        r.style.display = r.innerText.toLowerCase().includes(val) ? '' : 'none';
     });
+});
 
-    // Konfirmasi hapus
-    function confirmDelete(btn) {
-        if(confirm("Apakah yakin ingin menghapus siswa ini?")) {
-            btn.closest('tr').remove();
-        }
-    }
+// Hapus konfirmasi
+function confirmDelete(btn) {
+    if (confirm("Apakah yakin ingin menghapus siswa ini?")) btn.closest('tr').remove();
+}
 </script>
 @endsection
