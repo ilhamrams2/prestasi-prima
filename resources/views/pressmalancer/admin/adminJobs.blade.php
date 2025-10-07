@@ -1,5 +1,6 @@
 @vite('resources/css/app.css')
 @section('title', 'Admin - Kelola Lowongan Kerja')
+@section('content')
 <div class="min-h-screen bg-gray-50">
     <!-- Admin Header -->
     <header class="bg-gradient-to-r from-orange-500 to-orange-600 shadow-lg">
