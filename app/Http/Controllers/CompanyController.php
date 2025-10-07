@@ -28,7 +28,7 @@ class CompanyController extends Controller
 
         $companies = $query->paginate(15);
 
-        return view('admin.companies.index', compact('companies'));
+        return view('pressmalancer.admin.companies.index', compact('companies'));
     }
 
     /**

@@ -9,6 +9,9 @@ use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\JoblistController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\RegisterLanceController;
+use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminJobController;
 
 Route::get('/', function () {
     return view('prestasiprima.pages.landing');
@@ -45,25 +48,27 @@ Route::get('/auth/{provider}', [SocialAuthController::class, 'redirect'])->name(
 Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('social.callback');
 
 Route::get('/forum', [PresmalanceController::class, 'forum'])->name('forum');
-
-// Public Job Listing Routes
+// Public Routes
 Route::get('/jobs', [JoblistController::class, 'index'])->name('jobs.index');
 Route::get('/jobs/{job}', [JoblistController::class, 'show'])->name('jobs.show');
-Route::get('/jobs/{job}/apply', function($id) {
-    return redirect()->route('jobs.show', $id)->with('info', 'Form lamaran akan tersedia di sini');
-})->name('jobs.apply');
+
+// Profile Routes (requires auth in production)
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/profile/upload-avatar', [ProfileController::class, 'uploadAvatar'])->name('profile.upload-avatar');
 
 // Admin Routes (Add authentication middleware in production)
 Route::prefix('admin')->name('admin.')->group(function () {
     
     // Jobs Management
-    Route::get('/jobs', [JoblistController::class, 'adminIndex'])->name('jobs.index');
-    Route::get('/jobs/create', [JoblistController::class, 'create'])->name('jobs.create');
-    Route::post('/jobs', [JoblistController::class, 'store'])->name('jobs.store');
-    Route::get('/jobs/{job}/edit', [JoblistController::class, 'edit'])->name('jobs.edit');
-    Route::put('/jobs/{job}', [JoblistController::class, 'update'])->name('jobs.update');
-    Route::delete('/jobs/{job}', [JoblistController::class, 'destroy'])->name('jobs.destroy');
-    Route::patch('/jobs/{job}/toggle-status', [JoblistController::class, 'toggleStatus'])->name('jobs.toggle-status');
+    Route::get('/jobs', [AdminJobController::class, 'index'])->name('jobs.index');
+    Route::get('/jobs/create', [AdminJobController::class, 'create'])->name('jobs.create');
+    Route::post('/jobs', [AdminJobController::class, 'store'])->name('jobs.store');
+    Route::get('/jobs/{job}/edit', [AdminJobController::class, 'edit'])->name('jobs.edit');
+    Route::put('/jobs/{job}', [AdminJobController::class, 'update'])->name('jobs.update');
+    Route::delete('/jobs/{job}', [AdminJobController::class, 'destroy'])->name('jobs.destroy');
+    Route::post('/jobs/{job}/toggle-status', [AdminJobController::class, 'toggleStatus'])->name('jobs.toggle-status');
+    Route::post('/jobs/bulk-delete', [AdminJobController::class, 'bulkDelete'])->name('jobs.bulk-delete');
     
     // Companies Management
     Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
@@ -75,4 +80,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('/companies/{company}', [CompanyController::class, 'destroy'])->name('companies.destroy');
 });
 
-Route::get('/profile', [PresmalanceController::class, 'profile'])->name('profile.show');
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);

@@ -13,55 +13,36 @@ class JoblistController extends Controller
      * Display a listing of jobs for public view.
      */
     public function index(Request $request)
-    {
-        $query = Job::with('company')->active()->latest();
+{
+    $query = Job::with('company')->active()->latest();
 
-        // Search functionality
-        if ($request->filled('search')) {
-            $query->search($request->search);
-        }
-
-        // Location filter
-        if ($request->filled('location')) {
-            $query->byLocation($request->location);
-        }
-
-        // Type filter
-        if ($request->filled('filters')) {
-            $filters = $request->filters;
-            $query->where(function($q) use ($filters) {
-                foreach ($filters as $filter) {
-                    if ($filter === 'Remote Work') {
-                        $q->orWhere('location', 'like', '%Remote%');
-                    } elseif (in_array($filter, ['Full Time', 'Part Time', 'Contract', 'Freelance', 'Internship'])) {
-                        $q->orWhere('job_type', $filter);
-                    }
-                }
-            });
-        }
-
-        $jobs = $query->paginate(10);
-
-        // Transform jobs for display
-        $jobs->getCollection()->transform(function ($job) {
-            return [
-                'id' => $job->id,
-                'title' => $job->title,
-                'company' => $job->company_name,
-                'location' => $job->location,
-                'salary' => $job->salary_range,
-                'type' => $job->job_type,
-                'time' => $job->time_ago,
-                'description' => $job->description,
-                'requirements' => $job->requirements_array,
-                'logo' => $job->company_logo,
-                'is_bookmarked' => false,
-                'deadline' => $job->deadline ? $job->deadline->format('d M Y') : null,
-            ];
-        });
-
-        return view('pressmalancer.pages.joblist', compact('jobs'));
+    if ($request->filled('search')) {
+        $query->search($request->search);
     }
+
+    if ($request->filled('location')) {
+        $query->byLocation($request->location);
+    }
+
+    if ($request->filled('filters')) {
+        $filters = $request->filters;
+        $query->where(function($q) use ($filters) {
+            foreach ($filters as $filter) {
+                if ($filter === 'Remote Work') {
+                    $q->orWhere('location', 'like', '%Remote%');
+                } elseif (in_array($filter, ['Full Time', 'Part Time', 'Contract', 'Freelance', 'Internship'])) {
+                    $q->orWhere('job_type', $filter);
+                }
+            }
+        });
+    }
+
+    $jobs = $query->paginate(10);
+
+    // Hapus transform() sepenuhnya
+    return view('pressmalancer.pages.joblist', compact('jobs'));
+}
+
 
     /**
      * Display the admin jobs management page.
@@ -92,7 +73,7 @@ class JoblistController extends Controller
         $jobs = $query->paginate(15);
         $companies = Company::orderBy('company_name')->get();
 
-       return view('pressmalancer.admin.adminJobs', compact('jobs', 'companies'));
+        return view('pressmalancer.admin.adminJobs', compact('jobs', 'companies'));
     }
 
     /**
