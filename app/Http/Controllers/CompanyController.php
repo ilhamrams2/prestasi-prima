@@ -42,7 +42,7 @@ class CompanyController extends Controller
                      ->orderBy('name')
                      ->get();
         
-        return view('admin.companies.create', compact('users'));
+        return view('pressmalancer.admin.companies.create', compact('users'));
     }
 
     /**
@@ -91,7 +91,7 @@ class CompanyController extends Controller
     public function edit(Company $company)
     {
         $company->load('user');
-        return view('admin.companies.edit', compact('company'));
+        return view('pressmalancer.admin.companies.edit', compact('company'));
     }
 
     /**

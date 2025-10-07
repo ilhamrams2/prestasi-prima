@@ -1,4 +1,3 @@
-{{-- Left Sidebar Layout Component --}}
 @php
     // Get current user (replace with actual auth)
     $user = auth()->user() ?? (object)[
