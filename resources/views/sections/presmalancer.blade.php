@@ -35,22 +35,32 @@
         </div>
 
         <!-- ===== Bagian Kanan: Gambar Siswa ===== -->
-        <div class="relative md:col-span-4 flex justify-center md:justify-end mt-6 md:mt-0">
-            <div class="relative flex items-center justify-center">
+<div class="relative md:col-span-4 flex justify-center md:justify-end mt-6 md:mt-0">
+  <div class="relative flex items-center justify-center">
 
-                <!-- === Lingkaran hanya muncul di MOBILE === -->
-                <div
-                    class="absolute w-[340px] h-[340px] sm:w-[400px] sm:h-[400px] bg-white/25 rounded-full block md:hidden">
-                </div>
-                <div
-                    class="absolute w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] bg-white/40 rounded-full block md:hidden">
-                </div>
+    <!-- === Lingkaran hanya muncul di MOBILE === -->
+    <div class="absolute w-[340px] h-[340px] sm:w-[400px] sm:h-[400px] bg-white/25 rounded-full block md:hidden"></div>
+    <div class="absolute w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] bg-white/40 rounded-full block md:hidden"></div>
 
-                <!-- Gambar Siswa -->
-                <img src="assets/images/section/presmalancer/siswa1.png" alt="Siswa"
-                    class="relative z-20 max-h-[420px] sm:max-h-[440px] object-contain drop-shadow-2xl">
-            </div>
-        </div>
+    <!-- ===== Gambar Siswa + Efek Blur ===== -->
+    <div class="relative flex items-center justify-center">
+      <img 
+        src="assets/images/section/presmalancer/siswa1.png" 
+        alt="Siswa" 
+        class="relative z-20 max-h-[420px] sm:max-h-[440px] object-contain drop-shadow-2xl select-none">
+
+      <!-- ===== Efek Blur Menyatu (Desktop & Mobile) ===== -->
+      <div class="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-t-full z-30
+                  w-[65%] h-14 sm:w-[70%] sm:h-16 
+                  md:w-[85%] md:h-24 
+                  bg-gradient-to-t from-orange-500/95 via-orange-500/70 to-transparent 
+                  backdrop-blur-[6px] md:backdrop-blur-[10px] 
+                  transition-all duration-500 ease-in-out">
+      </div>
+    </div>
+  </div>
+</div>
+
 
         <!-- ===== Lingkaran Background di Desktop ===== -->
         <div class="absolute top-1/2 left-[12%] -translate-y-1/2 
