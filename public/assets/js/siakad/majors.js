@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* =========================================================
    File: public/assets/js/siakad/majors.js
    Fungsi: CRUD Jurusan dengan penyimpanan localStorage
@@ -229,6 +230,9 @@ let data = [
     { id: 3, nama: 'Multimedia', kode: 'MM', kepala: 'Siti Aminah, S.Sn', kelas: 6, siswa: 60, status: 'aktif' },
     { id: 4, nama: 'Akuntansi', kode: 'AK', kepala: 'Dewi Lestari, S.E', kelas: 6, siswa: 50, status: 'nonaktif' }
 ];
+=======
+let data = [];
+>>>>>>> 328e99e (update siakad belom kelar)
 
 let currentPage = 1;
 const perPage = 5;
