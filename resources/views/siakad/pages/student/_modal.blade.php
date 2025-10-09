@@ -1,4 +1,5 @@
 <div id="modal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center">
+<<<<<<< HEAD
     <div id="modalBox"
         class="bg-white rounded-2xl shadow-xl w-full max-w-lg p-6 transform scale-95 opacity-0 transition-all duration-200">
         <h2 class="text-2xl font-bold text-orange-600 mb-6">Tambah Siswa</h2>
@@ -64,6 +65,26 @@
                     class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg">Batal</button>
                 <button type="submit"
                     class="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg">Simpan</button>
+=======
+    <div id="modalBox" class="bg-white rounded-lg shadow-lg w-96 p-6 transform scale-95 opacity-0 transition">
+        <h2 class="text-lg font-bold mb-4">Tambah Siswa</h2>
+        <form id="siswaForm" class="space-y-4">
+            @foreach (['nis'=>'NIS','nama'=>'Nama Lengkap','kelas'=>'Kelas','jurusan'=>'Jurusan'] as $name => $ph)
+                <input type="text" name="{{ $name }}" placeholder="{{ $ph }}" class="w-full border rounded px-3 py-2">
+            @endforeach
+            <select name="gender" class="w-full border rounded px-3 py-2">
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+            </select>
+            <select name="status" class="w-full border rounded px-3 py-2">
+                <option value="Aktif">Aktif</option>
+                <option value="Lulus">Lulus</option>
+                <option value="Alumni">Alumni</option>
+            </select>
+            <div class="flex justify-end gap-2">
+                <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-200 rounded">Batal</button>
+                <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded">Simpan</button>
+>>>>>>> 4d80e18 (update siakad)
             </div>
         </form>
     </div>

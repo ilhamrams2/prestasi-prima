@@ -51,4 +51,8 @@ function confirmDelete(btn) {
     if (confirm("Apakah yakin ingin menghapus siswa ini?")) btn.closest('tr').remove();
 }
 </script>
+<<<<<<< HEAD
 @endpush
+=======
+@endpush
+>>>>>>> 4d80e18 (update siakad)

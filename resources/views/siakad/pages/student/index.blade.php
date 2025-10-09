@@ -17,6 +17,7 @@
                 </span>
             </nav>
 <div class="p-6 space-y-6">
+<<<<<<< HEAD
 
     {{-- ================= HEADER ================= --}}
     <div class="pb-5 border-b bg-gradient-to-r from-orange-50 to-white rounded-xl px-4 py-3 shadow-sm mb-6">
@@ -452,3 +453,14 @@ function confirmDelete(btn) {
 @endsection
 
 {{-- ================= MODAL TAMBAH SISWA ================= --}}
+=======
+    @include('siakad.pages.student._header')
+    @include('siakad.pages.student._statistik')
+    @include('siakad.pages.student._filter')
+    @include('siakad.pages.student._table')
+    @include('siakad.pages.student._modal')
+</div>
+
+@include('siakad.pages.student._script')
+@endsection
+>>>>>>> 4d80e18 (update siakad)
