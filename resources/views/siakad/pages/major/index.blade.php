@@ -4,6 +4,7 @@
 @section('title', 'Manajemen Jurusan')
 
 @section('content')
+<<<<<<< HEAD
     <div class="p-6 space-y-6">
 
         {{-- ================= HEADER ================= --}}
@@ -109,4 +110,22 @@
             });
         </script>
     @endpush
+=======
+<div class="p-6 space-y-6">
+
+    {{-- ================= HEADER ================= --}}
+    @include('siakad.pages.major.majors-header')
+
+    {{-- ================= TABEL ================= --}}
+    @include('siakad.pages.major.majors-table')
+
+</div>
+
+{{-- ================= MODALS ================= --}}
+@include('siakad.pages.major.majors-modals')
+
+@push('scripts')
+<script src="{{ asset('assets/js/siakad/majors.js') }}"></script>
+@endpush
+>>>>>>> e247cf6 (update siakad)
 @endsection
