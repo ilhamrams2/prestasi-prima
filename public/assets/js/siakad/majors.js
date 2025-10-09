@@ -1,10 +1,4 @@
-// ==================== DATA SAMPLE ====================
-let data = [
-    { id: 1, nama: 'Rekayasa Perangkat Lunak', kode: 'RPL', kepala: 'Budi Santoso, S.Kom', kelas: 6, siswa: 120, status: 'aktif' },
-    { id: 2, nama: 'Teknik Komputer & Jaringan', kode: 'TKJ', kepala: 'Ahmad Fauzi, M.Pd', kelas: 6, siswa: 90, status: 'aktif' },
-    { id: 3, nama: 'Multimedia', kode: 'MM', kepala: 'Siti Aminah, S.Sn', kelas: 6, siswa: 60, status: 'aktif' },
-    { id: 4, nama: 'Akuntansi', kode: 'AK', kepala: 'Dewi Lestari, S.E', kelas: 6, siswa: 50, status: 'nonaktif' }
-];
+let data = [];
 
 let currentPage = 1;
 const perPage = 5;
