@@ -156,5 +156,8 @@
     @endif
 
     @vite('resources/js/app.js')
+
+    {{-- Scripts tambahan halaman --}}
+    @stack('scripts')
 </body>
 </html>
