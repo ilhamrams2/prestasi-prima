@@ -18,7 +18,7 @@
     @include('siakad.partials.sidebar')
 
     {{-- Content --}}
-    <main class="ml-64 p-6"> {{-- Margin-left sesuai sidebar --}}
+    <main class="ml-64 p-6">
         @yield('content')
     </main>
 
@@ -63,7 +63,8 @@
 
     {{-- App Scripts (Vite) --}}
     @vite('resources/js/app.js')
+
+    {{-- Scripts tambahan halaman --}}
+    @stack('scripts')
 </body>
 </html>
-
-{{-- done --}}
