@@ -109,10 +109,12 @@
     {{-- Sidebar --}}
     @include('siakad.partials.sidebar')
 
-    {{-- Content --}}
-    <main class="ml-64 p-6">
-        @yield('content')
-    </main>
+    {{-- Konten utama --}}
+    <div class="transition-all duration-300 lg:ml-64">
+        <main class="p-6">
+            @yield('content')
+        </main>
+    </div>
 
    <div id="alert-container"></div>
 
