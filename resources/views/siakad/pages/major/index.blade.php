@@ -127,5 +127,9 @@
 @push('scripts')
 <script src="{{ asset('assets/js/siakad/majors.js') }}"></script>
 @endpush
+<<<<<<< HEAD
 >>>>>>> e247cf6 (update siakad)
 @endsection
+=======
+@endsection
+>>>>>>> 911e62f (update frontend siakad)

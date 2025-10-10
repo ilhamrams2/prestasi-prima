@@ -52,7 +52,11 @@ function confirmDelete(btn) {
 }
 </script>
 <<<<<<< HEAD
+<<<<<<< HEAD
 @endpush
 =======
 @endpush
 >>>>>>> 4d80e18 (update siakad)
+=======
+@endpush
+>>>>>>> 911e62f (update frontend siakad)

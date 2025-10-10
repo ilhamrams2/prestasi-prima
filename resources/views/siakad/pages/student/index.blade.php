@@ -3,6 +3,7 @@
 @section('title', 'Manajemen Siswa')
 
 @section('content')
+<<<<<<< HEAD
     <div class="p-6 space-y-8">
 
         {{-- ================= HEADER ================= --}}
@@ -243,82 +244,97 @@
                 </tr>
                 @endforeach
 =======
+=======
+<div class="p-6 space-y-8">
+>>>>>>> 911e62f (update frontend siakad)
 
     {{-- ================= HEADER ================= --}}
-    <div class="pb-5 border-b bg-gradient-to-r from-orange-50 to-white rounded-xl px-4 py-3 shadow-sm mb-6">
+    <div class="bg-gradient-to-r from-orange-50 to-white border rounded-2xl shadow-sm p-5">
         <nav class="flex items-center text-sm text-gray-500 mb-3 space-x-2">
-            <a href="#" class="hover:text-orange-600 transition">Dashboard</a>
+            <a href="#" class="hover:text-orange-600 flex items-center gap-1 transition">
+                <i class="fa-solid fa-home"></i> Dashboard
+            </a>
             <span>/</span>
-            <span class="font-semibold text-gray-700">Manajemen Siswa</span>
+            <span class="font-semibold text-gray-700 flex items-center gap-1">
+                <i class="fa-solid fa-user-graduate text-orange-500"></i> Manajemen Siswa
+            </span>
         </nav>
 
-        <h1 class="text-2xl md:text-3xl font-bold text-orange-600 mb-1 flex items-center gap-2">
-            <span class="bg-orange-100 p-2 rounded-xl">
-                <i class="fa-solid fa-user-graduate text-orange-500 text-lg"></i>
-            </span>
-            Manajemen Siswa
-        </h1>
-        <p class="text-gray-500">Kelola data siswa, kelas, dan status aktif siswa</p>
-    </div>
-
-    {{-- ================= STATISTIK ================= --}}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="flex items-center gap-4 bg-white rounded-xl p-5 shadow-sm border">
-            <div class="bg-orange-100 p-3 rounded-xl text-orange-500 text-xl">
-                <i class="fa-solid fa-users"></i>
+        <div class="flex items-center gap-3">
+            <div class="p-3 bg-orange-100 text-orange-600 rounded-xl">
+                <i class="fa-solid fa-user-graduate text-2xl"></i>
             </div>
             <div>
-                <p class="text-sm text-gray-500">Total Siswa</p>
-                <h3 class="text-xl font-bold text-gray-800">100</h3>
-            </div>
-        </div>
-
-        <div class="flex items-center gap-4 bg-white rounded-xl p-5 shadow-sm border">
-            <div class="bg-blue-100 p-3 rounded-xl text-blue-500 text-xl">
-                <i class="fa-solid fa-mars"></i>
-            </div>
-            <div>
-                <p class="text-sm text-gray-500">Siswa Laki-laki</p>
-                <h3 class="text-xl font-bold text-gray-800">60</h3>
-            </div>
-        </div>
-
-        <div class="flex items-center gap-4 bg-white rounded-xl p-5 shadow-sm border">
-            <div class="bg-pink-100 p-3 rounded-xl text-pink-500 text-xl">
-                <i class="fa-solid fa-venus"></i>
-            </div>
-            <div>
-                <p class="text-sm text-gray-500">Siswa Perempuan</p>
-                <h3 class="text-xl font-bold text-gray-800">40</h3>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-orange-600">Manajemen Siswa</h1>
+                <p class="text-gray-600 text-sm mt-1">
+                    Kelola data siswa, kelas, jurusan, dan status aktif siswa
+                </p>
             </div>
         </div>
     </div>
 
-    {{-- ================= TOMBOL & PENCARIAN ================= --}}
-    <div class="flex flex-col md:flex-row justify-between items-center mt-6 gap-3">
+    {{-- ================= STATISTIK (4 ITEM) ================= --}}
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mt-5">
+        @php
+            $stats = [
+                ['Total Siswa', '520', 'fa-users', 'from-orange-500 to-orange-400'],
+                ['Siswa Aktif', '495', 'fa-user-check', 'from-green-500 to-green-400'],
+                ['Siswa Baru', '120', 'fa-user-plus', 'from-blue-500 to-blue-400'],
+                ['Rata-rata Kehadiran', '92%', 'fa-calendar-check', 'from-purple-500 to-purple-400'],
+            ];
+        @endphp
+
+        @foreach ($stats as [$label, $value, $icon, $gradient])
+            <div
+                class="bg-gradient-to-r {{ $gradient }} text-white rounded-2xl p-5 shadow-sm flex items-center justify-between hover:scale-[1.02] transition">
+                <div>
+                    <p class="text-sm opacity-90">{{ $label }}</p>
+                    <h3 class="text-2xl font-bold mt-1">{{ $value }}</h3>
+                </div>
+                <i class="fa-solid {{ $icon }} text-3xl opacity-80"></i>
+            </div>
+        @endforeach
+    </div>
+
+    {{-- ================= TOMBOL & FILTER ================= --}}
+    <div class="flex items-center justify-between flex-wrap gap-4 mt-6">
+        {{-- Tombol Tambah --}}
         <button id="btnTambahSiswa"
-            class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition">
-            <i class="fa-solid fa-plus"></i>
-            Tambah Siswa
+            class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-lg shadow transition">
+            + Tambah Siswa
         </button>
 
-        <div class="flex gap-2 items-center">
-            <div class="relative">
-                <input type="text" placeholder="Cari nama / NIS / kelas"
-                    class="border rounded-lg pl-10 pr-4 py-2 w-64 focus:ring-2 focus:ring-orange-300 focus:border-orange-400 text-sm text-gray-700" />
-                <i class="fa-solid fa-search absolute left-3 top-2.5 text-gray-400"></i>
+        {{-- Kotak Filter --}}
+        <div class="w-full md:w-2/3">
+            <div class="bg-white p-4 rounded-lg shadow grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {{-- Search --}}
+                <div class="relative">
+                    <i class="fa-solid fa-search absolute left-3 top-2.5 text-gray-400"></i>
+                    <input type="text" placeholder="Cari nama / NIS / kelas"
+                        class="w-full border rounded-lg pl-10 pr-3 py-2 bg-gray-50 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 text-sm text-gray-700" />
+                </div>
+
+                {{-- Filter Kelas --}}
+                <select
+                    class="border rounded-lg px-3 py-2 bg-gray-50 text-sm text-gray-700 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
+                    <option>Semua Kelas</option>
+                    <option>X RPL 1</option>
+                    <option>XI RPL 2</option>
+                </select>
+
+                {{-- Filter Status --}}
+                <select
+                    class="border rounded-lg px-3 py-2 bg-gray-50 text-sm text-gray-700 focus:ring-2 focus:ring-orange-400 focus:border-orange-400">
+                    <option>Semua Status</option>
+                    <option>Aktif</option>
+                    <option>Nonaktif</option>
+                </select>
             </div>
-            <select
-                class="border rounded-lg px-3 py-2 text-sm text-gray-600 focus:ring-2 focus:ring-orange-300 focus:border-orange-400">
-                <option>Semua Status</option>
-                <option>Aktif</option>
-                <option>Nonaktif</option>
-            </select>
         </div>
     </div>
 
     {{-- ================= TABEL DATA ================= --}}
-    <div class="bg-white rounded-xl shadow-sm border mt-4 overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-sm border mt-5 overflow-hidden">
         <table class="w-full text-sm text-left text-gray-600">
             <thead class="bg-gray-50 text-gray-700 font-semibold">
                 <tr>
@@ -329,9 +345,7 @@
                     <th class="px-6 py-3 text-center">Aksi</th>
                 </tr>
             </thead>
-
-            {{-- ==== GANTI BAGIAN INI SAAT ADA DATA ==== --}}
-            <tbody class="text-gray-700">
+            <tbody>
                 {{-- Jika tidak ada data --}}
                 <tr>
                     <td colspan="5" class="text-center py-16">
@@ -339,7 +353,9 @@
                             <i class="fa-regular fa-folder-open text-4xl mb-3"></i>
                             <p class="font-semibold mb-1">Belum ada data siswa</p>
                             <p class="text-sm text-gray-400">
-                                Klik tombol <span class="text-orange-500 font-semibold">Tambah Siswa</span> untuk menambahkan data baru.
+                                Klik tombol
+                                <span class="text-orange-500 font-semibold">Tambah Siswa</span>
+                                untuk menambahkan data baru.
                             </p>
                         </div>
                     </td>
@@ -349,6 +365,7 @@
         </table>
     </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         {{-- ================= PAGINATION ================= --}}
         <div class="flex justify-end items-center mt-3 space-x-1">
@@ -570,6 +587,14 @@ function confirmDelete(btn) {
         <button class="px-3 py-1 border rounded-l-lg text-gray-500 text-sm hover:bg-gray-50">&laquo; Prev</button>
         <button class="px-3 py-1 bg-orange-500 text-white text-sm">1</button>
         <button class="px-3 py-1 border rounded-r-lg text-gray-500 text-sm hover:bg-gray-50">Next &raquo;</button>
+=======
+    {{-- ================= PAGINATION ================= --}}
+    <div class="flex justify-end items-center mt-3 space-x-1">
+        <button class="px-3 py-1 border rounded-lg text-gray-500 text-sm hover:bg-gray-50">&laquo; Prev</button>
+        <button class="px-3 py-1 bg-orange-500 text-white text-sm rounded-lg">1</button>
+        <button class="px-3 py-1 border rounded-lg text-gray-500 text-sm hover:bg-gray-50">2</button>
+        <button class="px-3 py-1 border rounded-lg text-gray-500 text-sm hover:bg-gray-50">Next &raquo;</button>
+>>>>>>> 911e62f (update frontend siakad)
     </div>
 >>>>>>> 26ae217 (update siakad student)
 </div>
@@ -577,7 +602,7 @@ function confirmDelete(btn) {
 {{-- ================= MODAL TAMBAH / EDIT SISWA ================= --}}
 <div id="modalSiswa" class="fixed inset-0 bg-black/50 hidden z-40 flex items-center justify-center">
     <div id="modalBox"
-        class="bg-white w-96 rounded-2xl shadow-2xl p-6 transform translate-y-6 opacity-0 transition">
+        class="bg-white w-96 rounded-2xl shadow-2xl p-6 transform scale-95 opacity-0 transition">
         <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
             <i class="fa-solid fa-user-plus text-orange-500"></i>
             Tambah Siswa
@@ -586,15 +611,18 @@ function confirmDelete(btn) {
         <form class="space-y-3">
             <div>
                 <label class="text-sm text-gray-600">Nama Siswa</label>
-                <input type="text" class="w-full border rounded-lg px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-orange-300 focus:border-orange-400">
+                <input type="text"
+                    class="w-full border rounded-xl px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-orange-300 focus:border-orange-400">
             </div>
             <div>
                 <label class="text-sm text-gray-600">NIS</label>
-                <input type="text" class="w-full border rounded-lg px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-orange-300 focus:border-orange-400">
+                <input type="text"
+                    class="w-full border rounded-xl px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-orange-300 focus:border-orange-400">
             </div>
             <div>
                 <label class="text-sm text-gray-600">Kelas</label>
-                <select class="w-full border rounded-lg px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-orange-300 focus:border-orange-400">
+                <select
+                    class="w-full border rounded-xl px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-orange-300 focus:border-orange-400">
                     <option>Pilih Kelas</option>
                     <option>X RPL 1</option>
                     <option>XI RPL 2</option>
@@ -602,17 +630,20 @@ function confirmDelete(btn) {
             </div>
             <div>
                 <label class="text-sm text-gray-600">Status</label>
-                <select class="w-full border rounded-lg px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-orange-300 focus:border-orange-400">
+                <select
+                    class="w-full border rounded-xl px-3 py-2 mt-1 text-sm focus:ring-2 focus:ring-orange-300 focus:border-orange-400">
                     <option>Aktif</option>
                     <option>Nonaktif</option>
                 </select>
             </div>
 
             <div class="flex justify-end gap-2 mt-5">
-                <button type="button" id="btnBatal" class="px-3 py-2 border rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                <button type="button" id="btnBatal"
+                    class="px-3 py-2 border rounded-xl text-gray-600 hover:bg-gray-100 transition">
                     Batal
                 </button>
-                <button type="submit" class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition">
+                <button type="submit"
+                    class="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-xl transition">
                     Simpan
                 </button>
             </div>
@@ -630,18 +661,21 @@ function confirmDelete(btn) {
     btnTambah.addEventListener('click', () => {
         modal.classList.remove('hidden');
         setTimeout(() => {
-            modalBox.classList.remove('translate-y-6', 'opacity-0');
+            modalBox.classList.remove('scale-95', 'opacity-0');
+            modalBox.classList.add('scale-100', 'opacity-100');
         }, 50);
     });
 
     btnBatal.addEventListener('click', () => {
-        modalBox.classList.add('translate-y-6', 'opacity-0');
+        modalBox.classList.remove('scale-100', 'opacity-100');
+        modalBox.classList.add('scale-95', 'opacity-0');
         setTimeout(() => modal.classList.add('hidden'), 200);
     });
 
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
-            modalBox.classList.add('translate-y-6', 'opacity-0');
+            modalBox.classList.remove('scale-100', 'opacity-100');
+            modalBox.classList.add('scale-95', 'opacity-0');
             setTimeout(() => modal.classList.add('hidden'), 200);
         }
     });

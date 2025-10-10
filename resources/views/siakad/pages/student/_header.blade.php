@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {{-- ================= HEADER ================= --}}
 =======
 >>>>>>> 4d80e18 (update siakad)
+=======
+{{-- ================= HEADER ================= --}}
+>>>>>>> 911e62f (update frontend siakad)
 <div class="pb-5 border-b bg-gradient-to-r from-orange-50 to-white rounded-xl px-4 py-3 shadow-sm mb-6">
     <nav class="flex items-center text-sm text-gray-500 mb-3 space-x-2">
         <a href="#" class="hover:text-orange-600 flex items-center gap-1 transition-colors">
@@ -26,6 +30,9 @@
     </div>
 </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 911e62f (update frontend siakad)
 
 
 {{-- ================= STATISTIK ================= --}}
@@ -93,5 +100,8 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 =======
 >>>>>>> 4d80e18 (update siakad)
+=======
+>>>>>>> 911e62f (update frontend siakad)
