@@ -27,8 +27,47 @@
         </div>
     </div>
 
+    {{-- ================= STATISTIK ================= --}}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {{-- Total Kelas --}}
+        <div class="bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-2xl p-5 shadow-md flex items-center justify-between transform hover:scale-[1.02] transition duration-300">
+            <div>
+                <p class="text-sm opacity-80">Total Kelas</p>
+                <h3 class="text-3xl font-bold mt-1">24</h3>
+            </div>
+            <i class="ri-community-line text-4xl opacity-70"></i>
+        </div>
+
+        {{-- Total Jurusan --}}
+        <div class="bg-gradient-to-r from-blue-500 to-blue-400 text-white rounded-2xl p-5 shadow-md flex items-center justify-between transform hover:scale-[1.02] transition duration-300">
+            <div>
+                <p class="text-sm opacity-80">Total Jurusan</p>
+                <h3 class="text-3xl font-bold mt-1">6</h3>
+            </div>
+            <i class="ri-bank-line text-4xl opacity-70"></i>
+        </div>
+
+        {{-- Wali Kelas Aktif --}}
+        <div class="bg-gradient-to-r from-green-500 to-green-400 text-white rounded-2xl p-5 shadow-md flex items-center justify-between transform hover:scale-[1.02] transition duration-300">
+            <div>
+                <p class="text-sm opacity-80">Wali Kelas Aktif</p>
+                <h3 class="text-3xl font-bold mt-1">18</h3>
+            </div>
+            <i class="ri-user-star-line text-4xl opacity-70"></i>
+        </div>
+
+        {{-- Total Siswa --}}
+        <div class="bg-gradient-to-r from-purple-500 to-purple-400 text-white rounded-2xl p-5 shadow-md flex items-center justify-between transform hover:scale-[1.02] transition duration-300">
+            <div>
+                <p class="text-sm opacity-80">Total Siswa</p>
+                <h3 class="text-3xl font-bold mt-1">520</h3>
+            </div>
+            <i class="ri-group-line text-4xl opacity-70"></i>
+        </div>
+    </div>
+
     {{-- ================= CTA + FILTER ================= --}}
-    <div class="flex items-center justify-between flex-wrap gap-4">
+    <div class="flex items-center justify-between flex-wrap gap-4 mt-8">
         <button onclick="openModalTambah()" class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-lg shadow transition">
             + Tambah Kelas
         </button>

@@ -1,12 +1,17 @@
 {{-- resources/views/siakad/pages/teacher/teacher-table.blade.php --}}
 <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-    <button onclick="openModal()" 
+    <button onclick="openModal()"
         class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-lg shadow transition">
         + Tambah Guru
     </button>
 
     <div class="w-full md:w-2/3">
         <div class="bg-white p-4 rounded-lg shadow grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="relative">
+                <i class="ri-search-line absolute left-3 top-2.5 text-gray-400"></i>
+                <input id="searchInput" type="text" placeholder="Cari nama guru / mata pelajaran / jabatan"
+                    class="w-full border rounded-lg pl-10 pr-3 py-2 bg-gray-50 focus:ring-2 focus:ring-orange-400">
+            </div>
             <select class="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400">
                 <option>Jabatan</option>
             </select>
@@ -16,11 +21,6 @@
             <select class="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400">
                 <option>Mata Pelajaran</option>
             </select>
-            <div class="relative">
-                <i class="ri-search-line absolute left-3 top-2.5 text-gray-400"></i>
-                <input id="searchInput" type="text" placeholder="Cari nama guru / mata pelajaran / jabatan"
-                       class="w-full border rounded-lg pl-10 pr-3 py-2 bg-gray-50 focus:ring-2 focus:ring-orange-400">
-            </div>
         </div>
     </div>
 </div>
@@ -46,22 +46,23 @@
                     <td class="px-4 py-3">{{ $teacher->subject }}</td>
                     <td class="px-4 py-3">{{ $teacher->position }}</td>
                     <td class="px-4 py-3">
-                        <span class="px-2 py-1 rounded text-sm {{ $teacher->status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                        <span
+                            class="px-2 py-1 rounded text-sm {{ $teacher->status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
                             {{ $teacher->status === 'Active' ? 'Aktif' : 'Tidak Aktif' }}
                         </span>
                     </td>
                     <td class="px-4 py-3">{{ $teacher->email ?? $teacher->phone ?? '-' }}</td>
                     <td class="px-4 py-3 flex space-x-3">
                         <button type="button" onclick="showTeacherDetail({{ $teacher->id }})"
-                                class="text-blue-500 hover:text-blue-700" title="Detail">
+                            class="text-blue-500 hover:text-blue-700" title="Detail">
                             <i class="ri-eye-line"></i>
                         </button>
                         <button type="button" onclick="openEditModal({{ $teacher->id }})"
-                                class="text-orange-500 hover:text-orange-700" title="Edit">
+                            class="text-orange-500 hover:text-orange-700" title="Edit">
                             <i class="ri-edit-line"></i>
                         </button>
                         <form action="{{ route('siakad.teacher.destroy', $teacher->id) }}" method="POST"
-                              onsubmit="return confirm('Apakah Anda yakin ingin menghapus guru ini?')">
+                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus guru ini?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-red-500 hover:text-red-700" title="Hapus">

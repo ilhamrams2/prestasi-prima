@@ -44,50 +44,57 @@
   </div>
 
 
-  {{-- SUMMARY CARDS --}}
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    <div class="rounded-xl p-4 bg-gradient-to-r from-orange-400 to-orange-300 text-white shadow">
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-sm opacity-90">Rata-rata Nilai</p>
-          <div class="text-2xl font-bold mt-1">89.5</div>
-        </div>
-        <div class="bg-white/20 p-3 rounded-lg">
-          <i class="ri-trophy-line text-2xl"></i>
-        </div>
-      </div>
-    </div>
+  {{-- ================= SUMMARY NILAI & RAPOR ================= --}}
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
-    <div class="rounded-xl p-4 bg-white shadow flex items-center justify-between">
+  <!-- Rata-rata Nilai -->
+  <div class="rounded-xl p-5 bg-gradient-to-r from-orange-400 to-orange-300 text-white shadow hover:shadow-lg hover:scale-105 transition">
+    <div class="flex items-center justify-between">
       <div>
-        <p class="text-sm text-gray-500">Mata Pelajaran</p>
-        <div class="text-xl font-semibold mt-1 text-slate-800">13</div>
+        <p class="text-sm opacity-90">Rata-rata Nilai</p>
+        <div class="text-3xl font-extrabold mt-1">89.5</div>
       </div>
-      <div class="bg-indigo-50 p-3 rounded-lg">
-        <i class="ri-book-open-line text-indigo-600 text-2xl"></i>
-      </div>
-    </div>
-
-    <div class="rounded-xl p-4 bg-white shadow flex items-center justify-between">
-      <div>
-        <p class="text-sm text-gray-500">Ketuntasan</p>
-        <div class="text-xl font-semibold mt-1 text-slate-800">85%</div>
-      </div>
-      <div class="bg-yellow-50 p-3 rounded-lg">
-        <i class="ri-award-line text-yellow-600 text-2xl"></i>
-      </div>
-    </div>
-
-    <div class="rounded-xl p-4 bg-white shadow flex items-center justify-between">
-      <div>
-        <p class="text-sm text-gray-500">Peningkatan</p>
-        <div class="text-xl font-semibold mt-1 text-slate-800">+5.2</div>
-      </div>
-      <div class="bg-amber-50 p-3 rounded-lg">
-        <i class="ri-trending-up-line text-amber-600 text-2xl"></i>
+      <div class="bg-white/20 p-4 rounded-lg">
+        <i class="ri-trophy-line text-3xl"></i>
       </div>
     </div>
   </div>
+
+  <!-- Jumlah Mata Pelajaran -->
+  <div class="rounded-xl p-5 bg-white shadow hover:shadow-md hover:scale-105 transition flex items-center justify-between">
+    <div>
+      <p class="text-sm text-gray-500">Mata Pelajaran</p>
+      <div class="text-2xl font-bold mt-1 text-slate-800">13</div>
+    </div>
+    <div class="bg-indigo-50 p-4 rounded-lg">
+      <i class="ri-book-open-line text-indigo-600 text-3xl"></i>
+    </div>
+  </div>
+
+  <!-- Ketuntasan -->
+  <div class="rounded-xl p-5 bg-white shadow hover:shadow-md hover:scale-105 transition flex items-center justify-between">
+    <div>
+      <p class="text-sm text-gray-500">Ketuntasan</p>
+      <div class="text-2xl font-bold mt-1 text-slate-800">85%</div>
+    </div>
+    <div class="bg-yellow-50 p-4 rounded-lg">
+      <i class="ri-award-line text-yellow-600 text-3xl"></i>
+    </div>
+  </div>
+
+  <!-- Peningkatan -->
+  <div class="rounded-xl p-5 bg-white shadow hover:shadow-md hover:scale-105 transition flex items-center justify-between">
+    <div>
+      <p class="text-sm text-gray-500">Peningkatan</p>
+      <div class="text-2xl font-bold mt-1 text-slate-800">+5.2</div>
+    </div>
+    <div class="bg-emerald-50 p-4 rounded-lg">
+      <i class="ri-trending-up-line text-emerald-600 text-3xl"></i>
+    </div>
+  </div>
+
+</div>
+
 
   {{-- TABS --}}
   <div class="bg-white rounded-xl p-4 shadow">
