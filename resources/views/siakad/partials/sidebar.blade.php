@@ -197,6 +197,7 @@
         </div>
     </nav>
 <<<<<<< HEAD
+<<<<<<< HEAD
 </aside>
 
 <!-- Overlay -->
@@ -222,3 +223,6 @@
 =======
 </aside>
 >>>>>>> 62bbe53 (update pengumuman)
+=======
+</aside>
+>>>>>>> 364ae28 (update sidebar)
