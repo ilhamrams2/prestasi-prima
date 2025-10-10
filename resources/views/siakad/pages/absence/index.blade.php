@@ -31,51 +31,53 @@
     </div>
 
     {{-- ================= STATISTIK ================= --}}
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-        <!-- Hadir -->
-        <div class="flex items-center bg-green-50 rounded-xl p-5 shadow hover:shadow-md transition">
-            <div class="p-3 bg-green-100 text-green-600 rounded-full mr-3">
-                <i class="ri-checkbox-circle-line text-2xl"></i>
-            </div>
-            <div>
-                <h3 class="text-2xl font-bold text-green-700">156</h3>
-                <p class="text-sm text-green-600 font-medium">Hadir</p>
-            </div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+    
+    <!-- Hadir -->
+    <div class="flex items-center justify-between bg-gradient-to-r from-green-400 to-green-500 text-white rounded-xl p-5 shadow hover:scale-105 hover:shadow-lg transition">
+        <div>
+            <h3 class="text-3xl font-extrabold">156</h3>
+            <p class="text-sm opacity-90">Hadir</p>
         </div>
-
-        <!-- Tidak Hadir -->
-        <div class="flex items-center bg-red-50 rounded-xl p-5 shadow hover:shadow-md transition">
-            <div class="p-3 bg-red-100 text-red-600 rounded-full mr-3">
-                <i class="ri-close-circle-line text-2xl"></i>
-            </div>
-            <div>
-                <h3 class="text-2xl font-bold text-red-700">17</h3>
-                <p class="text-sm text-red-600 font-medium">Tidak Hadir</p>
-            </div>
-        </div>
-
-        <!-- Terlambat -->
-        <div class="flex items-center bg-yellow-50 rounded-xl p-5 shadow hover:shadow-md transition">
-            <div class="p-3 bg-yellow-100 text-yellow-600 rounded-full mr-3">
-                <i class="ri-time-line text-2xl"></i>
-            </div>
-            <div>
-                <h3 class="text-2xl font-bold text-yellow-700">20</h3>
-                <p class="text-sm text-yellow-600 font-medium">Terlambat</p>
-            </div>
-        </div>
-
-        <!-- Izin -->
-        <div class="flex items-center bg-blue-50 rounded-xl p-5 shadow hover:shadow-md transition">
-            <div class="p-3 bg-blue-100 text-blue-600 rounded-full mr-3">
-                <i class="ri-information-line text-2xl"></i>
-            </div>
-            <div>
-                <h3 class="text-2xl font-bold text-blue-700">8</h3>
-                <p class="text-sm text-blue-600 font-medium">Izin</p>
-            </div>
+        <div class="p-4 bg-white/20 rounded-lg">
+            <i class="ri-checkbox-circle-line text-3xl"></i>
         </div>
     </div>
+
+    <!-- Tidak Hadir -->
+    <div class="flex items-center justify-between bg-gradient-to-r from-red-400 to-red-500 text-white rounded-xl p-5 shadow hover:scale-105 hover:shadow-lg transition">
+        <div>
+            <h3 class="text-3xl font-extrabold">17</h3>
+            <p class="text-sm opacity-90">Tidak Hadir</p>
+        </div>
+        <div class="p-4 bg-white/20 rounded-lg">
+            <i class="ri-close-circle-line text-3xl"></i>
+        </div>
+    </div>
+
+    <!-- Terlambat -->
+    <div class="flex items-center justify-between bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-xl p-5 shadow hover:scale-105 hover:shadow-lg transition">
+        <div>
+            <h3 class="text-3xl font-extrabold">20</h3>
+            <p class="text-sm opacity-90">Terlambat</p>
+        </div>
+        <div class="p-4 bg-white/20 rounded-lg">
+            <i class="ri-time-line text-3xl"></i>
+        </div>
+    </div>
+
+    <!-- Izin -->
+    <div class="flex items-center justify-between bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-xl p-5 shadow hover:scale-105 hover:shadow-lg transition">
+        <div>
+            <h3 class="text-3xl font-extrabold">8</h3>
+            <p class="text-sm opacity-90">Izin</p>
+        </div>
+        <div class="p-4 bg-white/20 rounded-lg">
+            <i class="ri-information-line text-3xl"></i>
+        </div>
+    </div>
+</div>
+
 
     {{-- ================= TAB MENU ================= --}}
     <div class="flex border-b border-gray-200 mb-6">
