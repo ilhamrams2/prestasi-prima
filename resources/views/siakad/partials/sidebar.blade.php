@@ -6,11 +6,20 @@
   </button>
   <h1 class="font-semibold text-gray-800 text-lg">SIAKAD</h1>
 </header>
+<<<<<<< HEAD
 
 <!-- Sidebar -->
 <aside id="sidebar"
     class="fixed top-0 left-0 h-full w-64 bg-white border-r shadow-lg z-50 flex flex-col transition-transform duration-300">
 
+=======
+
+<!-- Sidebar -->
+<aside id="sidebar"
+  class="fixed top-0 left-0 h-full w-64 bg-white border-r shadow-lg z-50 flex flex-col
+  transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+
+>>>>>>> 278baf2 (update sidebar, dashboard, dan index siakad)
   <!-- ================= LOGO ================= -->
   <div class="h-20 flex items-center border-b px-5">
     <div class="flex items-center space-x-3">
@@ -34,6 +43,9 @@
     </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 278baf2 (update sidebar, dashboard, dan index siakad)
     <!-- User Details -->
     <div class="flex flex-col w-full min-w-0">
       <p class="font-semibold text-sm truncate" title="Ilham Ramadan">
@@ -47,6 +59,7 @@
           admin
         </span>
       </div>
+<<<<<<< HEAD
 =======
     <!-- ================= USER INFO ================= -->
     <div class="flex items-center space-x-3 p-4 border-b">
@@ -70,10 +83,13 @@
             </div>
         </div>
 >>>>>>> c4ec90b (update sidebar)
+=======
+>>>>>>> 278baf2 (update sidebar, dashboard, dan index siakad)
     </div>
   </div>
 
   <!-- ================= MENU ================= -->
+<<<<<<< HEAD
 <nav class="flex-1 overflow-y-auto p-3 text-sm">
 
         <!-- UTAMA -->
@@ -198,6 +214,90 @@
     </nav>
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+  <nav class="flex-1 overflow-y-auto p-3 text-sm">
+
+    <!-- UTAMA -->
+    <p class="text-gray-400 uppercase text-xs font-semibold mb-2 mt-3">Utama</p>
+    <a href="{{ route('siakad.dashboard') }}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
+       {{ request()->routeIs('siakad.dashboard') ? 'bg-orange-100 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }}">
+        <i class="ri-dashboard-line text-lg"></i>
+        <span>Dashboard</span>
+    </a>
+
+    <!-- AKADEMIK -->
+    <p class="text-gray-400 uppercase text-xs font-semibold mb-2 mt-4">Akademik</p>
+
+    <a href="{{ route('majors.index') ?? '#' }}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
+       {{ request()->routeIs('majors.*') ? 'bg-orange-100 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }}">
+        <i class="ri-book-2-line text-lg"></i>
+        <span>Jurusan</span>
+    </a>
+
+    <a href="{{ route('classes.index') ?? '#' }}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
+       {{ request()->routeIs('classes.*') ? 'bg-orange-100 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }}">
+        <i class="ri-stack-line text-lg"></i>
+        <span>Kelas</span>
+    </a>
+
+    <a href="{{ route('students.index') ?? '#' }}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
+       {{ request()->routeIs('students.*') ? 'bg-orange-100 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }}">
+        <i class="ri-user-3-line text-lg"></i>
+        <span>Siswa</span>
+    </a>
+
+    <a href="{{ route('teacher.index') ?? '#' }}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
+       {{ request()->routeIs('teacher.*') ? 'bg-orange-100 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }}">
+        <i class="ri-presentation-line text-lg"></i>
+        <span>Guru</span>
+    </a>
+
+    <a href="{{ route('subjects.index') ?? '#' }}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
+       {{ request()->routeIs('subjects.*') ? 'bg-orange-100 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }}">
+        <i class="ri-book-open-line text-lg"></i>
+        <span>Mata Pelajaran</span>
+    </a>
+
+    <a href="{{ route('absence.index') ?? '#' }}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
+       {{ request()->routeIs('absence.*') ? 'bg-orange-100 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }}">
+        <i class="ri-calendar-check-line text-lg"></i>
+        <span>Absensi</span>
+    </a>
+
+    <a href="{{ route('scores.index') ?? '#' }}" 
+       class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
+       {{ request()->routeIs('scores.*') ? 'bg-orange-100 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }}">
+        <i class="ri-bar-chart-2-line text-lg"></i>
+        <span>Nilai & Rapor</span>
+    </a>
+
+    <!-- KEGIATAN -->
+    <p class="text-gray-400 uppercase text-xs font-semibold mb-2 mt-4">Kegiatan</p>
+    <a href="{{ route('announcements.index') ?? '#' }}"
+       class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
+       {{ request()->routeIs('announcements.*') ? 'bg-orange-100 text-orange-600' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }}">
+        <i class="ri-megaphone-line text-lg"></i>
+        <span>Pengumuman</span>
+    </a>
+
+    <!-- LOGOUT -->
+    <div class="border-t mt-4 pt-3">
+      <a href="{{ route('siakad.logout') ?? '#' }}" 
+         class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
+         text-red-600 hover:bg-red-50">
+          <i class="ri-logout-box-r-line text-lg"></i>
+          <span>Logout</span>
+      </a>
+    </div>
+  </nav>
+>>>>>>> 278baf2 (update sidebar, dashboard, dan index siakad)
 </aside>
 
 <!-- Overlay -->
@@ -220,9 +320,12 @@
     overlay.classList.add('hidden');
   });
 </script>
+<<<<<<< HEAD
 =======
 </aside>
 >>>>>>> 62bbe53 (update pengumuman)
 =======
 </aside>
 >>>>>>> 364ae28 (update sidebar)
+=======
+>>>>>>> 278baf2 (update sidebar, dashboard, dan index siakad)
