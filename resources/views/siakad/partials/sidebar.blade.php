@@ -196,6 +196,7 @@
             </a>
         </div>
     </nav>
+<<<<<<< HEAD
 </aside>
 
 <!-- Overlay -->
@@ -218,3 +219,6 @@
     overlay.classList.add('hidden');
   });
 </script>
+=======
+</aside>
+>>>>>>> 62bbe53 (update pengumuman)
