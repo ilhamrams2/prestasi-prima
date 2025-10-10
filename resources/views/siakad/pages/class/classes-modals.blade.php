@@ -1,9 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ae60cab (update siakad kelas (belum final))
 <div id="modalAdd" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
     <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl mx-4 p-6 relative">
         <button id="btnCloseAdd" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
             <i class="ri-close-line text-2xl"></i>
         </button>
+<<<<<<< HEAD
 
         <h2 class="text-2xl font-bold text-orange-600 mb-6">Tambah Kelas</h2>
 
@@ -65,43 +69,22 @@
 <div id="modal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
     <div id="modalBox" class="bg-white rounded-2xl shadow-xl w-full max-w-2xl mx-4 p-6 transform transition-all scale-95 opacity-0">
         <h2 id="modalTitle" class="text-xl font-bold text-gray-800 mb-6">Tambah Kelas Baru</h2>
+=======
+>>>>>>> ae60cab (update siakad kelas (belum final))
 
-        <form id="formKelas" method="POST" class="space-y-5">
-            @csrf
-            <input type="hidden" name="id">
+        <h2 class="text-2xl font-bold text-orange-600 mb-6">Tambah Kelas</h2>
 
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-600 mb-1">Kode Kelas</label>
-                    <input type="text" name="kode" placeholder="KLS-001"
-                        class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400 focus:border-orange-400" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-600 mb-1">Nama Kelas</label>
-                    <input type="text" name="nama" placeholder="X PPLG 1"
-                        class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400 focus:border-orange-400" required>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-600 mb-1">Jurusan</label>
-                    <input type="text" name="jurusan" placeholder="Contoh: PPLG / TJKT / DKV"
-                        class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400 focus:border-orange-400" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-600 mb-1">Wali Kelas</label>
-                    <input type="text" name="wali" placeholder="Nama Wali Kelas"
-                        class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400 focus:border-orange-400" required>
-                </div>
-            </div>
-
+        <form id="formAddKelas" class="space-y-5">
             <div>
-                <label class="block text-sm font-medium text-gray-600 mb-1">Jumlah Siswa</label>
-                <input type="number" name="siswa" placeholder="Jumlah Siswa"
-                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400 focus:border-orange-400" required>
+                <label class="text-sm font-medium text-gray-600">Kode Kelas</label>
+                <input type="text" name="kode" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400">
+            </div>
+            <div>
+                <label class="text-sm font-medium text-gray-600">Nama Kelas</label>
+                <input type="text" name="nama" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400">
             </div>
 
+<<<<<<< HEAD
             <div class="flex justify-end gap-3 pt-4 border-t">
                 <button type="button" id="btnCancel"
                     class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition">
@@ -112,6 +95,11 @@
                     Simpan
                 </button>
 >>>>>>> 9995902 (majors and class)
+=======
+            <div class="flex justify-end gap-2 pt-4 border-t">
+                <button type="button" id="btnCancelAdd" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg text-gray-700">Batal</button>
+                <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg">Simpan</button>
+>>>>>>> ae60cab (update siakad kelas (belum final))
             </div>
         </form>
     </div>
