@@ -11,10 +11,10 @@ class PresmalanceController extends Controller
         return view('pressmalancer.presmalance');
     }
 
-    public function login()
-    {
-        return view('pressmalancer.login');
-    }
+    // public function login()
+    // {
+    //     return view('pressmalancer.login');
+    // }
 
      public function forum()
     {

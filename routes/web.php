@@ -22,7 +22,6 @@ use App\Http\Controllers\Siakad\StudentController;
 use App\Http\Controllers\siakad\SubjectController;
 use App\Http\Controllers\siakad\TeacherController;
 use App\Http\Controllers\Siakad\AnnouncementController;
-use App\Http\Controllers\Siakad\ProfileController;
 
 
 Route::resource('news', ContentManagementController::class);
@@ -36,6 +35,33 @@ Route::post('/logout', [ContentManagementController::class, 'logout'])->name('lo
 Route::get('/splash/login/{role?}', [ContentManagementController::class, 'splash'])
     ->name('splash.login');
 
+
+
+
+
+// POST -> proses login
+Route::post('/admin/presmaboard/login', [PresmaboardController::class, 'login'])->name('presmaboard.login.submit');
+
+Route::get('/admin/presmaboard/login', function () {
+    return view('presmaboard.login');
+})->name('presmaboard.login');
+
+
+Route::prefix('admin/presmaboard')->group(function () {
+
+
+    Route::middleware(['presmaboard.auth'])->group(function () {
+
+        Route::get('/dashboard', [PresmaboardController::class, 'dashboard'])->name('presmaboard.dashboard');
+        Route::get('/leaderboard', [PresmaboardController::class, 'leaderboard'])->name('presmaboard.leaderboard');
+        Route::get('/siswa', [PresmaboardController::class, 'siswa'])->name('presmaboard.siswa');
+        Route::get('/project', [PresmaboardController::class, 'project'])->name('presmaboard.project');
+        Route::get('/prestasi', [PresmaboardController::class, 'prestasi'])->name('presmaboard.prestasi');
+        Route::get('/nilai-pkp', [PresmaboardController::class, 'nilai_pkp'])->name('presmaboard.nilai_pkp');
+
+        Route::post('/logout', [PresmaboardController::class, 'logout'])->name('presmaboard.logout');
+    });
+});
 
 Route::resource('news', ContentManagementController::class);
 
@@ -164,7 +190,7 @@ Route::prefix('siakad')->group(function () {
                 Route::get('/teacher/{id}', [TeacherController::class, 'show']);
 
 
-                Route::put('/{id}', action: [TeacherController::class, 'update'])->name('update');
+                Route::put('/{id}', [TeacherController::class, 'update'])->name('update');
                 Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('destroy');
             });
         });
@@ -211,8 +237,5 @@ Route::prefix('siakad')->group(function () {
             Route::put('/{id}', [AnnouncementController::class, 'update'])->name('update'); // update pengumuman
             Route::delete('/{id}', [AnnouncementController::class, 'destroy'])->name('destroy'); // hapus pengumuman
         });
-        Route::prefix('siakad')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('siakad.profile');
-});
     });
 });
