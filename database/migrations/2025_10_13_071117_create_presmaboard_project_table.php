@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('gambar')->nullable();
             $table->string('kategori', 50)->nullable();
             $table->timestamps();
-;
         });
     }
 
