@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class presmaboard_users extends Model
 {
     use HasFactory;
+    protected $table = 'presmaboard_user'; // nama tabel sesuai migration kamu
 
        protected $fillable = [
         'name',
@@ -21,5 +22,5 @@ class presmaboard_users extends Model
         'remember_token',
     ];
 
-    
+
 }
