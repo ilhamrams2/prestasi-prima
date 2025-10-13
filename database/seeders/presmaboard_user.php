@@ -17,7 +17,7 @@ class presmaboard_user extends Seeder
             presmaboard_users::create([
                 'name' => 'Admin Presmaboard',
                 'email' => 'admin@presmaboard.com',
-                'password' => Hash::make('Presmaboard123!'), // bisa diubah sesuai kebutuhan
+                'password' => Hash::make('Presmaboard'),
                 'role' => 'admin',
             ]);
 

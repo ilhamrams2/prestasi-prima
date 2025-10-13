@@ -12,15 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('presmaboard_user', function (Blueprint $table) {
-              $table->id();
-             $table->string('name', 100);
-            $table->string('email', 100)->unique();
-            $table->string('password');
-            $table->enum('role', ['admin',])->default('admin');
-            $table->rememberToken();
-            $table->timestamps();
+$table->id();
+    $table->string('nama');
+    $table->string('foto')->nullable();
+    $table->string('kelas', 10);
+    $table->string('jurusan', 100);
+    $table->string('angkatan', 20)->nullable();
+    $table->string('email')->unique();
+    $table->string('no_induk')->unique();
+    $table->boolean('is_active')->default(true);
+    $table->timestamps();
+    $table->softDeletes();
+
+    $table->index(['kelas', 'jurusan', 'angkatan'], 'student_kja_index');
 
         });
+
     }
 
     /**

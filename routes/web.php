@@ -10,6 +10,7 @@ use App\Http\Controllers\PresmalanceController;
 use App\Http\Controllers\PresmaAuthController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\Errorcontroller;
+use App\Http\Controllers\PresmaboardStudentController;
 use App\Http\Controllers\Siakad\AbsenceController;
 use App\Http\Controllers\siakad\AttendanceController;
 use App\Http\Controllers\siakad\auth\AuthController as SiakadAuthController;
@@ -65,11 +66,26 @@ Route::prefix('erorpage')->group(function () {
 Route::get('/gallery', [ContentManagementController::class, 'gallery'])->name('gallery.index');
 
 
-Route::prefix('presmaboard')->group(function () {
-    Route::get('/eligible', [PresmaboardController::class, 'Eligible_profile'])->name('eligible');
-    Route::get('/leaderboard', [PresmaboardController::class, 'leaderboard'])->name('leaderboard');
-});
+Route::post('/presmaboard/admin/login', [PresmaboardController::class, 'login'])->name('presmaboard.login.submit');
 
+Route::get('/presmaboard/admin/login', function () {
+    return view('presmaboard.login');
+})->name('presmaboard.login');
+
+
+Route::prefix('presmaboard/admin')->group(function () {
+
+
+
+        Route::get( '/dashboard', [PresmaboardController::class, 'dashboard'])->name('presmaboard.dashboard');
+        Route::get('/leaderboard', [PresmaboardController::class, 'leaderboard'])->name('presmaboard.leaderboard');
+    Route::get('/siswa', [PresmaboardStudentController::class, 'index'])->name('presmaboard.siswa');
+        Route::get('/project', [PresmaboardController::class, 'project'])->name('presmaboard.project');
+        Route::get('/prestasi', [PresmaboardController::class, 'prestasi'])->name('presmaboard.prestasi');
+        Route::get('/nilai-pkp', [PresmaboardController::class, 'nilai_pkp'])->name('presmaboard.nilai_pkp');
+
+        Route::post('/logout', [PresmaboardController::class, 'logout'])->name('presmaboard.logout');
+    });
 
 
 
