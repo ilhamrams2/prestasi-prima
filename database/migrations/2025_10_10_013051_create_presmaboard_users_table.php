@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('siakad_attendances', function (Blueprint $table) {
+        Schema::create('presmaboard_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('enrollment_id')->constrained('siakad_enrollments')->onDelete('cascade');
-            $table->date('date');
-            $table->enum('status', ['H','S','I','A']); // Hadir, Sakit, Izin, Alpha
+             $table->string('name', 100);
+            $table->string('email', 100)->unique();
+            $table->string('password');
+            $table->enum('role', ['admin',])->default('admin');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('siakad_attendances');
+        Schema::dropIfExists('presmaboard_users');
     }
 };

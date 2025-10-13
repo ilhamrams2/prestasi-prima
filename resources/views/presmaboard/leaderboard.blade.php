@@ -1,5 +1,6 @@
-@extends('prestasiprima.index')
-@section('title', 'Leaderboard')
+@extends('presmaboard.partials.index')
+
+@section('title', 'Leader Board')
 
 @section('content')
 
@@ -317,4 +318,6 @@
             });
         });
     </script>
+
+
 @endsection

@@ -47,7 +47,7 @@
 
         <!-- UTAMA -->
         <p class="text-gray-400 uppercase text-xs font-semibold mb-2 mt-3">Utama</p>
-        <a href="{{ route('siakad.dashboard') }}" 
+        <a href="{{ route('siakad.dashboard') }}"
            class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
            text-gray-700 hover:bg-orange-50 hover:text-orange-600">
             <i class="ri-dashboard-line text-lg"></i>
@@ -56,44 +56,44 @@
 
         <!-- AKADEMIK -->
         <p class="text-gray-400 uppercase text-xs font-semibold mb-2 mt-4">Akademik</p>
-        <a href="{{ route('majors.index') ?? '#' }}" 
+        <a href="{{ route('majors.index') ?? '#' }}"
            class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
            text-gray-700 hover:bg-orange-50 hover:text-orange-600">
             <i class="ri-book-2-line text-lg"></i>
             <span>Jurusan</span>
         </a>
-        <a href="{{ route('classes.index') ?? '#' }}" 
+        <a href="{{ route('classes.index') ?? '#' }}"
            class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
            text-gray-700 hover:bg-orange-50 hover:text-orange-600">
             <i class="ri-stack-line text-lg"></i>
             <span>Kelas</span>
         </a>
-        <a href="{{ route('students.index') ?? '#' }}" 
+        <a href="{{ route('students.index') ?? '#' }}"
            class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
            text-gray-700 hover:bg-orange-50 hover:text-orange-600">
             <i class="ri-user-3-line text-lg"></i>
             <span>Siswa</span>
         </a>
-        <a href="{{ route('teacher.index') ?? '#' }}" 
+        <a href="{{ route('teacher.index') ?? '#' }}"
            class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
            text-gray-700 hover:bg-orange-50 hover:text-orange-600">
             <i class="ri-presentation-line text-lg"></i>
             <span>Guru</span>
         </a>
         {{-- ✅ Tambahan menu Mata Pelajaran --}}
-        <a href="{{ route('subjects.index') ?? '#' }}" 
+        <a href="{{ route('subjects.index') ?? '#' }}"
            class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
            text-gray-700 hover:bg-orange-50 hover:text-orange-600">
             <i class="ri-book-open-line text-lg"></i>
             <span>Mata Pelajaran</span>
         </a>
-        <a href="{{ route('absence.index') ?? '#' }}" 
+        <a href="{{ route('absence.index') ?? '#' }}"
            class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
            text-gray-700 hover:bg-orange-50 hover:text-orange-600">
             <i class="ri-calendar-check-line text-lg"></i>
             <span>Absensi</span>
         </a>
-        <a href="{{ route('scores.index') ?? '#' }}" 
+        <a href="{{ route('scores.index') ?? '#' }}"
            class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
            text-gray-700 hover:bg-orange-50 hover:text-orange-600">
             <i class="ri-bar-chart-2-line text-lg"></i>
@@ -111,7 +111,7 @@
 
         <!-- LOGOUT -->
         <div class="border-t mt-4 pt-3">
-            <a href="{{ route('siakad.logout') ?? '#' }}" 
+            <a href="{{ route('siakad.logout') ?? '#' }}"
                class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
                text-red-600 hover:bg-red-50">
                 <i class="ri-logout-box-r-line text-lg"></i>
