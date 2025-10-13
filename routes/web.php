@@ -23,6 +23,7 @@ use App\Http\Controllers\Siakad\StudentController;
 use App\Http\Controllers\siakad\SubjectController;
 use App\Http\Controllers\siakad\TeacherController;
 use App\Http\Controllers\Siakad\AnnouncementController;
+use App\Http\Controllers\Siakad\ProfileController;
 
 
 Route::resource('news', ContentManagementController::class);
@@ -233,5 +234,8 @@ Route::prefix('siakad')->group(function () {
             Route::put('/{id}', [AnnouncementController::class, 'update'])->name('update'); // update pengumuman
             Route::delete('/{id}', [AnnouncementController::class, 'destroy'])->name('destroy'); // hapus pengumuman
         });
+        Route::prefix('siakad')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('siakad.profile');
+});
     });
 });
