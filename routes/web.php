@@ -36,18 +36,6 @@ Route::post('/logout', [ContentManagementController::class, 'logout'])->name('lo
 Route::get('/splash/login/{role?}', [ContentManagementController::class, 'splash'])
     ->name('splash.login');
 
-
-Route::resource('news', ContentManagementController::class);
-
-Route::get('/splash/{screen}', [ContentManagementController::class, 'splashscreen'])
-    ->where('screen', '[1-4]+')
-    ->name('splash.screen');
-Route::post('/logout', [ContentManagementController::class, 'logout'])->name('logout');
-
-// Route untuk login splash (role opsional)
-Route::get('/splash/login/{role?}', [ContentManagementController::class, 'splash'])
-    ->name('splash.login');
-
 Route::get('/', function () {
     return view('prestasiprima.pages.landing');
 });
@@ -64,14 +52,10 @@ Route::prefix('erorpage')->group(function () {
 
 Route::get('/gallery', [ContentManagementController::class, 'gallery'])->name('gallery.index');
 
-
 Route::prefix('presmaboard')->group(function () {
     Route::get('/eligible', [PresmaboardController::class, 'Eligible_profile'])->name('eligible');
     Route::get('/leaderboard', [PresmaboardController::class, 'leaderboard'])->name('leaderboard');
 });
-
-
-
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -100,10 +84,8 @@ Route::get('/forum', [PresmalanceController::class, 'forum'])->name('forum');
 
 // ================= SIAKAD =================
 Route::prefix('siakad')->name('siakad.')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])
-        ->name('dashboard');
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 // Route::view('/siakad/login', 'siakad.auth.login')->name('siakad.login');
@@ -124,6 +106,7 @@ Route::prefix('siakad')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('siakad.dashboard');
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+        // Majors
         Route::prefix('majors')->as('majors.')->group(function () {
             Route::get('/', [MajorController::class, 'index'])->name('index');
             Route::post('/', [MajorController::class, 'store'])->name('store');
@@ -139,15 +122,16 @@ Route::prefix('siakad')->group(function () {
             Route::delete('/{id}', [ClassesController::class, 'destroy'])->name('destroy');
         });
 
-        // Classes
+        // Teachers
         Route::prefix('teacher')->as('teacher.')->group(function () {
             Route::get('/', [TeacherController::class, 'index'])->name('index');
             Route::post('/', [TeacherController::class, 'store'])->name('store');
-            Route::put('/{id}', [TeacherController::class, 'update'])->name('siakad.teacher.update');
+            Route::put('/{id}', [TeacherController::class, 'update'])->name('update');
             Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('destroy');
-            Route::get('/{id}', [TeacherController::class, 'show']);
+            Route::get('/{id}', [TeacherController::class, 'show'])->name('show');
         });
 
+        // Students
         Route::prefix('students')->as('students.')->group(function () {
             Route::get('/', [StudentController::class, 'index'])->name('index');
             Route::post('/', [StudentController::class, 'store'])->name('store');
@@ -177,6 +161,7 @@ Route::prefix('siakad')->group(function () {
             Route::delete('/{id}', [SubjectController::class, 'destroy'])->name('destroy');
         });
 
+        // Enrollments
         Route::prefix('enrollments')->as('enrollments.')->group(function () {
             Route::get('/', [EnrollmentsController::class, 'index'])->name('index');
             Route::post('/', [EnrollmentsController::class, 'store'])->name('store');
@@ -184,6 +169,7 @@ Route::prefix('siakad')->group(function () {
             Route::delete('/{id}', [EnrollmentsController::class, 'destroy'])->name('destroy');
         });
 
+        // Scores
         Route::prefix('scores')->as('scores.')->group(function () {
             Route::get('/', [ScoreController::class, 'index'])->name('index');
             Route::post('/', [ScoreController::class, 'store'])->name('store');
@@ -191,6 +177,7 @@ Route::prefix('siakad')->group(function () {
             Route::delete('/{id}', [ScoreController::class, 'destroy'])->name('destroy');
         });
 
+        // Absence
         Route::prefix('absence')->as('absence.')->group(function () {
             Route::get('/', [AbsenceController::class, 'index'])->name('index');
             Route::post('/', [AbsenceController::class, 'store'])->name('store');
@@ -198,18 +185,21 @@ Route::prefix('siakad')->group(function () {
             Route::delete('/{id}', [AbsenceController::class, 'destroy'])->name('destroy');
         });
 
+        // Users
         Route::prefix('users')->as('users.')->group(function () {
             Route::get('/', [SiakadAuthController::class, 'index'])->name('index');
             Route::post('/', [SiakadAuthController::class, 'store'])->name('store');
             Route::put('/{id}', [SiakadAuthController::class, 'update'])->name('update');
             Route::delete('/{id}', [SiakadAuthController::class, 'destroy'])->name('destroy');
         });
+
+        // Announcements
         Route::prefix('announcements')->as('announcements.')->group(function () {
-            Route::get('/', [AnnouncementController::class, 'index'])->name('index');   // list semua pengumuman
-            Route::post('/', [AnnouncementController::class, 'store'])->name('store');  // tambah pengumuman
-            Route::get('/{id}', [AnnouncementController::class, 'show'])->name('show'); // detail pengumuman
-            Route::put('/{id}', [AnnouncementController::class, 'update'])->name('update'); // update pengumuman
-            Route::delete('/{id}', [AnnouncementController::class, 'destroy'])->name('destroy'); // hapus pengumuman
+            Route::get('/', [AnnouncementController::class, 'index'])->name('index');
+            Route::post('/', [AnnouncementController::class, 'store'])->name('store');
+            Route::get('/{id}', [AnnouncementController::class, 'show'])->name('show');
+            Route::put('/{id}', [AnnouncementController::class, 'update'])->name('update');
+            Route::delete('/{id}', [AnnouncementController::class, 'destroy'])->name('destroy');
         });
         Route::prefix('siakad')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('siakad.profile');
