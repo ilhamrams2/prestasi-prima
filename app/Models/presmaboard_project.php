@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class presmaboard_project extends Model
 {
     use HasFactory;
+
+
+
+     protected $fillable = [ 'student_id',
+        'judul_project',
+        'deskripsi',
+        'gambar',
+        'kategori',
+    ];
+
+    public function student()
+    {
+        return $this->belongsTo(presmaboard_student::class, 'student_id');
+    }
+
 }
