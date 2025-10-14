@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> cd5a115 (update modal delete siakad teacher)
 {{-- ==================== TABEL DATA GURU ==================== --}}
 <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
     <button onclick="openModal()"
@@ -106,6 +109,7 @@
                             class="text-red-500 hover:text-red-700" title="Hapus">
                             <i class="ri-delete-bin-line"></i>
                         </button>
+<<<<<<< HEAD
 =======
                                 class="text-blue-500 hover:text-blue-700" title="Detail">
 =======
@@ -126,6 +130,8 @@
                             </button>
                         </form>
 >>>>>>> 328e99e (update siakad belom kelar)
+=======
+>>>>>>> cd5a115 (update modal delete siakad teacher)
                     </td>
                 </tr>
             @empty
