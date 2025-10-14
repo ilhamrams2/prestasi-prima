@@ -58,6 +58,7 @@
     {{-- Total Jurusan --}}
     <div
         class="bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-2xl p-5 shadow-md flex items-center justify-between hover:scale-[1.02] transition">
+<<<<<<< HEAD
         <div>
             <p class="text-sm opacity-80">Total Jurusan</p>
             <h3 id="statJurusan" class="text-3xl font-bold mt-1">0</h3>
@@ -126,6 +127,8 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
     {{-- Total Jurusan --}}
     <div class="bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-2xl p-5 shadow-md flex items-center justify-between hover:scale-[1.02] transition">
+=======
+>>>>>>> de7c788 (Add : CRUD MAJORS)
         <div>
             <p class="text-sm opacity-80">Total Jurusan</p>
             <h3 id="statJurusan" class="text-3xl font-bold mt-1">0</h3>
@@ -134,7 +137,8 @@
     </div>
 
     {{-- Total Kelas --}}
-    <div class="bg-gradient-to-r from-blue-500 to-blue-400 text-white rounded-2xl p-5 shadow-md flex items-center justify-between hover:scale-[1.02] transition">
+    <div
+        class="bg-gradient-to-r from-blue-500 to-blue-400 text-white rounded-2xl p-5 shadow-md flex items-center justify-between hover:scale-[1.02] transition">
         <div>
             <p class="text-sm opacity-80">Total Kelas</p>
             <h3 id="statKelas" class="text-3xl font-bold mt-1">0</h3>
@@ -158,7 +162,8 @@
 >>>>>>> e247cf6 (update siakad)
 =======
     {{-- Total Siswa --}}
-    <div class="bg-gradient-to-r from-green-500 to-green-400 text-white rounded-2xl p-5 shadow-md flex items-center justify-between hover:scale-[1.02] transition">
+    <div
+        class="bg-gradient-to-r from-green-500 to-green-400 text-white rounded-2xl p-5 shadow-md flex items-center justify-between hover:scale-[1.02] transition">
         <div>
             <p class="text-sm opacity-80">Total Siswa</p>
             <h3 id="statSiswa" class="text-3xl font-bold mt-1">0</h3>
@@ -167,7 +172,8 @@
     </div>
 
     {{-- Kepala Jurusan Aktif --}}
-    <div class="bg-gradient-to-r from-purple-500 to-purple-400 text-white rounded-2xl p-5 shadow-md flex items-center justify-between hover:scale-[1.02] transition">
+    <div
+        class="bg-gradient-to-r from-purple-500 to-purple-400 text-white rounded-2xl p-5 shadow-md flex items-center justify-between hover:scale-[1.02] transition">
         <div>
             <p class="text-sm opacity-80">Kepala Jurusan Aktif</p>
             <h3 id="statKepala" class="text-3xl font-bold mt-1">0</h3>
@@ -180,12 +186,12 @@
 {{-- ================= CTA + FILTER ================= --}}
 <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
     <button onclick="openModal('add')"
-        class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-lg shadow transition">
+        class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">
         + Tambah Jurusan
     </button>
 
-    <div class="w-full md:w-2/3">
-        <div class="bg-white p-4 rounded-lg shadow grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="w-full md:w-1/3">
+        <div class="bg-white p-4 rounded-lg shadow gap-4">
             {{-- Search --}}
             <div class="relative">
                 <i class="ri-search-line absolute left-3 top-2.5 text-gray-400"></i>
@@ -193,12 +199,6 @@
                     class="w-full border rounded-lg pl-10 pr-3 py-2 bg-gray-50 focus:ring-2 focus:ring-orange-400">
 >>>>>>> 911e62f (update frontend siakad)
             </div>
-            {{-- Filter --}}
-            <select id="statusFilter" class="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-400">
-                <option value="all">Semua Status</option>
-                <option value="aktif">Aktif</option>
-                <option value="nonaktif">Nonaktif</option>
-            </select>
         </div>
     </div>
 </div>
