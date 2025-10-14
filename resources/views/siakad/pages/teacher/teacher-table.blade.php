@@ -1,4 +1,4 @@
-{{-- resources/views/siakad/pages/teacher/teacher-table.blade.php --}}
+{{-- ==================== TABEL DATA GURU ==================== --}}
 <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
     <button onclick="openModal()"
         class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-lg shadow transition">
@@ -61,14 +61,10 @@
                             class="text-orange-500 hover:text-orange-700" title="Edit">
                             <i class="ri-edit-line"></i>
                         </button>
-                        <form action="{{ route('siakad.teacher.destroy', $teacher->id) }}" method="POST"
-                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus guru ini?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-500 hover:text-red-700" title="Hapus">
-                                <i class="ri-delete-bin-line"></i>
-                            </button>
-                        </form>
+                        <button type="button" onclick="openDeleteModal({{ $teacher->id }})"
+                            class="text-red-500 hover:text-red-700" title="Hapus">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
                     </td>
                 </tr>
             @empty
