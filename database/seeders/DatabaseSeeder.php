@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,7 +15,9 @@ class DatabaseSeeder extends Seeder
             SiakadUserSeeder::class,
             SiakadMajorSeeder::class,
             presmaboarduser::class,
+            PrestasiprimaGallerySeeder::class, // ✅ Tambahkan seeder galeri di sini
         ]);
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
