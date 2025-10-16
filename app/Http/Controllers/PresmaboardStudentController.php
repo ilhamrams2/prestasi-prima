@@ -8,77 +8,98 @@ use Illuminate\Support\Facades\Storage;
 
 class PresmaboardStudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $students = presmaboard_student::latest()->get();
-        return view('presmaboard.siswa', compact('students'));
-    }
+        $query = presmaboard_student::query();
 
-    public function create()
-    {
-        return view('presmaboard.siswa');
+        // Filter (jurusan, kelas, pencarian)
+        if ($request->filled('jurusan') && $request->jurusan !== 'all') {
+            $query->where('jurusan', $request->jurusan);
+        }
+        if ($request->filled('kelas') && $request->kelas !== 'all') {
+            $query->where('kelas', $request->kelas);
+        }
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->search . '%')
+                  ->orWhere('nis', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $siswas = $query->latest()->paginate(10);
+        $total = presmaboard_student::count();
+        $kelasCount = presmaboard_student::where('is_active', 1)->count();
+        $male = presmaboard_student::where('is_active', 1)->count(); // misal pakai data gender nanti
+        $female = $total - $male;
+
+        return view('presmaboard.siswa.index', compact('siswas', 'total', 'kelasCount', 'male', 'female'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama' => 'required|string|max:255',
-            'foto' => 'nullable|image|max:2048',
-            'kelas' => 'required',
-            'jurusan' => 'required',
-            'angkatan' => 'required',
-            'email' => 'required|email|unique:presmaboard_students',
-            'no_induk' => 'required|unique:presmaboard_students',
-            'is_active' => 'boolean',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'kelas' => 'required|string',
+            'jurusan' => 'required|string',
+            'angkatan' => 'required|string',
+            'email' => 'required|email|unique:presmaboard_students,email',
+            'nis' => 'required|unique:presmaboard_students,nis',
+            'is_active' => 'required|boolean',
         ]);
 
-        $data = $request->all();
         if ($request->hasFile('foto')) {
-            $data['foto'] = $request->file('foto')->store('siswa', 'public');
+            $validated['foto'] = $request->file('foto')->store('siswas', 'public');
         }
 
-        presmaboard_student::create($data);
+        presmaboard_student::create($validated);
 
-        return redirect()->route('presmaboard.students.index')->with('success', 'Siswa berhasil ditambahkan!');
+        return response()->json(['success' => true, 'message' => 'Siswa berhasil ditambahkan!']);
     }
 
-    public function edit(presmaboard_student $student)
+    public function show($id)
     {
-        return view('presmaboard.siswa.edit', compact('student'));
+        $siswa = presmaboard_student::with(['scores', 'projects', 'achievements', 'currentLeaderboard'])->findOrFail($id);
+        return response()->json($siswa);
     }
 
-    public function update(Request $request, presmaboard_student $student)
+    public function update(Request $request, $id)
     {
-        $request->validate([
+        $siswa = presmaboard_student::findOrFail($id);
+
+        $validated = $request->validate([
             'nama' => 'required|string|max:255',
-            'kelas' => 'required',
-            'jurusan' => 'required',
-            'angkatan' => 'required',
-            'email' => 'required|email|unique:presmaboard_students,email,' . $student->id,
-            'no_induk' => 'required|unique:presmaboard_students,no_induk,' . $student->id,
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'kelas' => 'required|string',
+            'jurusan' => 'required|string',
+            'angkatan' => 'required|string',
+            'email' => 'required|email|unique:presmaboard_students,email,' . $siswa->id,
+            'nis' => 'required|unique:presmaboard_students,nis,' . $siswa->id,
+            'is_active' => 'required|boolean',
         ]);
 
-        $data = $request->all();
         if ($request->hasFile('foto')) {
-            if ($student->foto) {
-                Storage::disk('public')->delete($student->foto);
+            if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
+                Storage::disk('public')->delete($siswa->foto);
             }
-            $data['foto'] = $request->file('foto')->store('siswa', 'public');
+            $validated['foto'] = $request->file('foto')->store('siswas', 'public');
         }
 
-        $student->update($data);
+        $siswa->update($validated);
 
-        return redirect()->route('presmaboard.students.index')->with('success', 'Data siswa diperbarui!');
+        return response()->json(['success' => true, 'message' => 'Data siswa berhasil diperbarui!']);
     }
 
-    public function destroy(presmaboard_student $student)
+    public function destroy($id)
     {
-        if ($student->foto) {
-            Storage::disk('public')->delete($student->foto);
+        $siswa = presmaboard_student::findOrFail($id);
+
+        if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
+            Storage::disk('public')->delete($siswa->foto);
         }
 
-        $student->delete();
+        $siswa->delete();
 
-        return redirect()->route('presmaboard.students.index')->with('success', 'Siswa dihapus!');
+        return response()->json(['success' => true, 'message' => 'Data siswa berhasil dihapus!']);
     }
 }

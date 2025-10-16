@@ -74,11 +74,18 @@ Route::get('/presmaboard/admin/login', function () {
 
 Route::prefix('presmaboard/admin')->group(function () {
 
+Route::prefix('presmaboard')->name('presmaboard.')->group(function () {
+   Route::get('/siswa', [PresmaboardStudentController::class, 'index'])->name('siswa.index');
+    Route::post('/siswa', [PresmaboardStudentController::class, 'store'])->name('siswa.store');
+    Route::get('/siswa/{id}', [PresmaboardStudentController::class, 'show'])->name('siswa.show');
+    Route::put('/siswa/{id}', [PresmaboardStudentController::class, 'update'])->name('siswa.update');
+    Route::delete('/siswa/{id}', [PresmaboardStudentController::class, 'destroy'])->name('siswa.destroy');
+    Route::get('/siswa-statistics', [PresmaboardStudentController::class, 'getStatistics'])->name('siswa.statistics');});
 
 
         Route::get( '/dashboard', [PresmaboardController::class, 'dashboard'])->name('presmaboard.dashboard');
         Route::get('/leaderboard', [PresmaboardController::class, 'leaderboard'])->name('presmaboard.leaderboard');
-    Route::get('/siswa', [PresmaboardStudentController::class, 'index'])->name('presmaboard.siswa');
+    Route::resource('siswa', PresmaboardStudentController::class);
         Route::get('/project', [PresmaboardController::class, 'project'])->name('presmaboard.project');
         Route::get('/prestasi', [PresmaboardController::class, 'prestasi'])->name('presmaboard.prestasi');
         Route::get('/nilai-pkp', [PresmaboardController::class, 'nilai_pkp'])->name('presmaboard.nilai_pkp');

@@ -17,7 +17,7 @@ class presmaboard_student extends Model
         'jurusan',
         'angkatan',
         'email',
-        'no_induk',
+        'nis',
         'is_active',
     ];
 

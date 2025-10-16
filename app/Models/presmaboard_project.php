@@ -11,7 +11,11 @@ class presmaboard_project extends Model
 
 
 
-     protected $fillable = [ 'student_id',
+
+    protected $table = 'presmaboard_project';
+
+    protected $fillable = [
+        'student_id',
         'judul_project',
         'deskripsi',
         'gambar',
@@ -22,5 +26,26 @@ class presmaboard_project extends Model
     {
         return $this->belongsTo(presmaboard_student::class, 'student_id');
     }
+
+public static function getCategoriesByMajor($major)
+{
+    $categories = config('portfolio');
+
+    if (!$categories) {
+        return [];
+    }
+
+    return $categories[$major] ?? [];
+}
+
+
+    /**
+     * Ambil nama jurusan dalam format huruf besar (untuk tampilan)
+     */
+    public function getJurusanLabelAttribute()
+    {
+        return strtoupper($this->jurusan);
+    }
+
 
 }

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class presmaboard_users extends Model
+class presmaboarduser extends Model
 {
-    use HasFactory;
-    protected $table = 'presmaboard_user'; // nama tabel sesuai migration kamu
+      use HasFactory;
+    protected $table = 'presmaboard_user';
 
        protected $fillable = [
         'name',
@@ -21,6 +21,5 @@ class presmaboard_users extends Model
         'password',
         'remember_token',
     ];
-
 
 }

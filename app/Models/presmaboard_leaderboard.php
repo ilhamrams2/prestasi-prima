@@ -37,3 +37,4 @@ class presmaboard_leaderboard extends Model
 
 
 }
+  
