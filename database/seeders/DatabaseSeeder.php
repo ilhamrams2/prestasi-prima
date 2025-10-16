@@ -21,7 +21,12 @@ class DatabaseSeeder extends Seeder
 =======
             presmaboarduser::class,
             PrestasiprimaGallerySeeder::class, // ✅ Tambahkan seeder galeri di sini
+<<<<<<< HEAD
 >>>>>>> 5b039d2 (tambah halaman galery fe dan be lengkap)
+=======
+            PrestasiprimaCategorySeeder::class,
+            PrestasiprimaNewsSeeder::class,
+>>>>>>> 8701b0e (tambah halaman berita fe dan be lengkap)
         ]);
 
         // \App\Models\User::factory(10)->create();

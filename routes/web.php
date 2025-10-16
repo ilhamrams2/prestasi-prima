@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-// ==================== IMPORT CONTROLLERS ==================== //
+// ============================================================ //
+// ==================== IMPORT CONTROLLERS ===================== //
+// ============================================================ //
+
 use App\Http\Controllers\{
     ContentManagementController,
     PresmaboardController,
@@ -32,15 +35,22 @@ use App\Http\Controllers\Siakad\{
     ProfileController
 };
 
-use App\Http\Controllers\Prestasiprima\GalleryController;
+use App\Http\Controllers\Prestasiprima\{
+    GalleryController,
+    NewsController
+};
 
 // ============================================================ //
-// ========================  ROUTES  =========================== //
+// ========================= ROUTES ============================ //
 // ============================================================ //
 
-// -------------------- CONTENT MANAGEMENT -------------------- //
-Route::resource('news', ContentManagementController::class);
 
+// -------------------- HALAMAN UTAMA -------------------- //
+Route::get('/', fn() => view('prestasiprima.pages.landing'));
+Route::get('/welcome', fn() => view('welcome'))->name('welcome');
+
+
+// -------------------- SPLASH & LOGIN -------------------- //
 Route::get('/splash/{screen}', [ContentManagementController::class, 'splashscreen'])
     ->where('screen', '[1-4]+')
     ->name('splash.screen');
@@ -50,10 +60,6 @@ Route::post('/logout', [ContentManagementController::class, 'logout'])->name('lo
 Route::get('/splash/login/{role?}', [ContentManagementController::class, 'splash'])
     ->name('splash.login');
 
-// -------------------- HALAMAN UTAMA -------------------- //
-Route::get('/', fn() => view('prestasiprima.pages.landing'));
-
-Route::get('/welcome', fn() => view('welcome'))->name('welcome');
 
 // -------------------- HALAMAN ERROR -------------------- //
 Route::prefix('erorpage')->group(function () {
@@ -61,18 +67,22 @@ Route::prefix('erorpage')->group(function () {
     Route::view('/notfound', 'prestasiprima.pages.erorpage.notfound');
 });
 
-// -------------------- PRESTASIPRIMA -------------------- //
+
+// ============================================================ //
+// ===================== PRESTASIPRIMA ======================== //
+// ============================================================ //
+
 Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
 Route::get('/pendaftaran', [Pendaftaran::class, 'index'])->name('pendaftaran');
 
 Route::get('/formulir', [FormulirController::class, 'create'])->name('pendaftaran.formulir');
 Route::post('/formulir', [FormulirController::class, 'store'])->name('pendaftaran.formulir.store');
-
 Route::get('/validasi', [FormulirController::class, 'validasi'])->name('pendaftaran.validasi');
 
 Route::get('/presmalance', [PresmalanceController::class, 'presmalance'])->name('presmalancer.presmalance');
 Route::get('/login', [PresmalanceController::class, 'login'])->name('login');
 Route::post('/login', [PresmaAuthController::class, 'login'])->name('login.post');
+
 
 // -------------------- AUTH SOSIAL -------------------- //
 Route::get('/auth/{provider}', [SocialAuthController::class, 'redirect'])->name('social.redirect');
@@ -80,20 +90,35 @@ Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'
 
 Route::get('/forum', [PresmalanceController::class, 'forum'])->name('forum');
 
+
 // -------------------- GALERI PRESTASI PRIMA -------------------- //
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 
+
+// -------------------- HALAMAN BERITA PRESTASI PRIMA -------------------- //
+Route::prefix('berita')->name('berita.')->group(function () {
+    // Halaman index berita
+    Route::get('/', [NewsController::class, 'index'])->name('index');
+
+    // Halaman kategori berita
+    Route::get('/kategori/{slug}', [NewsController::class, 'category'])->name('kategori');
+
+    // Halaman detail berita
+    Route::get('/{slug}', [NewsController::class, 'show'])->name('detail');
+});
+
+
 // ============================================================ //
-// =======================  PRESMABOARD ======================== //
+// ======================== PRESMABOARD ======================== //
 // ============================================================ //
 
 Route::prefix('presmaboard')->group(function () {
 
-    // Login
+    // -------------------- LOGIN -------------------- //
     Route::get('/admin/login', fn() => view('presmaboard.login'))->name('presmaboard.login');
     Route::post('/admin/login', [PresmaboardController::class, 'login'])->name('presmaboard.login.submit');
 
-    // Admin area
+    // -------------------- ADMIN AREA -------------------- //
     Route::prefix('admin')->group(function () {
 
         Route::get('/dashboard', [PresmaboardController::class, 'dashboard'])->name('presmaboard.dashboard');
@@ -117,7 +142,7 @@ Route::prefix('presmaboard')->group(function () {
 
 
 // ============================================================ //
-// ==========================  SIAKAD ========================== //
+// ========================== SIAKAD =========================== //
 // ============================================================ //
 
 Route::prefix('siakad')->name('siakad.')->group(function () {
