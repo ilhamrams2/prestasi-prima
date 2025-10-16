@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('judul_project');
             $table->text('deskripsi')->nullable();
             $table->string('gambar')->nullable();
-            $table->string('kategori', 50)->nullable();
+    $table->enum('jurusan', ['pplg', 'dkv', 'tkj', 'bcf']); // supaya fix 4 jurusan
+    $table->string('kategori', 100)->nullable(); // ambil dari config(‘portfolio’)
             $table->timestamps();
         });
     }
