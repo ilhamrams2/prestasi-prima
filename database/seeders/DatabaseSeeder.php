@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             SiakadMajorSeeder::class,
             presmaboarduser::class,
             PrestasiprimaGallerySeeder::class, // ✅ Tambahkan seeder galeri di sini
+            PrestasiprimaCategorySeeder::class,
+            PrestasiprimaNewsSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();
