@@ -65,10 +65,37 @@ Route::prefix('erorpage')->group(function () {
 
 Route::get('/gallery', [ContentManagementController::class, 'gallery'])->name('gallery.index');
 
+// ============================================================ //
+// ======================== PRESMABOARD ======================== //
+// ============================================================ //
 
 Route::prefix('presmaboard')->group(function () {
-    Route::get('/eligible', [PresmaboardController::class, 'Eligible_profile'])->name('eligible');
-    Route::get('/leaderboard', [PresmaboardController::class, 'leaderboard'])->name('leaderboard');
+
+    // -------------------- LOGIN -------------------- //
+    Route::get('/admin/login', fn() => view('presmaboard.login'))->name('presmaboard.login');
+    Route::post('/admin/login', [PresmaboardController::class, 'login'])->name('presmaboard.login.submit');
+
+    // -------------------- ADMIN AREA -------------------- //
+    Route::prefix('admin')->group(function () {
+
+        Route::get('/dashboard', [PresmaboardController::class, 'dashboard'])->name('presmaboard.dashboard');
+        Route::get('/leaderboard', [PresmaboardController::class, 'leaderboard'])->name('presmaboard.leaderboard');
+        Route::get('/project', [PresmaboardController::class, 'project'])->name('presmaboard.project');
+        Route::get('/prestasi', [PresmaboardController::class, 'prestasi'])->name('presmaboard.prestasi');
+        Route::get('/nilai-pkp', [PresmaboardController::class, 'nilai_pkp'])->name('presmaboard.nilai_pkp');
+        Route::post('/logout', [PresmaboardController::class, 'logout'])->name('presmaboard.logout');
+
+        // CRUD Siswa
+Route::prefix('siswa')->name('presmaboard.siswa.')->group(function () {
+    Route::get('/', [PresmaboardStudentController::class, 'index'])->name('index');
+    Route::post('/', [PresmaboardStudentController::class, 'store'])->name('store');
+    Route::get('/{id}', [PresmaboardStudentController::class, 'show'])->name('show');
+    Route::put('/{id}', [PresmaboardStudentController::class, 'update'])->name('update');
+    Route::delete('/{id}', [PresmaboardStudentController::class, 'destroy'])->name('destroy');
+    Route::get('/statistics', [PresmaboardStudentController::class, 'getStatistics'])->name('statistics');
+});
+
+    });
 });
 
 
