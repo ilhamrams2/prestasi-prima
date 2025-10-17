@@ -69,7 +69,6 @@
                 w-[400px] sm:w-[500px] md:w-[600px] 
                 h-[400px] sm:h-[500px] md:h-[600px] 
                 bg-white/20 rounded-full hidden md:block"></div>
-                bg-white/20 rounded-full hidden md:block"></div>
 
     <div class="absolute top-1/2 left-[35%] -translate-x-1/2 -translate-y-1/2 
                 w-[300px] sm:w-[350px] md:w-[400px] 

@@ -20,5 +20,4 @@ class SiakadUser extends Authenticatable
     {
         return $this->belongsTo(SiakadTeacher::class, 'teacher_id');
     }
-    // kateeel
 }
