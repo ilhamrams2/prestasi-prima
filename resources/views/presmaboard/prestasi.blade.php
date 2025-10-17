@@ -47,13 +47,12 @@
     </div>
 
     <!-- Statistik -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         <template
             x-for="(card, index) in [
                 {icon:'ri-trophy-line', color:'orange', title:'Total Prestasi', value:'{{ $totalPrestasi ?? 0 }}'},
-                {icon:'ri-user-star-line', color:'orange', title:'Siswa Berprestasi', value:'{{ $siswaBerprestasi ?? 0 }}'},
-                {icon:'ri-medal-line', color:'orange', title:'Prestasi Nasional', value:'{{ $prestasiNasional ?? 0 }}'},
-                {icon:'ri-award-line', color:'orange', title:'Prestasi Internasional', value:'{{ $prestasiInternasional ?? 0 }}'},
+                {icon:'ri-user-star-line', color:'orange', title:'Siswa Dengan Prestasi Paling Banyak', value:'{{ $siswaBerprestasi ?? 0 }}'},
+                {icon:'ri-medal-line', color:'orange', title:'Jurusan Dengan Prestasi Terbanyak', value:'{{ $prestasiNasional ?? 0 }}'},
             ]"
             :key="index"
         >

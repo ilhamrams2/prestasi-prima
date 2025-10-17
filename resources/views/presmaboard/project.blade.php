@@ -71,13 +71,12 @@
     </div>
 
     <!-- Statistik -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <template
             x-for="(card, index) in [
                 {icon:'ri-folder-line', color:'orange', title:'Total Project', value:'{{ $total ?? 0 }}'},
-                {icon:'ri-star-line', color:'orange', title:'Project Unggulan', value:'{{ $featured ?? 0 }}'},
-                {icon:'ri-brush-line', color:'orange', title:'Desain Kreatif', value:'{{ $creative ?? 0 }}'},
-                {icon:'ri-code-line', color:'orange', title:'Pemrograman', value:'{{ $coding ?? 0 }}'},
+                {icon:'ri-star-line', color:'orange', title:'Siswa Dengan Project Terbanyak', value:'{{ $featured ?? 0 }}'},
+                {icon:'ri-brush-line', color:'orange', title:'Jurusan Dengan Project Terbanyak', value:'{{ $creative ?? 0 }}'},
             ]"
             :key="index"
         >

@@ -12,6 +12,7 @@ class presmaboard_student extends Model
 
       protected $fillable = [
         'nama',
+        'gender',
         'foto',
         'kelas',
         'jurusan',

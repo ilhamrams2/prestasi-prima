@@ -49,13 +49,12 @@
     </div>
 
     <!-- Statistik -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <template
             x-for="(card, index) in [
                 {icon:'ri-trophy-line', color:'orange', title:'Total Data Nilai', value:'{{ $total ?? 0 }}'},
-                {icon:'ri-graduation-cap-line', color:'orange', title:'Rata-rata Nilai PKP', value:'{{ number_format($avg ?? 0, 2) }}'},
-                {icon:'ri-bar-chart-box-line', color:'orange', title:'UTS Tersimpan', value:'{{ $utsCount ?? 0 }}'},
-                {icon:'ri-bar-chart-2-line', color:'orange', title:'UAS Tersimpan', value:'{{ $uasCount ?? 0 }}'},
+                {icon:'ri-trophy-line', color:'orange', title:'Nilai PKP Tertinggi', value:'{{ number_format($avg ?? 0, 2) }}'},
+                {icon:'ri-trophy-line', color:'orange', title:'Jurusan dengan Nilai PKP Tertinggi', value:'{{ $utsCount ?? 0 }}'},
             ]"
             :key="index"
         >
