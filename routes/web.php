@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     ContentManagementController,
     PresmaboardController,
-    SambutanController,
     Pendaftaran,
     FormulirController,
     PresmalanceController,
@@ -37,7 +36,8 @@ use App\Http\Controllers\Siakad\{
 
 use App\Http\Controllers\Prestasiprima\{
     GalleryController,
-    NewsController
+    NewsController,
+    SambutanController
 };
 
 // ============================================================ //
