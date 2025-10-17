@@ -25,47 +25,6 @@ use App\Http\Controllers\Siakad\AnnouncementController;
 use App\Http\Controllers\Siakad\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-// ============================================================ //
-// ==================== IMPORT CONTROLLERS ===================== //
-// ============================================================ //
-
-use App\Http\Controllers\{
-    ContentManagementController,
-    PresmaboardController,
-    Pendaftaran,
-    FormulirController,
-    PresmalanceController,
-    PresmaAuthController,
-    SocialAuthController,
-    Errorcontroller,
-    PresmaboardStudentController
-};
-
-use App\Http\Controllers\Siakad\{
-    AbsenceController,
-    AttendanceController,
-    Auth\AuthController as SiakadAuthController,
-    ClassesController,
-    DashboardController,
-    EnrollmentsController,
-    MajorController,
-    ScoreController,
-    StudentController,
-    SubjectController,
-    TeacherController,
-    AnnouncementController,
-    ProfileController
-};
-
-use App\Http\Controllers\Prestasiprima\{
-    GalleryController,
-    NewsController,
-    SambutanController
-};
-
-// ============================================================ //
-// ========================= ROUTES ============================ //
-// ============================================================ //
 use App\Http\Controllers\SambutanController;
 use App\Http\Controllers\Pendaftaran;
 use App\Http\Controllers\FormulirController;
