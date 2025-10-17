@@ -50,7 +50,7 @@ class StudentController extends Controller
             // Simpan ke database
             SiakadStudent::create($validatedData);
 
-            return redirect()->route('siakad.students.index')
+            return redirect()->route('students.index')
                 ->with('success', 'Siswa berhasil ditambahkan!');
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->back()->with('error', 'Kesalahan database: ' . $e->getMessage());
@@ -100,7 +100,7 @@ class StudentController extends Controller
 
             $student->update($validatedData);
 
-            return redirect()->route('siakad.students.index')
+            return redirect()->route('students.index')
                 ->with('success', 'Data siswa berhasil diperbarui!');
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->back()->with('error', 'Kesalahan database: ' . $e->getMessage());
@@ -119,7 +119,7 @@ class StudentController extends Controller
             $student = SiakadStudent::findOrFail($id);
             $student->delete();
 
-            return redirect()->route('siakad.students.index')
+            return redirect()->route('students.index')
                 ->with('success', 'Siswa berhasil dihapus!');
         } catch (\Exception $e) {
             return redirect()->back()
