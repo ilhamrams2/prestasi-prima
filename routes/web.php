@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Controllers\ContentManagementController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,51 @@ use App\Http\Controllers\siakad\SubjectController;
 use App\Http\Controllers\siakad\TeacherController;
 use App\Http\Controllers\Siakad\AnnouncementController;
 use App\Http\Controllers\Siakad\ProfileController;
+=======
+use Illuminate\Support\Facades\Route;
+
+// ============================================================ //
+// ==================== IMPORT CONTROLLERS ===================== //
+// ============================================================ //
+
+use App\Http\Controllers\{
+    ContentManagementController,
+    PresmaboardController,
+    Pendaftaran,
+    FormulirController,
+    PresmalanceController,
+    PresmaAuthController,
+    SocialAuthController,
+    Errorcontroller,
+    PresmaboardStudentController
+};
+
+use App\Http\Controllers\Siakad\{
+    AbsenceController,
+    AttendanceController,
+    Auth\AuthController as SiakadAuthController,
+    ClassesController,
+    DashboardController,
+    EnrollmentsController,
+    MajorController,
+    ScoreController,
+    StudentController,
+    SubjectController,
+    TeacherController,
+    AnnouncementController,
+    ProfileController
+};
+
+use App\Http\Controllers\Prestasiprima\{
+    GalleryController,
+    NewsController,
+    SambutanController
+};
+
+// ============================================================ //
+// ========================= ROUTES ============================ //
+// ============================================================ //
+>>>>>>> 92001a9 (ABI ULANG)
 
 
 // -------------------- HALAMAN UTAMA -------------------- //
@@ -53,6 +99,7 @@ Route::prefix('erorpage')->group(function () {
 // ============================================================ //
 
 Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
+<<<<<<< HEAD
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -62,6 +109,8 @@ Route::get('/welcome', function () {
 Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
 
 // Pendaftaran
+=======
+>>>>>>> 92001a9 (ABI ULANG)
 Route::get('/pendaftaran', [Pendaftaran::class, 'index'])->name('pendaftaran');
 
 Route::get('/formulir', [FormulirController::class, 'create'])->name('pendaftaran.formulir');
@@ -126,6 +175,7 @@ Route::prefix('presmaboard')->group(function () {
             Route::delete('/{id}', [PresmaboardStudentController::class, 'destroy'])->name('destroy');
             Route::get('/statistics', [PresmaboardStudentController::class, 'getStatistics'])->name('statistics');
         });
+<<<<<<< HEAD
         Route::prefix('students')->as('students.')->group(function () {
             Route::get('/', [StudentController::class, 'index'])->name('index');
             Route::post('/', [StudentController::class, 'store'])->name('store');
@@ -192,6 +242,8 @@ Route::prefix('presmaboard')->group(function () {
         Route::prefix('siakad')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('siakad.profile');
 });
+=======
+>>>>>>> 92001a9 (ABI ULANG)
     });
 });
 
