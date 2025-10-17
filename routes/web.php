@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContentManagementController;
 use App\Http\Controllers\PresmaboardController;
+use App\Http\Controllers\PresmaboardStudentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SambutanController;
 use App\Http\Controllers\Pendaftaran;
