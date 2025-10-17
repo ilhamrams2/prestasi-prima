@@ -232,6 +232,10 @@
             </form>
         </div>
     </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
     {{-- ================= SCRIPT MODAL ================= --}}
     <script>
@@ -261,6 +265,7 @@
                 setTimeout(() => modal.classList.add('hidden'), 200);
             }
         });
+    </script>
     </script>
 @endsection
 

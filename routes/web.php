@@ -25,6 +25,7 @@ use App\Http\Controllers\Siakad\AnnouncementController;
 use App\Http\Controllers\Siakad\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+
 use App\Http\Controllers\SambutanController;
 use App\Http\Controllers\Pendaftaran;
 use App\Http\Controllers\FormulirController;
@@ -51,11 +52,17 @@ use App\Http\Controllers\Siakad\ProfileController;
 Route::get('/', fn() => view('prestasiprima.pages.landing'));
 Route::get('/welcome', fn() => view('welcome'))->name('welcome');
 
+// -------------------- HALAMAN UTAMA -------------------- //
+Route::get('/', fn() => view('prestasiprima.pages.landing'));
+Route::get('/welcome', fn() => view('welcome'))->name('welcome');
 
+
+// -------------------- SPLASH & LOGIN -------------------- //
 // -------------------- SPLASH & LOGIN -------------------- //
 Route::get('/splash/{screen}', [ContentManagementController::class, 'splashscreen'])
     ->where('screen', '[1-4]+')
     ->name('splash.screen');
+
 
 Route::post('/logout', [ContentManagementController::class, 'logout'])->name('logout');
 
@@ -63,6 +70,7 @@ Route::get('/splash/login/{role?}', [ContentManagementController::class, 'splash
     ->name('splash.login');
 
 
+// -------------------- HALAMAN ERROR -------------------- //
 // -------------------- HALAMAN ERROR -------------------- //
 Route::prefix('erorpage')->group(function () {
     Route::view('/notinternet', 'prestasiprima.pages.erorpage.notinternet');
@@ -142,6 +150,14 @@ Route::prefix('presmaboard')->group(function () {
         Route::post('/logout', [PresmaboardController::class, 'logout'])->name('presmaboard.logout');
 
         // CRUD Siswa
+        Route::prefix('siswa')->name('presmaboard.siswa.')->group(function () {
+            Route::get('/', [PresmaboardStudentController::class, 'index'])->name('index');
+            Route::post('/', [PresmaboardStudentController::class, 'store'])->name('store');
+            Route::get('/{id}', [PresmaboardStudentController::class, 'show'])->name('show');
+            Route::put('/{id}', [PresmaboardStudentController::class, 'update'])->name('update');
+            Route::delete('/{id}', [PresmaboardStudentController::class, 'destroy'])->name('destroy');
+            Route::get('/statistics', [PresmaboardStudentController::class, 'getStatistics'])->name('statistics');
+        });
         Route::prefix('siswa')->name('presmaboard.siswa.')->group(function () {
             Route::get('/', [PresmaboardStudentController::class, 'index'])->name('index');
             Route::post('/', [PresmaboardStudentController::class, 'store'])->name('store');
