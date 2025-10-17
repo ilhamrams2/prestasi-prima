@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('presmaboard_students', function (Blueprint $table) {
                 $table->id();
     $table->string('nama');
-    $table->enum('gender', ['Laki-laki', 'Perempuan'])->default('Laki-laki');
     $table->string('foto')->nullable();
     $table->string('kelas', 10);
     $table->string('jurusan', 100);

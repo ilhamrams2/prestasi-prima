@@ -81,7 +81,7 @@ class PrestasiprimaNewsSeeder extends Seeder
                               <p>Robot ini mampu mendeteksi rintangan secara otomatis menggunakan sensor ultrasonik.</p>',
                 'category_id' => 2,
                 'published_at' => now()->subDays(6),
-            ],
+            ], 
             [
                 'title' => 'Kegiatan Class Meeting: Ajang Kreativitas dan Sportivitas Siswa',
                 'slug' => Str::slug('Kegiatan Class Meeting: Ajang Kreativitas dan Sportivitas Siswa'),
