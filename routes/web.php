@@ -68,7 +68,30 @@ use App\Http\Controllers\Prestasiprima\{
 // ============================================================ //
 // ========================= ROUTES ============================ //
 // ============================================================ //
+<<<<<<< HEAD
 >>>>>>> 92001a9 (ABI ULANG)
+=======
+use App\Http\Controllers\SambutanController;
+use App\Http\Controllers\Pendaftaran;
+use App\Http\Controllers\FormulirController;
+use App\Http\Controllers\PresmalanceController;
+use App\Http\Controllers\PresmaAuthController;
+use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\Errorcontroller;
+use App\Http\Controllers\Siakad\AbsenceController;
+use App\Http\Controllers\siakad\AttendanceController;
+use App\Http\Controllers\siakad\auth\AuthController as SiakadAuthController;
+use App\Http\Controllers\Siakad\ClassesController;
+use App\Http\Controllers\Siakad\DashboardController;
+use App\Http\Controllers\siakad\EnrollmentsController;
+use App\Http\Controllers\siakad\MajorController;
+use App\Http\Controllers\Siakad\ScoreController;
+use App\Http\Controllers\Siakad\StudentController;
+use App\Http\Controllers\siakad\SubjectController;
+use App\Http\Controllers\siakad\TeacherController;
+use App\Http\Controllers\Siakad\AnnouncementController;
+use App\Http\Controllers\Siakad\ProfileController;
+>>>>>>> d6ff915 (mangtaps)
 
 
 // -------------------- HALAMAN UTAMA -------------------- //
@@ -100,6 +123,9 @@ Route::prefix('erorpage')->group(function () {
 
 Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d6ff915 (mangtaps)
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -109,8 +135,11 @@ Route::get('/welcome', function () {
 Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
 
 // Pendaftaran
+<<<<<<< HEAD
 =======
 >>>>>>> 92001a9 (ABI ULANG)
+=======
+>>>>>>> d6ff915 (mangtaps)
 Route::get('/pendaftaran', [Pendaftaran::class, 'index'])->name('pendaftaran');
 
 Route::get('/formulir', [FormulirController::class, 'create'])->name('pendaftaran.formulir');
@@ -176,6 +205,9 @@ Route::prefix('presmaboard')->group(function () {
             Route::get('/statistics', [PresmaboardStudentController::class, 'getStatistics'])->name('statistics');
         });
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d6ff915 (mangtaps)
         Route::prefix('students')->as('students.')->group(function () {
             Route::get('/', [StudentController::class, 'index'])->name('index');
             Route::post('/', [StudentController::class, 'store'])->name('store');
@@ -242,8 +274,11 @@ Route::prefix('presmaboard')->group(function () {
         Route::prefix('siakad')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('siakad.profile');
 });
+<<<<<<< HEAD
 =======
 >>>>>>> 92001a9 (ABI ULANG)
+=======
+>>>>>>> d6ff915 (mangtaps)
     });
 });
 

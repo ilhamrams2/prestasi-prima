@@ -24,6 +24,20 @@
           Daftar Sekarang
         </a>
       </div>
+<!-- ================= SECTION PROGRAM KEAHLIAN ================= -->
+<section id="program" class="bg-gray-50 py-20">
+  <div class="max-w-7xl mx-auto px-4 md:px-8">
+
+    <!-- Judul -->
+    <div class="text-right mb-12 fade-in-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        Program <span class="text-orange-600">Keahlian</span>
+      </h2>
+      <p class="text-gray-600 max-w-3xl ml-auto">
+        Empat jurusan unggulan siap membentukmu jadi generasi kreatif dan kompeten.  
+        PPLG dengan dunia coding dan gim, TKJ untuk keahlian jaringan, DKV yang mengekspresikan ide melalui desain,  
+        hingga BCF yang mengasah talenta film dan broadcasting.
+      </p>
     </div>
 
     <!-- ================= 4 CARD JURUSAN ================= -->
@@ -31,6 +45,10 @@
 
       <!-- Card: PPLG -->
       <div class="relative group rounded-xl overflow-hidden shadow-lg">
+    <!-- Grid Program -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <!-- Card Template -->
+      <div class="relative group rounded-xl overflow-hidden shadow-lg fade-in-up" data-delay="0.1">
         <img src="assets/images/section/program/pplg.png" alt="PPLG" class="w-full h-96 object-cover">
         <div class="absolute inset-0 bg-black/40 transition-colors duration-700"></div>
         <div class="absolute inset-0 flex flex-col justify-end text-center p-8 z-10">
@@ -71,6 +89,7 @@
           <h3 class="text-white font-bold text-xl">Desain Komunikasi Visual</h3>
           <a href="#" class="lihat-selengkapnya mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline"
              data-target="dkv">Lihat Selengkapnya</a>
+<<<<<<< HEAD
         </div>
       </div>
     </div>
@@ -167,6 +186,8 @@
           <a href="#galeri-video" class="inline-block text-orange-600 font-semibold text-sm hover:text-orange-700">
             Lihat semua video →
           </a>
+=======
+>>>>>>> d6ff915 (mangtaps)
         </div>
       </div>
     </div>
@@ -215,6 +236,10 @@ function closeVideoModal() {
   modal.classList.remove("flex");
 }
 </script>
+<!-- ================= SECTION DETAIL JURUSAN ================= -->
+<section id="jurusan-detail-wrapper" class="py-20 bg-white hidden opacity-0 transform translate-y-10 transition-all duration-700">
+  <div class="max-w-7xl mx-auto px-4 md:px-8" id="jurusan-detail-content"></div>
+</section>
 
 <!-- ================= STYLE ANIMASI ================= -->
 <style>
