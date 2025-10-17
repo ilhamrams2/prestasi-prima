@@ -129,14 +129,11 @@ Route::prefix('presmaboard')->group(function () {
         Route::post('/logout', [PresmaboardController::class, 'logout'])->name('presmaboard.logout');
 
         // CRUD Siswa
-        Route::prefix('siswa')->name('presmaboard.siswa.')->group(function () {
-            Route::get('/', [PresmaboardStudentController::class, 'index'])->name('index');
-            Route::post('/', [PresmaboardStudentController::class, 'store'])->name('store');
-            Route::get('/{id}', [PresmaboardStudentController::class, 'show'])->name('show');
-            Route::put('/{id}', [PresmaboardStudentController::class, 'update'])->name('update');
-            Route::delete('/{id}', [PresmaboardStudentController::class, 'destroy'])->name('destroy');
-            Route::get('/statistics', [PresmaboardStudentController::class, 'getStatistics'])->name('statistics');
-        });
+Route::prefix('siswa')->name('presmaboard.siswa.')->group(function () {
+       Route::resource('siswa', PresmaboardStudentController::class);
+
+});
+
     });
 });
 

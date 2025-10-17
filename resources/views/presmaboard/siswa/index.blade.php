@@ -3,21 +3,10 @@
 
 @section('content')
 <div
-    x-data="{
-        showCreate:false,
-        showEdit:false,
-        showView:false,
-        openDeleteModal:false,
-        selectedSiswa:{},
-        selectedName:'',
-        selectedNIS:'',
-        toasts:[],
-        addToast(type,message){
-            const id=Date.now();
-            this.toasts.push({id,type,message});
-            setTimeout(()=>this.toasts=this.toasts.filter(t=>t.id!==id),4000);
-        }
-    }"
+      x-data="siswaCrud()"
+    x-init="fetchSiswa()"
+    @toast.window="addToast($event.detail.type,$event.detail.message)"
+    class="space-y-8 animate-fadeIn relative"
     @toast.window="addToast($event.detail.type,$event.detail.message)"
     class="space-y-8 animate-fadeIn relative"
 >
@@ -398,6 +387,102 @@
         </template>
     </div>
 </div>
+
+
+
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('siswaCrud', () => ({
+        showCreate: false,
+        showEdit: false,
+        showView: false,
+        openDeleteModal: false,
+        selectedSiswa: {},
+        toasts: [],
+
+        addToast(type, message) {
+            const id = Date.now();
+            this.toasts.push({ id, type, message });
+            setTimeout(() => {
+                this.toasts = this.toasts.filter(t => t.id !== id);
+            }, 3000);
+        },
+
+        storeSiswa() {
+            const form = document.getElementById('formCreate');
+            const formData = new FormData(form);
+
+            fetch('{{ route("presmaboard.siswa.store") }}', {
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                body: formData,
+            })
+            .then(res => res.json())
+            .then(res => {
+                if (res.success) {
+                    this.addToast('success', 'Data siswa berhasil ditambahkan');
+                    this.showCreate = false;
+                    setTimeout(() => location.reload(), 1000);
+                }
+            })
+            .catch(() => this.addToast('error', 'Gagal menambahkan siswa'));
+        },
+
+        editSiswa(id) {
+            fetch(`{{ route('presmaboard.siswa.show', ':id') }}`.replace(':id', id))
+                .then(res => res.json())
+                .then(data => {
+                    this.selectedSiswa = data;
+                    this.showEdit = true;
+                });
+        },
+
+        updateSiswa() {
+            const form = document.getElementById('formEdit');
+            const formData = new FormData(form);
+
+            fetch(`{{ route('presmaboard.siswa.update', ':id') }}`.replace(':id', this.selectedSiswa.id), {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'X-HTTP-Method-Override': 'PUT'
+                },
+                body: formData,
+            })
+            .then(res => res.json())
+            .then(res => {
+                if (res.success) {
+                    this.addToast('success', 'Data siswa berhasil diperbarui');
+                    this.showEdit = false;
+                    setTimeout(() => location.reload(), 1000);
+                }
+            })
+            .catch(() => this.addToast('error', 'Gagal memperbarui siswa'));
+        },
+
+        deleteSiswa(id) {
+            this.selectedSiswa = { id };
+            this.openDeleteModal = true;
+        },
+
+        confirmDelete() {
+            fetch(`{{ route('presmaboard.siswa.destroy', ':id') }}`.replace(':id', this.selectedSiswa.id), {
+                method: 'DELETE',
+                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+            })
+            .then(res => res.json())
+            .then(res => {
+                if (res.success) {
+                    this.addToast('success', 'Data siswa berhasil dihapus');
+                    this.openDeleteModal = false;
+                    setTimeout(() => location.reload(), 1000);
+                }
+            })
+            .catch(() => this.addToast('error', 'Gagal menghapus siswa'));
+        }
+    }));
+});
+</script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
