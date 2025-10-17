@@ -29,12 +29,6 @@
           <p class="text-[11px] md:text-xs text-black font-medium tracking-wide">
             Kepala Sekolah SMK Prestasi Prima
           </p>
-          <p class="text-sm md:text-base font-bold text-orange-600 leading-snug">
-            Hendry Kurniawan, S.Kom., M.I.Kom.
-          </p>
-          <p class="text-[11px] md:text-xs text-black font-medium tracking-wide">
-            Kepala Sekolah SMK Prestasi Prima
-          </p>
         </div>
       </div>
     </div>

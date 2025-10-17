@@ -10,7 +10,6 @@ use App\Http\Controllers\PresmalanceController;
 use App\Http\Controllers\PresmaAuthController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\Errorcontroller;
-use App\Http\Controllers\prestasiprima\SambutanController as PrestasiprimaSambutanController;
 use App\Http\Controllers\Siakad\AbsenceController;
 use App\Http\Controllers\siakad\AttendanceController;
 use App\Http\Controllers\siakad\auth\AuthController as SiakadAuthController;
@@ -79,7 +78,7 @@ Route::get('/welcome', function () {
 });
 
 // Sambutan
-Route::get('/sambutan', [PrestasiprimaSambutanController::class, 'index'])->name('sambutan');
+Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
 
 // Pendaftaran
 Route::get('/pendaftaran', [Pendaftaran::class, 'index'])->name('pendaftaran');
@@ -213,7 +212,7 @@ Route::prefix('siakad')->group(function () {
             Route::delete('/{id}', [AnnouncementController::class, 'destroy'])->name('destroy'); // hapus pengumuman
         });
         Route::prefix('siakad')->group(function () {
-            Route::get('/profile', [ProfileController::class, 'index'])->name('siakad.profile');
-        });
+    Route::get('/profile', [ProfileController::class, 'index'])->name('siakad.profile');
+});
     });
 });
