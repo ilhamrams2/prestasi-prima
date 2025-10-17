@@ -1,7 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 09c6a84 (update prestasi-prima section program)
+=======
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
 document.addEventListener('DOMContentLoaded', () => {
   // Elements
   const links = document.querySelectorAll('.lihat-selengkapnya');
@@ -10,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const panel = document.getElementById('jurusan-detail');
   const content = document.getElementById('jurusan-detail-content');
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
 
   // DATA (ke isi dengan html string seperti yang sudah ada di program.js)
   const details = {
@@ -188,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeDetail();
   });
+<<<<<<< HEAD
 =======
 document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelectorAll(".lihat-selengkapnya");
@@ -398,4 +405,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === 'Escape') closeDetail();
   });
 >>>>>>> 09c6a84 (update prestasi-prima section program)
+=======
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
 });

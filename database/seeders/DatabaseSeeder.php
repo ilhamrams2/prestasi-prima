@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             TeacherSeeder::class,
             SiakadMajorSeeder::class,
 <<<<<<< HEAD
+<<<<<<< HEAD
             SiakadClassSeeder::class,
             SiakadStudentSeeder::class,
 =======
@@ -27,6 +28,12 @@ class DatabaseSeeder extends Seeder
             PrestasiprimaCategorySeeder::class,
             PrestasiprimaNewsSeeder::class,
 >>>>>>> 8701b0e (tambah halaman berita fe dan be lengkap)
+=======
+            presmaboarduser::class,
+            PrestasiprimaGallerySeeder::class, // ✅ Tambahkan seeder galeri di sini
+            PrestasiprimaCategorySeeder::class,
+            PrestasiprimaNewsSeeder::class,
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
         ]);
 
         // \App\Models\User::factory(10)->create();

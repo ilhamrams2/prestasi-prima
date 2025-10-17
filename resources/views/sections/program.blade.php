@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <!-- ================= SECTION PROGRAM KEAHLIAN ================= -->
 <section id="program" class="bg-gray-50 py-20 overflow-hidden">
+<<<<<<< HEAD
   <div class="max-w-7xl mx-auto px-4 md:px-8">
 
     <!-- ================= HEADER ================= -->
@@ -25,6 +26,13 @@
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-12 fade-in-up">
       <div>
 >>>>>>> 09c6a84 (update prestasi-prima section program)
+=======
+  <div class="max-w-7xl mx-auto px-4 md:px-8">
+
+    <!-- ================= HEADER ================= -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-12 fade-in-up">
+      <div>
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
         <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">
           Program <span class="text-orange-600">Keahlian</span>
         </h2>
@@ -36,6 +44,9 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
       <div class="flex gap-3 mt-6 md:mt-0">
         <a href="#program" 
            class="inline-flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition">
@@ -43,6 +54,7 @@
         </a>
         <a href="#contact" 
            class="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-orange-700 transition">
+<<<<<<< HEAD
 =======
       <div class="flex gap-3 items-center">
         <a href="#program" class="inline-flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition">
@@ -59,6 +71,8 @@
         <a href="#contact" 
            class="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-orange-700 transition">
 >>>>>>> 09c6a84 (update prestasi-prima section program)
+=======
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
           Daftar Sekarang
         </a>
       </div>
@@ -66,8 +80,11 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 09c6a84 (update prestasi-prima section program)
+=======
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
     <!-- ================= 4 CARD JURUSAN ================= -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-16 fade-in-up delay-100">
 
@@ -148,6 +165,7 @@
               Gabung Sekarang
             </a>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     <!-- Grid: featured + cards -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -164,6 +182,8 @@
             <a href="#contact" class="inline-flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">Gabung Sekarang</a>
 =======
 >>>>>>> 09c6a84 (update prestasi-prima section program)
+=======
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
           </div>
         </div>
       </div>
@@ -182,6 +202,7 @@
           </p>
         </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
       <!-- Card 3: BCF -->
       <div class="relative group rounded-xl overflow-hidden shadow-lg bg-white transition-transform transform hover:-translate-y-1">
@@ -232,6 +253,11 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
 
 >>>>>>> 09c6a84 (update prestasi-prima section program)
+=======
+        <!-- Video Thumbnails -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
+
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
           <!-- Video 1 -->
           <div class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 hover:shadow-xl transition group cursor-pointer"
                onclick="openVideoModal('https://www.youtube.com/embed/Asi93VHxRgs')">
@@ -265,6 +291,9 @@
               <p class="text-xs text-gray-500">Kolaborasi siswa lintas jurusan dalam ajang lomba sains dan teknologi sekolah.</p>
             </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
           </div>
         </div>
 
@@ -273,6 +302,7 @@
           <a href="#galeri-video" class="inline-block text-orange-600 font-semibold text-sm hover:text-orange-700">
             Lihat semua video →
           </a>
+<<<<<<< HEAD
 =======
       <!-- Card 4: DKV -->
       <div class="relative group rounded-xl overflow-hidden shadow-lg bg-white transition-transform transform hover:-translate-y-1">
@@ -307,11 +337,16 @@
             Lihat semua video →
           </a>
 >>>>>>> 09c6a84 (update prestasi-prima section program)
+=======
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
         </div>
       </div>
     </div>
   </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
 
   <!-- ================= MODAL VIDEO ================= -->
   <div id="videoModal"
@@ -327,6 +362,9 @@
 </section>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
 <!-- ================= SCRIPT ANIMASI & MODAL ================= -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -339,6 +377,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { threshold: 0.2 });
   elements.forEach(el => observer.observe(el));
 });
+<<<<<<< HEAD
+=======
+
+// Modal Video
+function openVideoModal(url) {
+  const modal = document.getElementById("videoModal");
+  const iframe = document.getElementById("videoFrame");
+  iframe.src = url;
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+function closeVideoModal() {
+  const modal = document.getElementById("videoModal");
+  const iframe = document.getElementById("videoFrame");
+  iframe.src = "";
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
+}
+</script>
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
 
 // Modal Video
 function openVideoModal(url) {
@@ -402,6 +461,7 @@ function closeVideoModal() {
   background-color: rgba(255, 165, 0, 0.25);
   transition: background-color 0.6s ease;
 }
+<<<<<<< HEAD
 </style>
 =======
   /* overlay-layer is specific so we don't accidentally style other absolute elements */
@@ -491,3 +551,6 @@ function closeVideoModal() {
 }
 </style>
 >>>>>>> 09c6a84 (update prestasi-prima section program)
+=======
+</style>
+>>>>>>> a34568fa340ceec7e5874a82cdfaf666b8306aeb
