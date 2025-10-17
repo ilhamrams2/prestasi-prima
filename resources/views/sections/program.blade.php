@@ -1,4 +1,30 @@
 <!-- ================= SECTION PROGRAM KEAHLIAN ================= -->
+<section id="program" class="bg-gray-50 py-20 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 md:px-8">
+
+    <!-- ================= HEADER ================= -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-12 fade-in-up">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">
+          Program <span class="text-orange-600">Keahlian</span>
+        </h2>
+        <p class="text-gray-600 mt-3 max-w-2xl">
+          Empat jurusan unggulan siap membentuk generasi kreatif dan kompeten:
+          PPLG, TKJ, BCF, dan DKV — lengkap dengan kurikulum praktik industri.
+        </p>
+      </div>
+
+      <div class="flex gap-3 mt-6 md:mt-0">
+        <a href="#program" 
+           class="inline-flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition">
+          Semua Program
+        </a>
+        <a href="#contact" 
+           class="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-orange-700 transition">
+          Daftar Sekarang
+        </a>
+      </div>
+<!-- ================= SECTION PROGRAM KEAHLIAN ================= -->
 <section id="program" class="bg-gray-50 py-20">
   <div class="max-w-7xl mx-auto px-4 md:px-8">
 
@@ -14,6 +40,11 @@
       </p>
     </div>
 
+    <!-- ================= 4 CARD JURUSAN ================= -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-16 fade-in-up delay-100">
+
+      <!-- Card: PPLG -->
+      <div class="relative group rounded-xl overflow-hidden shadow-lg">
     <!-- Grid Program -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
       <!-- Card Template -->
@@ -61,6 +92,51 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- ================= MODAL VIDEO ================= -->
+  <div id="videoModal"
+       class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 transition duration-300">
+    <div class="bg-white rounded-2xl overflow-hidden max-w-3xl w-full mx-4 shadow-lg relative">
+      <button onclick="closeVideoModal()"
+              class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition">
+        <i class="ph ph-x text-xl"></i>
+      </button>
+      <iframe id="videoFrame" class="w-full aspect-video" src="" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCRIPT ANIMASI & MODAL ================= -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Animasi fade-in-up
+  const elements = document.querySelectorAll(".fade-in-up");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("show");
+    });
+  }, { threshold: 0.2 });
+  elements.forEach(el => observer.observe(el));
+});
+
+// Modal Video
+function openVideoModal(url) {
+  const modal = document.getElementById("videoModal");
+  const iframe = document.getElementById("videoFrame");
+  iframe.src = url;
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+function closeVideoModal() {
+  const modal = document.getElementById("videoModal");
+  const iframe = document.getElementById("videoFrame");
+  iframe.src = "";
+  modal.classList.add("hidden");
+  modal.classList.remove("flex");
+}
+</script>
   </div>
 </section>
 
