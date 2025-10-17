@@ -137,6 +137,9 @@ function closeVideoModal() {
   modal.classList.remove("flex");
 }
 </script>
+  </div>
+</section>
+
 <!-- ================= SECTION DETAIL JURUSAN ================= -->
 <section id="jurusan-detail-wrapper" class="py-20 bg-white hidden opacity-0 transform translate-y-10 transition-all duration-700">
   <div class="max-w-7xl mx-auto px-4 md:px-8" id="jurusan-detail-content"></div>

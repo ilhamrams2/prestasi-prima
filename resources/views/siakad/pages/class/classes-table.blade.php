@@ -1,5 +1,6 @@
 {{-- ================= TABLE DAFTAR KELAS ================= --}}
 <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+
     {{-- Header --}}
     <div class="px-6 py-4 border-b bg-gray-50 flex items-center justify-between">
         <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
