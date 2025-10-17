@@ -4,22 +4,30 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('prestasiprima_galleries', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('category')->nullable();
-            $table->string('thumbnail')->nullable();
-            $table->string('video_url')->nullable();
-            $table->text('description')->nullable();
-            $table->timestamps();
+        Schema::create('galleries', function (Blueprint $table) {
+      $table->id();
+            $table->string('title');  // Nama gallery
+            $table->string('category');  // Kategori gallery
+            $table->string('image')->nullable();  // Gambar untuk gallery (opsional)
+            $table->string('youtube_link')->nullable();  // Link YouTube (opsional)
+            $table->enum('status', ['draft', 'published']);  // Status gallery
+            $table->timestamp('published_at')->nullable();  // Tanggal publish
+            $table->timestamps();  // Timestamps untuk created_at dan updated_at
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('prestasiprima_galleries');
+        Schema::dropIfExists('galleries');
     }
 };
