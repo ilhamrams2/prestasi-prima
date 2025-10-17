@@ -3,64 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\GeminiChatbotService;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Http;
 
 class ChatbotController extends Controller
 {
-    protected GeminiChatbotService $geminiService;
-
-    // Lakukan Dependency Injection untuk Service
-    public function __construct(GeminiChatbotService $geminiService)
+    public function send(Request $request)
     {
-        $this->geminiService = $geminiService;
-    }
+        $message = $request->input('message');
 
-    /**
-     * Mengirim pesan dan menerima balasan dari Gemini Chatbot.
-     * Endpoint: POST /api/chatbot/send
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function sendMessage(Request $request)
-    {
-        try {
-            // Validasi input: prompt wajib ada dan tidak boleh lebih dari 2000 karakter.
-            $request->validate([
-                'prompt' => 'required|string|max:2000',
-                // Model name diterima dari frontend UI (opsional)
-                'model' => 'sometimes|string' 
-            ]);
-        } catch (ValidationException $e) {
-            // Jika validasi gagal
-            return response()->json([
-                'reply' => 'Maaf, pesan Anda tidak valid atau terlalu panjang.'
-            ], 422);
+        if (!$message) {
+            return response()->json(['error' => 'Pesan kosong!'], 400);
         }
 
-        // Tentukan nama model. Gunakan 'gemini-2.5-flash' sebagai default.
-        // Nama model ini dikirim dari UI (HTML) dan diteruskan ke Service.
-        $modelName = $request->input('model', 'gemini-2.5-flash'); 
-        
-        // Panggil service untuk mendapatkan balasan
-        $reply = $this->geminiService->sendMessage(
-            $request->input('prompt'), 
-            $modelName
-        );
+        try {
+            // ✅ Pastikan hanya ada "https" (tidak "hhttps")
+            $n8nUrl = 'https://imaginepresma.com/webhook/test-smkpp';
 
-        return response()->json(['reply' => $reply]);
-    }
+            // ✅ Kirim POST ke N8N
+            $response = Http::timeout(10)->post($n8nUrl, [
+                'message' => $message,
+            ]);
 
-    /**
-     * Menghapus riwayat chat.
-     * Endpoint: POST /api/chatbot/clear
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function clearHistory()
-    {
-        $this->geminiService->clearChatHistory();
-        return response()->json(['message' => 'Chat history cleared']);
+            if ($response->successful()) {
+                return response()->json([
+                    'data' => ['reply' => $response->json()['reply'] ?? 'Tidak ada balasan dari N8N.']
+                ]);
+            } else {
+                return response()->json([
+                    'error' => 'Gagal menghubungi server n8n',
+                    'details' => $response->body()
+                ], $response->status());
+            }
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => 'Gagal menghubungi server n8n',
+                'details' => $th->getMessage(),
+            ], 500);
+        }
     }
 }

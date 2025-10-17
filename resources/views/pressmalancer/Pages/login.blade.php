@@ -3,24 +3,11 @@
 <div class="min-h-screen flex items-center justify-center bg-white px-4 py-12">
     <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md border border-gray-200">
         {{-- Tombol Sosial --}}
-        <a href="{{ route('social.redirect', ['provider' => 'google']) }}"
+        <a href="{{ route('auth.google', ['provider' => 'google']) }}"
             class="group flex items-center justify-center w-full border border-orange-400 rounded-md py-2 mb-3 hover:bg-orange-500 transition">
             <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" class="w-5 h-5 mr-2">
             <span class="text-gray-700 font-medium group-hover:text-white transition">Continue with Google</span>
         </a>
-
-        <a href="{{ route('social.redirect', ['provider' => 'facebook']) }}"
-            class="group flex items-center justify-center w-full border border-blue-400 rounded-md py-2 mb-3 hover:bg-blue-500 transition">
-            <img src="https://www.svgrepo.com/show/452196/facebook-1.svg" alt="Facebook" class="w-5 h-5 mr-2">
-            <span class="text-gray-700 font-medium group-hover:text-white transition">Continue with Facebook</span>
-        </a>
-
-        <a href="{{ route('social.redirect', ['provider' => 'apple']) }}"
-            class="group flex items-center justify-center w-full border border-gray-400 rounded-md py-2 hover:bg-gray-500 transition">
-            <img src="https://www.svgrepo.com/show/452210/apple-black-logo.svg" alt="Apple" class="w-5 h-5 mr-2">
-            <span class="text-gray-700 font-medium group-hover:text-white transition">Continue with Apple</span>
-        </a>
-
 
         {{-- Garis Pemisah --}}
         <div class="flex items-center my-6">
@@ -60,4 +47,3 @@
     </div>
 </div>
 @include('ChatbotUI')
-@include('footer')

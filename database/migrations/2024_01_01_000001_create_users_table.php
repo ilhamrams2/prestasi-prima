@@ -6,28 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('presmalancer_users', function (Blueprint $table) {
             $table->id();
-            $table->string('google_id', 50)->nullable()->unique();
-            $table->string('email', 100)->unique();
+            $table->string('google_id', 50)->nullable();
             $table->string('name', 100);
+            $table->string('email', 100)->unique();
             $table->string('avatar', 255)->nullable();
-            $table->string('role')->default('user'); // user, company, admin
+            $table->string('role', 50)->default('user'); // 'user' atau 'admin'
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable(); // For non-Google auth
+            $table->string('password', 255)->nullable(); // nullable biar bisa Google login
             $table->rememberToken();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('presmalancer_users');

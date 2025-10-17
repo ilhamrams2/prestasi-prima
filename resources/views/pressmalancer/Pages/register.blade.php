@@ -1,3 +1,4 @@
+@include('header')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,7 +122,7 @@
             </div>
 
             <!-- Google Button -->
-            <a href="{{ route('social.redirect', ['provider' => 'google']) }}"
+            <a href="{{ route('auth.google', ['provider' => 'google']) }}"
             class="group flex items-center justify-center w-full border border-orange-400 rounded-md py-2 mb-3 hover:bg-orange-500 transition">
             <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" class="w-5 h-5 mr-2">
             <span class="text-gray-700 font-medium group-hover:text-white transition">Continue with Google</span>

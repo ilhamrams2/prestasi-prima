@@ -17,7 +17,8 @@ class RegisterLanceController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('..pressmalancer/pages/register');
+        // Perbaiki path view
+        return view('pressmalancer.pages.register');
     }
 
     /**
@@ -25,15 +26,16 @@ class RegisterLanceController extends Controller
      */
     public function register(Request $request)
     {
-        // Validate the request
+        // ✅ Ubah validasi unique ke presmalancer_users
         $request->validate([
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'date_of_birth' => ['required', 'date', 'before:today'],
-        ]);
+    'username' => ['required', 'string', 'max:255', 'unique:presmalancer_users'],
+    'email' => ['required', 'string', 'email', 'max:255', 'unique:presmalancer_users'],
+    'password' => ['required', 'string', 'min:8', 'confirmed'],
+    'date_of_birth' => ['required', 'date', 'before:today'],
+]);
 
-        // Create the user
+
+        // Buat user baru
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
@@ -42,14 +44,14 @@ class RegisterLanceController extends Controller
             'name' => $request->username,
         ]);
 
-
-        // Fire the registered event
+        // Trigger event bawaan Laravel
         event(new Registered($user));
 
-        // Log the user in
+        // Auto-login
         Auth::login($user);
 
-        // Redirect to job list page
-        return view('pressmalancer.pages.joblist');
+        // Arahkan ke halaman setelah register
+        return redirect()->route('jobs.index')->with('success', 'Registrasi berhasil!');
     }
 }
+    

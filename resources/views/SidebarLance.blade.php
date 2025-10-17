@@ -186,10 +186,6 @@ class="sidebar-wrapper">
                                         </p>
                                     </div>
                                 </div>
-                                <button onclick="alert('Upgrade ke Premium')" 
-                                        class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-colors">
-                                    Upgrade Sekarang
-                                </button>
                             </div>
                         </div>
                     </div>

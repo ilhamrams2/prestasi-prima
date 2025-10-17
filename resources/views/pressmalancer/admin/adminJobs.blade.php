@@ -291,3 +291,4 @@
 }
 </style>
 @include('footer')
+@endsection

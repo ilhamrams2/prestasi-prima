@@ -362,4 +362,5 @@ function profileEditor() {
 }
 </script>
 @endpush
+@include('footer')
 @endsection

@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Application extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'presmalancer_applications';
 
-    public $timestamps = false; // Only created_at
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.
@@ -21,8 +22,29 @@ class Application extends Model
     protected $fillable = [
         'job_id',
         'user_id',
+        'first_name',
+        'last_name',
+        'address',
+        'phone',
+        'email',
+        'source',
+        'resume_path',
+        'cover_letter_path',
+        'resume_type',
+        'cover_letter_type',
         'cover_letter',
         'status',
+        'current_phase',
+        'is_completed',
+        'phase2_answers',
+        'phase3_files',
+        'phase3_notes',
+        'final_notes',
+        'submitted_at',
+        'additional_data',
+        'admin_notes',
+        'reviewed_at',
+        'reviewed_by',
     ];
 
     /**
@@ -31,7 +53,15 @@ class Application extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'is_completed' => 'boolean',
+        'phase2_answers' => 'array',
+        'phase3_files' => 'array',
+        'additional_data' => 'array',
         'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'submitted_at' => 'datetime',
+        'reviewed_at' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
 
     /**
@@ -56,6 +86,30 @@ class Application extends Model
     public function getTimeAgoAttribute(): string
     {
         return $this->created_at->diffForHumans();
+    }
+    
+    /**
+     * Get full name
+     */
+    public function getFullNameAttribute(): string
+    {
+        return trim($this->first_name . ' ' . $this->last_name);
+    }
+    
+    /**
+     * Get resume URL
+     */
+    public function getResumeUrlAttribute(): ?string
+    {
+        return $this->resume_path ? asset('storage/' . $this->resume_path) : null;
+    }
+    
+    /**
+     * Get cover letter URL
+     */
+    public function getCoverLetterUrlAttribute(): ?string
+    {
+        return $this->cover_letter_path ? asset('storage/' . $this->cover_letter_path) : null;
     }
 
     /**

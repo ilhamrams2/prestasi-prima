@@ -40,7 +40,7 @@ class GoogleController extends Controller
         }
 
         \Illuminate\Support\Facades\Auth::login($user);
-
+ 
         // 🔹 Tentukan redirect berdasarkan role
         session()->forget('url.intended');
 

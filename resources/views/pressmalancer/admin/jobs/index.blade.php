@@ -1,6 +1,7 @@
 @extends('app')
 @vite('resources/css/app.css')
 @section('title', 'Admin - Kelola Lowongan Kerja')
+
 @section('content')
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 <div class="min-h-screen bg-gray-50">
@@ -286,7 +287,7 @@
     animation: fadeIn 0.5s ease-out;
 }
 </style>
-@include('footer')
+@endsection
 
 
   <!-- Filter & Add Button -->

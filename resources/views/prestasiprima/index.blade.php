@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title', 'SMK Prestasi Prima')</title>
 
   <!-- Google Material Icons -->
@@ -50,11 +51,11 @@
     const currentURL = window.location.pathname;
     const navLinkEls = document.querySelectorAll("#navbar .nav-link");
 
-    navLinkEls.forEach(link => { 
+  navLinkEls.forEach(link => {
       const href = link.getAttribute("href");
 
       if (
-        (href === "/" && currentURL === "/") || 
+        (href === "/" && currentURL === "/") ||
         (href !== "/" && currentURL.startsWith(href))
       ) {
         link.classList.add("border-b-2", "border-orange-500");

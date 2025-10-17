@@ -1,6 +1,3 @@
-<!-- ================= CHATBOT UI ================= -->
-<!-- Pastikan Anda memuat Tailwind CSS dan Font Awesome di file induk Anda -->
-
 <button id="openChatButton"
     class="fixed bottom-5 right-5 bg-orange-500 text-white p-4 rounded-full shadow-lg hover:bg-orange-600 transition-all z-50 transform">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300" fill="none"
@@ -10,22 +7,19 @@
     </svg>
 </button>
 
-<!-- JENDELA CHAT -->
 <div id="chatWindow"
     class="fixed bottom-20 right-5 w-80 h-96 bg-white rounded-lg shadow-xl flex flex-col z-50 transition-all duration-300 ease-in-out transform scale-0 origin-bottom-right opacity-0 hidden 
     md:w-80 md:h-96">
-    <!-- HEADER -->
+    
     <div class="flex items-center justify-between p-3 bg-orange-600 rounded-t-lg">
         <div class="flex items-center space-x-2">
             <div class="w-2 h-2 bg-green-500 rounded-full"></div>
             <span class="text-white text-sm font-semibold">Live Chat</span>
         </div>
         <div class="flex items-center space-x-2">
-            <!-- Tombol Clear History -->
-            <button id="clearChatButton" class="text-white opacity-75 hover:opacity-100 transition-opacity">
+            <button id="clearChatButton" class="text-white opacity-75 hover:opacity-100 transition-opacity" title="Bersihkan Riwayat Lokal">
                 <i class="fas fa-redo-alt"></i>
             </button>
-            <!-- Tombol Tutup -->
             <button id="closeChatButton" class="text-white opacity-75 hover:opacity-100 transition-opacity">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="2">
@@ -35,30 +29,31 @@
         </div>
     </div>
 
-    <!-- PESAN CHAT -->
-    <div id="chatMessages" class="flex-grow overflow-y-auto p-3 space-y-3 custom-scrollbar">
-        <!-- Pesan sambutan awal akan dimuat oleh JavaScript -->
-    </div>
+    <div id="chatMessages" class="flex-grow overflow-y-auto p-3 space-y-3 custom-scrollbar bg-white">
+        </div>
 
-    <!-- INPUT FORM -->
-    <form id="chatForm" class="p-3 border-t border-gray-200 bg-gray-800 rounded-b-lg">
+    <form id="chatForm" class="p-3 border-t border-gray-200 bg-gray-50 rounded-b-lg">
         <div class="relative">
             <textarea id="chatInput" placeholder="Ketik pesan..." rows="1"
-                class="w-full pl-3 pr-10 py-2 rounded-full bg-gray-700 text-white text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 placeholder-gray-400 resize-none overflow-hidden"
+                class="w-full pl-3 pr-10 py-2 rounded-full bg-white text-black text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 placeholder-gray-400 resize-none overflow-hidden border border-gray-300"
                 style="min-height: 40px;"></textarea>
-            <!-- Tombol Kirim -->
-            <button type="submit" id="sendBtn"
-                class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-500 transition-colors">
+            <button type="submit" id="sendBtn" disabled
+                class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-500 transition-colors disabled:opacity-50">
                 <i class="fas fa-paper-plane text-xl"></i>
             </button>
+        </div>
+        <div id="chatbot-error" class="text-red-500 text-xs mt-1 ml-3 flex items-center" style="display:none;">
+            <i class="fas fa-times-circle mr-1"></i> <span id="error-text"></span>
         </div>
     </form>
 </div>
 
-<!-- ================= SCRIPT ================= -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    // === Konfigurasi & Elemen DOM ===
+    const sendRoute = "{{ route('chatbot.send') }}"; 
+    const csrfToken = document.querySelector('meta[name="csrf-token"]') ? 
+        document.querySelector('meta[name="csrf-token"]').getAttribute('content') : '';
+
     const openChatButton = document.getElementById('openChatButton');
     const chatWindow = document.getElementById('chatWindow');
     const closeChatButton = document.getElementById('closeChatButton');
@@ -67,188 +62,158 @@ document.addEventListener("DOMContentLoaded", () => {
     const userInput = document.getElementById('chatInput');
     const chatMessages = document.getElementById('chatMessages');
     const sendBtn = document.getElementById('sendBtn');
+    const errorDiv = document.getElementById('chatbot-error');
+    const errorText = document.getElementById('error-text');
     
-    // Ambil CSRF Token dari meta tag
-    const csrfToken = document.querySelector('meta[name="csrf-token"]') ? 
-        document.querySelector('meta[name="csrf-token"]').getAttribute('content') : '';
-
-    // Status kontrol untuk mencegah double submission
     let isSending = false;
-    // Model yang paling stabil untuk API
-    const modelName = 'gemini-2.5-flash'; 
-
-    // === Utilitas ===
 
     function scrollToBottom() {
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        setTimeout(() => {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 50);
     }
 
     function adjustTextareaHeight(textarea) {
         textarea.style.height = 'auto';
         textarea.style.height = (textarea.scrollHeight) + 'px';
+        sendBtn.disabled = textarea.value.trim() === ''; 
     }
     
-    // Fungsi untuk membuat elemen pesan
     function createMessageElement(text, isUser, type = 'text') {
         const messageDiv = document.createElement('div');
-        messageDiv.classList.add('flex', 'items-start', 'mb-2', isUser ? 'justify-end' : 'justify-start');
+        messageDiv.classList.add('flex', 'items-start', 'mb-2', 'last:mb-0', isUser ? 'justify-end' : 'justify-start');
         
         let contentHTML = '';
-
         if (type === 'loading') {
             contentHTML = `<p class="inline-block bg-gray-200 text-black text-sm p-2 rounded-lg max-w-[80%]"><span class="animate-pulse">Typing...</span></p>`;
         } else {
-            // Untuk pesan teks biasa
-            contentHTML = `<p class="inline-block text-sm p-2 rounded-lg max-w-[80%] ${isUser ? 'bg-orange-500 text-white' : 'bg-gray-200 text-black'}">${text}</p>`;
+            const bgColor = isUser ? 'bg-orange-500 text-white' : 'bg-gray-200 text-black';
+            const borderRadius = 'rounded-lg';
+            contentHTML = `<p class="inline-block text-sm p-2 ${bgColor} ${borderRadius} max-w-[80%] whitespace-pre-wrap">${text}</p>`;
         }
-
+        
         messageDiv.innerHTML = contentHTML;
         chatMessages.appendChild(messageDiv);
         scrollToBottom();
-        return messageDiv.querySelector('p') || messageDiv; // Kembalikan elemen p atau div utama
+        return messageDiv.querySelector('p') || messageDiv;
     }
 
-    // Fungsi untuk memisahkan teks dan tombol navigasi
-    function processAiReply(reply) {
-        const regex = /\[NAVIGATE_TO:([^|]+)\|([^\]]+)\]/g;
-        let match;
-        let lastIndex = 0;
-        
-        const aiResponseContainer = document.createElement('div');
-        aiResponseContainer.classList.add('flex', 'items-start', 'mb-2', 'justify-start', 'flex-col');
-        chatMessages.appendChild(aiResponseContainer);
-
-        let promises = [];
-
-        // Fungsi untuk mengetik teks
-        const typeAndAppend = async (text, container) => {
-            const p = document.createElement('p');
-            p.classList.add('inline-block', 'text-sm', 'p-2', 'rounded-lg', 'max-w-[80%]', 'bg-gray-200', 'text-black', 'mb-2');
-            container.appendChild(p);
-            
-            // Logika ketik per kata
-            const words = text.split(/\s+/);
-            p.innerHTML = '';
-            for (let i = 0; i < words.length; i++) {
-                p.innerHTML += words[i];
-                if (i < words.length - 1) {
-                    p.innerHTML += ' ';
-                }
-                scrollToBottom();
-                await new Promise(r => setTimeout(r, 15)); // Typing speed
-            }
-        };
-
-        // 1. Proses teks dan tombol
-        while ((match = regex.exec(reply)) !== null) {
-            const textBefore = reply.substring(lastIndex, match.index).trim();
-            if (textBefore) {
-                promises.push(typeAndAppend(textBefore, aiResponseContainer));
-            }
-            
-            // Tunggu hingga teks sebelumnya selesai diketik
-            Promise.all(promises).then(() => {
-                const buttonText = match[1];
-                const buttonUrl = match[2];
-                const buttonLink = document.createElement('a');
-                buttonLink.href = buttonUrl;
-                buttonLink.target = "_blank";
-                buttonLink.classList.add('inline-block', 'text-sm', 'p-2', 'rounded-lg', 'max-w-[80%]', 'bg-orange-500', 'text-white', 'hover:bg-orange-600', 'transition', 'font-semibold', 'text-center', 'mb-2', 'cursor-pointer');
-                buttonLink.innerText = buttonText;
-                aiResponseContainer.appendChild(buttonLink);
-                scrollToBottom();
-            });
-
-            lastIndex = regex.lastIndex;
-        }
-
-        // 2. Proses teks setelah tombol terakhir (atau seluruh teks jika tidak ada tombol)
-        const textAfter = reply.substring(lastIndex).trim();
-        if (textAfter) {
-            promises.push(typeAndAppend(textAfter, aiResponseContainer));
-        }
-        
-        // 3. Jika tidak ada tag dan tidak ada sisa teks, buat satu pesan
-        if (lastIndex === 0 && textAfter === '') {
-            promises.push(typeAndAppend(reply, aiResponseContainer));
-        }
-        
-        // Return promise agar kita tahu kapan semua pengetikan selesai
-        return Promise.all(promises);
+    function displayAiReply(reply) {
+        const formattedReply = reply.replace(/\n/g, '<br>');
+        createMessageElement(formattedReply, false);
     }
     
-    // === Logika Pengiriman Pesan ===
-
     async function sendMessage() {
         const message = userInput.value.trim();
         if (!message) return;
 
-        // *** PERBAIKAN PENTING UNTUK MENCEGAH DOUBLE SUBMISSION ***
         if (isSending) {
             console.warn("Pesan sedang dalam proses pengiriman. Abort.");
             return;
         } 
 
-        // 1. Tampilkan pesan pengguna
         createMessageElement(message, true);
         userInput.value = '';
-        adjustTextareaHeight(userInput);
+        adjustTextareaHeight(userInput); 
 
-        // 2. Set loading state dan nonaktifkan tombol/input
         isSending = true;
         sendBtn.disabled = true;
         userInput.disabled = true;
         sendBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin text-xl"></i>';
-        const loadingBubble = createMessageElement('', false, 'loading'); // Menampilkan "Typing..."
+        const loadingBubble = createMessageElement('', false, 'loading'); 
+        errorDiv.style.display = 'none';
 
         try {
-            const response = await fetch('/api/chatbot/send', {
+            const targetUrl = new URL(sendRoute, location.href);
+            const sameOrigin = targetUrl.origin === location.origin;
+            const credentialsMode = sameOrigin ? 'same-origin' : 'include';
+
+            // ✅ INI BAGIAN YANG DULU HILANG
+            const response = await fetch(sendRoute, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                     'X-CSRF-TOKEN': csrfToken
                 },
-                body: JSON.stringify({
-                    prompt: message,
-                    model: modelName // Menggunakan model yang stabil
-                })
+                credentials: credentialsMode,
+                body: JSON.stringify({ message })
             });
 
-            const data = await response.json();
+            // ✅ Baca hasilnya
+            let data = null;
+            let textFallback = null;
+            try {
+                data = await response.clone().json();
+            } catch (err) {
+                try {
+                    textFallback = await response.clone().text();
+                } catch (err2) {
+                    textFallback = null;
+                }
+            }
 
-            // 3. Hapus loading indicator dan proses balasan
-            loadingBubble.parentElement.remove(); // Hapus div loading
-            
+            if (loadingBubble && loadingBubble.parentElement) loadingBubble.parentElement.remove();
+
             if (response.ok) {
-                await processAiReply(data.reply);
+                if (data && data.data && data.data.reply) {
+                    displayAiReply(data.data.reply);
+                } else if (data && data.reply) {
+                    displayAiReply(data.reply);
+                } else if (textFallback) {
+                    displayAiReply(textFallback);
+                } else {
+                    const errorMessage = (data && (data.error || data.message)) || 'Server merespons tapi format tidak dikenal.';
+                    errorText.textContent = errorMessage;
+                    errorDiv.style.display = 'flex';
+                    createMessageElement('⚠️ ' + errorMessage, false);
+                }
             } else {
-                // Tampilkan error dari backend (termasuk pesan Overloaded)
-                const errorMessage = data.reply || "Maaf, terjadi kesalahan saat menghubungi server.";
-                createMessageElement(errorMessage, false);
+                if (response.status === 419) {
+                    let msg = 'Sesi atau token CSRF tidak valid. Silakan muat ulang halaman dan coba lagi.';
+                    if (!sameOrigin) {
+                        msg += ' (Permintaan lintas-origin terdeteksi. Pastikan server mengizinkan credentials dan header X-CSRF-TOKEN di konfigurasi CORS.)';
+                    }
+                    errorText.textContent = msg;
+                    errorDiv.style.display = 'flex';
+                    createMessageElement('⚠️ ' + msg, false);
+                } else {
+                    const errorPayload = data || (textFallback ? { message: textFallback } : null);
+                    let errorMessage = `Server mengembalikan status ${response.status}`;
+                    if (errorPayload) {
+                        if (typeof errorPayload === 'string') {
+                            errorMessage = errorPayload;
+                        } else if (errorPayload.details) {
+                            errorMessage = typeof errorPayload.details === 'string' ? errorPayload.details : JSON.stringify(errorPayload.details);
+                        } else if (errorPayload.message) {
+                            errorMessage = errorPayload.message;
+                        } else if (errorPayload.error) {
+                            errorMessage = errorPayload.error;
+                        }
+                    }
+                    errorText.textContent = errorMessage;
+                    errorDiv.style.display = 'flex';
+                    createMessageElement('⚠️ ' + errorMessage, false);
+                }
             }
 
         } catch (error) {
-            console.error("Error communicating with server:", error);
-            // Tangani error jaringan atau tak terduga
-            if (loadingBubble && loadingBubble.parentElement) {
-                 loadingBubble.parentElement.remove();
-            }
-            const errorMessage = "Maaf, terjadi kesalahan jaringan atau server tidak merespons. Silakan coba lagi.";
-            createMessageElement(errorMessage, false);
+            console.error('Error communicating with server:', error);
+            if (loadingBubble && loadingBubble.parentElement) loadingBubble.parentElement.remove();
+            const errorMessage = 'Maaf, terjadi kesalahan jaringan. Server tidak merespons.';
+            errorText.textContent = errorMessage + (error && error.message ? ' — ' + error.message : '');
+            errorDiv.style.display = 'flex';
+            createMessageElement('❌ ' + errorText.textContent, false);
         } finally {
-            // 4. Reset loading state dan aktifkan kembali
             isSending = false;
-            sendBtn.disabled = false;
             userInput.disabled = false;
             sendBtn.innerHTML = '<i class="fas fa-paper-plane text-xl"></i>';
             scrollToBottom();
-            // Reset tinggi textarea
-            adjustTextareaHeight(userInput); 
+            adjustTextareaHeight(userInput);
+            userInput.focus();
         }
     }
     
-    // === Event Listeners ===
-
     function toggleChat() {
         const isHidden = chatWindow.classList.contains('hidden');
         const chatIcon = openChatButton.querySelector('svg');
@@ -266,66 +231,48 @@ document.addEventListener("DOMContentLoaded", () => {
             chatIcon.classList.remove('rotate-[360deg]');
             setTimeout(() => {
                 chatWindow.classList.add('hidden');
+                errorDiv.style.display = 'none';
             }, 300);
         }
     }
 
-    // Listener Buka/Tutup Chat
     openChatButton.addEventListener('click', toggleChat);
     closeChatButton.addEventListener('click', toggleChat);
 
-    // Listener Submit Form (Klik tombol kirim atau Enter)
     chatForm.addEventListener('submit', function(e) {
         e.preventDefault();
         sendMessage();
     });
     
-    // Listener Enter di textarea
     userInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault(); // Mencegah baris baru
+            e.preventDefault();
             sendMessage();
         }
     });
 
-    // Listener auto-resize textarea
     userInput.addEventListener('input', () => adjustTextareaHeight(userInput));
 
-    // Listener Clear History
-    clearChatButton.addEventListener('click', async () => {
-        if (!confirm("Apakah Anda yakin ingin menghapus seluruh riwayat obrolan?")) {
-            return;
-        }
-
-        // Tampilkan pesan clearing
-        chatMessages.innerHTML = `<div class="flex items-start justify-start mb-2"><p class="inline-block bg-gray-200 text-black text-sm p-2 rounded-lg max-w-[80%]">Membersihkan riwayat...</p></div>`;
-        scrollToBottom();
-
-        try {
-            await fetch('/api/chatbot/clear', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
-                }
-            });
-            // Hapus semua pesan dan tampilkan pesan sambutan baru
-            chatMessages.innerHTML = '';
-            createMessageElement('Halo! Saya asisten virtual SMK Prestasi Prima. Ada yang bisa saya bantu?', false);
-        } catch (error) {
-            console.error("Error clearing chat history:", error);
-            chatMessages.innerHTML = ''; // Clear tetap
-            createMessageElement('Maaf, terjadi kesalahan saat membersihkan riwayat chat. Silakan coba lagi.', false);
-        }
+    clearChatButton.addEventListener('click', () => {
+        if (!confirm("Apakah Anda yakin ingin menghapus seluruh riwayat obrolan di jendela ini?")) return;
+        chatMessages.innerHTML = '';
+        errorDiv.style.display = 'none';
+        createMessageElement('Halo! Saya asisten virtual SMK Prestasi Prima. Ada yang bisa saya bantu?', false);
     });
     
-    // Tampilkan pesan sambutan pertama kali saat dimuat
     createMessageElement('Halo! Saya asisten virtual SMK Prestasi Prima. Ada yang bisa saya bantu?', false);
-    
+    adjustTextareaHeight(userInput);
 });
 </script>
 
-<!-- ================= STYLE ================= -->
+
+---
+
+## 🎨 Penyesuaian Style
+
+Berikut adalah *custom style* untuk scrollbar dan animasi *pulse* (sesuai kode lama Anda):
+
+```html
 <style>
 /* Custom Scrollbar Styling (Hanya untuk estetika di webkit) */
 #chatMessages.custom-scrollbar::-webkit-scrollbar {
@@ -351,6 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /* Styling untuk textarea agar tidak ada glow default */
 #chatInput:focus {
     box-shadow: none;
-    border-color: transparent;
+    /* Tambahkan border focus yang jelas */
+    border-color: #f97316;
 }
 </style>

@@ -29,11 +29,12 @@
 
                 {{-- Card Login --}}
                 <div class="bg-orange-100 border shadow-md rounded-xl mt-6 p-6">
-                    <button
-                        class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 rounded-lg py-3 hover:bg-gray-100 transition">
-                        <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" class="w-5 h-5">
-                        <span class="font-medium">Login dengan Google</span>
-                    </button>
+                    <a href="{{ route('auth.google', ['provider' => 'google']) }}"
+                        class="bg-white group flex items-center justify-center w-full border border-orange-400 rounded-md py-2 mb-3 hover:bg-orange-500 transition">
+                        <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" class="w-5 h-5 mr-2">
+                        <span class="text-gray-700 font-medium group-hover:text-white transition">Continue with
+                            Google</span>
+                    </a>
 
                     <div class="flex items-center my-4">
                         <hr class="flex-grow border-gray-300">
@@ -87,9 +88,21 @@
                             ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
                             ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
                             ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
-                            
                         ];
-                        $loopedCompanies = array_merge($companies, $companies, $companies, $companies, $companies, $companies, $companies, $companies, $companies, $companies, $companies, $companies);
+                        $loopedCompanies = array_merge(
+                            $companies,
+                            $companies,
+                            $companies,
+                            $companies,
+                            $companies,
+                            $companies,
+                            $companies,
+                            $companies,
+                            $companies,
+                            $companies,
+                            $companies,
+                            $companies,
+                        );
                     @endphp
 
                     @foreach ($loopedCompanies as $c)
