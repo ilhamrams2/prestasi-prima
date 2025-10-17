@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SiakadTeacher extends Model
 {
-      use HasFactory;
+    use HasFactory;
 
     protected $table = 'siakad_teachers';
 
@@ -37,5 +37,10 @@ class SiakadTeacher extends Model
     public function getSubjectsArrayAttribute()
     {
         return $this->subject ? array_map('trim', explode(',', $this->subject)) : [];
+    }
+
+    public function classes()
+    {
+        return $this->hasMany(SiakadClass::class, 'teacher_id');
     }
 }

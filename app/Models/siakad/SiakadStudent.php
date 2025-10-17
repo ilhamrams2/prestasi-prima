@@ -10,9 +10,7 @@ class SiakadStudent extends Model
     use HasFactory;
     
     protected $table = 'siakad_students';
-    protected $fillable = [
-        'student_id', 'name', 'gender', 'birth_date', 'class_id', 'year_entry'
-    ];
+    protected $guarded = ['id'];
 
     public function class()
     {
@@ -22,5 +20,10 @@ class SiakadStudent extends Model
     public function enrollments()
     {
         return $this->hasMany(SiakadEnrollment::class, 'student_id');
+    }
+
+    public function major()
+    {
+        return $this->belongsTo(SiakadMajor::class, 'major_id');
     }
 }

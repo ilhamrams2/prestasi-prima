@@ -14,7 +14,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             SiakadUserSeeder::class,
+            TeacherSeeder::class,
             SiakadMajorSeeder::class,
+            SiakadClassSeeder::class,
+            SiakadStudentSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 
