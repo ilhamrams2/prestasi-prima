@@ -11,20 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('siakad_classes', function (Blueprint $table) {
+        Schema::create('prestasiprima_galleries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('major_id')->constrained('siakad_majors')->cascadeOnDelete();
-            $table->string('class_code', 50)->unique();
-            $table->string('name', 100);
+            $table->string('title');
+            $table->string('category')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->string('video_url')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('siakad_classes');
+        Schema::dropIfExists('prestasiprima_galleries');
     }
 };
