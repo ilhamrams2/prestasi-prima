@@ -1,6 +1,5 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\ContentManagementController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +23,6 @@ use App\Http\Controllers\siakad\SubjectController;
 use App\Http\Controllers\siakad\TeacherController;
 use App\Http\Controllers\Siakad\AnnouncementController;
 use App\Http\Controllers\Siakad\ProfileController;
-=======
 use Illuminate\Support\Facades\Route;
 
 // ============================================================ //
@@ -68,9 +66,6 @@ use App\Http\Controllers\Prestasiprima\{
 // ============================================================ //
 // ========================= ROUTES ============================ //
 // ============================================================ //
-<<<<<<< HEAD
->>>>>>> 92001a9 (ABI ULANG)
-=======
 use App\Http\Controllers\SambutanController;
 use App\Http\Controllers\Pendaftaran;
 use App\Http\Controllers\FormulirController;
@@ -91,7 +86,6 @@ use App\Http\Controllers\siakad\SubjectController;
 use App\Http\Controllers\siakad\TeacherController;
 use App\Http\Controllers\Siakad\AnnouncementController;
 use App\Http\Controllers\Siakad\ProfileController;
->>>>>>> d6ff915 (mangtaps)
 
 
 // -------------------- HALAMAN UTAMA -------------------- //
@@ -122,10 +116,7 @@ Route::prefix('erorpage')->group(function () {
 // ============================================================ //
 
 Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> d6ff915 (mangtaps)
+
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -135,11 +126,7 @@ Route::get('/welcome', function () {
 Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
 
 // Pendaftaran
-<<<<<<< HEAD
-=======
->>>>>>> 92001a9 (ABI ULANG)
-=======
->>>>>>> d6ff915 (mangtaps)
+
 Route::get('/pendaftaran', [Pendaftaran::class, 'index'])->name('pendaftaran');
 
 Route::get('/formulir', [FormulirController::class, 'create'])->name('pendaftaran.formulir');
@@ -204,10 +191,6 @@ Route::prefix('presmaboard')->group(function () {
             Route::delete('/{id}', [PresmaboardStudentController::class, 'destroy'])->name('destroy');
             Route::get('/statistics', [PresmaboardStudentController::class, 'getStatistics'])->name('statistics');
         });
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> d6ff915 (mangtaps)
         Route::prefix('students')->as('students.')->group(function () {
             Route::get('/', [StudentController::class, 'index'])->name('index');
             Route::post('/', [StudentController::class, 'store'])->name('store');
@@ -274,13 +257,7 @@ Route::prefix('presmaboard')->group(function () {
         Route::prefix('siakad')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('siakad.profile');
 });
-<<<<<<< HEAD
-=======
->>>>>>> 92001a9 (ABI ULANG)
-=======
->>>>>>> d6ff915 (mangtaps)
-    });
-});
+
 
 
 // ============================================================ //

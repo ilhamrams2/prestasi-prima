@@ -277,3 +277,8 @@ function closeVideoModal() {
 @push('scripts')
 <script src="{{ asset('assets/js/prestasiprima/program.js') }}"></script>
 @endpush
+
+<!-- ================= SCRIPT TOGGLE & ANIMASI ================= -->
+@push('scripts')
+<script src="{{ asset('assets/js/prestasiprima/program.js') }}"></script>
+@endpush
