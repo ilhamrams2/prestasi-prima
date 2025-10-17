@@ -10,45 +10,48 @@ use Illuminate\Http\Request;
 class NewsController extends Controller
 {
     /**
-     * Tampilkan semua berita (halaman utama)
+     * Tampilkan semua berita (halaman utama) + search + filter kategori
      */
-    public function index()
+    public function index(Request $request)
     {
-        $news = News::with('category')
-            ->latest()
-            ->paginate(9); // 9 berita per halaman
+        $query = News::with('category')->latest();
 
-        return view('prestasiprima.pages.berita.index', compact('news'));
+        // Search
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%'.$request->search.'%')
+                  ->orWhere('content', 'like', '%'.$request->search.'%');
+        }
+
+        // Filter kategori
+        if ($request->filled('category')) {
+            $query->whereHas('category', fn($q) => $q->where('slug', $request->category));
+        }
+
+        $news = $query->paginate(9)->withQueryString();
+        $categories = Category::all();
+
+        return view('prestasiprima.pages.berita.index', compact('news', 'categories'));
     }
 
     /**
-     * Tampilkan berita berdasarkan kategori
-     */
-    public function category($slug)
-    {
-        $category = Category::where('slug', $slug)->firstOrFail();
-
-        $news = News::where('category_id', $category->id)
-            ->latest()
-            ->paginate(9);
-
-        return view('prestasiprima.pages.berita.category', compact('category', 'news'));
-    }
-
-    /**
-     * Tampilkan detail berita
-     * (nama method lama: detail)
+     * Tampilkan detail berita + related news
      */
     public function detail($slug)
     {
         $news = News::with('category')->where('slug', $slug)->firstOrFail();
 
-        return view('prestasiprima.pages.berita.detail', compact('news'));
+        // Related news
+        $related = News::where('category_id', $news->category_id)
+                        ->where('id', '!=', $news->id)
+                        ->latest()
+                        ->take(4)
+                        ->get();
+
+        return view('prestasiprima.pages.berita.detail', compact('news', 'related'));
     }
 
     /**
-     * Compatibility wrapper
-     * Jika route memanggil 'show', arahkan ke 'detail'
+     * Compatibility wrapper untuk route 'show'
      */
     public function show($slug)
     {
