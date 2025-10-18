@@ -28,12 +28,12 @@
         </div>
         <div class="swiper-slide">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <img src="assets/images/section/prestasi/tiga.png" alt="Juara Tiga" class="w-full object-cover">
+            <img src="assets/images/section/prestasi/tiga.webp" alt="Juara Tiga" class="w-full object-cover">
           </div>
         </div>
         <div class="swiper-slide">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <img src="assets/images/section/prestasi/empat.png" alt="Juara Empat" class="w-full object-cover">
+            <img src="assets/images/section/prestasi/empat.webp" alt="Juara Empat" class="w-full object-cover">
           </div>
         </div>
         <div class="swiper-slide">

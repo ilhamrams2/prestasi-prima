@@ -24,21 +24,21 @@
         @php
           $blogs = [
             [
-              'img' => 'assets/images/section/blog/nobar.png',
+              'img' => 'assets/images/section/blog/nobar.webp',
               'category' => 'Kegiatan',
               'date' => '20 September 2025',
               'title' => 'Nonton Bareng Prestasi Prima',
               'desc' => 'Keluarga besar Prestasi Prima mengadakan Nonton Bareng yang seru dan penuh kebersamaan, mempererat hubungan antar siswa, guru, dan staf sekolah.'
             ],
             [
-              'img' => 'assets/images/section/blog/rapat-guru.png',
+              'img' => 'assets/images/section/blog/rapat-guru.webp',
               'category' => 'Edukasi',
               'date' => '05 Oktober 2025',
               'title' => 'Rapat Guru Prestasi Prima',
               'desc' => 'Guru-guru Prestasi Prima melaksanakan rapat koordinasi untuk membahas strategi pembelajaran dan peningkatan mutu pendidikan.'
             ],
             [
-              'img' => 'assets/images/section/blog/penghargaan-guru.png',
+              'img' => 'assets/images/section/blog/penghargaan-guru.webp',
               'category' => 'Prestasi',
               'date' => '01 Oktober 2025',
               'title' => 'Penghargaan Guru Berprestasi',

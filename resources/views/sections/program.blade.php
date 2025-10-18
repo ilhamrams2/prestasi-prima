@@ -242,81 +242,119 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Data detail jurusan (HTML sebagai template string)
   const details = {
-    pplg: `
-      <div class="mb-8 text-center fade-in-up show">
-        <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-2">Pengembangan Perangkat Lunak dan Gim (PPLG)</h2>
-        <p class="text-gray-700">Menguasai dunia pemrograman dan industri gim modern — website, mobile, dan game development.</p>
+    pplg: `<!-- PPLG content (same structure as your JS earlier) -->
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold text-orange-600">Pengembangan Perangkat Lunak dan Gim (PPLG)</h2>
+        <p class="text-gray-600 mt-1">Menguasai dunia pemrograman dan industri gim modern.</p>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="jurusan-detail-card bg-white p-4 fade-in-up">
-          <img src="{{ asset('assets/images/section/program/website.jpg') }}" alt="Website" class="w-full h-40 object-cover rounded-md mb-4">
-          <h3 class="font-bold text-lg text-gray-900 mb-2">Pengembangan <span class="text-orange-600">Website</span></h3>
-          <p class="text-gray-600 text-sm">Belajar HTML, CSS, JavaScript, hingga framework modern untuk membangun website responsif.</p>
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <img src="assets/images/section/program/website.jpg" loading="lazy" alt="Website" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold">Website</h4>
+            <p class="text-sm text-gray-600">Belajar HTML, CSS, JavaScript, hingga framework modern.</p>
+          </div>
         </div>
-        <div class="jurusan-detail-card bg-white p-4 fade-in-up">
-          <img src="{{ asset('assets/images/section/program/android.jpg') }}" alt="Android" class="w-full h-40 object-cover rounded-md mb-4">
-          <h3 class="font-bold text-lg text-gray-900 mb-2">Pengembangan <span class="text-orange-600">Android</span></h3>
-          <p class="text-gray-600 text-sm">Membuat aplikasi mobile berbasis Android dengan teknologi terkini.</p>
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <img src="assets/images/section/program/android.jpg" loading="lazy" alt="Android" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold">Android</h4>
+            <p class="text-sm text-gray-600">Membuat aplikasi mobile berbasis Android.</p>
+          </div>
         </div>
-        <div class="jurusan-detail-card bg-white p-4 fade-in-up">
-          <img src="{{ asset('assets/images/section/program/game.jpg') }}" alt="Gim" class="w-full h-40 object-cover rounded-md mb-4">
-          <h3 class="font-bold text-lg text-gray-900 mb-2">Pengembangan <span class="text-orange-600">Gim</span></h3>
-          <p class="text-gray-600 text-sm">Mempelajari konsep, desain, hingga implementasi gim interaktif.</p>
-        </div>
-      </div>
-    `,
-    tkj: `
-      <div class="mb-8 text-center fade-in-up show">
-        <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-2">Teknik Jaringan Komputer dan Telekomunikasi (TKJ)</h2>
-        <p class="text-gray-700">Mendalami jaringan komputer, server, dan keamanan jaringan.</p>
-      </div>
-      <div class="flex flex-col md:flex-row gap-6">
-        <div class="jurusan-detail-card bg-white p-4 fade-in-up w-full md:w-1/2">
-          <img src="{{ asset('assets/images/section/program/tkj-detail.jpg') }}" alt="TKJ" class="w-full h-56 object-cover rounded-md mb-4">
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow-sm fade-in-up flex-1">
-          <h3 class="font-bold text-lg text-gray-900 mb-2">Materi Unggulan</h3>
-          <ul class="text-gray-600 text-sm list-disc ml-5">
-            <li>Konfigurasi jaringan (LAN/WAN)</li>
-            <li>Server & virtualisasi</li>
-            <li>Keamanan jaringan dan troubleshooting</li>
-          </ul>
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <img src="assets/images/section/program/game.jpg" loading="lazy" alt="Gim" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold">Gim</h4>
+            <p class="text-sm text-gray-600">Konsep dan implementasi gim interaktif.</p>
+          </div>
         </div>
       </div>
     `,
-    bcf: `
-      <div class="mb-8 text-center fade-in-up show">
-        <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-2">Broadcast dan Film (BCF)</h2>
-        <p class="text-gray-700">Fokus pada produksi film, editing video, dan broadcasting profesional.</p>
-      </div>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="jurusan-detail-card bg-white p-4 fade-in-up">
-          <img src="{{ asset('assets/images/section/program/bcf-detail.jpg') }}" alt="BCF" class="w-full h-56 object-cover rounded-md mb-4">
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow-sm fade-in-up">
-          <h3 class="font-bold text-lg text-gray-900 mb-2">Fasilitas & Kegiatan</h3>
-          <p class="text-gray-600 text-sm">Studio, peralatan kamera, editing suite, serta proyek film pendek dan siaran langsung.</p>
-        </div>
-      </div>
-    `,
-    dkv: `
-      <div class="mb-8 text-center fade-in-up show">
-        <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-2">Desain Komunikasi Visual (DKV)</h2>
-        <p class="text-gray-700">Desain grafis, ilustrasi, animasi, hingga visual branding kreatif.</p>
+    tkj: `<!-- TKJ content -->
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold text-emerald-600">Teknik Jaringan Komputer & Telekomunikasi</h2>
+        <p class="text-gray-600 mt-1">Mendalami jaringan, server, dan teknologi fiber-optic.</p>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="jurusan-detail-card bg-white p-4 fade-in-up">
-          <img src="{{ asset('assets/images/section/program/dkv-detail.jpg') }}" alt="DKV" class="w-full h-40 object-cover rounded-md mb-4">
-          <h3 class="font-bold text-lg text-gray-900 mb-2">Portfolio & Kegiatan</h3>
-          <p class="text-gray-600 text-sm">Proyek branding, ilustrasi digital, poster, dan animasi pendek untuk klien nyata.</p>
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <img src="assets/images/section/program/jaringan.jpg" loading="lazy" alt="Jaringan" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold">Simulasi Jaringan</h4>
+            <p class="text-sm text-gray-600">Konfigurasi dan analisis alur data pada jaringan.</p>
+          </div>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-sm fade-in-up">
-          <h3 class="font-bold text-lg text-gray-900 mb-2">Software & Tools</h3>
-          <p class="text-gray-600 text-sm">Adobe Creative Suite, Figma, Blender, dan tools desain lainnya.</p>
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <img src="assets/images/section/program/splicer.jpg" loading="lazy" alt="Splicer" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold">Alat Splicer</h4>
+            <p class="text-sm text-gray-600">Teknik penggunaan splicer fiber optic.</p>
+          </div>
         </div>
-        <div class="bg-white p-4 rounded-xl shadow-sm fade-in-up">
-          <h3 class="font-bold text-lg text-gray-900 mb-2">Kurikulum</h3>
-          <p class="text-gray-600 text-sm">Dari dasar desain visual hingga workflow produksi dan presentasi klien.</p>
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <img src="assets/images/section/program/robotik.jpg" loading="lazy" alt="Robotik" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold">Robotik Arduino</h4>
+            <p class="text-sm text-gray-600">Merancang robot berbasis mikrokontroler.</p>
+          </div>
+        </div>
+      </div>
+    `,
+    bcf: `<!-- BCF content -->
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold text-violet-600">Broadcast & Film</h2>
+        <p class="text-gray-600 mt-1">Produksi film, editing, dan teknik siaran studio.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <img src="assets/images/section/program/bcf-shooting.jpg" loading="lazy" alt="Shooting" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold">Produksi Film</h4>
+            <p class="text-sm text-gray-600">Dari pra-produksi sampai pasca-editing.</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <img src="assets/images/section/program/bcf-editing.jpg" loading="lazy" alt="Editing" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold">Editing Profesional</h4>
+            <p class="text-sm text-gray-600">Pelatihan Adobe Premiere & DaVinci Resolve.</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <img src="assets/images/section/program/bcf-broadcast.jpg" loading="lazy" alt="Broadcast" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold">Broadcast Studio</h4>
+            <p class="text-sm text-gray-600">Teknik kamerawan & pencahayaan studio.</p>
+          </div>
+        </div>
+      </div>
+    `,
+    dkv: `<!-- DKV content -->
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold text-indigo-600">Desain Komunikasi Visual</h2>
+        <p class="text-gray-600 mt-1">Grafis, branding, ilustrasi, dan animasi.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <img src="assets/images/section/program/dkv-desain.jpg" loading="lazy" alt="Grafis" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold">Grafis Digital</h4>
+            <p class="text-sm text-gray-600">Poster, logo, layout dengan tools industri.</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <img src="assets/images/section/program/dkv-branding.jpg" loading="lazy" alt="Branding" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold">Branding Visual</h4>
+            <p class="text-sm text-gray-600">Identitas merek & strategi visual.</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <img src="assets/images/section/program/dkv-animasi.jpg" loading="lazy" alt="Animasi" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h4 class="font-semibold">Animasi 2D & 3D</h4>
+            <p class="text-sm text-gray-600">Animasi untuk film pendek, iklan, dan interaktif.</p>
+          </div>
         </div>
       </div>
     `

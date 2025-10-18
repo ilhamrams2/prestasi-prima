@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-// ============================================================ //
-// ==================== IMPORT CONTROLLERS ===================== //
-// ============================================================ //
+// ============================================================
+// ================ IMPORT CONTROLLERS ========================
+// ============================================================
 
 use App\Http\Controllers\{
     ContentManagementController,
@@ -40,26 +40,21 @@ use App\Http\Controllers\Prestasiprima\{
     SambutanController
 };
 
-// ============================================================ //
-// ========================= ROUTES ============================ //
-// ============================================================ //
 
+// ============================================================
+// ======================== ROUTES ============================
+// ============================================================
 
 // -------------------- HALAMAN UTAMA -------------------- //
-Route::get('/', fn() => view('prestasiprima.pages.landing'));
-Route::get('/welcome', fn() => view('welcome'))->name('welcome');
-
+Route::view('/', 'prestasiprima.pages.landing');
+Route::view('/welcome', 'welcome')->name('welcome');
 
 // -------------------- SPLASH & LOGIN -------------------- //
-Route::get('/splash/{screen}', [ContentManagementController::class, 'splashscreen'])
-    ->where('screen', '[1-4]+')
-    ->name('splash.screen');
-
-Route::post('/logout', [ContentManagementController::class, 'logout'])->name('logout');
-
-Route::get('/splash/login/{role?}', [ContentManagementController::class, 'splash'])
-    ->name('splash.login');
-
+Route::controller(ContentManagementController::class)->group(function () {
+    Route::get('/splash/{screen}', 'splashscreen')->where('screen', '[1-4]+')->name('splash.screen');
+    Route::post('/logout', 'logout')->name('logout');
+    Route::get('/splash/login/{role?}', 'splash')->name('splash.login');
+});
 
 // -------------------- HALAMAN ERROR -------------------- //
 Route::prefix('erorpage')->group(function () {
@@ -68,131 +63,118 @@ Route::prefix('erorpage')->group(function () {
 });
 
 
-// ============================================================ //
-// ===================== PRESTASIPRIMA ======================== //
-// ============================================================ //
+// ============================================================
+// ===================== PRESTASIPRIMA ========================
+// ============================================================
 
-Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
-Route::get('/pendaftaran', [Pendaftaran::class, 'index'])->name('pendaftaran');
+Route::controller(SambutanController::class)->group(function () {
+    Route::get('/sambutan', 'index')->name('sambutan');
+});
 
-Route::get('/formulir', [FormulirController::class, 'create'])->name('pendaftaran.formulir');
-Route::post('/formulir', [FormulirController::class, 'store'])->name('pendaftaran.formulir.store');
-Route::get('/validasi', [FormulirController::class, 'validasi'])->name('pendaftaran.validasi');
+Route::controller(Pendaftaran::class)->group(function () {
+    Route::get('/pendaftaran', 'index')->name('pendaftaran');
+});
 
-Route::get('/presmalance', [PresmalanceController::class, 'presmalance'])->name('presmalancer.presmalance');
-Route::get('/login', [PresmalanceController::class, 'login'])->name('login');
+Route::controller(FormulirController::class)->group(function () {
+    Route::get('/formulir', 'create')->name('pendaftaran.formulir');
+    Route::post('/formulir', 'store')->name('pendaftaran.formulir.store');
+    Route::get('/validasi', 'validasi')->name('pendaftaran.validasi');
+});
+
+Route::controller(PresmalanceController::class)->group(function () {
+    Route::get('/presmalance', 'presmalance')->name('presmalancer.presmalance');
+    Route::get('/login', 'login')->name('login');
+    Route::get('/forum', 'forum')->name('forum');
+});
 Route::post('/login', [PresmaAuthController::class, 'login'])->name('login.post');
 
-
 // -------------------- AUTH SOSIAL -------------------- //
-Route::get('/auth/{provider}', [SocialAuthController::class, 'redirect'])->name('social.redirect');
-Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('social.callback');
+Route::controller(SocialAuthController::class)->prefix('auth')->name('social.')->group(function () {
+    Route::get('{provider}', 'redirect')->name('redirect');
+    Route::get('{provider}/callback', 'callback')->name('callback');
+});
 
-Route::get('/forum', [PresmalanceController::class, 'forum'])->name('forum');
-
-
-// -------------------- GALERI PRESTASI PRIMA -------------------- //
+// -------------------- GALERI -------------------- //
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 
-
-// -------------------- HALAMAN BERITA PRESTASI PRIMA -------------------- //
-Route::prefix('berita')->name('berita.')->group(function () {
-    // Halaman index berita
-    Route::get('/', [NewsController::class, 'index'])->name('index');
-
-    // Halaman kategori berita
-    Route::get('/kategori/{slug}', [NewsController::class, 'category'])->name('kategori');
-
-    // Halaman detail berita
-    Route::get('/{slug}', [NewsController::class, 'show'])->name('detail');
+// -------------------- BERITA -------------------- //
+Route::prefix('berita')->name('berita.')->controller(NewsController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/kategori/{slug}', 'category')->name('kategori');
+    Route::get('/{slug}', 'show')->name('detail');
 });
 
 
-// ============================================================ //
-// ======================== PRESMABOARD ======================== //
-// ============================================================ //
+// ============================================================
+// ======================== PRESMABOARD ========================
+// ============================================================
 
 Route::prefix('presmaboard')->group(function () {
 
     // -------------------- LOGIN -------------------- //
-    Route::get('/admin/login', fn() => view('presmaboard.login'))->name('presmaboard.login');
+    Route::view('/admin/login', 'presmaboard.login')->name('presmaboard.login');
     Route::post('/admin/login', [PresmaboardController::class, 'login'])->name('presmaboard.login.submit');
 
     // -------------------- ADMIN AREA -------------------- //
-    Route::prefix('admin')->group(function () {
-
-        Route::get('/dashboard', [PresmaboardController::class, 'dashboard'])->name('presmaboard.dashboard');
-        Route::get('/leaderboard', [PresmaboardController::class, 'leaderboard'])->name('presmaboard.leaderboard');
-        Route::get('/project', [PresmaboardController::class, 'project'])->name('presmaboard.project');
-        Route::get('/prestasi', [PresmaboardController::class, 'prestasi'])->name('presmaboard.prestasi');
-        Route::get('/nilai-pkp', [PresmaboardController::class, 'nilai_pkp'])->name('presmaboard.nilai_pkp');
-        Route::post('/logout', [PresmaboardController::class, 'logout'])->name('presmaboard.logout');
-
-        // CRUD Siswa
-        Route::prefix('siswa')->name('presmaboard.siswa.')->group(function () {
-            Route::get('/', [PresmaboardStudentController::class, 'index'])->name('index');
-            Route::post('/', [PresmaboardStudentController::class, 'store'])->name('store');
-            Route::get('/{id}', [PresmaboardStudentController::class, 'show'])->name('show');
-            Route::put('/{id}', [PresmaboardStudentController::class, 'update'])->name('update');
-            Route::delete('/{id}', [PresmaboardStudentController::class, 'destroy'])->name('destroy');
-            Route::get('/statistics', [PresmaboardStudentController::class, 'getStatistics'])->name('statistics');
-        });
+    Route::prefix('admin')->controller(PresmaboardController::class)->group(function () {
+        Route::get('/dashboard', 'dashboard')->name('presmaboard.dashboard');
+        Route::get('/leaderboard', 'leaderboard')->name('presmaboard.leaderboard');
+        Route::get('/project', 'project')->name('presmaboard.project');
+        Route::get('/prestasi', 'prestasi')->name('presmaboard.prestasi');
+        Route::get('/nilai-pkp', 'nilai_pkp')->name('presmaboard.nilai_pkp');
+        Route::post('/logout', 'logout')->name('presmaboard.logout');
     });
+
+    // -------------------- CRUD SISWA -------------------- //
+    Route::prefix('admin/siswa')->name('presmaboard.siswa.')
+        ->controller(PresmaboardStudentController::class)
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}', 'show')->name('show');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+            Route::get('/statistics', 'getStatistics')->name('statistics');
+        });
 });
 
 
-// ============================================================ //
-// ========================== SIAKAD =========================== //
-// ============================================================ //
+// ============================================================
+// ========================== SIAKAD ===========================
+// ============================================================
 
 Route::prefix('siakad')->name('siakad.')->group(function () {
 
     // -------------------- AUTH -------------------- //
-    Route::get('/login', [SiakadAuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [SiakadAuthController::class, 'login'])->name('login.submit');
-    Route::get('/logout', [SiakadAuthController::class, 'logout'])->name('logout');
+    Route::controller(SiakadAuthController::class)->group(function () {
+        Route::get('/login', 'showLogin')->name('login');
+        Route::post('/login', 'login')->name('login.submit');
+        Route::get('/logout', 'logout')->name('logout');
+        Route::resource('users', SiakadAuthController::class)->except(['create', 'edit']);
+    });
 
     // -------------------- HALAMAN LOGIN VIEW -------------------- //
     Route::view('/auth/login', 'siakad.auth.siakad-login');
 
-    // -------------------- HALAMAN DASHBOARD -------------------- //
+    // -------------------- DASHBOARD -------------------- //
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 
     // -------------------- ROUTE DENGAN AUTH -------------------- //
     Route::middleware('auth:siakad')->group(function () {
+        Route::resources([
+            'majors'        => MajorController::class,
+            'classes'       => ClassesController::class,
+            'teachers'      => TeacherController::class,
+            'students'      => StudentController::class,
+            'subjects'      => SubjectController::class,
+            'enrollments'   => EnrollmentsController::class,
+            'scores'        => ScoreController::class,
+            'absence'       => AbsenceController::class,
+            'announcements' => AnnouncementController::class,
+        ], ['except' => ['create', 'edit']]);
 
-        // Majors
-        Route::resource('majors', MajorController::class)->except(['create', 'edit']);
-
-        // Classes
-        Route::resource('classes', ClassesController::class)->except(['create', 'edit']);
-
-        // Teachers
-        Route::resource('teachers', TeacherController::class)->except(['create', 'edit']);
-
-        // Students
-        Route::resource('students', StudentController::class)->except(['create', 'edit']);
-
-        // Subjects
-        Route::resource('subjects', SubjectController::class)->except(['create', 'edit']);
-
-        // Enrollments
-        Route::resource('enrollments', EnrollmentsController::class)->except(['create', 'edit']);
-
-        // Scores
-        Route::resource('scores', ScoreController::class)->except(['create', 'edit']);
-
-        // Absence
-        Route::resource('absence', AbsenceController::class)->except(['create', 'edit']);
-
-        // Users (Siakad Auth Management)
-        Route::resource('users', SiakadAuthController::class)->except(['create', 'edit']);
-
-        // Announcements
-        Route::resource('announcements', AnnouncementController::class)->except(['create', 'edit']);
-
-        // Profile
+        // -------------------- PROFILE -------------------- //
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     });
 });
