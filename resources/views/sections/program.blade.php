@@ -1,4 +1,4 @@
-<!-- ================= SECTION PROGRAM KEAHLIAN ================= -->
+<!-- ================= SECTION PROGRAM KEAHLIAN (Gabungan) ================= -->
 <section id="program" class="bg-gray-50 py-20 overflow-hidden">
   <div class="max-w-7xl mx-auto px-4 md:px-8">
 
@@ -27,59 +27,78 @@
     </div>
 
     <!-- ================= 4 CARD JURUSAN ================= -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-16 fade-in-up delay-100">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8 fade-in-up delay-100" id="program-grid">
 
       <!-- Card: PPLG -->
       <div class="relative group rounded-xl overflow-hidden shadow-lg">
-        <img src="assets/images/section/program/pplg.png" alt="PPLG" class="w-full h-96 object-cover">
+        <img src="{{ asset('assets/images/section/program/pplg.png') }}" alt="PPLG" class="w-full h-96 object-cover">
         <div class="absolute inset-0 bg-black/40 transition duration-700"></div>
         <div class="absolute inset-0 flex flex-col justify-end text-center p-8 z-10">
-          <img src="assets/images/section/program/icons/pplg.png" alt="icon" class="mx-auto w-12 h-12 mb-3">
+          <img src="{{ asset('assets/images/section/program/icons/pplg.png') }}" alt="icon" class="mx-auto w-12 h-12 mb-3">
           <h3 class="text-white font-bold text-xl">Pengembangan Perangkat Lunak dan Gim</h3>
-          <a href="#" class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline">Lihat Selengkapnya</a>
+          <a href="#" class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline lihat-selengkapnya"
+             data-target="pplg" aria-controls="jurusan-detail-wrapper">
+             Lihat Selengkapnya
+          </a>
         </div>
       </div>
 
       <!-- Card: TKJ -->
       <div class="relative group rounded-xl overflow-hidden shadow-lg">
-        <img src="assets/images/section/program/tkj.png" alt="TKJ" class="w-full h-96 object-cover">
+        <img src="{{ asset('assets/images/section/program/tkj.png') }}" alt="TKJ" class="w-full h-96 object-cover">
         <div class="absolute inset-0 bg-black/40 transition duration-700"></div>
         <div class="absolute inset-0 flex flex-col justify-end text-center p-8 z-10">
-          <img src="assets/images/section/program/icons/tkj.png" alt="icon" class="mx-auto w-12 h-12 mb-3">
+          <img src="{{ asset('assets/images/section/program/icons/tkj.png') }}" alt="icon" class="mx-auto w-12 h-12 mb-3">
           <h3 class="text-white font-bold text-xl">Teknik Jaringan Komputer dan Telekomunikasi</h3>
-          <a href="#" class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline">Lihat Selengkapnya</a>
+          <a href="#" class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline lihat-selengkapnya"
+             data-target="tkj" aria-controls="jurusan-detail-wrapper">
+             Lihat Selengkapnya
+          </a>
         </div>
       </div>
 
       <!-- Card: BCF -->
       <div class="relative group rounded-xl overflow-hidden shadow-lg">
-        <img src="assets/images/section/program/bcf.png" alt="Broadcast" class="w-full h-96 object-cover">
+        <img src="{{ asset('assets/images/section/program/bcf.png') }}" alt="Broadcast" class="w-full h-96 object-cover">
         <div class="absolute inset-0 bg-black/40 transition duration-700"></div>
         <div class="absolute inset-0 flex flex-col justify-end text-center p-8 z-10">
-          <img src="assets/images/section/program/icons/bcf.png" alt="icon" class="mx-auto w-12 h-12 mb-3">
+          <img src="{{ asset('assets/images/section/program/icons/bcf.png') }}" alt="icon" class="mx-auto w-12 h-12 mb-3">
           <h3 class="text-white font-bold text-xl">Broadcast dan Film</h3>
-          <a href="#" class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline">Lihat Selengkapnya</a>
+          <a href="#" class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline lihat-selengkapnya"
+             data-target="bcf" aria-controls="jurusan-detail-wrapper">
+             Lihat Selengkapnya
+          </a>
         </div>
       </div>
 
       <!-- Card: DKV -->
       <div class="relative group rounded-xl overflow-hidden shadow-lg">
-        <img src="assets/images/section/program/dkv.png" alt="DKV" class="w-full h-96 object-cover">
+        <img src="{{ asset('assets/images/section/program/dkv.png') }}" alt="DKV" class="w-full h-96 object-cover">
         <div class="absolute inset-0 bg-black/40 transition duration-700"></div>
         <div class="absolute inset-0 flex flex-col justify-end text-center p-8 z-10">
-          <img src="assets/images/section/program/icons/dkv.png" alt="icon" class="mx-auto w-12 h-12 mb-3">
+          <img src="{{ asset('assets/images/section/program/icons/dkv.png') }}" alt="icon" class="mx-auto w-12 h-12 mb-3">
           <h3 class="text-white font-bold text-xl">Desain Komunikasi Visual</h3>
-          <a href="#" class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline">Lihat Selengkapnya</a>
+          <a href="#" class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline lihat-selengkapnya"
+             data-target="dkv" aria-controls="jurusan-detail-wrapper">
+             Lihat Selengkapnya
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- ================= FEATURED & VIDEO JURUSAN ================= -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch fade-in-up delay-200">
+    <!-- ================= WRAPPER DETAIL (DINAMIS, MUNCUL DI SINI) ================= -->
+    <div id="jurusan-detail-wrapper" class="py-10 bg-white hidden opacity-0 transition duration-700 transform translate-y-6">
+      <div class="max-w-7xl mx-auto px-4 md:px-8" id="jurusan-detail-content">
+        <!-- Konten akan dimasukkan via JS -->
+      </div>
+    </div>
+
+    <!-- ================= FEATURED & VIDEO JURUSAN (Tetap) ================= -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch fade-in-up delay-200 mt-10">
 
       <!-- Kiri: Featured Card -->
       <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-white group flex flex-col justify-end h-[480px]">
-        <img src="assets/images/section/program/herobg.png" alt="Featured Program"
+        <img src="{{ asset('assets/images/section/program/herobg.png') }}" alt="Featured Program"
              class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
 
@@ -184,38 +203,7 @@
   </div>
 </section>
 
-<!-- ================= SCRIPT ANIMASI & MODAL ================= -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // Animasi fade-in-up
-  const elements = document.querySelectorAll(".fade-in-up");
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add("show");
-    });
-  }, { threshold: 0.2 });
-  elements.forEach(el => observer.observe(el));
-});
-
-// Modal Video
-function openVideoModal(url) {
-  const modal = document.getElementById("videoModal");
-  const iframe = document.getElementById("videoFrame");
-  iframe.src = url;
-  modal.classList.remove("hidden");
-  modal.classList.add("flex");
-}
-
-function closeVideoModal() {
-  const modal = document.getElementById("videoModal");
-  const iframe = document.getElementById("videoFrame");
-  iframe.src = "";
-  modal.classList.add("hidden");
-  modal.classList.remove("flex");
-}
-</script>
-
-<!-- ================= STYLE ANIMASI ================= -->
+<!-- ================= STYLE ANIMASI & CUSTOM ================= -->
 <style>
 .fade-in-up {
   opacity: 0;
@@ -234,4 +222,196 @@ function closeVideoModal() {
   background-color: rgba(255, 165, 0, 0.25);
   transition: background-color 0.6s ease;
 }
+/* jurusan detail minor styling */
+#jurusan-detail-wrapper { will-change: opacity, transform; }
+.jurusan-detail-card { border-radius: .75rem; box-shadow: 0 12px 30px rgba(15,23,42,0.06); overflow: hidden; }
 </style>
+
+<!-- ================= SCRIPT (Animasi, Toggle Detail, Modal) ================= -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Intersection Observer untuk semua .fade-in-up (dipakai ulang)
+  const fadeElements = document.querySelectorAll(".fade-in-up");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("show");
+      else entry.target.classList.remove("show");
+    });
+  }, { threshold: 0.18 });
+  fadeElements.forEach(el => io.observe(el));
+
+  // Data detail jurusan (HTML sebagai template string)
+  const details = {
+    pplg: `
+      <div class="mb-8 text-center fade-in-up show">
+        <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-2">Pengembangan Perangkat Lunak dan Gim (PPLG)</h2>
+        <p class="text-gray-700">Menguasai dunia pemrograman dan industri gim modern — website, mobile, dan game development.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="jurusan-detail-card bg-white p-4 fade-in-up">
+          <img src="{{ asset('assets/images/section/program/website.jpg') }}" alt="Website" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="font-bold text-lg text-gray-900 mb-2">Pengembangan <span class="text-orange-600">Website</span></h3>
+          <p class="text-gray-600 text-sm">Belajar HTML, CSS, JavaScript, hingga framework modern untuk membangun website responsif.</p>
+        </div>
+        <div class="jurusan-detail-card bg-white p-4 fade-in-up">
+          <img src="{{ asset('assets/images/section/program/android.jpg') }}" alt="Android" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="font-bold text-lg text-gray-900 mb-2">Pengembangan <span class="text-orange-600">Android</span></h3>
+          <p class="text-gray-600 text-sm">Membuat aplikasi mobile berbasis Android dengan teknologi terkini.</p>
+        </div>
+        <div class="jurusan-detail-card bg-white p-4 fade-in-up">
+          <img src="{{ asset('assets/images/section/program/game.jpg') }}" alt="Gim" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="font-bold text-lg text-gray-900 mb-2">Pengembangan <span class="text-orange-600">Gim</span></h3>
+          <p class="text-gray-600 text-sm">Mempelajari konsep, desain, hingga implementasi gim interaktif.</p>
+        </div>
+      </div>
+    `,
+    tkj: `
+      <div class="mb-8 text-center fade-in-up show">
+        <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-2">Teknik Jaringan Komputer dan Telekomunikasi (TKJ)</h2>
+        <p class="text-gray-700">Mendalami jaringan komputer, server, dan keamanan jaringan.</p>
+      </div>
+      <div class="flex flex-col md:flex-row gap-6">
+        <div class="jurusan-detail-card bg-white p-4 fade-in-up w-full md:w-1/2">
+          <img src="{{ asset('assets/images/section/program/tkj-detail.jpg') }}" alt="TKJ" class="w-full h-56 object-cover rounded-md mb-4">
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm fade-in-up flex-1">
+          <h3 class="font-bold text-lg text-gray-900 mb-2">Materi Unggulan</h3>
+          <ul class="text-gray-600 text-sm list-disc ml-5">
+            <li>Konfigurasi jaringan (LAN/WAN)</li>
+            <li>Server & virtualisasi</li>
+            <li>Keamanan jaringan dan troubleshooting</li>
+          </ul>
+        </div>
+      </div>
+    `,
+    bcf: `
+      <div class="mb-8 text-center fade-in-up show">
+        <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-2">Broadcast dan Film (BCF)</h2>
+        <p class="text-gray-700">Fokus pada produksi film, editing video, dan broadcasting profesional.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="jurusan-detail-card bg-white p-4 fade-in-up">
+          <img src="{{ asset('assets/images/section/program/bcf-detail.jpg') }}" alt="BCF" class="w-full h-56 object-cover rounded-md mb-4">
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm fade-in-up">
+          <h3 class="font-bold text-lg text-gray-900 mb-2">Fasilitas & Kegiatan</h3>
+          <p class="text-gray-600 text-sm">Studio, peralatan kamera, editing suite, serta proyek film pendek dan siaran langsung.</p>
+        </div>
+      </div>
+    `,
+    dkv: `
+      <div class="mb-8 text-center fade-in-up show">
+        <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-2">Desain Komunikasi Visual (DKV)</h2>
+        <p class="text-gray-700">Desain grafis, ilustrasi, animasi, hingga visual branding kreatif.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="jurusan-detail-card bg-white p-4 fade-in-up">
+          <img src="{{ asset('assets/images/section/program/dkv-detail.jpg') }}" alt="DKV" class="w-full h-40 object-cover rounded-md mb-4">
+          <h3 class="font-bold text-lg text-gray-900 mb-2">Portfolio & Kegiatan</h3>
+          <p class="text-gray-600 text-sm">Proyek branding, ilustrasi digital, poster, dan animasi pendek untuk klien nyata.</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm fade-in-up">
+          <h3 class="font-bold text-lg text-gray-900 mb-2">Software & Tools</h3>
+          <p class="text-gray-600 text-sm">Adobe Creative Suite, Figma, Blender, dan tools desain lainnya.</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm fade-in-up">
+          <h3 class="font-bold text-lg text-gray-900 mb-2">Kurikulum</h3>
+          <p class="text-gray-600 text-sm">Dari dasar desain visual hingga workflow produksi dan presentasi klien.</p>
+        </div>
+      </div>
+    `
+  };
+
+  // Element references
+  const links = document.querySelectorAll(".lihat-selengkapnya");
+  const wrapper = document.getElementById("jurusan-detail-wrapper");
+  const content = document.getElementById("jurusan-detail-content");
+
+  // Utility: show detail (single open at a time)
+  function showDetail(key) {
+    if (!details[key]) return;
+    // Masukkan HTML + tombol kembali
+    content.innerHTML = details[key] + `
+      <div class="mt-8 text-center fade-in-up">
+        <a href="#" id="close-detail" class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-lg font-semibold transition transform hover:scale-105">
+          ← Kembali ke Program
+        </a>
+      </div>
+    `;
+
+    // Tampilkan wrapper dengan animasi
+    wrapper.classList.remove("hidden");
+    // small delay agar transition terbaca
+    setTimeout(() => {
+      wrapper.classList.remove("opacity-0", "translate-y-6");
+    }, 40);
+
+    // Scroll halus ke wrapper
+    wrapper.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    // Observe new fade-in-up elements di dalam content agar anim berjalan
+    const newEls = content.querySelectorAll(".fade-in-up");
+    newEls.forEach(el => io.observe(el));
+
+    // Pasang event listener tombol close (pastikan hanya sekali)
+    const closeBtn = document.getElementById("close-detail");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        hideDetail();
+      }, { once: true });
+    }
+  }
+
+  // Utility: hide detail
+  function hideDetail() {
+    wrapper.classList.add("opacity-0", "translate-y-6");
+    // delay hide agar anim selesai
+    setTimeout(() => {
+      wrapper.classList.add("hidden");
+      content.innerHTML = "";
+      // scroll kembali ke grid program
+      const grid = document.getElementById("program-grid");
+      if (grid) grid.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 480);
+  }
+
+  // Attach click ke setiap link "Lihat Selengkapnya"
+  links.forEach(link => {
+    link.addEventListener("click", function(e) {
+      e.preventDefault();
+      const targetKey = this.dataset.target;
+      // jika wrapper sudah terbuka dengan jurusan yang sama -> tutup
+      // (alternatif: selalu replace konten)
+      showDetail(targetKey);
+    });
+  });
+
+  // Support keyboard ESC untuk menutup detail bila terbuka
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (!wrapper.classList.contains("hidden")) hideDetail();
+      // juga tutup video modal jika terbuka
+      closeVideoModal();
+    }
+  });
+});
+
+// Modal Video (simple)
+function openVideoModal(url) {
+  const modal = document.getElementById("videoModal");
+  const iframe = document.getElementById("videoFrame");
+  iframe.src = url;
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+function closeVideoModal() {
+  const modal = document.getElementById("videoModal");
+  const iframe = document.getElementById("videoFrame");
+  if (iframe) iframe.src = "";
+  if (modal) {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  }
+}
+</script>
