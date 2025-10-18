@@ -1,21 +1,24 @@
-<?php
+test untuk model nya 
 
-namespace App\Models;
+<!-- < ?php -->
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+// namespace App\Models;
 
-class Gallery extends Model
-{
-    use HasFactory;
+// use Illuminate\Database\Eloquent\Factories\HasFactory;
+// use Illuminate\Database\Eloquent\Model;
 
-      protected $fillable = [
-        'title',
-        'category',
-        'image',
-        'youtube_link',
-        'status',
-        'published_at'
-    ];
-    
-}
+// class Gallery extends Model
+// {
+    // use HasFactory;
+
+    // protected $table = 'prestasiprima_galleries';
+
+    // protected $fillable = [
+        // 'title',
+        // 'category',
+        // 'image',
+        // 'youtube_link',
+        // 'status',
+        // 'published_at'
+    // ];
+// }

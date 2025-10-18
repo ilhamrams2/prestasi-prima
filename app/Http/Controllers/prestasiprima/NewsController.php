@@ -3,57 +3,80 @@
 namespace App\Http\Controllers\Prestasiprima;
 
 use App\Http\Controllers\Controller;
-use App\Models\prestasiprima\News;
-use App\Models\prestasiprima\Category;
+use App\Models\Prestasiprima\News;
+use App\Models\Prestasiprima\Category;
+use App\Models\Prestasiprima\PrestasiprimaGallery;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
     /**
-     * Tampilkan semua berita (halaman utama) + search + filter kategori
+     * ==============================
+     * HALAMAN UTAMA BERITA
+     * ==============================
      */
     public function index(Request $request)
     {
-        $query = News::with('category')->latest();
+        // 🔹 Ambil berita terbaru + relasi kategori
+        $newsQuery = News::with('category')->latest();
 
-        // Search
-        if ($request->filled('search')) {
-            $query->where('title', 'like', '%'.$request->search.'%')
-                  ->orWhere('content', 'like', '%'.$request->search.'%');
+        // 🔍 Fitur Pencarian
+        if ($search = $request->get('search')) {
+            $newsQuery->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                      ->orWhere('content', 'like', "%{$search}%");
+            });
         }
 
-        // Filter kategori
-        if ($request->filled('category')) {
-            $query->whereHas('category', fn($q) => $q->where('slug', $request->category));
+        // 🏷️ Filter berdasarkan kategori
+        if ($categorySlug = $request->get('category')) {
+            $newsQuery->whereHas('category', fn($q) => $q->where('slug', $categorySlug));
         }
 
-        $news = $query->paginate(9)->withQueryString();
-        $categories = Category::all();
+        // 📄 Paginasi Berita
+        $news = $newsQuery->paginate(9)->withQueryString();
 
-        return view('prestasiprima.pages.berita.index', compact('news', 'categories'));
+        // 📁 Daftar kategori untuk sidebar/filter
+        $categories = Category::orderBy('name')->get();
+
+        // 🎥 Ambil video galeri — cukup berdasarkan kolom video_url yang terisi
+        $videos = PrestasiprimaGallery::query()
+            ->whereNotNull('video_url')
+            ->where('video_url', '!=', '')
+            ->latest()
+            ->take(3)
+            ->get(['id', 'title', 'thumbnail', 'video_url', 'description']);
+
+        // 🔁 Kirim data ke view
+        return view('prestasiprima.pages.berita.index', compact('news', 'categories', 'videos'));
     }
 
     /**
-     * Tampilkan detail berita + related news
+     * ==============================
+     * HALAMAN DETAIL BERITA
+     * ==============================
      */
-    public function detail($slug)
+    public function detail(string $slug)
     {
+        // 🔹 Ambil berita berdasarkan slug
         $news = News::with('category')->where('slug', $slug)->firstOrFail();
 
-        // Related news
+        // 📰 Ambil berita terkait dari kategori yang sama
         $related = News::where('category_id', $news->category_id)
-                        ->where('id', '!=', $news->id)
-                        ->latest()
-                        ->take(4)
-                        ->get();
+            ->where('id', '!=', $news->id)
+            ->latest()
+            ->take(4)
+            ->get(['id', 'title', 'slug', 'thumbnail', 'created_at']);
 
         return view('prestasiprima.pages.berita.detail', compact('news', 'related'));
     }
 
     /**
-     * Compatibility wrapper untuk route 'show'
+     * ==============================
+     * ALIAS UNTUK ROUTE show()
+     * ==============================
      */
-    public function show($slug)
+    public function show(string $slug)
     {
         return $this->detail($slug);
     }

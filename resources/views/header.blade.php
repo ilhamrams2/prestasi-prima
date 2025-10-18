@@ -74,8 +74,8 @@
             </svg>
           </a>
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
-            <a href="#" class="dropdown-item">Galeri</a>
-            <a href="#" class="dropdown-item">Berita</a>
+            <a href="{{ route('gallery') }}" class="dropdown-item">Galeri</a>
+            <a href="{{ route('berita.index') }}" class="dropdown-item">Berita</a>
           </div>
         </div>
 

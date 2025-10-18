@@ -40,6 +40,9 @@ use App\Http\Controllers\Prestasiprima\{
     SambutanController
 };
 
+use App\Http\Controllers\Prestasiprima\Admin\AdminNewsController;
+use App\Http\Controllers\Prestasiprima\Admin\AdminGalleryController;
+
 
 // ============================================================
 // ======================== ROUTES ============================
@@ -176,5 +179,29 @@ Route::prefix('siakad')->name('siakad.')->group(function () {
 
         // -------------------- PROFILE -------------------- //
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    });
+});
+
+
+Route::prefix('prestasiprima/admin')->name('prestasiprima.admin.')->group(function () {
+
+    // ---------- GALERI ----------
+    Route::prefix('gallery')->name('gallery.')->controller(AdminGalleryController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::put('/{id}', 'update')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
+    });
+
+    // ---------- BERITA ----------
+    Route::prefix('berita')->name('berita.')->controller(AdminNewsController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::put('/{id}', 'update')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
     });
 });
