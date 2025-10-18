@@ -102,6 +102,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const formattedReply = reply.replace(/\n/g, '<br>');
         createMessageElement(formattedReply, false);
     }
+
+    function createNavigationButton(text, url) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('flex', 'items-start', 'mb-2', 'last:mb-0', 'justify-start');
+        
+        const button = document.createElement('a');
+        button.href = url;
+        button.textContent = text;
+        button.classList.add('inline-block', 'bg-orange-500', 'text-white', 'text-sm', 'py-2', 'px-4', 'rounded-lg', 'hover:bg-orange-600', 'transition-colors', 'max-w-[80%]');
+
+        messageDiv.appendChild(button);
+        chatMessages.appendChild(messageDiv);
+        scrollToBottom();
+    }
     
     async function sendMessage() {
         const message = userInput.value.trim();
@@ -124,11 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
         errorDiv.style.display = 'none';
 
         try {
-            const targetUrl = new URL(sendRoute, location.href);
-            const sameOrigin = targetUrl.origin === location.origin;
-            const credentialsMode = sameOrigin ? 'same-origin' : 'include';
-
-            // ✅ INI BAGIAN YANG DULU HILANG
             const response = await fetch(sendRoute, {
                 method: 'POST',
                 headers: {
@@ -136,11 +145,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     'Accept': 'application/json',
                     'X-CSRF-TOKEN': csrfToken
                 },
-                credentials: credentialsMode,
-                body: JSON.stringify({ message })
+                body: JSON.stringify({ content: message })
             });
 
-            // ✅ Baca hasilnya
             let data = null;
             let textFallback = null;
             try {
@@ -156,24 +163,23 @@ document.addEventListener("DOMContentLoaded", () => {
             if (loadingBubble && loadingBubble.parentElement) loadingBubble.parentElement.remove();
 
             if (response.ok) {
-                if (data && data.data && data.data.reply) {
-                    displayAiReply(data.data.reply);
-                } else if (data && data.reply) {
-                    displayAiReply(data.reply);
-                } else if (textFallback) {
-                    displayAiReply(textFallback);
-                } else {
-                    const errorMessage = (data && (data.error || data.message)) || 'Server merespons tapi format tidak dikenal.';
-                    errorText.textContent = errorMessage;
-                    errorDiv.style.display = 'flex';
-                    createMessageElement('⚠️ ' + errorMessage, false);
+                const replyText = data?.reply;
+                const navigation = data?.navigation;
+
+                if (replyText) {
+                    displayAiReply(replyText);
+                }
+
+                if (navigation && navigation.text && navigation.url) {
+                    createNavigationButton(navigation.text, navigation.url);
+                }
+
+                if (!replyText && !navigation) {
+                    // Valid empty response, do nothing.
                 }
             } else {
                 if (response.status === 419) {
                     let msg = 'Sesi atau token CSRF tidak valid. Silakan muat ulang halaman dan coba lagi.';
-                    if (!sameOrigin) {
-                        msg += ' (Permintaan lintas-origin terdeteksi. Pastikan server mengizinkan credentials dan header X-CSRF-TOKEN di konfigurasi CORS.)';
-                    }
                     errorText.textContent = msg;
                     errorDiv.style.display = 'flex';
                     createMessageElement('⚠️ ' + msg, false);
@@ -189,6 +195,8 @@ document.addEventListener("DOMContentLoaded", () => {
                             errorMessage = errorPayload.message;
                         } else if (errorPayload.error) {
                             errorMessage = errorPayload.error;
+                        } else if (errorPayload.reply) { // Handle case where error response has a 'reply'
+                            errorMessage = errorPayload.reply;
                         }
                     }
                     errorText.textContent = errorMessage;

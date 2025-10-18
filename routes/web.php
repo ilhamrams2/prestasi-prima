@@ -25,7 +25,7 @@ Route::get('/test-google', function() {
 });
 
 
-Route::get('/chatbot', [ChatbotController::class, 'index'])->name('chatbot.index');
+
 Route::post('/send', [ChatbotController::class, 'send'])->name('chatbot.send');
 
 // Landing Page
