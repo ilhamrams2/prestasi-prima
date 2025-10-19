@@ -3,64 +3,68 @@
 @section('title', 'Manajemen Berita')
 
 @section('content')
-<div class="bg-white rounded-xl shadow p-6">
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
 
   {{-- ================= HEADER ================= --}}
-  <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-    <h1 class="text-2xl font-bold text-gray-800">Daftar Berita</h1>
+  <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+    <h1 class="text-3xl font-semibold text-gray-800 tracking-tight">Manajemen Berita</h1>
 
     <a href="{{ route('prestasiprima.admin.berita.create') }}" 
-       class="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-lg font-medium transition">
-      <i class="fa-solid fa-plus"></i> Tambah Berita
+       class="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg font-medium transition duration-200">
+      <i class="fa-solid fa-plus text-sm"></i>
+      Tambah Berita
     </a>
   </div>
 
   {{-- ================= FLASH MESSAGE ================= --}}
   @if (session('success'))
-    <div class="mb-4 p-3 bg-green-100 text-green-700 border border-green-200 rounded-lg">
+    <div class="mb-5 p-4 bg-gray-50 border border-gray-200 rounded-lg flex items-center text-gray-700">
+      <i class="fa-solid fa-circle-check text-green-500 mr-2"></i>
       {{ session('success') }}
     </div>
   @endif
 
-  {{-- ================= TABEL ================= --}}
+  {{-- ================= TABEL BERITA ================= --}}
   <div class="overflow-x-auto">
-    <table class="w-full text-sm text-left text-gray-600">
-      <thead class="text-xs uppercase bg-gray-50 border-b border-gray-200">
+    <table class="w-full text-sm text-left border-collapse">
+      <thead class="bg-gray-50 border-b border-gray-200 text-gray-600 uppercase text-xs font-medium">
         <tr>
-          <th class="px-4 py-3 w-16">No</th>
-          <th class="px-4 py-3">Thumbnail</th>
-          <th class="px-4 py-3">Judul</th>
-          <th class="px-4 py-3">Tanggal</th>
-          <th class="px-4 py-3">Deskripsi</th>
-          <th class="px-4 py-3 text-right">Aksi</th>
+          <th class="px-5 py-3 w-16">No</th>
+          <th class="px-5 py-3">Thumbnail</th>
+          <th class="px-5 py-3">Judul</th>
+          <th class="px-5 py-3">Tanggal</th>
+          <th class="px-5 py-3">Deskripsi</th>
+          <th class="px-5 py-3 text-right">Aksi</th>
         </tr>
       </thead>
       <tbody>
         @forelse ($news as $index => $item)
-          <tr class="border-b hover:bg-gray-50 transition">
-            <td class="px-4 py-3">{{ $loop->iteration }}</td>
+          <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+            <td class="px-5 py-3 text-gray-700">{{ $loop->iteration }}</td>
 
-            <td class="px-4 py-3">
+            <td class="px-5 py-3">
               @if ($item->thumbnail)
-                <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="thumbnail" class="w-16 h-16 object-cover rounded-lg">
+                <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="thumbnail" 
+                     class="w-16 h-16 object-cover rounded-md border border-gray-200">
               @else
-                <span class="text-gray-400 italic">Tidak ada</span>
+                <span class="text-gray-400 italic">—</span>
               @endif
             </td>
 
-            <td class="px-4 py-3 font-medium text-gray-800">{{ $item->title }}</td>
+            <td class="px-5 py-3 font-medium text-gray-800">{{ $item->title }}</td>
 
-            <td class="px-4 py-3 text-gray-600">
-  {{ \Carbon\Carbon::parse($item->published_at)->format('d M Y') }}
-</td>
+            <td class="px-5 py-3 text-gray-600 whitespace-nowrap">
+              {{ \Carbon\Carbon::parse($item->published_at)->format('d M Y') }}
+            </td>
 
+            <td class="px-5 py-3 text-gray-500 truncate max-w-xs">
+              {{ Str::limit($item->description, 80) }}
+            </td>
 
-            <td class="px-4 py-3 text-gray-500 truncate max-w-xs">{{ Str::limit($item->description, 60) }}</td>
-
-            <td class="px-4 py-3 text-right space-x-2">
+            <td class="px-5 py-3 text-right space-x-3">
               <a href="{{ route('prestasiprima.admin.berita.edit', $item->id) }}" 
-                 class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800">
-                <i class="fa-solid fa-pen-to-square"></i> Edit
+                 class="inline-flex items-center gap-1 text-gray-700 hover:text-gray-900 transition">
+                <i class="fa-solid fa-pen-to-square text-sm"></i> Edit
               </a>
 
               <form action="{{ route('prestasiprima.admin.berita.destroy', $item->id) }}" method="POST" class="inline">
@@ -68,15 +72,15 @@
                 @method('DELETE')
                 <button type="submit" 
                         onclick="return confirm('Yakin ingin menghapus berita ini?')"
-                        class="inline-flex items-center gap-1 text-red-600 hover:text-red-800">
-                  <i class="fa-solid fa-trash"></i> Hapus
+                        class="inline-flex items-center gap-1 text-gray-500 hover:text-red-600 transition">
+                  <i class="fa-solid fa-trash text-sm"></i> Hapus
                 </button>
               </form>
             </td>
           </tr>
         @empty
           <tr>
-            <td colspan="6" class="px-4 py-6 text-center text-gray-500">Belum ada berita.</td>
+            <td colspan="6" class="px-5 py-8 text-center text-gray-400 italic">Belum ada berita yang tersedia.</td>
           </tr>
         @endforelse
       </tbody>
@@ -84,7 +88,7 @@
   </div>
 
   {{-- ================= PAGINATION ================= --}}
-  <div class="mt-6">
+  <div class="mt-8 flex justify-end">
     {{ $news->links() }}
   </div>
 </div>

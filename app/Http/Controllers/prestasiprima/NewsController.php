@@ -17,29 +17,24 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
-        // 🔹 Ambil berita terbaru + relasi kategori
         $newsQuery = News::with('category')->latest();
 
-        // 🔍 Fitur Pencarian
+        // 🔍 Pencarian
         if ($search = $request->get('search')) {
-            $newsQuery->where(function ($query) use ($search) {
+            $newsQuery->where(fn($query) => 
                 $query->where('title', 'like', "%{$search}%")
-                      ->orWhere('content', 'like', "%{$search}%");
-            });
+                      ->orWhere('content', 'like', "%{$search}%")
+            );
         }
 
-        // 🏷️ Filter berdasarkan kategori
+        // 🏷️ Filter kategori
         if ($categorySlug = $request->get('category')) {
             $newsQuery->whereHas('category', fn($q) => $q->where('slug', $categorySlug));
         }
 
-        // 📄 Paginasi Berita
         $news = $newsQuery->paginate(9)->withQueryString();
-
-        // 📁 Daftar kategori untuk sidebar/filter
         $categories = Category::orderBy('name')->get();
 
-        // 🎥 Ambil video galeri — cukup berdasarkan kolom video_url yang terisi
         $videos = PrestasiprimaGallery::query()
             ->whereNotNull('video_url')
             ->where('video_url', '!=', '')
@@ -47,7 +42,6 @@ class NewsController extends Controller
             ->take(3)
             ->get(['id', 'title', 'thumbnail', 'video_url', 'description']);
 
-        // 🔁 Kirim data ke view
         return view('prestasiprima.pages.berita.index', compact('news', 'categories', 'videos'));
     }
 
@@ -58,17 +52,26 @@ class NewsController extends Controller
      */
     public function detail(string $slug)
     {
-        // 🔹 Ambil berita berdasarkan slug
+        // Berita yang dibuka
         $news = News::with('category')->where('slug', $slug)->firstOrFail();
 
-        // 📰 Ambil berita terkait dari kategori yang sama
-        $related = News::where('category_id', $news->category_id)
-            ->where('id', '!=', $news->id)
-            ->latest()
-            ->take(4)
-            ->get(['id', 'title', 'slug', 'thumbnail', 'created_at']);
+        // Daftar kategori untuk sidebar
+        $categories = Category::orderBy('name')->get();
 
-        return view('prestasiprima.pages.berita.detail', compact('news', 'related'));
+        // Hot News: berita terbaru selain yang dibuka
+        $hotNews = News::where('id', '!=', $news->id)
+                        ->latest()
+                        ->take(5)
+                        ->get();
+
+        // Related: berita dari kategori yang sama
+        $related = News::where('category_id', $news->category_id)
+                        ->where('id', '!=', $news->id)
+                        ->latest()
+                        ->take(4)
+                        ->get(['id','title','slug','thumbnail','created_at']);
+
+        return view('prestasiprima.pages.berita.detail', compact('news', 'categories', 'hotNews', 'related'));
     }
 
     /**

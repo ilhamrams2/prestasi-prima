@@ -3,92 +3,92 @@
 @section('title', 'Manajemen Galeri')
 
 @section('content')
-<div class="bg-white rounded-xl shadow p-6">
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
 
   {{-- ================= HEADER ================= --}}
-  <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-    <h1 class="text-2xl font-bold text-gray-800">Daftar Galeri</h1>
+  <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+    <h1 class="text-3xl font-semibold text-gray-800 tracking-tight">Manajemen Galeri</h1>
 
     <a href="{{ route('prestasiprima.admin.gallery.create') }}" 
-       class="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-lg font-medium transition">
-      <i class="fa-solid fa-plus"></i> Tambah Galeri
+       class="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg font-medium transition duration-200">
+      <i class="fa-solid fa-plus text-sm"></i>
+      Tambah Galeri
     </a>
   </div>
 
   {{-- ================= FLASH MESSAGE ================= --}}
   @if (session('success'))
-    <div class="mb-4 p-3 bg-green-100 text-green-700 border border-green-200 rounded-lg">
+    <div class="mb-5 p-4 bg-gray-50 border border-gray-200 rounded-lg flex items-center text-gray-700">
+      <i class="fa-solid fa-circle-check text-green-500 mr-2"></i>
       {{ session('success') }}
     </div>
   @endif
 
-  {{-- ================= TABEL ================= --}}
-  <div class="overflow-x-auto">
-    <table class="w-full text-sm text-left text-gray-600">
-      <thead class="text-xs uppercase bg-gray-50 border-b border-gray-200">
-        <tr>
-          <th class="px-4 py-3 w-16">No</th>
-          <th class="px-4 py-3">Thumbnail</th>
-          <th class="px-4 py-3">Judul</th>
-          <th class="px-4 py-3">Tipe</th>
-          <th class="px-4 py-3">Deskripsi</th>
-          <th class="px-4 py-3 text-right">Aksi</th>
-        </tr>
-      </thead>
-      <tbody>
-        @forelse ($galleries as $index => $gallery)
-          <tr class="border-b hover:bg-gray-50 transition">
-            <td class="px-4 py-3">{{ $loop->iteration }}</td>
+  {{-- ================= GRID GALERI ================= --}}
+  @if ($galleries->count())
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      @foreach ($galleries as $gallery)
+        <div class="bg-gray-50 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col group">
 
-            <td class="px-4 py-3">
-              @if ($gallery->thumbnail)
-                <img src="{{ asset('storage/' . $gallery->thumbnail) }}" alt="thumbnail" class="w-16 h-16 object-cover rounded-lg">
-              @else
-                <span class="text-gray-400 italic">Tidak ada</span>
-              @endif
-            </td>
+          {{-- Thumbnail --}}
+          <div class="relative h-48 overflow-hidden">
+            @if ($gallery->thumbnail)
+              <img src="{{ asset('storage/' . $gallery->thumbnail) }}" 
+                   alt="Thumbnail" 
+                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            @else
+              <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400 text-sm">
+                Tidak ada gambar
+              </div>
+            @endif
 
-            <td class="px-4 py-3 font-medium text-gray-800">{{ $gallery->title }}</td>
+            {{-- Badge Tipe --}}
+            <span class="absolute top-3 left-3 px-2 py-1 text-xs font-semibold rounded bg-gray-200 text-gray-700">
+              {{ $gallery->video_url ? 'Video' : 'Foto' }}
+            </span>
+          </div>
 
-            <td class="px-4 py-3">
-              @if ($gallery->video_url)
-                <span class="bg-blue-100 text-blue-700 text-xs font-medium px-2 py-1 rounded">Video</span>
-              @else
-                <span class="bg-gray-100 text-gray-700 text-xs font-medium px-2 py-1 rounded">Foto</span>
-              @endif
-            </td>
+          {{-- Konten --}}
+          <div class="flex flex-col flex-1 p-4">
+            <h3 class="font-medium text-gray-800 mb-1 line-clamp-2">
+              {{ $gallery->title }}
+            </h3>
 
-            <td class="px-4 py-3 text-gray-500 truncate max-w-xs">{{ Str::limit($gallery->description, 60) }}</td>
+            <p class="text-sm text-gray-500 mb-3 line-clamp-3">
+              {{ Str::limit($gallery->description, 100) }}
+            </p>
 
-            <td class="px-4 py-3 text-right space-x-2">
+            {{-- Tombol Aksi --}}
+            <div class="mt-auto flex items-center justify-between pt-3 border-t border-gray-100">
               <a href="{{ route('prestasiprima.admin.gallery.edit', $gallery->id) }}" 
-                 class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800">
-                <i class="fa-solid fa-pen-to-square"></i> Edit
+                 class="inline-flex items-center gap-1 text-gray-700 hover:text-gray-900 text-sm font-medium transition">
+                <i class="fa-solid fa-pen-to-square text-sm"></i> Edit
               </a>
 
-              <form action="{{ route('prestasiprima.admin.gallery.destroy', $gallery->id) }}" method="POST" class="inline">
+              <form action="{{ route('prestasiprima.admin.gallery.destroy', $gallery->id) }}" method="POST" 
+                    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                 @csrf
                 @method('DELETE')
                 <button type="submit" 
-                        onclick="return confirm('Yakin ingin menghapus data ini?')"
-                        class="inline-flex items-center gap-1 text-red-600 hover:text-red-800">
-                  <i class="fa-solid fa-trash"></i> Hapus
+                        class="inline-flex items-center gap-1 text-gray-500 hover:text-red-600 text-sm font-medium transition">
+                  <i class="fa-solid fa-trash text-sm"></i> Hapus
                 </button>
               </form>
-            </td>
-          </tr>
-        @empty
-          <tr>
-            <td colspan="6" class="px-4 py-6 text-center text-gray-500">Belum ada data galeri.</td>
-          </tr>
-        @endforelse
-      </tbody>
-    </table>
-  </div>
+            </div>
+          </div>
+        </div>
+      @endforeach
+    </div>
 
-  {{-- ================= PAGINATION ================= --}}
-  <div class="mt-6">
-    {{ $galleries->links() }}
-  </div>
+    {{-- ================= PAGINATION ================= --}}
+    <div class="mt-8 flex justify-end">
+      {{ $galleries->links() }}
+    </div>
+  @else
+    <div class="text-center py-16 text-gray-400 italic">
+      <i class="fa-solid fa-image text-4xl mb-3"></i>
+      <p>Belum ada data galeri.</p>
+    </div>
+  @endif
 </div>
 @endsection

@@ -1,4 +1,3 @@
-animasi tanpa logo networknya
 <!-- ================= SECTION INDUSTRI ================= -->
 <section id="industri" class="relative py-24 bg-white overflow-hidden">
 

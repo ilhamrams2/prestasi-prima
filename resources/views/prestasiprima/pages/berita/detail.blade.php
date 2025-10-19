@@ -1,121 +1,106 @@
 @extends('prestasiprima.index')
 
-@section('title', $news->title)
+@section('title', $news->title ?? 'Detail Berita')
 
 @section('content')
-  <!-- ================= PROGRESS BAR ================= -->
-  <div id="progressBar" class="fixed top-0 left-0 h-1 bg-orange-600 z-50 w-0 transition-all duration-300"></div>
+<section class="bg-gray-50 relative z-10 pt-28 md:pt-36 pb-20">
+  <div class="max-w-7xl mx-auto px-4 md:px-8">
 
-  <!-- ================= HERO DETAIL ================= -->
-  <section class="relative h-[420px] md:h-[500px] overflow-hidden">
-    <img src="{{ asset('storage/' . $news->thumbnail) }}" alt="{{ $news->title }}"
-      class="absolute inset-0 w-full h-full object-cover brightness-75">
-    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
-    <div class="relative z-10 max-w-5xl mx-auto px-4 md:px-8 h-full flex flex-col justify-end pb-12">
-      <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-snug mb-4">
-        {{ $news->title }}
-      </h1>
-      <div class="flex flex-wrap items-center text-gray-200 text-sm gap-3">
-        <span><i class="far fa-calendar-alt mr-1 text-orange-400"></i>
-          {{ $news->created_at->translatedFormat('d F Y') }}</span>
-        <span class="px-2 py-1 bg-orange-600 text-white text-xs rounded-full">
-          {{ $news->category->name ?? 'Umum' }}
-        </span>
-        <span>•</span>
-        <span><i class="far fa-user mr-1 text-orange-400"></i> {{ $news->author->name ?? 'Admin' }}</span>
-        <span>•</span>
-        <span><i class="far fa-clock mr-1 text-orange-400"></i>
-          {{ ceil(str_word_count(strip_tags($news->content)) / 200) }} menit baca
-        </span>
-      </div>
-    </div>
-  </section>
+      {{-- ================= BAGIAN UTAMA ================= --}}
+      <div class="lg:col-span-2">
 
-  <!-- ================= KONTEN BERITA ================= -->
-  <section class="bg-gray-50 py-16 relative z-10">
-    <div class="max-w-5xl mx-auto px-4 md:px-8">
-      <!-- Tombol Share -->
-      <div class="flex justify-end mb-6">
-        <div class="flex items-center gap-4 text-gray-400">
-          <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" target="_blank"
-            class="hover:text-blue-600 transition"><i class="fab fa-facebook-f text-lg"></i></a>
-          <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}" target="_blank"
-            class="hover:text-sky-500 transition"><i class="fab fa-twitter text-lg"></i></a>
-          <a href="https://api.whatsapp.com/send?text={{ urlencode(request()->url()) }}" target="_blank"
-            class="hover:text-green-500 transition"><i class="fab fa-whatsapp text-lg"></i></a>
+        {{-- Judul & Info --}}
+        <div class="mb-8" data-aos="fade-down">
+          <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
+            {{ $news->title }}
+          </h1>
+          <div class="flex items-center space-x-4 text-gray-500 text-sm">
+            <span>{{ $news->category->name ?? 'Umum' }}</span>
+            <span>•</span>
+            <span>{{ $news->created_at->format('d M Y') }}</span>
+          </div>
         </div>
-      </div>
 
-      <!-- Isi Berita -->
-      <article data-aos="fade-up" data-aos-duration="800"
-        class="bg-white rounded-3xl shadow-xl p-8 md:p-10 leading-relaxed text-gray-800">
-        <div class="prose prose-lg prose-orange max-w-none">
+        {{-- Thumbnail --}}
+        <div class="mb-8" data-aos="fade-up">
+          <img src="{{ asset($news->thumbnail) }}" alt="{{ $news->title }}" class="w-full h-[450px] object-cover rounded-2xl shadow-md">
+        </div>
+
+        {{-- Konten --}}
+        <div class="prose max-w-none text-gray-700" data-aos="fade-up">
           {!! $news->content !!}
         </div>
-      </article>
 
-      <!-- ================= BERITA SE-KATEGORI ================= -->
-      @php
-        $relatedByCategory = \App\Models\Prestasiprima\News::where('category_id', $news->category_id)
-          ->where('id', '!=', $news->id)
-          ->latest()
-          ->take(6)
-          ->get();
-
-      @endphp
-
-      @if($relatedByCategory->count() > 0)
-        <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="200" class="mt-20">
-          <div class="flex items-center justify-between mb-8">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 border-l-4 border-orange-500 pl-4">
-              Berita Lainnya di Kategori: <span class="text-orange-600">{{ $news->category->name ?? 'Umum' }}</span>
-            </h2>
-            <a href="{{ route('berita.index', ['category' => $news->category->slug ?? '']) }}"
-              class="text-sm text-orange-600 hover:underline font-medium">
-              Lihat Semua →
-            </a>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach($relatedByCategory as $item)
-              <a href="{{ route('berita.detail', $item->slug) }}"
-                class="group block bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300">
-                <div class="relative h-56 overflow-hidden">
-                  <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}"
-                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-4">
-                    <span class="bg-orange-600 text-white text-xs font-semibold px-3 py-1 rounded-full inline-block mb-2">
-                      {{ $item->category->name ?? 'Umum' }}
-                    </span>
-                    <h3 class="text-white text-lg font-bold line-clamp-2 leading-snug group-hover:text-orange-300 transition">
-                      {{ Str::limit($item->title, 80) }}
-                    </h3>
+        {{-- Berita Terkait --}}
+        @if($related->count() > 0)
+          <div class="mt-12" data-aos="fade-up">
+            <h3 class="text-xl font-bold text-orange-600 mb-6">Berita Terkait</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+              @foreach($related as $item)
+                <a href="{{ route('berita.detail', $item->slug) }}" class="bg-white rounded-xl shadow-md hover:shadow-lg overflow-hidden transition transform hover:-translate-y-1 duration-300">
+                  <img src="{{ asset($item->thumbnail) }}" alt="{{ $item->title }}" class="w-full h-40 object-cover">
+                  <div class="p-4">
+                    <span class="text-xs text-orange-600 font-semibold">{{ $item->category->name ?? 'Umum' }}</span>
+                    <h4 class="font-semibold text-gray-800 mt-2 line-clamp-2">{{ $item->title }}</h4>
                   </div>
-                </div>
-                <div class="p-4">
-                  <p class="text-gray-600 text-sm line-clamp-3">
-                    {{ Str::limit(strip_tags($item->excerpt ?? $item->content), 120) }}
-                  </p>
-                  <span class="mt-3 inline-block text-orange-600 text-sm font-semibold group-hover:underline">
-                    Baca Selengkapnya →
-                  </span>
-                </div>
+                </a>
+              @endforeach
+            </div>
+          </div>
+        @endif
+
+      </div>
+
+      {{-- ================= SIDEBAR ================= --}}
+      <aside class="lg:col-span-1 space-y-8">
+
+        {{-- HOT NEWS --}}
+        @if($hotNews->count() > 0)
+          <div class="bg-white rounded-2xl shadow-md p-5" data-aos="fade-left">
+            <h3 class="text-xl font-bold text-orange-600 border-b-2 border-orange-500 pb-2 mb-4">Hot News</h3>
+            @foreach($hotNews as $item)
+              <a href="{{ route('berita.detail', $item->slug) }}" class="block overflow-hidden rounded-xl mb-4">
+                <img src="{{ asset($item->thumbnail) }}" alt="{{ $item->title }}" class="w-full h-32 object-cover rounded-lg mb-2">
+                <h4 class="font-semibold text-gray-800 hover:text-orange-600 transition line-clamp-2">{{ $item->title }}</h4>
               </a>
             @endforeach
           </div>
-        </div>
-      @endif
-    </div>
-  </section>
+        @endif
 
-  <!-- ================= JS: READING PROGRESS BAR ================= -->
-  <script>
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.body.scrollHeight - window.innerHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
-      document.getElementById('progressBar').style.width = scrollPercent + '%';
-    });
-  </script>
+        {{-- AKSES CEPAT --}}
+        <div class="bg-white rounded-2xl shadow-md p-5" data-aos="fade-left" data-aos-delay="100">
+          <h3 class="text-xl font-bold text-orange-600 border-b-2 border-orange-500 pb-2 mb-4">Akses Cepat</h3>
+          <ul class="space-y-3">
+            @foreach($categories as $category)
+              <li>
+                <a href="{{ route('berita.index', ['category' => $category->slug]) }}" class="flex items-center justify-between px-4 py-2 rounded-lg border border-gray-200 hover:bg-orange-50 hover:text-orange-600 transition">
+                  <span>{{ $category->name }}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </li>
+            @endforeach
+          </ul>
+        </div>
+
+      </aside>
+    </div>
+
+  </div>
+</section>
+
+@push('scripts')
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800,
+    once: true,
+    offset: 80,
+  });
+</script>
+@endpush
 @endsection
