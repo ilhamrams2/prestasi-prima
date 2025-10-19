@@ -32,7 +32,12 @@ class NewsController extends Controller
             $newsQuery->whereHas('category', fn($q) => $q->where('slug', $categorySlug));
         }
 
-        $news = $newsQuery->paginate(9)->withQueryString();
+        // 🎯 Ubah dari paginate(9) menjadi get() agar semua berita muncul
+        $news = $newsQuery->get();
+
+        // Jika ingin pagination, ganti jadi:
+        // $news = $newsQuery->paginate(12)->withQueryString();
+
         $categories = Category::orderBy('name')->get();
 
         $videos = PrestasiprimaGallery::query()
@@ -52,19 +57,15 @@ class NewsController extends Controller
      */
     public function detail(string $slug)
     {
-        // Berita yang dibuka
         $news = News::with('category')->where('slug', $slug)->firstOrFail();
 
-        // Daftar kategori untuk sidebar
         $categories = Category::orderBy('name')->get();
 
-        // Hot News: berita terbaru selain yang dibuka
         $hotNews = News::where('id', '!=', $news->id)
                         ->latest()
                         ->take(5)
                         ->get();
 
-        // Related: berita dari kategori yang sama
         $related = News::where('category_id', $news->category_id)
                         ->where('id', '!=', $news->id)
                         ->latest()

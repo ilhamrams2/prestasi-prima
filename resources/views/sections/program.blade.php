@@ -19,7 +19,7 @@
            class="inline-flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition">
           Semua Program
         </a>
-        <a href="#contact" 
+        <a href="/pendaftaran" 
            class="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-orange-700 transition">
           Daftar Sekarang
         </a>
