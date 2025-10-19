@@ -13,7 +13,6 @@ use App\Http\Controllers\presmaboard\AchievementController as PresmaboardAchieve
 use App\Http\Controllers\presmaboard\PresmaboardController;
 use App\Http\Controllers\presmaboard\AuthController as PresmaboardAuthController;
 use App\Http\Controllers\presmaboard\DashboardController as PresmaboardDashboardController;
-use App\Http\Controllers\presmaboard\LeaderboardController as PresmaboardLeaderboardController;
 use App\Http\Controllers\presmaboard\StudentController as PresmaboardStudentController;
 use App\Http\Controllers\presmaboard\ProjectController as PresmaboardProjectController;
 use App\Http\Controllers\presmaboard\ScoreController as PresmaboardScoreController;
@@ -61,7 +60,8 @@ Route::get('/gallery', [ContentManagementController::class, 'gallery'])->name('g
 Route::prefix('presmaboard')->name('presmaboard')->group(function () {
 
     // Dashboard | Leaderboard
-    Route::get('/', [PresmaboardController::class, 'index'])->name('.index');
+    Route::get('/', [PresmaboardController::class, 'index']);
+    Route::get('eligible/{student}', [PresmaboardController::class, 'eligible'])->name('.eligible');
 
     // Auth
     Route::get('/login', [PresmaboardAuthController::class, 'index'])->name('.login');
@@ -72,9 +72,8 @@ Route::prefix('presmaboard')->name('presmaboard')->group(function () {
     // -------------------- ADMIN AREA -------------------- //
     Route::prefix('admin')->name('.admin')->group(function () {
 
-        // 
+        // Dashboard
         Route::get('/', [PresmaboardDashboardController::class, 'index'])->name('.dashboard');
-        Route::get('/leaderboard', [PresmaboardLeaderboardController::class, 'index'])->name('.leaderboard');
 
         // Project
         Route::prefix('project')->name('.project')
@@ -90,7 +89,6 @@ Route::prefix('presmaboard')->name('presmaboard')->group(function () {
             ->controller(PresmaboardStudentController::class)->group(function () {
                 Route::get('/', 'index');
                 Route::post('/', 'store')->name('.store');
-                // Route::get('/{id}', 'show')->name('.show');
                 Route::put('/{student}', 'update')->name('.update');
                 Route::delete('/{student}', 'destroy')->name('.destroy');
             });

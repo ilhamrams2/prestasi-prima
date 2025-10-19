@@ -251,17 +251,23 @@
                         <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 flex flex-col items-center">
                             <i class="ri-trophy-line text-3xl text-orange-500 mb-1"></i>
                             <h3 class="text-lg font-semibold text-gray-700">Total Prestasi</h3>
-                            <p class="text-2xl font-bold text-orange-600 mt-1">8</p>
+                            <p class="text-2xl font-bold text-orange-600 mt-1">
+                                <span x-text="selectedStudent.achievements.length ?? 0"></span>
+                            </p>
                         </div>
                         <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 flex flex-col items-center">
                             <i class="ri-briefcase-line text-3xl text-orange-500 mb-1"></i>
                             <h3 class="text-lg font-semibold text-gray-700">Total Portofolio</h3>
-                            <p class="text-2xl font-bold text-orange-600 mt-1">5</p>
+                            <p class="text-2xl font-bold text-orange-600 mt-1">
+                                <span x-text="selectedStudent.projects_count ?? 0"></span>
+                            </p>
                         </div>
                         <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 flex flex-col items-center">
                             <i class="ri-star-smile-line text-3xl text-orange-500 mb-1"></i>
                             <h3 class="text-lg font-semibold text-gray-700">Nilai PKP</h3>
-                            <p class="text-2xl font-bold text-orange-600 mt-1">91.2</p>
+                            <p class="text-2xl font-bold text-orange-600 mt-1">
+                                <span x-text="(Number(selectedStudent.scores_avg_score) || 0).toFixed(2)"></span>
+                            </p>
                         </div>
                         <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 flex flex-col items-center">
                             <i class="ri-medal-line text-3xl text-orange-500 mb-1"></i>
@@ -289,22 +295,14 @@
                             Daftar Prestasi Siswa
                         </h3>
                         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <div class="flex items-center gap-3 bg-orange-50 border border-orange-100 rounded-lg p-3">
-                                <i class="ri-trophy-fill text-orange-500 text-2xl"></i>
-                                <p class="text-gray-700 text-sm font-medium">Juara 1 Lomba Web Design Nasional 2025</p>
-                            </div>
-                            <div class="flex items-center gap-3 bg-orange-50 border border-orange-100 rounded-lg p-3">
-                                <i class="ri-trophy-fill text-orange-500 text-2xl"></i>
-                                <p class="text-gray-700 text-sm font-medium">Juara 2 Lomba UI/UX Tingkat Provinsi</p>
-                            </div>
-                            <div class="flex items-center gap-3 bg-orange-50 border border-orange-100 rounded-lg p-3">
-                                <i class="ri-trophy-fill text-orange-500 text-2xl"></i>
-                                <p class="text-gray-700 text-sm font-medium">Top 10 Hackathon SMK se-Indonesia</p>
-                            </div>
-                            <div class="flex items-center gap-3 bg-orange-50 border border-orange-100 rounded-lg p-3">
-                                <i class="ri-trophy-fill text-orange-500 text-2xl"></i>
-                                <p class="text-gray-700 text-sm font-medium">Finalis Olimpiade Informatika</p>
-                            </div>
+                            <template x-for="(achievement, index) in selectedStudent.achievements" :key="index">
+                                <div class="flex items-center gap-3 bg-orange-50 border border-orange-100 rounded-lg p-3">
+                                    <i class="ri-trophy-fill text-orange-500 text-2xl"></i>
+                                    <p class="text-gray-700 text-sm font-medium">
+                                        <span x-text="achievement.judul"></span>
+                                    </p>
+                                </div>
+                            </template>
                         </div>
                     </div>
 
@@ -393,6 +391,74 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.effect(() => {
+                if (document.getElementById('chartNilai')) {
+                    new Chart(document.getElementById('chartNilai'), {
+                        type: 'bar',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep',
+                                'Okt'
+                            ],
+                            datasets: [{
+                                label: 'Nilai Rata-rata',
+                                data: [80, 82, 85, 83, 88, 90, 91, 89, 92, 95],
+                                backgroundColor: '#fb923c'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            }
+                        }
+                    });
+                }
+
+                if (document.getElementById('chartPrestasi')) {
+                    new Chart(document.getElementById('chartPrestasi'), {
+                        type: 'line',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep',
+                                'Okt'
+                            ],
+                            datasets: [{
+                                label: 'Prestasi & Portofolio',
+                                data: [1, 2, 3, 2, 4, 5, 6, 8, 9, 11],
+                                borderColor: '#f97316',
+                                backgroundColor: 'rgba(251,146,60,0.2)',
+                                fill: true,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    position: 'top'
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 
     {{-- Alert --}}
     @if (session('error'))

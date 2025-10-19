@@ -21,12 +21,12 @@ class AchievementSeeder extends Seeder
 
         if (!empty($studentIds)) {
             $achievements = [];
-            for ($i = 0; $i < 10; $i++) { // Generate 10 dummy achievements
+            for ($i = 0; $i < 100; $i++) { // Generate 10 dummy achievements
                 $achievements[] = [
                     'student_id' => $faker->randomElement($studentIds),
                     'judul' => $faker->sentence(3, true), // 3-word title
                     'deskripsi' => $faker->paragraph(2, true), // 2-sentence description
-                    'tanggal' => $faker->date('Y-m-d', 'now'),
+                    'tanggal' => $faker->dateTimeBetween('2024-01-01', '2025-12-31')->format('Y-m-d'),
                 ];
             }
 
