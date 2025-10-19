@@ -10,10 +10,13 @@ class StudentController extends Controller
 {
     function index(Request $request)
     {
-        $students = PresmaboardStudent::when($request->search, function ($query) use ($request) {
-            $query->where('nama', 'like', "%$request->search%")
-                ->orWhere('nis', 'like', "%$request->search%");
-        })
+        $students = PresmaboardStudent::with('achievements')
+            ->withCount('projects')
+            ->withAvg('scores', 'score')
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('nama', 'like', "%$request->search%")
+                    ->orWhere('nis', 'like', "%$request->search%");
+            })
             ->when($request->jurusan, fn($query) => $query->where('jurusan', $request->jurusan))
             ->when($request->kelas, fn($query) => $query->where('kelas', $request->kelas))
             ->get();

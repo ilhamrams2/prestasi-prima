@@ -15,6 +15,9 @@ class PresmaboardAchievement extends Model
         'deskripsi',
         'tanggal',
     ];
+    protected $cast = [
+        'tanggal' => 'datetime'
+    ];
 
     public function student()
     {

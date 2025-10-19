@@ -45,11 +45,17 @@ class ProjectController extends Controller
     function store(Request $request)
     {
         try {
+            if ($file = $request->file('foto')) {
+                $filename = 'project-' . time() . '.' . $file->getClientOriginalExtension();
+                $request->file('foto')->storePubliclyAs('presmaboard/projects', $filename, 'public');
+            }
+
             PresmaboardProject::create([
                 'student_id' => $request->student_id,
                 'category_id' => $request->category_id,
                 'judul' => $request->judul,
-                'deskripsi' => $request->deskripsi
+                'deskripsi' => $request->deskripsi,
+                'gambar' => $$filename ?? null
             ]);
             return redirect()->back()->with('success', 'Project berhasil ditambahkan');
         } catch (\Throwable $th) {
@@ -60,10 +66,16 @@ class ProjectController extends Controller
     function update(PresmaboardProject $project, Request $request)
     {
         try {
+            if ($file = $request->file('foto')) {
+                $filename = 'project-' . time() . '.' . $file->getClientOriginalExtension();
+                $request->file('foto')->storePubliclyAs('presmaboard/projects', $filename, 'public');
+            }
+
             $project->update([
                 'judul' => $request->judul,
                 'category_id' => $request->category_id,
-                'deskripsi' => $request->deskripsi
+                'deskripsi' => $request->deskripsi,
+                'gambar' => $filename ?? null
             ]);
             return redirect()->back()->with('success', 'Project berhasil diubah');
         } catch (\Throwable $th) {

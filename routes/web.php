@@ -88,22 +88,23 @@ Route::prefix('berita')
 // ======================= PRESMABOARD ========================
 // ============================================================
 
-Route::prefix('presmaboard')->name('presmaboard')->group(function () {
+Route::prefix('presmaboard')->name('presmaboard.')->group(function () {
 
-    // Dashboard & Home
-    Route::get('/', [PresmaboardController::class, 'index'])->name('.index');
+    // ---------- Dashboard & Home ----------
+    Route::get('/', [PresmaboardController::class, 'index'])->name('index');
+    Route::get('/eligible/{student}', [PresmaboardController::class, 'eligible'])->name('eligible');
 
     // ---------- Auth ----------
-    Route::get('/login', [PresmaboardAuthController::class, 'index'])->name('.login');
-    Route::post('/login', [PresmaboardAuthController::class, 'authenticate'])->name('.authenticate');
-    Route::get('/logout', [PresmaboardAuthController::class, 'logout'])->name('.logout');
+    Route::get('/login', [PresmaboardAuthController::class, 'index'])->name('login');
+    Route::post('/login', [PresmaboardAuthController::class, 'authenticate'])->name('authenticate');
+    Route::get('/logout', [PresmaboardAuthController::class, 'logout'])->name('logout');
 
     // ---------- Admin Area ----------
-    Route::prefix('admin')->name('.admin')->group(function () {
+    Route::prefix('admin')->name('admin.')->group(function () {
 
         // Dashboard
-        Route::get('/', [PresmaboardDashboardController::class, 'index'])->name('.dashboard');
-        Route::get('/leaderboard', [PresmaboardLeaderboardController::class, 'index'])->name('.leaderboard');
+        Route::get('/', [PresmaboardDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/leaderboard', [PresmaboardLeaderboardController::class, 'index'])->name('leaderboard');
 
         // Project
         Route::prefix('project')
@@ -187,12 +188,17 @@ Route::prefix('prestasiprima/admin')
             });
     });
 
+
+// ============================================================
+// ======================== ERROR PAGE ========================
+// ============================================================
+
+// ---------- Not Internet ----------
 Route::get('/notinternet', function () {
     return view('errors.notinternet');
 })->name('notinternet');
 
-
-    // Fallback jika route tidak ditemukan (404)
+// ---------- 404 Not Found ----------
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });

@@ -173,7 +173,7 @@
             <!-- MODAL CREATE -->
             <div x-show="showCreate" x-transition @click.self="showCreate=false"
                 class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-                <form action="{{ route('presmaboard.admin.project.store') }}" method="POST"
+                <form enctype="multipart/form-data" action="{{ route('presmaboard.admin.project.store') }}" method="POST"
                     class="bg-white rounded-xl p-6 w-[90%] max-w-md shadow-lg space-y-3">
                     @csrf
                     <h2 class="text-lg font-bold mb-2 text-orange-600">Tambah Project</h2>
@@ -203,6 +203,10 @@
                     <textarea name="deskripsi" placeholder="Tuliskan deskripsi project"
                         class="w-full border rounded-lg px-3 py-2 h-24 mb-3 focus:ring-2 focus:ring-orange-300"></textarea>
 
+                    <label class="block text-sm font-medium text-gray-700">Gambar</label>
+                    <input name="foto" type="file" accept="image/*"
+                        class="w-full border rounded-lg px-3 py-2 mb-2 focus:ring-2 focus:ring-orange-300" required>
+
                     <div class="flex justify-end gap-2 mt-3">
                         <button type="button" @click="showCreate=false" class="px-4 py-2 rounded-lg border">Batal</button>
                         <button type="submit" class="px-4 py-2 rounded-lg bg-orange-500 text-white">Simpan</button>
@@ -230,7 +234,8 @@
             <!-- MODAL EDIT -->
             <div x-show="showEdit" x-transition @click.self="showEdit=false"
                 class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-                <form :action="`{{ route('presmaboard.admin.project.update', '') }}/${selectedProject.id}`" method="POST"
+                <form enctype="multipart/form-data"
+                    :action="`{{ route('presmaboard.admin.project.update', '') }}/${selectedProject.id}`" method="POST"
                     class="bg-white rounded-xl p-6 w-[90%] max-w-md shadow-lg space-y-3">
                     @csrf
                     @method('put')
@@ -251,6 +256,10 @@
                     <label class="block text-sm font-medium text-gray-700">Deskripsi</label>
                     <textarea name="deskripsi" x-model="selectedProject.deskripsi"
                         class="w-full border rounded-lg px-3 py-2 h-24 focus:ring-2 focus:ring-orange-300"></textarea>
+
+                    <label class="block text-sm font-medium text-gray-700">Gambar</label>
+                    <input name="foto" type="file" accept="image/*"
+                        class="w-full border rounded-lg px-3 py-2 mb-2 focus:ring-2 focus:ring-orange-300" required>
 
                     <div class="flex justify-end gap-2 mt-3">
                         <button type="button" @click="showEdit=false" class="px-4 py-2 rounded-lg border">Batal</button>

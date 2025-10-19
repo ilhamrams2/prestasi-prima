@@ -53,13 +53,6 @@
                 <span>Dashboard</span>
             </a>
 
-            <a href="{{ route('presmaboard.admin.leaderboard') }}"
-                class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
-                text-gray-700 hover:bg-orange-50 hover:text-orange-600 {{ request()->routeIs('presmaboard.admin.leaderboard') ? 'bg-orange-50 text-orange-600 font-semibold' : '' }}">
-                <i class="ri-bar-chart-box-line text-lg"></i>
-                <span>Leaderboard</span>
-            </a>
-
             <p class="text-gray-400 uppercase text-xs font-semibold mb-2 mt-4">Akademik</p>
 
             <a href="{{ route('presmaboard.admin.student') }}"
