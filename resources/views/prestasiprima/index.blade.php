@@ -60,5 +60,21 @@
       }
     });
   </script>
+  <script>
+window.addEventListener('load', () => {
+    // Ketika offline
+    window.addEventListener('offline', () => {
+        window.location.href = "{{ route('notinternet') }}";
+    });
+
+    // Opsional: kalau user balik online dari halaman notinternet, arahkan ke beranda
+    if (window.location.pathname === '/notinternet') {
+        window.addEventListener('online', () => {
+            window.location.href = "{{ url('/') }}";
+        });
+    }
+});
+</script>
+
 </body>
 </html>

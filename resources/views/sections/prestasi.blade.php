@@ -18,12 +18,12 @@
         <!-- Slides -->
         <div class="swiper-slide">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <img src="assets/images/section/prestasi/satu.jpg" alt="Juara Dua" class="w-full object-cover">
+            <img src="assets/images/section/prestasi/satu.webp" alt="Juara Dua" class="w-full object-cover">
           </div>
         </div>
         <div class="swiper-slide">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <img src="assets/images/section/prestasi/dua.jpg" alt="Juara Tiga" class="w-full object-cover">
+            <img src="assets/images/section/prestasi/dua.webp" alt="Juara Tiga" class="w-full object-cover">
           </div>
         </div>
         <div class="swiper-slide">
@@ -38,12 +38,12 @@
         </div>
         <div class="swiper-slide">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <img src="assets/images/section/prestasi/satu.jpg" alt="Juara Lima" class="w-full object-cover">
+            <img src="assets/images/section/prestasi/satu.webp" alt="Juara Lima" class="w-full object-cover">
           </div>
         </div>
         <div class="swiper-slide">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <img src="assets/images/section/prestasi/dua.jpg" alt="Juara Enam" class="w-full object-cover">
+            <img src="assets/images/section/prestasi/dua.webp" alt="Juara Enam" class="w-full object-cover">
           </div>
         </div>
       </div>
