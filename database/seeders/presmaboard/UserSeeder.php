@@ -1,25 +1,22 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\presmaboard;
 
+use App\Models\presmaboard\PresmaboardUser;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class presmaboarduser extends Seeder
+class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Hapus semua data sebelum isi ulang
-        DB::table('presmaboard_user')->truncate();
-
-        DB::table('presmaboard_user')->insert([
+        DB::table((new PresmaboardUser)->getTable())->insert([
             [
                 'name' => 'Admin Prestasi',
                 'email' => 'admin@presmaboard.com',
                 'password' => Hash::make('admin123'),
-                'role' => 'admin',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

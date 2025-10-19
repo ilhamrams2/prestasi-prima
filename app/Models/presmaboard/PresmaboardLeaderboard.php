@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\presmaboard;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class presmaboard_leaderboard extends Model
+class PresmaboardLeaderboard extends Model
 {
     use HasFactory;
-
-
-    protected $table = 'presmaboard_leaderboards';
 
     protected $fillable = [
         'student_id',
@@ -32,9 +29,6 @@ class presmaboard_leaderboard extends Model
     // Setiap leaderboard milik satu student
     public function student()
     {
-        return $this->belongsTo(presmaboard_student::class, 'student_id');
+        return $this->belongsTo(PresmaboardStudent::class, 'student_id');
     }
-
-
 }
-  

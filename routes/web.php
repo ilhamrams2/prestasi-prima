@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\ContentManagementController;
-use App\Http\Controllers\PresmaboardController;
-use App\Http\Controllers\PresmaboardStudentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SambutanController;
 use App\Http\Controllers\Pendaftaran;
@@ -11,6 +9,14 @@ use App\Http\Controllers\PresmalanceController;
 use App\Http\Controllers\PresmaAuthController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\Errorcontroller;
+use App\Http\Controllers\presmaboard\AchievementController as PresmaboardAchievementController;
+use App\Http\Controllers\presmaboard\PresmaboardController;
+use App\Http\Controllers\presmaboard\AuthController as PresmaboardAuthController;
+use App\Http\Controllers\presmaboard\DashboardController as PresmaboardDashboardController;
+use App\Http\Controllers\presmaboard\LeaderboardController as PresmaboardLeaderboardController;
+use App\Http\Controllers\presmaboard\StudentController as PresmaboardStudentController;
+use App\Http\Controllers\presmaboard\ProjectController as PresmaboardProjectController;
+use App\Http\Controllers\presmaboard\ScoreController as PresmaboardScoreController;
 use App\Http\Controllers\prestasiprima\SambutanController as PrestasiprimaSambutanController;
 use App\Http\Controllers\Siakad\AbsenceController;
 use App\Http\Controllers\siakad\AttendanceController;
@@ -52,30 +58,60 @@ Route::get('/gallery', [ContentManagementController::class, 'gallery'])->name('g
 // ============================================================ //
 // ======================== PRESMABOARD ======================== //
 // ============================================================ //
-Route::prefix('presmaboard')->group(function () {
+Route::prefix('presmaboard')->name('presmaboard')->group(function () {
 
-    // -------------------- LOGIN -------------------- //
-    Route::get('/admin/login', fn() => view('presmaboard.login'))->name('presmaboard.login');
-    Route::post('/admin/login', [PresmaboardController::class, 'login'])->name('presmaboard.login.submit');
+    // Dashboard | Leaderboard
+    Route::get('/', [PresmaboardController::class, 'index'])->name('.index');
+
+    // Auth
+    Route::get('/login', [PresmaboardAuthController::class, 'index'])->name('.login');
+    Route::post('/login', [PresmaboardAuthController::class, 'authenticate'])->name('.authenticate');
+    Route::get('/logout', [PresmaboardAuthController::class, 'logout'])->name('.logout');
+
 
     // -------------------- ADMIN AREA -------------------- //
-    Route::prefix('admin')->group(function () {
-        Route::get('/dashboard', [PresmaboardController::class, 'dashboard'])->name('presmaboard.dashboard');
-        Route::get('/leaderboard', [PresmaboardController::class, 'leaderboard'])->name('presmaboard.leaderboard');
-        Route::get('/project', [PresmaboardController::class, 'project'])->name('presmaboard.project');
-        Route::get('/prestasi', [PresmaboardController::class, 'prestasi'])->name('presmaboard.prestasi');
-        Route::get('/nilai-pkp', [PresmaboardController::class, 'nilai_pkp'])->name('presmaboard.nilai_pkp');
-        Route::post('/logout', [PresmaboardController::class, 'logout'])->name('presmaboard.logout');
+    Route::prefix('admin')->name('.admin')->group(function () {
 
-        // CRUD Siswa
-        Route::prefix('siswa')->name('presmaboard.siswa.')->group(function () {
-            Route::get('/', [PresmaboardStudentController::class, 'index'])->name('index');
-            Route::post('/', [PresmaboardStudentController::class, 'store'])->name('store');
-            Route::get('/{id}', [PresmaboardStudentController::class, 'show'])->name('show');
-            Route::put('/{id}', [PresmaboardStudentController::class, 'update'])->name('update');
-            Route::delete('/{id}', [PresmaboardStudentController::class, 'destroy'])->name('destroy');
-            Route::get('/statistics', [PresmaboardStudentController::class, 'getStatistics'])->name('statistics');
-        });
+        // 
+        Route::get('/', [PresmaboardDashboardController::class, 'index'])->name('.dashboard');
+        Route::get('/leaderboard', [PresmaboardLeaderboardController::class, 'index'])->name('.leaderboard');
+
+        // Project
+        Route::prefix('project')->name('.project')
+            ->controller(PresmaboardProjectController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/', 'store')->name('.store');
+                Route::put('/{project}', 'update')->name('.update');
+                Route::delete('/{project}', 'destroy')->name('.destroy');
+            });
+
+        // Student
+        Route::prefix('student')->name('.student')
+            ->controller(PresmaboardStudentController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/', 'store')->name('.store');
+                // Route::get('/{id}', 'show')->name('.show');
+                Route::put('/{student}', 'update')->name('.update');
+                Route::delete('/{student}', 'destroy')->name('.destroy');
+            });
+
+        // Achievement
+        Route::prefix('achievement')->name('.achievement')
+            ->controller(PresmaboardAchievementController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/', 'store')->name('.store');
+                Route::put('/{achievement}', 'update')->name('.update');
+                Route::delete('/{achievement}', 'destroy')->name('.destroy');
+            });
+
+        // Score
+        Route::prefix('score')->name('.score')
+            ->controller(PresmaboardScoreController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/', 'store')->name('.store');
+                Route::put('/{score}', 'update')->name('.update');
+                Route::delete('/{score}', 'destroy')->name('.destroy');
+            });
     });
 });
 

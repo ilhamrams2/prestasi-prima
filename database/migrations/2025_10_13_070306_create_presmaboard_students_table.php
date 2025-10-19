@@ -12,21 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('presmaboard_students', function (Blueprint $table) {
-                $table->id();
-    $table->string('nama');
-    $table->enum('gender', ['Laki-laki', 'Perempuan'])->default('Laki-laki');
-    $table->string('foto')->nullable();
-    $table->string('kelas', 10);
-    $table->string('jurusan', 100);
-    $table->string('angkatan', 20)->nullable();
-    $table->string('email')->unique();
-    $table->string('nis')->unique();
-    $table->boolean('is_active')->default(true);
-    $table->timestamps();
-    $table->softDeletes();
+            $table->id();
+            $table->string('nama');
+            $table->enum('gender', ['l', 'p'])->default('l');
+            $table->string('foto')->nullable();
+            $table->string('kelas')->nullable();
+            $table->enum('jurusan', ['pplg', 'dkv', 'tkj', 'bcf'])->default('pplg');
+            $table->string('angkatan')->nullable();
+            $table->string('email')->unique();
+            $table->string('nis')->unique();
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+            $table->softDeletes();
 
-    $table->index(['kelas', 'jurusan', 'angkatan'], 'student_kja_index');
-
+            $table->index(['kelas', 'jurusan', 'angkatan'], 'student_kja_index');
         });
     }
 

@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('presmaboard_achievements', function (Blueprint $table) {
-      $table->id();
+            $table->id();
             $table->foreignId('student_id')->constrained('presmaboard_students')->onDelete('cascade');
-            $table->string('judul_project');
+            $table->string('judul');
             $table->text('deskripsi')->nullable();
-            $table->string('gambar')->nullable();
-            $table->string('kategori', 50)->nullable();
+            $table->date('tanggal');
             $table->timestamps();
         });
     }

@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('presmaboard_leaderboard', function (Blueprint $table) {
-                                  $table->id();
+        Schema::create('presmaboard_leaderboards', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('student_id')->constrained('presmaboard_students')->onDelete('cascade');
 
             // Nilai agregat hasil perhitungan dari scores, achievements, projects
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('presmaboard_leaderboard');
+        Schema::dropIfExists('presmaboard_leaderboards');
     }
 };

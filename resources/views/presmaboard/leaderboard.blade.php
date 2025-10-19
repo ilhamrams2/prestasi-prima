@@ -170,132 +170,139 @@
 
     <div class="container mx-auto p-4">
         <div class="overflow-x-auto bg-white rounded-lg shadow-md mt-10 max-w-6xl mx-auto">
-    <table class="min-w-full text-sm text-left text-gray-500">
-      <thead class="bg-orange-500 text-white">
-        <tr>
-          <th class="px-4 py-3 w-12">Posisi</th>
-          <th class="px-4 py-3 w-44">Nama Siswa</th>
-          <th class="px-4 py-3 w-16">Kelas</th>
-          <th class="px-4 py-3 w-16">Jurusan</th>
-          <th class="px-4 py-3 w-24">PKP</th>
-          <th class="px-4 py-3 w-32">Discover More</th>
-        </tr>
-      </thead>
-    </table>
+            <table class="min-w-full text-sm text-left text-gray-500">
+                <thead class="bg-orange-500 text-white">
+                    <tr>
+                        <th class="px-4 py-3 w-12">Posisi</th>
+                        <th class="px-4 py-3 w-44">Nama Siswa</th>
+                        <th class="px-4 py-3 w-16">Kelas</th>
+                        <th class="px-4 py-3 w-16">Jurusan</th>
+                        <th class="px-4 py-3 w-24">PKP</th>
+                        <th class="px-4 py-3 w-32">Discover More</th>
+                    </tr>
+                </thead>
+            </table>
 
-    <div class="max-h-96 overflow-y-auto">
-      <table class="min-w-full text-sm text-left text-gray-500">
-        <tbody class="bg-white">
-          <tr class="border-t">
-            <td class="px-4 py-4 w-12">4</td>
-            <td class="px-4 py-4 w-44">
-              <div class="flex items-center space-x-3">
-                <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/4.jpg" alt="profile picture">
-                <span>Nusa</span>
-              </div>
-            </td>
-            <td class="px-4 py-4 w-16">X</td>
-            <td class="px-4 py-4 w-16">1</td>
-            <td class="px-4 py-4 w-24">8399</td>
-            <td class="px-4 py-4 w-32">
-              <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
-            </td>
-          </tr>
-          <tr class="border-t">
-            <td class="px-4 py-4 w-12">5</td>
-            <td class="px-4 py-4 w-44">
-              <div class="flex items-center space-x-3">
-                <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/5.jpg" alt="profile picture">
-                <span>Dodo</span>
-              </div>
-            </td>
-            <td class="px-4 py-4 w-16">X</td>
-            <td class="px-4 py-4 w-16">1</td>
-            <td class="px-4 py-4 w-24">8799</td>
-            <td class="px-4 py-4 w-32">
-              <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
-            </td>
-          </tr>
-          <tr class="border-t">
-            <td class="px-4 py-4 w-12">6</td>
-            <td class="px-4 py-4 w-44">
-              <div class="flex items-center space-x-3">
-                <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/6.jpg" alt="profile picture">
-                <span>Nusa</span>
-              </div>
-            </td>
-            <td class="px-4 py-4 w-16">X</td>
-            <td class="px-4 py-4 w-16">1</td>
-            <td class="px-4 py-4 w-24">8399</td>
-            <td class="px-4 py-4 w-32">
-              <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
-            </td>
-          </tr>
-          <tr class="border-t">
-            <td class="px-4 py-4 w-12">7</td>
-            <td class="px-4 py-4 w-44">
-              <div class="flex items-center space-x-3">
-                <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/7.jpg" alt="profile picture">
-                <span>John</span>
-              </div>
-            </td>
-            <td class="px-4 py-4 w-16">XI</td>
-            <td class="px-4 py-4 w-16">2</td>
-            <td class="px-4 py-4 w-24">8999</td>
-            <td class="px-4 py-4 w-32">
-              <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
-            </td>
-          </tr>
-          <tr class="border-t">
-            <td class="px-4 py-4 w-12">8</td>
-            <td class="px-4 py-4 w-44">
-              <div class="flex items-center space-x-3">
-                <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/8.jpg" alt="profile picture">
-                <span>Peter</span>
-              </div>
-            </td>
-            <td class="px-4 py-4 w-16">X</td>
-            <td class="px-4 py-4 w-16">1</td>
-            <td class="px-4 py-4 w-24">8299</td>
-            <td class="px-4 py-4 w-32">
-              <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
-            </td>
-          </tr>
-          <tr class="border-t">
-            <td class="px-4 py-4 w-12">9</td>
-            <td class="px-4 py-4 w-44">
-              <div class="flex items-center space-x-3">
-                <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/9.jpg" alt="profile picture">
-                <span>Mary</span>
-              </div>
-            </td>
-            <td class="px-4 py-4 w-16">X</td>
-            <td class="px-4 py-4 w-16">1</td>
-            <td class="px-4 py-4 w-24">8199</td>
-            <td class="px-4 py-4 w-32">
-              <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
-            </td>
-          </tr>
-          <tr class="border-t">
-            <td class="px-4 py-4 w-12">10</td>
-            <td class="px-4 py-4 w-44">
-              <div class="flex items-center space-x-3">
-                <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/10.jpg" alt="profile picture">
-                <span>Samuel</span>
-              </div>
-            </td>
-            <td class="px-4 py-4 w-16">XI</td>
-            <td class="px-4 py-4 w-16">2</td>
-            <td class="px-4 py-4 w-24">7999</td>
-            <td class="px-4 py-4 w-32">
-              <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            <div class="max-h-96 overflow-y-auto">
+                <table class="min-w-full text-sm text-left text-gray-500">
+                    <tbody class="bg-white">
+                        <tr class="border-t">
+                            <td class="px-4 py-4 w-12">4</td>
+                            <td class="px-4 py-4 w-44">
+                                <div class="flex items-center space-x-3">
+                                    <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/4.jpg"
+                                        alt="profile picture">
+                                    <span>Nusa</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-4 w-16">X</td>
+                            <td class="px-4 py-4 w-16">1</td>
+                            <td class="px-4 py-4 w-24">8399</td>
+                            <td class="px-4 py-4 w-32">
+                                <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
+                            </td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-4 w-12">5</td>
+                            <td class="px-4 py-4 w-44">
+                                <div class="flex items-center space-x-3">
+                                    <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/5.jpg"
+                                        alt="profile picture">
+                                    <span>Dodo</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-4 w-16">X</td>
+                            <td class="px-4 py-4 w-16">1</td>
+                            <td class="px-4 py-4 w-24">8799</td>
+                            <td class="px-4 py-4 w-32">
+                                <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
+                            </td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-4 w-12">6</td>
+                            <td class="px-4 py-4 w-44">
+                                <div class="flex items-center space-x-3">
+                                    <img class="w-10 h-10 rounded-full" src="https://randomuser.me/api/portraits/men/6.jpg"
+                                        alt="profile picture">
+                                    <span>Nusa</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-4 w-16">X</td>
+                            <td class="px-4 py-4 w-16">1</td>
+                            <td class="px-4 py-4 w-24">8399</td>
+                            <td class="px-4 py-4 w-32">
+                                <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
+                            </td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-4 w-12">7</td>
+                            <td class="px-4 py-4 w-44">
+                                <div class="flex items-center space-x-3">
+                                    <img class="w-10 h-10 rounded-full"
+                                        src="https://randomuser.me/api/portraits/men/7.jpg" alt="profile picture">
+                                    <span>John</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-4 w-16">XI</td>
+                            <td class="px-4 py-4 w-16">2</td>
+                            <td class="px-4 py-4 w-24">8999</td>
+                            <td class="px-4 py-4 w-32">
+                                <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
+                            </td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-4 w-12">8</td>
+                            <td class="px-4 py-4 w-44">
+                                <div class="flex items-center space-x-3">
+                                    <img class="w-10 h-10 rounded-full"
+                                        src="https://randomuser.me/api/portraits/men/8.jpg" alt="profile picture">
+                                    <span>Peter</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-4 w-16">X</td>
+                            <td class="px-4 py-4 w-16">1</td>
+                            <td class="px-4 py-4 w-24">8299</td>
+                            <td class="px-4 py-4 w-32">
+                                <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
+                            </td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-4 w-12">9</td>
+                            <td class="px-4 py-4 w-44">
+                                <div class="flex items-center space-x-3">
+                                    <img class="w-10 h-10 rounded-full"
+                                        src="https://randomuser.me/api/portraits/men/9.jpg" alt="profile picture">
+                                    <span>Mary</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-4 w-16">X</td>
+                            <td class="px-4 py-4 w-16">1</td>
+                            <td class="px-4 py-4 w-24">8199</td>
+                            <td class="px-4 py-4 w-32">
+                                <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
+                            </td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="px-4 py-4 w-12">10</td>
+                            <td class="px-4 py-4 w-44">
+                                <div class="flex items-center space-x-3">
+                                    <img class="w-10 h-10 rounded-full"
+                                        src="https://randomuser.me/api/portraits/men/10.jpg" alt="profile picture">
+                                    <span>Samuel</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-4 w-16">XI</td>
+                            <td class="px-4 py-4 w-16">2</td>
+                            <td class="px-4 py-4 w-24">7999</td>
+                            <td class="px-4 py-4 w-32">
+                                <button class="bg-orange-500 text-white rounded-full py-1 px-4">view profile</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
 
     {{-- Script animasi angka --}}

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\presmaboard\PresmaboardProjectCategory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,14 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('presmaboard_project', function (Blueprint $table) {
-               $table->id();
+        Schema::create('presmaboard_projects', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('student_id')->constrained('presmaboard_students')->onDelete('cascade');
-            $table->string('judul_project');
+            $table->string('judul');
             $table->text('deskripsi')->nullable();
             $table->string('gambar')->nullable();
-    $table->enum('jurusan', ['pplg', 'dkv', 'tkj', 'bcf']); // supaya fix 4 jurusan
-    $table->string('kategori', 100)->nullable(); // ambil dari config(‘portfolio’)
+            $table->foreignId('category_id')->constrained('presmaboard_project_categories')->restrictOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('presmaboard_project');
+        Schema::dropIfExists('presmaboard_projects');
     }
 };

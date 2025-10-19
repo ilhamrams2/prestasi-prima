@@ -11,17 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('presmaboard_user', function (Blueprint $table) {
-$table->id();
-            $table->string('name'); // <--- tambahkan ini
+        Schema::create('presmaboard_users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('role')->default('admin');
             $table->timestamps();
-
-
         });
-
     }
 
     /**
@@ -29,6 +25,6 @@ $table->id();
      */
     public function down(): void
     {
-        Schema::dropIfExists('presmaboard_user');
+        Schema::dropIfExists('presmaboard_users');
     }
 };

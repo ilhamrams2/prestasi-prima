@@ -1,42 +1,31 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\presmaboard;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class presmaboard_project extends Model
+class PresmaboardProject extends Model
 {
     use HasFactory;
 
-
-
-
-    protected $table = 'presmaboard_project';
-
     protected $fillable = [
         'student_id',
-        'judul_project',
+        'judul',
         'deskripsi',
         'gambar',
-        'kategori',
+        'category_id',
     ];
 
     public function student()
     {
-        return $this->belongsTo(presmaboard_student::class, 'student_id');
+        return $this->belongsTo(PresmaboardStudent::class, 'student_id');
     }
 
-public static function getCategoriesByMajor($major)
-{
-    $categories = config('portfolio');
-
-    if (!$categories) {
-        return [];
+    public function category()
+    {
+        return $this->belongsTo(PresmaboardProjectCategory::class, 'category_id');
     }
-
-    return $categories[$major] ?? [];
-}
 
 
     /**
@@ -46,6 +35,4 @@ public static function getCategoriesByMajor($major)
     {
         return strtoupper($this->jurusan);
     }
-
-
 }

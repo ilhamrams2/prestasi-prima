@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\presmaboard;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Exception;
 
-class presmaboard_score extends Model
+class PresmaboardScore extends Model
 {
     use HasFactory;
 
 
-     protected $table = 'presmaboard_scores';
+    protected $table = 'presmaboard_scores';
 
     protected $fillable = [
         'student_id',
-        'nilai_pkp',
+        'score',
         'semester',
         'tahun_ajaran',
         'tipe_ujian',
     ];
 
     protected $casts = [
-        'nilai_pkp' => 'decimal:2',
+        'score' => 'decimal:2',
     ];
 
     /**
@@ -30,7 +30,7 @@ class presmaboard_score extends Model
      */
     public function student()
     {
-        return $this->belongsTo(presmaboard_student::class, 'student_id');
+        return $this->belongsTo(PresmaboardStudent::class, 'student_id');
     }
 
     /**
@@ -59,7 +59,7 @@ class presmaboard_score extends Model
     public function scopePeriode($query, $semester, $tahun)
     {
         return $query->where('semester', $semester)
-                     ->where('tahun_ajaran', $tahun);
+            ->where('tahun_ajaran', $tahun);
     }
 
     /**
@@ -83,9 +83,6 @@ class presmaboard_score extends Model
      */
     public function scopeAverageByStudent($query, $studentId)
     {
-        return $query->where('student_id', $studentId)->avg('nilai_pkp');
+        return $query->where('student_id', $studentId)->avg('score');
     }
-
-
-
 }

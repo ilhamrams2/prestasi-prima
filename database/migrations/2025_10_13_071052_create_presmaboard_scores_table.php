@@ -12,25 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('presmaboard_scores', function (Blueprint $table) {
-      $table->id();
+            $table->id();
 
             $table->foreignId('student_id')
                 ->constrained('presmaboard_students')
                 ->onDelete('cascade');
 
-            $table->decimal('nilai_pkp', 5, 2)
-                ->nullable()
-                ->comment('Nilai PKP UTS/UAS per semester');
+            $table->decimal('score', 5, 2)
+                ->nullable();
 
-            $table->string('semester', 20)
-                ->comment('Contoh: Semester Ganjil/Genap');
+            $table->unsignedInteger('semester')
+                ->default(1);
 
-            $table->string('tahun_ajaran', 20)
-                ->comment('Contoh: 2025/2026');
+            $table->string('tahun_ajaran')
+                ->nullable();
 
-            $table->string('tipe_ujian', 10)
-                ->default('UTS')
-                ->comment('UTS atau UAS');
+            $table->enum('tipe_ujian', ['UTS', 'UAS'])
+                ->default('UTS');
 
             $table->timestamps();
 
@@ -39,7 +37,6 @@ return new class extends Migration
                 'uniq_score_per_semester'
             );
 
-            // Untuk pencarian cepat berdasarkan periode
             $table->index(['student_id', 'semester', 'tahun_ajaran'], 'score_smt_ta_index');
         });
     }

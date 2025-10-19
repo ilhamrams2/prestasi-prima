@@ -1,26 +1,23 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\presmaboard;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class presmaboard_achievements extends Model
+class PresmaboardAchievement extends Model
 {
     use HasFactory;
 
-     protected $fillable = [
+    protected $fillable = [
         'student_id',
-        'judul_prestasi',
+        'judul',
         'deskripsi',
         'tanggal',
     ];
 
     public function student()
     {
-        return $this->belongsTo(presmaboard_student::class, 'student_id');
+        return $this->belongsTo(PresmaboardStudent::class, 'student_id');
     }
-
-
-
 }
