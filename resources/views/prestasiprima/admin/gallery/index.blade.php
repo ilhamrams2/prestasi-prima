@@ -33,9 +33,16 @@
           {{-- Thumbnail --}}
           <div class="relative h-48 overflow-hidden">
             @if ($gallery->thumbnail)
-              <img src="{{ asset('storage/' . $gallery->thumbnail) }}" 
-                   alt="Thumbnail" 
-                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+              <img src="{{ Str::startsWith($gallery->thumbnail, ['http://','https://']) ? $gallery->thumbnail : asset('storage/' . $gallery->thumbnail) }}" 
+     alt="Thumbnail" 
+     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+<img src="{{ Str::startsWith($gallery->thumbnail, ['http://','https://']) 
+             ? $gallery->thumbnail 
+             : asset('storage/' . $gallery->thumbnail) }}" 
+     alt="Thumbnail" 
+     onerror="this.src='{{ asset('images/no-thumbnail.jpg') }}'"
+     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+
             @else
               <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400 text-sm">
                 Tidak ada gambar
@@ -54,6 +61,12 @@
               {{ $gallery->title }}
             </h3>
 
+            {{-- Kategori --}}
+            <p class="text-sm text-orange-500 mb-1 font-medium">
+              {{ $gallery->category ?? 'Tanpa Kategori' }}
+            </p>
+
+            {{-- Deskripsi --}}
             <p class="text-sm text-gray-500 mb-3 line-clamp-3">
               {{ Str::limit($gallery->description, 100) }}
             </p>

@@ -6,10 +6,10 @@
 <section 
     class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-16 pt-44"
     x-data="{
-        category: 'all',                // filter kategori aktif
-        visible: 3,                     // jumlah video yang tampil pertama kali
-        total: {{ count($galleries) }}, // total data galeri
-        expanded: false,                // status tombol 'lihat semua'
+        category: 'all',
+        visible: 3,
+        total: {{ count($galleries) }},
+        expanded: false,
         toggleView() {
             this.expanded = !this.expanded;
             this.visible = this.expanded ? this.total : 3;
@@ -27,19 +27,30 @@
         </p>
     </div>
 
-
     {{-- ====================== VIDEO UTAMA ====================== --}}
     <div class="mb-14 flex justify-center animate-fade-in">
         <div class="relative w-full md:w-3/4 lg:w-2/3 overflow-hidden rounded-2xl shadow-2xl bg-white/10 backdrop-blur-md border border-gray-200 dark:border-gray-700 hover:scale-[1.02] transition-transform duration-500">
             @if($galleries->isNotEmpty() && $galleries->first()->video_url)
-                <iframe 
-                    class="w-full aspect-video rounded-2xl"
-                    src="https://www.youtube.com/embed/{{ preg_replace('/.*(?:v=|be\/)([a-zA-Z0-9_-]{11}).*/', '$1', $galleries->first()->video_url) }}"
-                    title="{{ $galleries->first()->title }}"
-                    frameborder="0"
-                    allowfullscreen
-                    loading="lazy">
-                </iframe>
+                @php
+                    preg_match("/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|live\/))([\w\-]+)/", $galleries->first()->video_url, $matches);
+                    $videoId = $matches[1] ?? null;
+                @endphp
+                @if($videoId)
+                    <iframe 
+                        class="w-full aspect-video rounded-2xl"
+                        src="https://www.youtube.com/embed/{{ $videoId }}"
+                        title="{{ $galleries->first()->title }}"
+                        frameborder="0"
+                        allowfullscreen
+                        loading="lazy">
+                    </iframe>
+                @else
+                    <img 
+                        src="{{ $galleries->first()->thumbnail_url ?? asset('images/no-thumbnail.jpg') }}"
+                        alt="{{ $galleries->first()->title }}"
+                        class="w-full aspect-video object-cover rounded-2xl"
+                    >
+                @endif
             @else
                 <div class="w-full aspect-video flex items-center justify-center bg-gray-100 text-gray-500 rounded-2xl">
                     Tidak ada video tersedia
@@ -48,11 +59,9 @@
         </div>
     </div>
 
-
-    {{-- ====================== FILTER KATEGORI DENGAN IKON ====================== --}}
+    {{-- ====================== FILTER KATEGORI ====================== --}}
     <div class="flex flex-wrap justify-center gap-4 mb-16">
         @php
-            // daftar ikon untuk tiap kategori
             $icons = [
                 'all' => 'fa-layer-group',
                 'Kegiatan Sekolah' => 'fa-school',
@@ -65,7 +74,6 @@
             ];
         @endphp
 
-        {{-- Tombol "Semua" --}}
         <button
             @click="category='all'; visible=3"
             :class="category==='all' 
@@ -77,7 +85,6 @@
             <span>Semua</span>
         </button>
 
-        {{-- Tombol Kategori --}}
         @foreach ($categories as $cat)
             @php $icon = $icons[$cat] ?? 'fa-image'; @endphp
             <button
@@ -93,7 +100,6 @@
         @endforeach
     </div>
 
-
     {{-- ====================== GRID GALERI ====================== --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
         @foreach ($galleries as $i => $item)
@@ -104,26 +110,35 @@
                     x-transition:enter-end="opacity-100 scale-100 translate-y-0"
                     class="overflow-hidden rounded-2xl shadow-md bg-white/70 dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700 backdrop-blur-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-[1.02] hover:ring-4 hover:ring-orange-400/30"
                 >
-                    {{-- Jika konten berupa video --}}
                     @if($item->video_url)
-                        <iframe 
-                            class="w-full aspect-video rounded-t-2xl transition-transform duration-300 hover:scale-[1.03]"
-                            src="https://www.youtube.com/embed/{{ preg_replace('/.*(?:v=|be\/)([a-zA-Z0-9_-]{11}).*/', '$1', $item->video_url) }}"
-                            title="{{ $item->title }}"
-                            frameborder="0"
-                            allowfullscreen
-                            loading="lazy">
-                        </iframe>
+                        @php
+                            preg_match("/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|live\/))([\w\-]+)/", $item->video_url, $matches);
+                            $videoId = $matches[1] ?? null;
+                        @endphp
+                        @if($videoId)
+                            <iframe 
+                                class="w-full aspect-video rounded-t-2xl transition-transform duration-300 hover:scale-[1.03]"
+                                src="https://www.youtube.com/embed/{{ $videoId }}"
+                                title="{{ $item->title }}"
+                                frameborder="0"
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        @else
+                            <img 
+                                src="{{ $item->thumbnail_url ?? asset('images/no-thumbnail.jpg') }}"
+                                alt="{{ $item->title }}"
+                                class="w-full aspect-video object-cover rounded-t-2xl transition-transform duration-300 hover:scale-[1.05]"
+                            >
+                        @endif
                     @else
-                        {{-- Jika berupa gambar --}}
                         <img 
-                            src="{{ $item->thumbnail ?? asset('images/no-thumbnail.jpg') }}"
+                            src="{{ $item->thumbnail_url ?? asset('images/no-thumbnail.jpg') }}"
                             alt="{{ $item->title }}"
                             class="w-full aspect-video object-cover rounded-t-2xl transition-transform duration-300 hover:scale-[1.05]"
                         >
                     @endif
 
-                    {{-- Informasi Galeri --}}
                     <div class="p-5 text-center">
                         <h3 class="text-base font-semibold text-gray-800 dark:text-gray-100 line-clamp-2 hover:text-orange-500 transition-colors duration-300">
                             {{ $item->title }}
@@ -137,7 +152,6 @@
         @endforeach
     </div>
 
-
     {{-- ====================== TOMBOL LIHAT SEMUA / TUTUP ====================== --}}
     <div class="mt-20 text-center">
         <button
@@ -150,26 +164,15 @@
 
 </section>
 
-
-{{-- ====================== ANIMASI TAMBAHAN ====================== --}}
+{{-- ====================== ANIMASI ====================== --}}
 <style>
-@keyframes fadeDown {
-    from {opacity: 0; transform: translateY(-10px);}
-    to {opacity: 1; transform: translateY(0);}
-}
-@keyframes fadeUp {
-    from {opacity: 0; transform: translateY(10px);}
-    to {opacity: 1; transform: translateY(0);}
-}
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
+@keyframes fadeDown { from {opacity: 0; transform: translateY(-10px);} to {opacity: 1; transform: translateY(0);} }
+@keyframes fadeUp { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
+@keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
 .animate-fade-down { animation: fadeDown 0.8s ease-out forwards; }
 .animate-fade-up { animation: fadeUp 0.8s ease-out forwards; }
 .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
 </style>
 
-{{-- AlpineJS untuk interaktivitas --}}
 <script src="//unpkg.com/alpinejs" defer></script>
 @endsection

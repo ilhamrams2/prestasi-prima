@@ -8,25 +8,36 @@ use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {
-    /**
-     * Tampilkan halaman galeri kegiatan sekolah
-     */
     public function index(Request $request)
     {
-        // Ambil kategori aktif dari query (opsional)
         $activeCategory = $request->query('category', 'ALL');
 
-        // Ambil semua galeri, urutkan terbaru
         $galleries = PrestasiprimaGallery::latest()->get();
 
-        // Ambil daftar kategori unik dari kolom `category`
+        // Tambahkan properti thumbnail_url untuk tiap item
+        $galleries->transform(function ($item) {
+            if ($item->video_url) {
+                // Ambil thumbnail dari YouTube
+                preg_match("/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|live\/))([\w\-]+)/", $item->video_url, $matches);
+                $videoId = $matches[1] ?? null;
+                $item->thumbnail_url = $videoId 
+                    ? "https://img.youtube.com/vi/{$videoId}/hqdefault.jpg" 
+                    : asset('images/no-thumbnail.jpg');
+            } else {
+                // Gambar lokal
+                $item->thumbnail_url = $item->thumbnail 
+                    ? asset('storage/' . $item->thumbnail) 
+                    : asset('images/no-thumbnail.jpg');
+            }
+            return $item;
+        });
+
         $categories = $galleries->pluck('category')
-            ->filter() // buang null / kosong
+            ->filter()
             ->unique()
             ->sort()
-            ->values(); // reset index biar rapi di loop Blade
+            ->values();
 
-        // Jika kategori tertentu dipilih, filter datanya
         if ($activeCategory !== 'ALL') {
             $galleries = $galleries->where('category', $activeCategory);
         }

@@ -68,7 +68,7 @@
                   {{ $blog['title'] }}
                 </h3>
                 <p class="text-gray-600 text-sm leading-relaxed flex-grow">{{ $blog['desc'] }}</p>
-                <a href="#" class="mt-auto inline-flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold text-sm transition">
+                <a href="{{ route('berita.index') }}" class="mt-auto inline-flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold text-sm transition">
                   Selengkapnya
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />

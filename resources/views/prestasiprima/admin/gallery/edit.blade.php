@@ -5,69 +5,108 @@
 @section('content')
 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 max-w-3xl mx-auto">
 
-  <h1 class="text-3xl font-semibold text-gray-800 mb-8">Edit Galeri</h1>
+    <h1 class="text-2xl font-semibold mb-6">Edit Galeri</h1>
 
-  {{-- Flash message / Error --}}
-  @if ($errors->any())
-    <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
-      <ul class="list-disc pl-5 space-y-1">
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-  @endif
+    <form action="{{ route('prestasiprima.admin.gallery.update', $gallery->id) }}" method="POST">
+        @csrf
+        @method('PUT')
 
-  <form action="{{ route('prestasiprima.admin.gallery.update', $gallery->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
-    @csrf
-    @method('PUT')
+        {{-- Title --}}
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-1">Judul</label>
+            <input type="text" name="title" value="{{ old('title', $gallery->title) }}" 
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            @error('title') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
 
-    {{-- Judul --}}
-    <div>
-      <label class="block text-gray-700 font-medium mb-2">Judul</label>
-      <input type="text" name="title" value="{{ old('title', $gallery->title) }}" 
-             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-gray-300 focus:outline-none transition" required>
-    </div>
+        {{-- Type --}}
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-1">Tipe</label>
+            <select name="type" id="type" 
+                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="image" {{ old('type', $gallery->type) == 'image' ? 'selected' : '' }}>Foto</option>
+                <option value="video" {{ old('type', $gallery->type) == 'video' ? 'selected' : '' }}>Video YouTube</option>
+            </select>
+            @error('type') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
 
-    {{-- Tipe --}}
-    <div>
-      <label class="block text-gray-700 font-medium mb-2">Tipe</label>
-      <select name="type" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-gray-300 focus:outline-none transition" required>
-        <option value="foto" {{ old('type', $gallery->video_url ? 'video' : 'foto') == 'foto' ? 'selected' : '' }}>Foto</option>
-        <option value="video" {{ old('type', $gallery->video_url ? 'video' : 'foto') == 'video' ? 'selected' : '' }}>Video</option>
-      </select>
-    </div>
+        {{-- Video URL --}}
+        <div class="mb-4" id="video_url_field" style="display: none;">
+            <label class="block text-gray-700 font-medium mb-1">URL Video YouTube</label>
+            <input type="url" name="video_url" value="{{ old('video_url', $gallery->video_url) }}" 
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            @error('video_url') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
-    {{-- Video URL --}}
-    <div>
-      <label class="block text-gray-700 font-medium mb-2">URL Video (jika tipe Video)</label>
-      <input type="url" name="video_url" value="{{ old('video_url', $gallery->video_url) }}" 
-             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-gray-300 focus:outline-none transition" placeholder="https://youtube.com/...">
-    </div>
+            {{-- Preview --}}
+            <div id="video_preview" class="mt-3">
+                @if($gallery->type === 'video' && $gallery->video_url)
+                    @php
+                        preg_match("/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w\-]+)/", $gallery->video_url, $matches);
+                        $videoId = $matches[1] ?? null;
+                    @endphp
+                    @if($videoId)
+                        <img src="https://img.youtube.com/vi/{{ $videoId }}/hqdefault.jpg" class="w-48 mt-2 rounded shadow">
+                    @endif
+                @endif
+            </div>
+        </div>
 
-    {{-- Thumbnail --}}
-    <div>
-      <label class="block text-gray-700 font-medium mb-2">Thumbnail</label>
-      <input type="file" name="thumbnail" accept="image/*" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none">
-      @if ($gallery->thumbnail)
-        <img src="{{ asset('storage/' . $gallery->thumbnail) }}" class="w-32 h-32 object-cover rounded-lg mt-3 border border-gray-200">
-      @endif
-    </div>
+        {{-- Description --}}
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-1">Deskripsi</label>
+            <textarea name="description" rows="4" 
+                      class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">{{ old('description', $gallery->description) }}</textarea>
+        </div>
 
-    {{-- Deskripsi --}}
-    <div>
-      <label class="block text-gray-700 font-medium mb-2">Deskripsi</label>
-      <textarea name="description" rows="6" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-gray-300 focus:outline-none transition" required>{{ old('description', $gallery->description) }}</textarea>
-    </div>
+        {{-- Kategori --}}
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-1">Kategori</label>
+            <select name="category" 
+                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="">Pilih Kategori</option>
+                @foreach($categories as $cat)
+                    <option value="{{ $cat }}" {{ old('category', $gallery->category) == $cat ? 'selected' : '' }}>{{ $cat }}</option>
+                @endforeach
+            </select>
+            @error('category') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
 
-    {{-- Tombol --}}
-    <div class="flex justify-end gap-3">
-      <a href="{{ route('prestasiprima.admin.gallery.index') }}" 
-         class="px-5 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium transition">Batal</a>
-      <button type="submit" 
-              class="px-5 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-white font-medium transition">Update</button>
-    </div>
-
-  </form>
+        <button type="submit" 
+                class="bg-indigo-600 text-white px-5 py-2.5 rounded font-medium hover:bg-indigo-500 transition">
+            Perbarui
+        </button>
+    </form>
 </div>
+
+{{-- Script untuk toggle video_url dan preview --}}
+<script>
+    const typeSelect = document.getElementById('type');
+    const videoField = document.getElementById('video_url_field');
+    const videoPreview = document.getElementById('video_preview');
+
+    function updateVideoField() {
+        if(typeSelect.value === 'video') {
+            videoField.style.display = 'block';
+        } else {
+            videoField.style.display = 'none';
+            videoPreview.innerHTML = '';
+        }
+    }
+
+    typeSelect.addEventListener('change', updateVideoField);
+    updateVideoField();
+
+    // Preview thumbnail saat input video URL
+    const videoUrlInput = videoField.querySelector('input[name="video_url"]');
+    videoUrlInput.addEventListener('input', function() {
+        const url = this.value;
+        const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w\-]+)/);
+        if(match && match[1]) {
+            const videoId = match[1];
+            videoPreview.innerHTML = `<img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" class="w-48 mt-2 rounded shadow">`;
+        } else {
+            videoPreview.innerHTML = '';
+        }
+    });
+</script>
 @endsection
