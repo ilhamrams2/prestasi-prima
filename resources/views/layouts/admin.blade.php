@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@yield('title') | Admin Prestasi Prima</title>
+
+  {{-- FONT & ICON --}}
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  {{-- VITE (Tailwind modern) --}}
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+
+  {{-- ================= SIDEBAR ================= --}}
+  <aside class="w-64 bg-white shadow-md flex flex-col fixed inset-y-0 left-0 z-20 border-r border-gray-200">
+    <div class="p-6 border-b border-gray-200">
+      <h1 class="text-2xl font-bold text-gray-800">Admin <span class="font-light">PP</span></h1>
+    </div>
+
+    <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-1">
+      <a href="{{ route('prestasiprima.admin.berita.index') }}" 
+         class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition">
+        <i class="fa-solid fa-newspaper"></i>
+        <span>Manajemen Berita</span>
+      </a>
+
+      <a href="{{ route('prestasiprima.admin.gallery.index') }}" 
+         class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition">
+        <i class="fa-solid fa-image"></i>
+        <span>Manajemen Galeri</span>
+      </a>
+
+      <hr class="my-3 border-gray-200">
+
+      <a href="/" target="_blank"
+         class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition">
+        <i class="fa-solid fa-globe"></i>
+        <span>Lihat Website</span>
+      </a>
+    </nav>
+
+    <div class="p-4 border-t border-gray-200">
+      <button type="button"
+        onclick="alert('Logout belum diaktifkan');"
+        class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-semibold px-4 py-2 rounded-lg transition">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  {{-- ================= MAIN CONTENT ================= --}}
+  <main class="flex-1 ml-64">
+    {{-- HEADER --}}
+    <header class="bg-white shadow-sm sticky top-0 z-10 border-b border-gray-200">
+      <div class="flex items-center justify-between px-6 py-4">
+        <h2 class="text-xl font-semibold text-gray-800">@yield('title')</h2>
+        <div class="flex items-center gap-3 text-gray-600">
+          <i class="fa-solid fa-user-circle text-2xl text-gray-700"></i>
+          <span>Admin</span>
+        </div>
+      </div>
+    </header>
+
+    {{-- PAGE CONTENT --}}
+    <section class="p-6">
+      @yield('content')
+    </section>
+  </main>
+</body>
+</html>
