@@ -1,4 +1,5 @@
 @extends('prestasiprima.index')
+@include('ChatbotUI')
 
 @section('content')
 <!-- ===================== SECTION SAMBUTAN ===================== -->

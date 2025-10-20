@@ -21,6 +21,7 @@
 
   <!-- Header -->
   @include('header')
+  @include('ChatbotUI')
   
   <!-- Main Content -->
   <main>
