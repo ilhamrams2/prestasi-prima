@@ -62,9 +62,68 @@
         </div>
     </div>
 
-    @if (session('error'))
-        <x-presmaboard.alert type="error" title="Terjadi Kesalahan" message="{{ session('error') }}" />
-    @endif
-    @if (session('success'))
-        <x-presmaboard.alert type="success" title="Berhasil" message="{{ session('success') }}" />
+    <!-- === ALERT SCRIPT === -->
+    <script>
+        function showAlert(type, title, message, ctaText = null, ctaLink = null) {
+            const container = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `custom-alert ${type}`;
+
+            const icons = {
+                success: '<i class="ri-check-line"></i>',
+                error: '<i class="ri-close-circle-line"></i>',
+                info: '<i class="ri-information-line"></i>',
+                warning: '<i class="ri-alert-line"></i>',
+            };
+
+            alert.innerHTML = `
+                <div class="custom-alert-icon">${icons[type] || icons.info}</div>
+                <div class="custom-alert-content">
+                    <div class="custom-alert-title">${title}</div>
+                    <div>${message}</div>
+                    ${ctaText && ctaLink ? `<a href="${ctaLink}" class="custom-alert-cta">${ctaText} →</a>` : ""}
+                </div>
+                <button class="custom-alert-close" onclick="alert.remove()">&times;</button>
+            `;
+
+            container.appendChild(alert);
+            setTimeout(() => {
+                alert.style.animation = 'fadeOut 0.4s ease-in forwards';
+                setTimeout(() => alert.remove(), 400);
+            }, 5000);
+        }
+    </script>
+
+    @if ($errors->any())
+        <script>
+            showAlert('error', 'Login Gagal', '{{ $errors->first() }}');
+        </script>
+    @elseif (session('error'))
+        <script>
+            showAlert('error', 'Error', '{{ session('error') }}');
+        </script>
+    @elseif (session('success') === 'login')
+        <script>
+            showAlert(
+                'success',
+                'Berhasil Login',
+                'Selamat datang, {{ session('username') }} 👋',
+                'Lihat Dashboard',
+                '{{ route('presmaboard.dashboard') }}'
+            );
+        </script>
+    @elseif (session('success') === 'logout')
+        <script>
+            showAlert(
+                'success',
+                'Logout Berhasil',
+                'Anda telah keluar dari sistem.',
+                'Login Lagi',
+                '{{ route('presmaboard.login') }}'
+            );
+        </script>
+    @elseif (session('success'))
+        <script>
+            showAlert('success', 'Berhasil', '{{ session('success') }}');
+        </script>
     @endif

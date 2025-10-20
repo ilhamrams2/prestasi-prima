@@ -20,7 +20,7 @@
         </div>
 
         {{-- ====== STATISTIK UTAMA ====== --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @php
                 $stats = [
                     [
@@ -29,18 +29,14 @@
                         'value' => $student_count,
                         'color' => 'blue',
                     ],
+                    ['icon' => 'ri-user-star-line', 'label' => 'Total Guru', 'value' => 0, 'color' => 'green'],
                     [
                         'icon' => 'ri-trophy-line',
                         'label' => 'Total Prestasi',
                         'value' => $achievement_count,
                         'color' => 'yellow',
                     ],
-                    [
-                        'icon' => 'ri-folder-open-line',
-                        'label' => 'Total Projek',
-                        'value' => $project_count,
-                        'color' => 'orange',
-                    ],
+                    ['icon' => 'ri-folder-open-line', 'label' => 'Proyek Aktif', 'value' => 0, 'color' => 'orange'],
                 ];
             @endphp
 
@@ -68,119 +64,129 @@
             </div>
         </div>
 
+        {{-- ====== AKTIVITAS TERBARU ====== --}}
+        <div>
+            <h2 class="text-sm font-semibold text-orange-600 mb-3">Aktivitas Terbaru</h2>
+            <div class="bg-white rounded-xl shadow-md divide-y">
+                @foreach ([['Gibran menambahkan proyek baru "Web Edukasi Sekolah"', '5 menit yang lalu'], ['Ardy memperbarui data prestasi siswa kelas X PPLG', '10 menit yang lalu'], ['Admin menghapus pengumuman lama', '1 jam yang lalu']] as [$text, $time])
+                    <div class="flex items-center justify-between p-4 hover:bg-orange-50 transition">
+                        <p class="text-gray-700 text-sm">{{ $text }}</p>
+                        <span class="text-gray-400 text-xs">{{ $time }}</span>
+                    </div>
+                @endforeach
+            </div>
+        </div>
 
-        {{-- ====== CHART JS ====== --}}
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            const average_major_score = @json($average_major_score);
-            const achievement_average = @json($achievement_average);
-            console.log(achievement_average.Apr.length);
+        {{-- ====== FORM PENGUMUMAN ====== --}}
+        <div class="bg-gradient-to-r from-orange-500 to-yellow-400 rounded-xl text-white p-6 shadow-md">
+            <h3 class="font-bold text-lg">Buat Pengumuman Baru</h3>
+            <p class="text-sm opacity-90 mb-4">Kirimkan informasi penting ke seluruh siswa atau guru.</p>
+            <form class="flex flex-col sm:flex-row gap-3">
+                <input type="text" placeholder="Tulis pengumuman..."
+                    class="flex-1 px-4 py-2 rounded-lg text-gray-800 focus:ring-2 focus:ring-orange-400 outline-none">
+                <button
+                    class="bg-white text-orange-600 font-semibold px-5 py-2 rounded-lg hover:bg-gray-100 transition">Kirim</button>
+            </form>
+        </div>
 
-            document.addEventListener("DOMContentLoaded", () => {
-                const ctxNilai = document.getElementById('nilaiChart');
-                new Chart(ctxNilai, {
-                    type: 'bar',
-                    data: {
-                        labels: ['BCF', 'PPLG', 'DKV', 'TKJ'].map(k => k.toUpperCase()),
-                        datasets: [{
-                            label: 'Rata-Rata Nilai',
-                            data: [average_major_score.bcf, average_major_score.pplg,
-                                average_major_score.dkv, average_major_score.tkj
-                            ],
-                            backgroundColor: '#f97316',
-                            borderRadius: 6
-                        }]
+    </div>
+
+    {{-- ====== CHART JS ====== --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const ctxNilai = document.getElementById('nilaiChart');
+            new Chart(ctxNilai, {
+                type: 'bar',
+                data: {
+                    labels: ['PPLG', 'DKV', 'TJKT', 'TO', 'TPM'],
+                    datasets: [{
+                        label: 'Rata-Rata Nilai',
+                        data: [89, 86, 91, 84, 88],
+                        backgroundColor: '#f97316',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
+                    plugins: {
+                        legend: {
+                            display: false
                         }
                     }
-                });
-
-                const ctxPrestasi = document.getElementById('prestasiChart');
-                const namaLomba = [
-                    achievement_average.Jan.desc ?? '',
-                    achievement_average.Feb.desc ?? '',
-                    achievement_average.Mar.desc ?? '',
-                    achievement_average.Apr.desc ?? '',
-                    achievement_average.May.desc ?? '',
-                    achievement_average.Jun.desc ?? '',
-                    achievement_average.Jul.desc ?? '',
-                    achievement_average.Aug.desc ?? '',
-                    achievement_average.Sep.desc ?? '',
-                    achievement_average.Oct.desc ?? '',
-                    achievement_average.Nov.desc ?? '',
-                    achievement_average.Dec.desc ?? '',
-                ];
-
-                new Chart(ctxPrestasi, {
-                    type: 'line',
-                    data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov',
-                            'Dec'
-                        ],
-                        datasets: [{
-                            label: 'Jumlah Kemenangan',
-                            data: [
-                                achievement_average.Jan.count ?? 0,
-                                achievement_average.Feb.count ?? 0,
-                                achievement_average.Mar.count ?? 0,
-                                achievement_average.Apr.count ?? 0,
-                                achievement_average.May.count ?? 0,
-                                achievement_average.Jun.count ?? 0,
-                                achievement_average.Jul.count ?? 0,
-                                achievement_average.Aug.count ?? 0,
-                                achievement_average.Sep.count ?? 0,
-                                achievement_average.Oct.count ?? 0,
-                                achievement_average.Nov.count ?? 0,
-                                achievement_average.Dec.count ?? 0
-                            ],
-                            borderColor: '#f59e0b',
-                            backgroundColor: 'rgba(251, 146, 60, 0.25)',
-                            fill: true,
-                            tension: 0.4,
-                            pointBackgroundColor: '#f97316',
-                            pointRadius: 5,
-                            pointHoverRadius: 7,
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    color: '#374151'
-                                }
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    title: (items) => `Bulan: ${items[0].label}`,
-                                    label: (context) =>
-                                        `${namaLomba[context.dataIndex]} (${context.parsed.y} kemenangan)`
-                                },
-                                backgroundColor: '#f97316',
-                                titleColor: '#fff',
-                                bodyColor: '#fff',
-                                padding: 10,
-                                displayColors: false
-                            }
-                        }
-                    }
-                });
+                }
             });
-        </script>
-    @endsection
+
+            const ctxPrestasi = document.getElementById('prestasiChart');
+            const namaLomba = [
+                "Lomba Desain Poster Digital – Juara 1",
+                "Hackathon Kampus Merdeka – Juara 3",
+                "Debat Bahasa Inggris – Juara 2",
+                "Lomba Web Development – Juara 1",
+                "Inovasi Teknologi Sains – Juara 1",
+                "Lomba Animasi 3D – Juara Harapan 1",
+                "AI & Robotics Competition – Juara 2",
+                "UI/UX Challenge – Juara 1",
+                "Game Development Nasional – Juara 1",
+                "Startup Digital Award – Juara Umum"
+            ];
+
+            new Chart(ctxPrestasi, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt'],
+                    datasets: [{
+                        label: 'Jumlah Kemenangan',
+                        data: [2, 4, 3, 6, 5, 8, 7, 9, 10, 12],
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(251, 146, 60, 0.25)',
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#f97316',
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#374151'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: (items) => `Bulan: ${items[0].label}`,
+                                label: (context) =>
+                                    `${namaLomba[context.dataIndex]} (${context.parsed.y} kemenangan)`
+                            },
+                            backgroundColor: '#f97316',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            padding: 10,
+                            displayColors: false
+                        }
+                    }
+                }
+            });
+
+            // ✅ Tampilkan alert login jika ada session “toast” dari controller
+            @if (session('toast') === 'login')
+                showAlert('success', 'Berhasil Login', 'Selamat datang, {{ session('username') }} 👋');
+            @elseif (session('toast') === 'logout')
+                showAlert('success', 'Logout Berhasil', 'Anda telah keluar dari sistem.');
+            @endif
+        });
+    </script>
+@endsection

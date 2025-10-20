@@ -36,7 +36,7 @@ class SocialAuthController extends Controller
 
             Auth::login($user);
 
-            return redirect('/presmalance'); // redirect ke page kamu
+            return redirect('/jobs'); // redirect ke page kamu
         } catch (\Exception $e) {
             return redirect('/login')->withErrors(['msg' => 'Gagal login dengan ' . ucfirst($provider)]);
         }

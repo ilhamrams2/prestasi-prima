@@ -1,8 +1,5 @@
 <?php
 
-use App\Models\presmaboard\PresmaboardUser;
-use App\Models\siakad\SiakadUser;
-
 return [
 
     /*
@@ -43,14 +40,6 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'siakad' => [
-            'driver' => 'session',
-            'provider' => 'siakad_users',
-        ],
-        'presmaboard' => [
-            'driver' => 'session',
-            'provider' => 'presmaboard_users',
-        ],
     ],
 
     /*
@@ -74,14 +63,6 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
-        ],
-        'siakad_users' => [
-            'driver' => 'eloquent',
-            'model' => SiakadUser::class,
-        ],
-        'presmaboard_users' => [
-            'driver' => 'eloquent',
-            'model' => PresmaboardUser::class,
         ],
 
         // 'users' => [

@@ -1,4 +1,5 @@
 @extends('prestasiprima.index')
+@include('ChatbotUI')
 @section('title','Sambutan - SMK Prestasi Prima')
 
 @section('content')
@@ -118,6 +119,7 @@
       </div>
     </div>
   </section>
+  @include('ChatbotUI')
 
   <!-- ================= Styles ================= -->
   <style>

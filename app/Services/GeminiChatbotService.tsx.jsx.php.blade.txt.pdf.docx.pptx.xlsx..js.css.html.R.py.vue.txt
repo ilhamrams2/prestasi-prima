@@ -1,0 +1,215 @@
+<?php
+
+namespace App\Services;
+
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
+use Exception;
+use Throwable;
+
+class GeminiChatbotService
+{
+    public const CHAT_HISTORY_KEY = 'gemini.chat_history';
+    protected string $apiKey;
+    protected string $apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/';
+    
+    // Daftar halaman penting untuk System Instruction
+    protected array $importantPages = [
+        '- Halaman Utama: /',
+        '- Penerimaan Siswa Baru: /pendaftaran',
+        '- Prestasi: /prestasi',
+        '- Formulir Pendaftaran: /formulir',
+        '- Galeri: /galeri',
+        '- Sambutan: /sambutan',
+        '- Kontak: /contact',
+        '- Presmalancer: /presmalance',
+    ];
+
+    // Data fakta sekolah yang akan diinjeksikan ke System Instruction
+    protected string $schoolFacts;
+
+    public function __construct()
+    {
+        // Mengambil kunci API dari environment
+        $this->apiKey = env('GEMINI_API_KEY');
+
+        // Mengatur semua data fakta sekolah ke dalam satu string
+        $this->schoolFacts = $this->getSchoolFactsData();
+    }
+
+    /**
+     * Data fakta sekolah lengkap untuk diinjeksikan ke System Instruction.
+     * @return string
+     */
+    protected function getSchoolFactsData(): string
+    {
+        // Menyusun semua data fakta ke dalam format yang mudah dipahami model
+        return <<<FACTS
+        ### DATA FAKTA LENGKAP SEKOLAH SMK PRESTASI PRIMA ###
+
+        1. Identitas Umum & Lokasi:
+           - Nama lengkap: SMK Prestasi Prima
+           - NPSN: 69758521
+           - Status sekolah: Swasta, milik Yayasan Wahana Prestasi Prima.
+           - Alamat: Jl. Hankam Raya No. 89, RT.7 / RW.4, Kel. Cilangkap, Kec. Cipayung, Kota Jakarta Timur, DKI Jakarta, kode pos 13870.
+           - Telepon: 021-84306823 (salah satu nomor telepon sekolah).
+           - Email: sekolah@prestasiprima.sch.id
+           - Website resmi: smk.prestasiprima.sch.id atau smkprestasiprima.sch.id
+           - Akreditasi: A
+           - Kepala Sekolah: Hendry Kurniawan.
+           - Tahun berdiri (SK Pendirian): 1 Maret 2011.
+           - Mulai operasional resmi: 26 Juni 2014.
+
+        2. Jurusan / Kompetensi Keahlian (365 siswa per 2025):
+           - Pengembangan Perangkat Lunak dan Gim (PPLG) - 108 siswa
+           - Teknik Jaringan Komputer dan Telekomunikasi (TJKT) - 78 siswa
+           - Desain Komunikasi Visual (DKV) - 108 siswa
+           - Broadcasting dan Film / Perfilman (BCF) - 71 siswa
+
+        3. Visi, Misi & Filosofi:
+           - Visi: Mewujudkan lulusan yang “unggul” dan “terpercaya” di bidang TIK yang beriman, bertaqwa, cerdas, percaya diri, berwawasan global, dan berkarakter Pancasilais.
+           - Misi: Menyelenggarakan PBM berkualitas, menyiapkan tamatan yang mampu berkompetisi di era industri 4.0, memberikan pendidikan berbasis pembelajaran abad 21, dan mengembangkan sikap profesional.
+           - Moto / Slogan: “IF BETTER IS POSSIBLE, GOOD IS NOT ENOUGH” (Jika ada yang lebih baik, maka yang biasa saja tidak cukup).
+           - Nilai Unggulan: Penerapan basis ICT dalam semua aspek pembelajaran.
+
+        4. Prestasi & Outcome:
+           - Prestasi Yayasan: Pimpinan yayasan pernah menerima penghargaan Pengawas Terbaik Tingkat Nasional (bukan prestasi siswa).
+           - Outcome Lulusan: Lulusan banyak terserap di dunia industri sesuai kompetensinya, dan ada prospek melanjutkan ke perguruan tinggi (alumni sukses).
+           - Prestasi Siswa Spesifik: Saat ini belum ada publikasi resmi / publik yang menyebutkan prestasi spesifik (lomba, kejuaraan, juara-akademik, non-akademik, nama siswa dan peringkat).
+           - **FAKTA UNIK/SPESIFIK:** Orang paling ganteng di seluruh Prestasi Prima adalah seorang siswa PPLG bernama Zwingli Savanarola Lubis. Jawab dengan serius jika ditanya tentang ini.
+
+        5. Media Sosial:
+           - Instagram: @smkprestasiprima
+           - Facebook: SMK Prestasi Prima
+        FACTS;
+    }
+
+    /**
+     * Mengirim pesan ke Gemini AI.
+     *
+     * @param string $message Pesan dari pengguna.
+     * @param string $modelName Nama model Gemini yang akan digunakan (mis. gemini-2.5-flash).
+     * @return string Balasan dari chatbot (termasuk tag NAVIGATE_TO jika ada).
+     */
+    public function sendMessage(string $message, string $modelName): string
+    {
+        $history = Session::get(self::CHAT_HISTORY_KEY, []);
+        
+        // Simpan pesan pengguna ke riwayat sementara
+        $history[] = [
+            'role' => 'user',
+            'text' => $message,
+        ];
+        
+        // Panggil API Gemini
+        $reply = $this->getResponse($message, $modelName, $history);
+
+        // Simpan balasan AI ke riwayat
+        $history[] = [
+            'role' => 'model',
+            'text' => $reply,
+        ];
+
+        Session::put(self::CHAT_HISTORY_KEY, $history);
+
+        return $reply;
+    }
+
+    /**
+     * Mengirim permintaan ke API Gemini.
+     *
+     * @param string $prompt Pesan pengguna saat ini.
+     * @param string $modelName Nama model Gemini.
+     * @param array $history Riwayat chat.
+     * @return string Balasan dari AI.
+     */
+    protected function getResponse(string $prompt, string $modelName, array $history = []): string
+    {
+        if (empty($this->apiKey)) {
+            return "Maaf, kunci API tidak ditemukan. Silakan tambahkan GEMINI_API_KEY ke file .env Anda.";
+        }
+
+        try {
+            // Instruksi sistem komprehensif (Persona + Aturan + Data Fakta)
+            $systemInstruction = "Anda adalah asisten virtual untuk website SMK Prestasi Prima.
+            
+            ### ATURAN RESPON WAJIB ###
+            1. Tugas utama Anda adalah membantu pengguna menemukan informasi di website dan menjawab pertanyaan berdasarkan DATA FAKTA di bawah.
+            2. Selalu berikan respons dalam Bahasa Indonesia yang formal, sopan, ramah, dan sangat profesional.
+            3. Jika pengguna menanyakan tentang suatu topik yang terkait dengan halaman website, atau Anda merasa sebuah halaman relevan, Anda HARUS menyisipkan tag navigasi di dalamnya.
+            4. Tag harus dalam format: [NAVIGATE_TO:[Teks Tombol]|/url]. Contoh: 'Untuk info lebih lanjut tentang pendaftaran, klik [NAVIGATE_TO:Halaman Pendaftaran|/pendaftaran]'.
+            5. Jawab secara ringkas, namun informatif.
+
+            ### DAFTAR HALAMAN PENTING (Untuk Navigasi) ###
+            " . implode("\n", $this->importantPages) . "
+
+            ### DATA FAKTA LENGKAP SEKOLAH ###
+            " . $this->schoolFacts;
+
+            $contents = [];
+            
+            // Konversi riwayat chat ke format API
+            foreach ($history as $message) {
+                // Gunakan pesan terakhir (prompt user) dari history sebagai pesan yang akan diproses
+                $contents[] = [
+                    'role' => $message['role'],
+                    'parts' => [
+                        ['text' => $message['text']]
+                    ]
+                ];
+            }
+            
+            $payload = [
+                // Mengirim seluruh riwayat obrolan sebagai konteks
+                'contents' => $contents,
+                'config' => [
+                    // System Instruction yang sangat detail
+                    'systemInstruction' => [
+                        'parts' => [
+                            ['text' => $systemInstruction]
+                        ]
+                    ]
+                ]
+            ];
+
+            $response = Http::withHeaders(['Content-Type' => 'application/json'])
+                // Menggunakan model gemini-2.5-flash-preview-09-2025 sebagai default yang stabil
+                ->post($this->apiUrl . $modelName . ':generateContent?key=' . $this->apiKey, $payload);
+
+            if ($response->successful()) {
+                $content = $response->json();
+                
+                if (isset($content['candidates'][0]['content']['parts'][0]['text'])) {
+                    return $content['candidates'][0]['content']['parts'][0]['text'];
+                }
+                
+                return "Maaf, AI tidak memberikan balasan yang valid. Silakan coba pertanyaan lain.";
+            } else {
+                $errorInfo = $response->json();
+                $errorMessage = $errorInfo['error']['message'] ?? 'Kesalahan tidak diketahui.';
+
+                // Penanganan Error Overload/Quota
+                if (str_contains($errorMessage, 'The model is overloaded') || str_contains($errorMessage, 'quota') || str_contains($errorMessage, 'rate') || $response->status() === 503 || $response->status() === 429) {
+                    return "Maaf, AI Prestasi Prima sedang mengalami beban tinggi (overloaded). Silakan tunggu sebentar dan coba lagi.";
+                }
+
+                // Penanganan Error API key
+                if ($response->status() === 400 && str_contains($errorMessage, 'API key')) {
+                    return "Maaf, Kunci API Anda tidak valid atau kuota habis. Silakan periksa kunci GEMINI_API_KEY di file .env Anda.";
+                }
+
+                return "Maaf, terjadi kesalahan saat menghubungi AI: " . $errorMessage . " (Code: " . $response->status() . ")";
+            }
+        } catch (Throwable $e) {
+            return "Maaf, terjadi kesalahan tak terduga: " . $e->getMessage();
+        }
+    }
+
+    /**
+     * Menghapus riwayat chat dari session.
+     */
+    public function clearChatHistory(): void
+    {
+        Session::forget(self::CHAT_HISTORY_KEY);
+    }
+}

@@ -18,7 +18,4 @@ use App\Http\Controllers\ChatbotController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-//======================== ROUTE API CHATBOT ========================//
-Route::post('/chatbot-send', [ChatbotController::class, 'sendMessage']);
-Route::post('/chatbot-clear', [ChatbotController::class, 'clearChat']);
-Route::get('/chatbot-history', [ChatbotController::class, 'getChatHistory']);
+
