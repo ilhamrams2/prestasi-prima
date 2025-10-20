@@ -160,7 +160,7 @@
             @endforeach
           </ul>
         </div>
-
+{{--  --}}
         {{-- HOT NEWS --}}
         @if($news->count() > 1)
           <div class="bg-white rounded-2xl shadow-md p-5" data-aos="fade-left" data-aos-delay="100">
