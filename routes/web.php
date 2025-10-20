@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\Auth\GoogleController;
 // ============================================================
 // ===================== IMPORT CONTROLLERS ===================
 // ============================================================
@@ -22,13 +22,13 @@ use App\Http\Controllers\{
     SocialAuthController
 };
 
-use App\Http\Controllers\Prestasiprima\{
+use App\Http\Controllers\prestasiprima\{
     GalleryController,
     NewsController,
     SambutanController
 };
 
-use App\Http\Controllers\Prestasiprima\Admin\{
+use App\Http\Controllers\prestasiprima\Admin\{
     AdminGalleryController,
     AdminNewsController
 };
@@ -175,6 +175,10 @@ Route::prefix('prestasiprima/admin')->name('prestasiprima.admin.')->group(functi
 Route::get('/presmalance', [PresmalanceController::class, 'presmalance'])->name('presmalancer.presmalance');
 Route::get('/forum', [PresmalanceController::class, 'forum'])->name('forum');
 
+// Google Login via Laravel Socialite
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
 // Manual Auth
 Route::get('/login', [PresmalanceController::class, 'login'])->name('login');
 Route::post('/login', [PresmaAuthController::class, 'login'])->name('login.post');
@@ -255,3 +259,4 @@ Route::get('/notinternet', fn() => view('errors.notinternet'))->name('notinterne
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });
+

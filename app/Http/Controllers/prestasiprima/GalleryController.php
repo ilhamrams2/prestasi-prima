@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Prestasiprima;
 
 use App\Http\Controllers\Controller;
-use App\Models\Prestasiprima\PrestasiprimaGallery;
+use App\Models\prestasiprima\PrestasiprimaGallery;
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
@@ -45,3 +45,4 @@ class GalleryController extends Controller
         return view('prestasiprima.pages.gallery', compact('galleries', 'categories', 'activeCategory'));
     }
 }
+

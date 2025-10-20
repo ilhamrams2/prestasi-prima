@@ -21,6 +21,9 @@
 </head>
 <body class="antialiased" x-data="{ sidebarCollapsed: false }">
     <div class="min-h-screen bg-gray-50 flex f;">
+         {{-- Include Sidebar --}}
+        @include('SidebarLance')
+
         {{-- Main Content Area --}}
         <div :class="sidebarCollapsed ? 'lg:ml-20' : 'lg:ml-80'"
              class="flex-1 transition-all duration-300">
@@ -35,3 +38,4 @@
     @stack('scripts')
 </body>
 </html>
+

@@ -40,7 +40,7 @@
     </h2>
 
     <!-- Tombol -->
-    <a href="#"
+    <a href="/presmaboard"
        class="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 mt-3 font-semibold rounded-lg shadow
               bg-white text-orange-600 hover:bg-gray-100 hover:scale-105 transition-all w-max">
       Primaboard <span class="ml-2">→</span>
@@ -53,3 +53,4 @@
        class="absolute bottom-0 right-0 w-36 sm:w-44 md:w-52 lg:w-56 h-auto object-contain z-10">
 
 </section>
+

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Prestasiprima;
+namespace App\Models\prestasiprima;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Prestasiprima\Category;
+use App\Models\prestasiprima\Category;
 
 class News extends Model
 {
@@ -27,3 +27,4 @@ class News extends Model
         return $this->belongsTo(\App\Models\User::class, 'author_id');
     }
 }
+

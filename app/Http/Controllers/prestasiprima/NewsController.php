@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Prestasiprima;
 
 use App\Http\Controllers\Controller;
-use App\Models\Prestasiprima\News;
-use App\Models\Prestasiprima\Category;
-use App\Models\Prestasiprima\PrestasiprimaGallery;
+use App\Models\prestasiprima\News;
+use App\Models\prestasiprima\Category;
+use App\Models\prestasiprima\PrestasiprimaGallery;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -85,3 +85,4 @@ class NewsController extends Controller
         return $this->detail($slug);
     }
 }
+
