@@ -161,7 +161,7 @@
           </ul>
         </div>
 {{--  --}}
-        {{-- HOT NEWS --}}
+        {{-- HOT   --}}
         @if($news->count() > 1)
           <div class="bg-white rounded-2xl shadow-md p-5" data-aos="fade-left" data-aos-delay="100">
             <h3 class="text-xl font-bold text-orange-600 border-b-2 border-orange-500 pb-2 mb-4">Hot News</h3>
