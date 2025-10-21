@@ -17,7 +17,7 @@
     <!-- Judul -->
     <h3 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-orange-600 tracking-wide"
         data-aos="zoom-in" data-aos-duration="1000">
-      KERJA SAMA PTN
+      LULUSAN PTN
     </h3>
 
     {{-- <!-- Deskripsi -->

@@ -46,7 +46,7 @@
 
         <!-- Logo Template -->
         <template id="logos">
-          @foreach (['telkom', 'komatsu', 'kemenkop', 'jatelindo', 'panasonic', 'antam', 'starvision', 'lemnegara'] as $logo)
+          @foreach (['telkom', 'komatsu', 'kemenkop', 'jatelindo', 'panasonic', 'antam', 'starvision', 'lemnegara', 'erlangga'] as $logo)
           <div class="logo-item flex items-center justify-center bg-white/80 backdrop-blur-md rounded-2xl shadow-md p-4 transition-all duration-700 hover:shadow-xl hover:scale-105">
             <img src="{{ asset('assets/images/section/industri/' . $logo . '.png') }}" 
                  alt="{{ ucfirst($logo) }}" 

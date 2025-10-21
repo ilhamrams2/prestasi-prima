@@ -1,39 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Home</title>
+
+  {{-- === Title Dinamis === --}}
   <title>@yield('title', 'SMK Prestasi Prima')</title>
 
-  <!-- Google Material Icons -->
+  {{-- === Font & Icon === --}}
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-  <!-- Font Awesome (Latest v6.5.0) -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-  <!-- AOS CSS (Animate on Scroll) -->
+  {{-- === Animate On Scroll === --}}
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-  <!-- Vite Assets -->
+  {{-- === Favicon / Logo Tab === --}}
+  <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-smk.png') }}">
+  <link rel="apple-touch-icon" href="{{ asset('assets/images/logo-smk.png') }}">
+
+
+  {{-- === Vite Build Assets === --}}
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="antialiased font-sans text-slate-800 bg-white">
 
-  <!-- Header -->
+<body class="antialiased font-sans text-slate-800 bg-white dark:bg-gray-900 transition-colors duration-300">
+
+  {{-- === Header === --}}
   @include('header')
-  
-  <!-- Main Content -->
+
+  {{-- === Main Content === --}}
   <main>
     @yield('content')
     @include('ChatbotUI')
+
+    
   </main>
 
-  <!-- Footer -->
+  {{-- === Footer === --}}
   @include('footer')
 
-  <!-- AOS JS -->
+  {{-- === Scripts Section === --}}
+  {{-- Lucide Icons --}}
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>lucide.createIcons();</script>
+
+  {{-- Alpine.js (Interaktivitas FAQ, Navbar, dll) --}}
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  {{-- Animate On Scroll --}}
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init({
@@ -44,24 +59,26 @@
     });
   </script>
 
-  <!-- Custom Scripts -->
+  {{-- Custom Blade Scripts (Injectable via @push('scripts')) --}}
   @stack('scripts')
 
+  {{-- Active Link Detection --}}
   <script>
-    // ===== Active Links Navbar =====
-    const currentURL = window.location.pathname;
-    const navLinkEls = document.querySelectorAll("#navbar .nav-link");
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentURL = window.location.pathname;
+      const navLinkEls = document.querySelectorAll("#navbar .nav-link");
 
-  navLinkEls.forEach(link => {
-      const href = link.getAttribute("href");
-
-      if (
-        (href === "/" && currentURL === "/") ||
-        (href !== "/" && currentURL.startsWith(href))
-      ) {
-        link.classList.add("border-b-2", "border-orange-500");
-      }
+      navLinkEls.forEach(link => {
+        const href = link.getAttribute("href");
+        if (
+          (href === "/" && currentURL === "/") ||
+          (href !== "/" && currentURL.startsWith(href))
+        ) {
+          link.classList.add("border-b-2", "border-orange-500");
+        }
+      });
     });
   </script>
+
 </body>
 </html>

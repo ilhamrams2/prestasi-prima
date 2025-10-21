@@ -1,6 +1,6 @@
 @extends('prestasiprima.index')
 @include('ChatbotUI')
-@section('title','Sambutan - SMK Prestasi Prima')
+@section('title','Pendaftaran - SMK Prestasi Prima')
 
 @section('content')
   <!-- ================= Section Pendaftaran ================= -->

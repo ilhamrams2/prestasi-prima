@@ -59,10 +59,27 @@
           </a>
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-56 text-gray-800">
             <a href="{{ url('/') }}#program" class="dropdown-item">Program</a>
-            <a href="{{ url('/') }}#industri" class="dropdown-item">Partner Industri</a>
+            <a href="{{ url('/') }}#sejarah" class="dropdown-item">Sejarah</a>
+            <a href="#" class="dropdown-item">Profile Sekolah</a>
+            <a href="{{ url('/staffmanagement') }}" class="dropdown-item">Staff Management</a>
             <a href="{{ route('sambutan') }}" class="dropdown-item">Sambutan Pembina Yayasan</a>
           </div>
         </div>
+
+        <div class="dropdown relative group">
+          <a href="#" class="nav-link flex items-center text-white">
+            Informasi
+            <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </a>
+          <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
+            <a href="/faq" class="dropdown-item">FAQ</a>
+            <a href="#" class="dropdown-item">Lulusan PTN</a>
+            <a href="{{ route('industri') }}" class="dropdown-item">Industri</a>
+          </div>
+        </div>
+
         <!-- Dokumentasi -->
         <div class="dropdown relative group">
           <a href="#" class="nav-link flex items-center text-white">
@@ -78,9 +95,11 @@
           </div>
         </div>
 
-        <a href="/pendaftaran" class="nav-link text-white">Pendaftaran</a>
-        <a href="/presaboard" class="nav-link text-white">Presmaboard</a>
+        <a href="/presmaboard" class="nav-link text-white">Presmaboard</a>
         <a href="/presmalance" class="nav-link text-white">PresmaLance</a>
+
+
+        <a href="/pendaftaran" class="nav-link text-white">Pendaftaran</a>
       </nav>
 
       <!-- Mobile Menu Button -->
@@ -116,7 +135,9 @@
       </button>
       <div class="mobile-submenu">
         <a href="{{ url('/') }}#program" class="mobile-subitem">Program</a>
-        <a href="{{ url('/') }}#industri" class="mobile-subitem">Partner Industri</a>
+        <a href="{{ url('/') }}#sejarah" class="mobile-subitem">Sejarah</a>
+        <a href="#" class="mobile-subitem">Profile Sekolah</a>
+        <a href="/staffmanagement" class="mobile-subitem">Staff Management</a>
         <a href="{{ route('sambutan') }}" class="mobile-subitem">Sambutan Pembina Yayasan</a>
       </div>
 
@@ -132,9 +153,21 @@
         <a href="{{ route('prestasi') }}" class="mobile-subitem">Prestasi</a>
       </div>
 
-      <a href="/pendaftaran" class="mobile-link">Pendaftaran</a>
-      <a href="/presaboard" class="mobile-link">Presmaboard</a>
+      
+      <a href="/presmaboard" class="mobile-link">Presmaboard</a>
       <a href="/presmalance" class="mobile-link">PresmaLance</a>
+      <button class="mobile-dropdown-btn">
+        Informasi
+        <svg class="w-4 h-4 ml-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      <div class="mobile-submenu">
+        <a href="/faq" class="mobile-subitem">FAQ</a>
+        <a href="#" class="mobile-subitem">Lulusan PTN</a>
+        <a href="{{ route('industri') }}" class="mobile-subitem">Industri</a>
+      </div>
+      <a href="/pendaftaran" class="mobile-link">Pendaftaran</a>
     </div>
   </div>
 </header>

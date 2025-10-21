@@ -78,6 +78,9 @@
       </div>
     </div>
   </div>
+  <section class="relative w-full bg-white overflow-hidden">
+<img alt="Gedung SMK Prestasi Prima" class="w-full h-[40vh] sm:h-[55vh] lg:h-screen object-cover object-center hover:scale-[1.02] transition-transform duration-700" src="{{ asset('assets/images/gedung/gedung.avif') }}">
+</section>
 </section>
 
 <!-- ===================== ANIMASI CUSTOM ===================== -->

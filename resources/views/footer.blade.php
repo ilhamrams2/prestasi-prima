@@ -39,9 +39,9 @@
 
   <!-- Logo + network -->
   <div class="relative flex items-center gap-4 pr-4 md:pr-10 z-20">
-    <img src="assets/images/logo-smk.png" alt="Logo Sekolah"
+    <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo Sekolah"
          class="w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-white shadow-lg relative z-10">
-    <img src="assets/images/section/primaboard/jaringan.png" alt="Icon Network"
+    <img src="{{ asset('assets/images/section/primaboard/jaringan.png') }}" alt="Icon Network"
          class="w-20 md:w-28 opacity-90 relative right-0">
   </div>
 </section>
@@ -56,16 +56,15 @@
 
 <!-- =================== FOOTER MODERN 2-LINE =================== -->
 <footer class="relative bg-[#080c1b] text-gray-300 overflow-hidden">
-
   <!-- Background Pattern -->
   <div class="absolute inset-0 bg-gradient-to-br from-[#0e162e] via-[#0a0f25] to-[#080c1b]"></div>
-  <div class="absolute inset-0 bg-[url('assets/images/pattern/footer-texture.svg')] opacity-5 mix-blend-overlay"></div>
+  <div class="absolute inset-0 bg-[url('{{ asset('assets/images/pattern/footer-texture.svg') }}')] opacity-5 mix-blend-overlay"></div>
 
   <!-- Bagian Atas Footer -->
   <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 lg:px-16 pt-14 pb-10 flex flex-col lg:flex-row items-center justify-between gap-10 border-b border-white/10">
     <!-- Logo dan Motto -->
     <div class="flex flex-col lg:flex-row items-center lg:items-start text-center lg:text-left gap-6">
-      <img src="assets/images/logo-smk.png" alt="Logo" class="w-20 h-20 rounded-full border-2 border-orange-500 shadow-xl">
+      <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo" class="w-20 h-20 rounded-full border-2 border-orange-500 shadow-xl">
       <div>
         <h2 class="text-2xl font-bold text-white tracking-wide">SMK Prestasi Prima</h2>
         <p class="text-sm text-gray-400 mt-2 max-w-md">
@@ -77,49 +76,28 @@
 
     <!-- Sosial Media -->
     <div class="flex items-center gap-4">
-      <a href="#" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="#" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="#" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
-        <i class="fab fa-youtube"></i>
-      </a>
+      <a href="#" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i class="fab fa-youtube"></i></a>
     </div>
   </div>
 
   <!-- =================== BAGIAN ATAS FOOTER =================== -->
   <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 lg:px-16 pt-14 pb-10 border-b border-white/10">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-
       <!-- Kolom 1: Informasi Sekolah -->
       <div>
-  <h3 class="text-lg font-semibold text-white mb-4 relative">
-    Informasi Sekolah
-    <span class="absolute left-0 -bottom-1 w-10 h-[2px] bg-gradient-to-r from-orange-500 to-orange-300 rounded-full"></span>
-  </h3>
-
-  <ul class="text-sm text-gray-400 space-y-3 mt-4">
-    <li class="flex items-center gap-3">
-      <i class="fa-solid fa-phone text-orange-400 text-base"></i>
-      <span>(021) 8775 1234</span>
-    </li>
-    <li class="flex items-center gap-3">
-      <i class="fa-solid fa-envelope text-orange-400 text-base"></i>
-      <span>info@prestasi-prima.sch.id</span>
-    </li>
-    <li class="flex items-center gap-3">
-      <i class="fa-solid fa-school text-orange-400 text-base"></i>
-      <span>Jl. Raya Cibubur No.99, Jakarta Timur</span>
-    </li>
-    <li class="flex items-center gap-3">
-      <i class="fa-regular fa-clock text-orange-400 text-base"></i>
-      <span>Senin – Jumat: 07.00 - 16.00</span>
-    </li>
-  </ul>
-</div>
-
+        <h3 class="text-lg font-semibold text-white mb-4 relative">
+          Informasi Sekolah
+          <span class="absolute left-0 -bottom-1 w-10 h-[2px] bg-gradient-to-r from-orange-500 to-orange-300 rounded-full"></span>
+        </h3>
+        <ul class="text-sm text-gray-400 space-y-3 mt-4">
+          <li class="flex items-center gap-3"><i class="fa-solid fa-phone text-orange-400 text-base"></i><span>(021) 8775 1234</span></li>
+          <li class="flex items-center gap-3"><i class="fa-solid fa-envelope text-orange-400 text-base"></i><span>info@prestasi-prima.sch.id</span></li>
+          <li class="flex items-center gap-3"><i class="fa-solid fa-school text-orange-400 text-base"></i><span>Jl. Raya Cibubur No.99, Jakarta Timur</span></li>
+          <li class="flex items-center gap-3"><i class="fa-regular fa-clock text-orange-400 text-base"></i><span>Senin – Jumat: 07.00 - 16.00</span></li>
+        </ul>
+      </div>
 
       <!-- Kolom 2: Menu -->
       <div>
@@ -132,7 +110,7 @@
           <li><a href="#tentang" class="hover:text-orange-400 transition">Tentang</a></li>
           <li><a href="/program" class="hover:text-orange-400 transition">Program</a></li>
           <li><a href="{{ route('berita.index') }}" class="hover:text-orange-400 transition">Berita</a></li>
-          <li><a href="/prestasi" class="hover:text-orange-400 transition">Prestasi</a></li>
+          <li><a href="{{ route('prestasi') }}" class="hover:text-orange-400 transition">Prestasi</a></li>
           <li><a href="/gallery" class="hover:text-orange-400 transition">Gallery</a></li>
           <li><a href="/pendaftaran" class="hover:text-orange-400 transition">Pendaftaran</a></li>
           <li><a href="/presmaboard" class="hover:text-orange-400 transition">Presmaboard</a></li>
@@ -179,9 +157,8 @@
     </div>
   </div>
 
-  <!-- =================== BAGIAN BAWAH FOOTER (MAP + TAMBAHAN) =================== -->
+  <!-- =================== BAGIAN BAWAH FOOTER =================== -->
   <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-12 grid grid-cols-1 lg:grid-cols-2 gap-10">
-
     <!-- Maps -->
     <div>
       <h2 class="text-lg font-semibold text-white mb-4 relative">
@@ -189,34 +166,22 @@
         <span class="absolute left-0 -bottom-1 w-10 h-[2px] bg-gradient-to-r from-orange-500 to-orange-300 rounded-full"></span>
       </h2>
       <div class="aspect-video rounded-2xl overflow-hidden shadow-lg border border-white/10">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4748268020353!2d106.8972187!3d-6.332476499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed2681bc7c67%3A0x777152b1d3f74a62!2sSMK%20Prestasi%20Prima!5e0!3m2!1sid!2sid!4v1756647265168!5m2!1sid!2sid"
-          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4748268020353!2d106.8972187!3d-6.332476499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed2681bc7c67%3A0x777152b1d3f74a62!2sSMK%20Prestasi%20Prima!5e0!3m2!1sid!2sid!4v1756647265168!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
 
-    <!-- Tambahan: Kontak Cepat & Sosial Media -->
+    <!-- Hubungi Kami -->
     <div>
       <h2 class="text-lg font-semibold text-white mb-4 relative">
         Hubungi Kami
         <span class="absolute left-0 -bottom-1 w-10 h-[2px] bg-gradient-to-r from-orange-500 to-orange-300 rounded-full"></span>
       </h2>
-      <p class="text-sm text-gray-400 mb-4">
-        Kirimkan pertanyaan atau masukan Anda, kami akan segera menghubungi Anda.
-      </p>
       <form class="space-y-3">
-        <input type="text" placeholder="Nama Anda" class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-orange-400 focus:outline-none">
-        <input type="email" placeholder="Email" class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-orange-400 focus:outline-none">
-        <textarea rows="3" placeholder="Pesan Anda" class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-orange-400 focus:outline-none"></textarea>
+        <input type="text" placeholder="Nama Anda" class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-200 focus:ring-2 focus:ring-orange-400 focus:outline-none">
+        <input type="email" placeholder="Email" class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-200 focus:ring-2 focus:ring-orange-400 focus:outline-none">
+        <textarea rows="3" placeholder="Pesan Anda" class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-200 focus:ring-2 focus:ring-orange-400 focus:outline-none"></textarea>
         <button type="submit" class="bg-orange-500 hover:bg-orange-600 w-full py-2 rounded-lg text-sm font-medium text-white transition">Kirim Pesan</button>
       </form>
-
-      <!-- Sosial Media -->
-      <div class="flex items-center gap-4 mt-6">
-        <a href="#" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i class="fab fa-youtube"></i></a>
-      </div>
     </div>
   </div>
 
@@ -224,7 +189,7 @@
   <div class="border-t border-white/10 bg-[#070b18]/90 py-4 relative z-10">
     <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 flex flex-col md:flex-row items-center justify-between gap-2 text-xs md:text-sm">
       <p class="flex items-center gap-2 text-gray-400">
-        <span>© <?= date('Y') ?> SMK Prestasi Prima</span>
+        <span>© {{ date('Y') }} SMK Prestasi Prima</span>
         <span class="mx-2 text-white/30">|</span>
         <span>Oren Solution - <span class="font-medium text-white">Version 2.0</span></span>
       </p>

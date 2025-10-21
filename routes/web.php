@@ -25,7 +25,10 @@ use App\Http\Controllers\{
 use App\Http\Controllers\prestasiprima\{
     GalleryController,
     NewsController,
-    SambutanController
+    SambutanController,
+    FaqController,
+    StaffController,
+    IndustriController
 };
 
 use App\Http\Controllers\prestasiprima\Admin\{
@@ -90,9 +93,16 @@ Route::prefix('berita')
         Route::get('/{slug}', 'show')->name('detail');
     });
 
-Route::get('/prestasi', function () {
+Route::get('/dokumentasi/prestasi', function () {
     return view('prestasiprima.pages.prestasi');
 })->name('prestasi');
+
+Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+
+Route::get('/staffmanagement', [StaffController::class, 'index'])->name('staff');
+
+Route::get('/dokumentasi/industri', [IndustriController::class, 'index'])
+    ->name('industri');
 
 
 // ============================================================
