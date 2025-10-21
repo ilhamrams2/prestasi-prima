@@ -109,6 +109,25 @@
                 </div>
             </form>
 
+            <!-- Divider -->
+            <div class="relative my-6">
+                <div class="absolute inset-0 flex items-center">
+                    <span class="w-full border-t border-gray-200"></span>
+                </div>
+                <div class="relative flex justify-center">
+                    <span class="bg-white px-4 text-sm text-gray-500">
+                        Or continue with
+                    </span>
+                </div>
+            </div>
+
+            <!-- Google Button -->
+            <a href="{{ route('auth.google', ['provider' => 'google']) }}"
+            class="group flex items-center justify-center w-full border border-orange-400 rounded-md py-2 mb-3 hover:bg-orange-500 transition">
+            <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" class="w-5 h-5 mr-2">
+            <span class="text-gray-700 font-medium group-hover:text-white transition">Continue with Google</span>
+        </a>
+
             <!-- Login Link -->
             <div class="mt-6 text-center">
                 <p class="text-gray-500">

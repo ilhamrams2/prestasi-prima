@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>Home</title>
   <title>@yield('title', 'SMK Prestasi Prima')</title>
 
   <!-- Google Material Icons -->
@@ -21,11 +23,11 @@
 
   <!-- Header -->
   @include('header')
-  {{-- @include('ChatbotUI') --}}
   
   <!-- Main Content -->
   <main>
     @yield('content')
+    @include('ChatbotUI')
   </main>
 
   <!-- Footer -->
@@ -50,32 +52,16 @@
     const currentURL = window.location.pathname;
     const navLinkEls = document.querySelectorAll("#navbar .nav-link");
 
-    navLinkEls.forEach(link => { 
+  navLinkEls.forEach(link => {
       const href = link.getAttribute("href");
 
       if (
-        (href === "/" && currentURL === "/") || 
+        (href === "/" && currentURL === "/") ||
         (href !== "/" && currentURL.startsWith(href))
       ) {
         link.classList.add("border-b-2", "border-orange-500");
       }
     });
   </script>
-  <script>
-window.addEventListener('load', () => {
-    // Ketika offline
-    window.addEventListener('offline', () => {
-        window.location.href = "{{ route('notinternet') }}";
-    });
-
-    // Opsional: kalau user balik online dari halaman notinternet, arahkan ke beranda
-    if (window.location.pathname === '/notinternet') {
-        window.addEventListener('online', () => {
-            window.location.href = "{{ url('/') }}";
-        });
-    }
-});
-</script>
-
 </body>
 </html>

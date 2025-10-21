@@ -38,7 +38,7 @@ class JoblistController extends Controller
 
         $jobs = $query->paginate(10);
 
-        return view('pressmalancer.pages.joblist', compact('jobs'));
+        return view('pressmalancer.pages.Joblist', compact('jobs'));
     }
 
     /**
@@ -50,3 +50,4 @@ class JoblistController extends Controller
         return view('pressmalancer.applications.create', compact('job'));
     }
 }
+

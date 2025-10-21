@@ -29,7 +29,7 @@
 
                 {{-- Card Login --}}
                 <div class="bg-orange-100 border shadow-md rounded-xl mt-6 p-6">
-                    <a href="#"
+                    <a href="{{ route('auth.google', ['provider' => 'google']) }}"
                         class="bg-white group flex items-center justify-center w-full border border-orange-400 rounded-md py-2 mb-3 hover:bg-orange-500 transition">
                         <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" class="w-5 h-5 mr-2">
                         <span class="text-gray-700 font-medium group-hover:text-white transition">Continue with
@@ -48,7 +48,7 @@
                     </a>
 
                     <p class="text-center text-gray-600 mt-4 text-sm">
-                        Belum punya akun? <a href="#" class="text-orange-500 font-semibold">Daftar</a>
+                        Belum punya akun? <a href="/register" class="text-orange-500 font-semibold">Daftar</a>
                     </p>
                 </div>
             </div>
@@ -193,3 +193,4 @@
 
 </html>
 @include('footer')
+
