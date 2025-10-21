@@ -48,36 +48,50 @@
         @endphp
 
         @foreach ($blogs as $index => $blog)
-          <div class="swiper-slide" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
-            <article class="group bg-white rounded-2xl shadow-md hover:shadow-2xl overflow-hidden transition-all duration-500 flex flex-col h-full">
-              
-              <!-- Gambar -->
-              <div class="relative overflow-hidden">
-                <img src="{{ asset($blog['img']) }}" alt="{{ $blog['title'] }}"
-                     class="w-full h-56 object-cover transform group-hover:scale-110 transition-transform duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <span class="absolute top-3 left-3 bg-orange-600 text-white text-xs font-medium px-3 py-1 rounded-full shadow-md">
-                  {{ $blog['category'] }}
-                </span>
-              </div>
+  <div class="swiper-slide" data-aos="fade-up" data-aos-delay="{{ ($index + 1) * 100 }}">
+    <article class="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 border border-white/10 bg-white/80 backdrop-blur-sm flex flex-col h-full hover:-translate-y-2">
 
-              <!-- Konten -->
-              <div class="p-6 flex flex-col flex-grow">
-                <p class="text-xs text-gray-400 mb-2">{{ $blog['date'] }}</p>
-                <h3 class="font-bold text-xl text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
-                  {{ $blog['title'] }}
-                </h3>
-                <p class="text-gray-600 text-sm leading-relaxed flex-grow">{{ $blog['desc'] }}</p>
-                <a href="{{ route('berita.index') }}" class="mt-auto inline-flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold text-sm transition">
-                  Selengkapnya
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </div>
-            </article>
-          </div>
-        @endforeach
+      <!-- Gambar -->
+      <div class="relative overflow-hidden">
+        <img src="{{ asset($blog['img']) }}" alt="{{ $blog['title'] }}"
+             class="w-full h-60 object-cover transform group-hover:scale-110 transition-transform duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <span class="absolute top-4 left-4 bg-gradient-to-r from-orange-500 to-orange-400 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg">
+          {{ $blog['category'] }}
+        </span>
+      </div>
+
+      <!-- Konten -->
+      <div class="p-6 flex flex-col flex-grow">
+        <div class="flex items-center gap-2 text-xs text-gray-400 mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-12 8h14a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          {{ $blog['date'] }}
+        </div>
+
+        <h3 class="font-extrabold text-lg md:text-xl text-gray-900 leading-snug mb-3 group-hover:text-orange-600 transition-colors duration-300">
+          {{ $blog['title'] }}
+        </h3>
+
+        <p class="text-gray-600 text-sm leading-relaxed flex-grow">
+          {{ $blog['desc'] }}
+        </p>
+
+        <div class="mt-5 flex items-center justify-between">
+          <a href="{{ route('berita.index') }}" class="inline-flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold text-sm transition-all">
+            Selengkapnya
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+          <div class="h-1.5 w-8 bg-gradient-to-r from-orange-500 to-orange-300 rounded-full group-hover:w-12 transition-all duration-300"></div>
+        </div>
+      </div>
+    </article>
+  </div>
+@endforeach
+
       </div>
 
       <!-- Navigasi -->
@@ -93,21 +107,25 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <style>
-  /* Equal height fix */
-  .blogSwiper .swiper-wrapper { display: flex; align-items: stretch; }
-  .blogSwiper .swiper-slide { height: auto !important; display: flex; }
-  .blogSwiper article { display: flex; flex-direction: column; height: 100%; }
+  /* Blog Card Enhancement */
+.blogSwiper article {
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border 0.3s ease;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+}
+.blogSwiper article:hover {
+  box-shadow: 0 10px 25px rgba(234, 88, 12, 0.15);
+  border-color: rgba(234, 88, 12, 0.25);
+}
+.blogSwiper article img {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.blogSwiper .swiper-slide {
+  display: flex;
+  height: auto !important;
+}
 
-  /* Navigasi */
-  .custom-nav {
-    width: 36px !important; height: 36px !important;
-    background-color: rgba(255,255,255,0.9);
-    border-radius: 9999px;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
-    color: #ea580c; transition: all 0.3s ease;
-  }
-  .custom-nav::after { font-size: 16px !important; font-weight: bold; }
-  .custom-nav:hover { background-color: #ea580c; color: white; transform: scale(1.1); }
 </style>
 @endpush
 

@@ -90,6 +90,11 @@ Route::prefix('berita')
         Route::get('/{slug}', 'show')->name('detail');
     });
 
+Route::get('/prestasi', function () {
+    return view('prestasiprima.pages.prestasi');
+})->name('prestasi');
+
+
 // ============================================================
 // ======================= PRESMABOARD ========================
 // ============================================================

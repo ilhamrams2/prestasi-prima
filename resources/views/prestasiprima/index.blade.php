@@ -21,7 +21,7 @@
 
   <!-- Header -->
   @include('header')
-  @include('ChatbotUI')
+  {{-- @include('ChatbotUI') --}}
   
   <!-- Main Content -->
   <main>

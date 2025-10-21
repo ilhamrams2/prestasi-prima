@@ -58,13 +58,11 @@
             </svg>
           </a>
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-56 text-gray-800">
-            <a href="{{ route('sambutan') }}" class="dropdown-item">Sambutan Pembina Yayasan</a>
+            <a href="{{ url('/') }}#program" class="dropdown-item">Program</a>
             <a href="{{ url('/') }}#industri" class="dropdown-item">Partner Industri</a>
+            <a href="{{ route('sambutan') }}" class="dropdown-item">Sambutan Pembina Yayasan</a>
           </div>
         </div>
-
-        <a href="{{ url('/') }}#program" class="nav-link text-white">Program</a>
-
         <!-- Dokumentasi -->
         <div class="dropdown relative group">
           <a href="#" class="nav-link flex items-center text-white">
@@ -76,10 +74,12 @@
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
             <a href="{{ route('gallery') }}" class="dropdown-item">Galeri</a>
             <a href="{{ route('berita.index') }}" class="dropdown-item">Berita</a>
+            <a href="{{ route('prestasi') }}" class="dropdown-item">Prestasi</a>
           </div>
         </div>
 
         <a href="/pendaftaran" class="nav-link text-white">Pendaftaran</a>
+        <a href="/presaboard" class="nav-link text-white">Presmaboard</a>
         <a href="/presmalance" class="nav-link text-white">PresmaLance</a>
       </nav>
 
@@ -115,11 +115,10 @@
         </svg>
       </button>
       <div class="mobile-submenu">
-        <a href="{{ route('sambutan') }}" class="mobile-subitem">Sambutan Pembina Yayasan</a>
+        <a href="{{ url('/') }}#program" class="mobile-subitem">Program</a>
         <a href="{{ url('/') }}#industri" class="mobile-subitem">Partner Industri</a>
+        <a href="{{ route('sambutan') }}" class="mobile-subitem">Sambutan Pembina Yayasan</a>
       </div>
-
-      <a href="{{ url('/') }}#program" class="mobile-link">Program</a>
 
       <button class="mobile-dropdown-btn">
         Dokumentasi
@@ -130,9 +129,11 @@
       <div class="mobile-submenu">
         <a href="#" class="mobile-subitem">Galeri</a>
         <a href="#" class="mobile-subitem">Berita</a>
+        <a href="{{ route('prestasi') }}" class="mobile-subitem">Prestasi</a>
       </div>
 
       <a href="/pendaftaran" class="mobile-link">Pendaftaran</a>
+      <a href="/presaboard" class="mobile-link">Presmaboard</a>
       <a href="/presmalance" class="mobile-link">PresmaLance</a>
     </div>
   </div>
