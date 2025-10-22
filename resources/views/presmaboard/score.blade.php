@@ -8,13 +8,13 @@
         showEdit: false,
         openDeleteModal: false,
         selectedScore: {},
-    
+
         filter: {
             search: '{{ request('search') }}',
             semester: '{{ request('semester') }}',
             tahun_ajar: '{{ request('tahun_ajar') }}',
         },
-    
+
         filterProjects() {
             let url = '?'
             if (this.filter.semester) {
@@ -28,7 +28,7 @@
             }
             window.location = url
         },
-    
+
     }" class="animate-fadeIn relative">
         <!-- Header -->
         <div class="pb-5 border-b bg-gradient-to-r from-orange-50 to-white rounded-xl px-3 sm:px-4 py-3 shadow-sm mb-6">

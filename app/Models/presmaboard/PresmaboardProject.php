@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PresmaboardProject extends Model
 {
-    use HasFactory;
+      use HasFactory;
 
     protected $fillable = [
         'student_id',
@@ -28,9 +28,6 @@ class PresmaboardProject extends Model
     }
 
 
-    /**
-     * Ambil nama jurusan dalam format huruf besar (untuk tampilan)
-     */
     public function getJurusanLabelAttribute()
     {
         return strtoupper($this->jurusan);

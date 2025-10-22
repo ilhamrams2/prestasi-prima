@@ -8,7 +8,7 @@ use Exception;
 
 class PresmaboardScore extends Model
 {
-    use HasFactory;
+      use HasFactory;
 
 
     protected $table = 'presmaboard_scores';
@@ -25,17 +25,12 @@ class PresmaboardScore extends Model
         'score' => 'decimal:2',
     ];
 
-    /**
-     * Relasi ke student
-     */
     public function student()
     {
         return $this->belongsTo(PresmaboardStudent::class, 'student_id');
     }
 
-    /**
-     * Mencegah duplikasi nilai saat insert
-     */
+
     protected static function boot()
     {
         parent::boot();
@@ -53,34 +48,26 @@ class PresmaboardScore extends Model
         });
     }
 
-    /**
-     * Scope untuk filter periode tertentu
-     */
+
     public function scopePeriode($query, $semester, $tahun)
     {
         return $query->where('semester', $semester)
             ->where('tahun_ajaran', $tahun);
     }
 
-    /**
-     * Scope untuk UTS
-     */
+
     public function scopeUTS($query)
     {
         return $query->where('tipe_ujian', 'UTS');
     }
 
-    /**
-     * Scope untuk UAS
-     */
+
     public function scopeUAS($query)
     {
         return $query->where('tipe_ujian', 'UAS');
     }
 
-    /**
-     * Scope untuk menghitung rata-rata nilai PKP berdasarkan student
-     */
+
     public function scopeAverageByStudent($query, $studentId)
     {
         return $query->where('student_id', $studentId)->avg('score');

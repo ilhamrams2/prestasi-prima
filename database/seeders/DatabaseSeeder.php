@@ -12,17 +12,40 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
+use Database\Seeders\presmaboard\AchievementSeeder as PresmaboardAchievementSeeder;
+use Database\Seeders\presmaboard\ProjectCategorySeeder as PresmaboardProjectCategorySeeder;
+use Database\Seeders\presmaboard\ProjectSeeder as PresmaboardProjectSeeder;
+use Database\Seeders\presmaboard\ScoreSeeder as PresmaboardScoreSeeder;
+use Database\Seeders\presmaboard\UserSeeder as PresmaboardUserSeeder;
+use Database\Seeders\presmaboard\StudentSeeder as PresmaboardStudentSeeder;
+
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
      */
-    public function run(): void
+
+
+
+
+  public function run(): void
     {
+        // ==========================================================
+        // SEEDER PRESMABOARD
+        // ==========================================================
+        $this->call([
+            PresmaboardUserSeeder::class,
+            PresmaboardStudentSeeder::class,
+            PresmaboardProjectCategorySeeder::class,
+            PresmaboardProjectSeeder::class,
+            PresmaboardAchievementSeeder::class,
+            PresmaboardScoreSeeder::class,
+        ]);
+
         // ==========================================================
         // SEEDER PRESMALANCER (YANG SUDAH ADA)
         // ==========================================================
-        
+
         // Create Admin User
         $admin = User::create([
             'name' => 'Admin Presmalancer',
@@ -123,8 +146,6 @@ class DatabaseSeeder extends Seeder
         foreach ($companies as $companyData) {
             $user = User::create($companyData['user']);
             $company = Company::create(array_merge($companyData['company'], ['user_id' => $user->id]));
-            
-            // Create jobs for each company
             $this->createJobsForCompany($company);
         }
 
@@ -150,27 +171,22 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-
         // ==========================================================
         // SEEDER PRESTASIPRIMA (BARU DITAMBAHKAN DARI SQL)
         // ==========================================================
-
-        // Nonaktifkan foreign key untuk truncate (penting untuk urutan)
         Schema::disableForeignKeyConstraints();
 
         $this->seedPrestasiprimaCategories();
         $this->seedPrestasiprimaGalleries();
-        // News harus dijalankan setelah Categories karena ada category_id
-        $this->seedPrestasiprimaNews(); 
+        $this->seedPrestasiprimaNews(); // jalankan setelah categories
 
-        // Aktifkan kembali foreign key
         Schema::enableForeignKeyConstraints();
     }
 
     private function createJobsForCompany($company)
     {
         $jobs = [];
-        
+
         if ($company->company_name === 'PT Aditya Birla') {
             $jobs[] = [
                 'title' => 'Junior Web Developer',

@@ -9,11 +9,11 @@
         showView: false,
         openDeleteModal: false,
         selectedAchievement: {},
-    
+
         filter: {
             search: '{{ request('search') }}',
         },
-    
+
         filterProjects() {
             let url = '?'
             if (this.filter.search) {

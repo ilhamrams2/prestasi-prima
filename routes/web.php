@@ -121,59 +121,64 @@ Route::prefix('dokumentasi')->group(function () {
 
 
 
-// ============================================================
-// ======================= PRESMABOARD ========================
-// ============================================================
+// ============================================================ //
+// ======================== PRESMABOARD ======================== //
+// ============================================================ //
+Route::prefix('presmaboard')->name('presmaboard')->group(function () {
 
-Route::prefix('presmaboard')->name('presmaboard.')->group(function () {
-    Route::get('/', [PresmaboardController::class, 'index'])->name('index');
-    Route::get('/eligible/{student}', [PresmaboardController::class, 'eligible'])->name('eligible');
+    // Dashboard | Leaderboard
+    Route::get('/', [PresmaboardController::class, 'index']);
+    Route::get('eligible/{student}', [PresmaboardController::class, 'eligible'])->name('.eligible');
 
     // Auth
-    Route::get('/login', [PresmaboardAuthController::class, 'index'])->name('login');
-    Route::post('/login', [PresmaboardAuthController::class, 'authenticate'])->name('authenticate');
-    Route::get('/logout', [PresmaboardAuthController::class, 'logout'])->name('logout');
+    Route::get('/login', [PresmaboardAuthController::class, 'index'])->name('.login');
+    Route::post('/login', [PresmaboardAuthController::class, 'authenticate'])->name('.authenticate');
+    Route::get('/logout', [PresmaboardAuthController::class, 'logout'])->name('.logout');
 
-    // Admin Area
-    Route::prefix('admin')->name('admin.')->group(function () {
 
-        Route::get('/', [PresmaboardDashboardController::class, 'index'])->name('dashboard');
-        Route::get('/leaderboard', [PresmaboardLeaderboardController::class, 'index'])->name('leaderboard');
+    // -------------------- ADMIN AREA -------------------- //
+    Route::prefix('admin')->name('.admin')->group(function () {
+
+        // Dashboard
+        Route::get('/', [PresmaboardDashboardController::class, 'index'])->name('.dashboard');
 
         // Project
-        Route::prefix('project')->name('project.')->controller(PresmaboardProjectController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::post('/', 'store')->name('store');
-            Route::put('/{project}', 'update')->name('update');
-            Route::delete('/{project}', 'destroy')->name('destroy');
-        });
+        Route::prefix('project')->name('.project')
+            ->controller(PresmaboardProjectController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/', 'store')->name('.store');
+                Route::put('/{project}', 'update')->name('.update');
+                Route::delete('/{project}', 'destroy')->name('.destroy');
+            });
 
         // Student
-        Route::prefix('student')->name('student.')->controller(PresmaboardStudentController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::post('/', 'store')->name('store');
-            Route::put('/{student}', 'update')->name('update');
-            Route::delete('/{student}', 'destroy')->name('destroy');
-        });
+        Route::prefix('student')->name('.student')
+            ->controller(PresmaboardStudentController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/', 'store')->name('.store');
+                Route::put('/{student}', 'update')->name('.update');
+                Route::delete('/{student}', 'destroy')->name('.destroy');
+            });
 
         // Achievement
-        Route::prefix('achievement')->name('achievement.')->controller(PresmaboardAchievementController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::post('/', 'store')->name('store');
-            Route::put('/{achievement}', 'update')->name('update');
-            Route::delete('/{achievement}', 'destroy')->name('destroy');
-        });
+        Route::prefix('achievement')->name('.achievement')
+            ->controller(PresmaboardAchievementController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/', 'store')->name('.store');
+                Route::put('/{achievement}', 'update')->name('.update');
+                Route::delete('/{achievement}', 'destroy')->name('.destroy');
+            });
 
         // Score
-        Route::prefix('score')->name('score.')->controller(PresmaboardScoreController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::post('/', 'store')->name('store');
-            Route::put('/{score}', 'update')->name('update');
-            Route::delete('/{score}', 'destroy')->name('destroy');
-        });
+        Route::prefix('score')->name('.score')
+            ->controller(PresmaboardScoreController::class)->group(function () {
+                Route::get('/', 'index');
+                Route::post('/', 'store')->name('.store');
+                Route::put('/{score}', 'update')->name('.update');
+                Route::delete('/{score}', 'destroy')->name('.destroy');
+            });
     });
 });
-
 // ============================================================
 // ================ PRESTASIPRIMA ADMIN PANEL =================
 // ============================================================
@@ -290,4 +295,3 @@ Route::get('/notinternet', fn() => view('errors.notinternet'))->name('notinterne
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });
-
