@@ -234,52 +234,8 @@ svg path {
 </style>
 
 
-
-<!-- ====================== PRESTASI PREVIEW ====================== -->
-<section class="py-24 bg-white">
-  <div class="max-w-7xl mx-auto px-6 text-center">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6">
-      Prestasi & <span class="text-orange-600">Penghargaan</span>
-    </h2>
-    <p class="text-gray-600 max-w-2xl mx-auto mb-10">
-      Bukti nyata dedikasi dan kerja keras siswa serta tenaga pendidik dalam mengukir prestasi.
-    </p>
-
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
-      @foreach (['juara1.webp', 'juara2.webp', 'juara3.webp'] as $img)
-        <div class="overflow-hidden rounded-xl shadow-lg group" data-aos="fade-up">
-          <img src="{{ asset('assets/images/section/prestasi/' . $img) }}" alt="Prestasi"
-            class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-500">
-        </div>
-      @endforeach
-    </div>
-
-    <a href="{{ route('prestasi') }}"
-      class="inline-block px-6 py-3 bg-orange-500 text-white font-semibold rounded-full hover:bg-orange-600 transition">
-      Lihat Semua Prestasi →
-    </a>
-  </div>
-</section>
-
-<!-- ====================== GALERI SEKOLAH ====================== -->
-<section class="py-24 bg-gray-50">
-  <div class="max-w-7xl mx-auto px-6 text-center">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6">
-      Galeri <span class="text-orange-600">Sekolah</span>
-    </h2>
-    <p class="text-gray-600 max-w-2xl mx-auto mb-10">
-      Dokumentasi kegiatan dan suasana belajar di lingkungan SMK Prestasi Prima.
-    </p>
-
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      @foreach (['galeri1.webp','galeri2.webp','galeri3.webp','galeri4.webp','galeri5.webp','galeri6.webp','galeri7.webp','galeri8.webp'] as $img)
-        <div class="overflow-hidden rounded-xl shadow-md group" data-aos="zoom-in">
-          <img src="{{ asset('assets/images/section/galeri/' . $img) }}" alt="Galeri"
-            class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500">
-        </div>
-      @endforeach
-    </div>
-  </div>
-</section>
-
+<!-- FOTO GEDUNG -->
+  <section class="relative w-full bg-white overflow-hidden">
+    <img alt="Gedung SMK Prestasi Prima" class="w-full h-[40vh] sm:h-[55vh] lg:h-screen object-cover object-center hover:scale-[1.02] transition-transform duration-700" src="{{ asset('assets/images/gedung/gedung.avif') }}">
+  </section>
 @endsection

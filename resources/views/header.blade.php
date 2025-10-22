@@ -58,7 +58,7 @@
             </svg>
           </a>
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-56 text-gray-800">
-            <a href="{{ url('/') }}#program" class="dropdown-item">Program</a>
+            <a href="/tentang/program" class="dropdown-item">Program</a>
             <a href="{{ url('/') }}#sejarah" class="dropdown-item">Sejarah</a>
             <a href="/tentang/profile-sekolah" class="dropdown-item">Profile Sekolah</a>
             <a href="{{ url('/staffmanagement') }}" class="dropdown-item">Staff Management</a>
@@ -74,9 +74,8 @@
             </svg>
           </a>
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
-            <a href="/faq" class="dropdown-item">FAQ</a>
-            <a href="#" class="dropdown-item">Lulusan PTN</a>
-            <a href="{{ route('industri') }}" class="dropdown-item">Industri</a>
+            <a href="/informasi/faq" class="dropdown-item">FAQ</a>
+            <a href="/informasi/industri" class="dropdown-item">Industri</a>
           </div>
         </div>
 
@@ -89,9 +88,10 @@
             </svg>
           </a>
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
-            <a href="{{ route('gallery') }}" class="dropdown-item">Galeri</a>
-            <a href="{{ route('berita.index') }}" class="dropdown-item">Berita</a>
-            <a href="{{ route('prestasi') }}" class="dropdown-item">Prestasi</a>
+            <a href="/dokumentasi/gallery" class="dropdown-item">Galeri</a>
+            <a href="/dokumentasi/berita" class="dropdown-item">Berita</a>
+            <a href="/dokumentasi/prestasi" class="dropdown-item">Prestasi</a>
+            <a href="/dokumentasi/ekstrakurikuler" class="dropdown-item">Ekstrakurikuler</a>
           </div>
         </div>
 
@@ -134,11 +134,11 @@
         </svg>
       </button>
       <div class="mobile-submenu">
-        <a href="{{ url('/') }}#program" class="mobile-subitem">Program</a>
+        <a href="/tentang/program" class="mobile-subitem">Program</a>
         <a href="{{ url('/') }}#sejarah" class="mobile-subitem">Sejarah</a>
         <a href="/tentang/profile-sekolah" class="mobile-subitem">Profile Sekolah</a>
         <a href="/staffmanagement" class="mobile-subitem">Staff Management</a>
-        <a href="{{ route('sambutan') }}" class="mobile-subitem">Sambutan Pembina Yayasan</a>
+        <a href="/tentang/sambutan" class="mobile-subitem">Sambutan Pembina Yayasan</a>
       </div>
 
       <button class="mobile-dropdown-btn">
@@ -148,8 +148,8 @@
         </svg>
       </button>
       <div class="mobile-submenu">
-        <a href="#" class="mobile-subitem">Galeri</a>
-        <a href="#" class="mobile-subitem">Berita</a>
+        <a href="/dokumentasi/gallery" class="mobile-subitem">Galeri</a>
+        <a href="/dokumentasi/berita" class="mobile-subitem">Berita</a>
         <a href="{{ route('prestasi') }}" class="mobile-subitem">Prestasi</a>
       </div>
 
@@ -163,9 +163,8 @@
         </svg>
       </button>
       <div class="mobile-submenu">
-        <a href="/faq" class="mobile-subitem">FAQ</a>
-        <a href="#" class="mobile-subitem">Lulusan PTN</a>
-        <a href="{{ route('industri') }}" class="mobile-subitem">Industri</a>
+        <a href="/informasi/faq" class="mobile-subitem">FAQ</a>
+        <a href="/informasi/industri" class="mobile-subitem">Industri</a>
       </div>
       <a href="/pendaftaran" class="mobile-link">Pendaftaran</a>
     </div>

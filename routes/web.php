@@ -29,7 +29,9 @@ use App\Http\Controllers\prestasiprima\{
     FaqController,
     StaffController,
     IndustriController,
-    ProfileSekolahController
+    ProfileSekolahController,
+    EkstrakurikulerController,
+    ProgramController
 };
 
 use App\Http\Controllers\prestasiprima\Admin\{
@@ -69,7 +71,7 @@ Route::get('/test-google', function () {
 // ===================== PRESTASIPRIMA ========================
 // ============================================================
 
-Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
+Route::get('/tentang/sambutan', [SambutanController::class, 'index'])->name('sambutan');
 
 Route::controller(Pendaftaran::class)->group(function () {
     Route::get('/pendaftaran', 'index')->name('pendaftaran');
@@ -82,10 +84,10 @@ Route::controller(FormulirController::class)->group(function () {
 });
 
 // Galeri
-Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
+Route::get('/dokumentasi/gallery', [GalleryController::class, 'index'])->name('gallery');
 
 // Berita
-Route::prefix('berita')
+Route::prefix('dokumentasi/berita')
     ->name('berita.')
     ->controller(NewsController::class)
     ->group(function () {
@@ -98,7 +100,7 @@ Route::get('/dokumentasi/prestasi', function () {
     return view('prestasiprima.pages.prestasi');
 })->name('prestasi');
 
-Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+Route::get('/informasi/faq', [FaqController::class, 'index'])->name('faq');
 
 Route::get('/staffmanagement', [StaffController::class, 'index'])->name('staff');
 
@@ -109,6 +111,14 @@ Route::get('/dokumentasi/industri', [IndustriController::class, 'index'])
     Route::get('/profile-sekolah', [ProfileSekolahController::class, 'index'])
         ->name('prestasiprima.profile-sekolah');
 });
+
+Route::prefix('dokumentasi')->group(function () {
+    Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])
+        ->name('prestasiprima.ekstrakurikuler');
+        });
+
+    Route::get('/tentang/program', [ProgramController::class, 'index'])->name('program');
+
 
 
 // ============================================================

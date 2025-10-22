@@ -2,14 +2,15 @@
 <section id="heroVideoSection" 
          class="relative h-screen w-full overflow-hidden bg-cover bg-center"
          style="background-image: url('{{ asset('assets/images/section/hero/herobg.png') }}');">
-    
+
   <!-- Overlay -->
   <div class="absolute inset-0 bg-black/40 z-10"></div>
 
   <!-- Hero Video -->
-  <video id="heroVideo" autoplay muted playsinline 
+  <video id="heroVideo" preload="none" autoplay muted playsinline 
          poster="{{ asset('assets/images/section/hero/herobg.png') }}"
-         class="absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-1000">
+         class="absolute inset-0 w-full h-full object-cover z-20 opacity-0 transition-opacity duration-700 will-change-transform"
+         loading="lazy">
     <source src="{{ asset('assets/videos/videos.mp4') }}" type="video/mp4">
     Browsermu tidak mendukung video.
   </video>
@@ -41,7 +42,7 @@
     <!-- Logo + Nama (Mobile) -->
     <div class="flex items-center space-x-2 mb-6 md:hidden hero-animate">
       <img src="{{ asset('assets/images/logo-icon.svg') }}" alt="Logo SMK Prestasi Prima" 
-           class="w-8 h-8 object-contain">
+           class="w-8 h-8 object-contain" loading="lazy">
       <span class="font-semibold text-white text-lg">SMK Prestasi Prima</span>
     </div>
 
@@ -74,29 +75,23 @@
       <i class="fas fa-share-alt"></i>
     </button>
 
-    <!-- Dark Mode Button -->
-    <button id="darkModeToggle" aria-label="Mode Gelap"
-            class="bg-gray-800 text-white w-12 h-12 md:w-14 md:h-14 rounded-l-2xl shadow-lg flex items-center justify-center transition opacity-0">
-      <i class="fas fa-moon"></i>
-    </button>
-
     <!-- Panel -->
     <div id="socialPanel"
          class="social-panel bg-white bg-opacity-95 rounded-l-2xl shadow-lg flex flex-col items-center py-3 space-y-3 w-0 overflow-hidden">
       <a href="{{ url('/') }}" aria-label="Kembali ke halaman utama"
          class="bg-white rounded-2xl shadow-lg p-2 flex items-center justify-center w-10 h-10 md:w-12 md:h-12">
         <img src="{{ asset('assets/images/logo-icon.svg') }}" alt="Logo kecil SMK Prestasi Prima" 
-             class="w-6 h-6 md:w-8 md:h-8 object-contain">
+             class="w-6 h-6 md:w-8 md:h-8 object-contain" loading="lazy">
       </a>
-      <a href="https://wa.me/6289599439033" target="_blank" aria-label="WhatsApp"
+      <a href="https://wa.me/6285195928886" target="_blank" aria-label="WhatsApp"
          class="text-orange-500 hover:text-orange-600">
         <i class="fab fa-whatsapp text-lg md:text-xl"></i>
       </a>
-      <a href="https://instagram.com" target="_blank" aria-label="Instagram"
+      <a href="https://www.instagram.com/smkprestasiprima/" target="_blank" aria-label="Instagram"
          class="text-orange-500 hover:text-orange-600">
         <i class="fab fa-instagram text-lg md:text-xl"></i>
       </a>
-      <a href="https://youtube.com" target="_blank" aria-label="YouTube"
+      <a href="https://www.youtube.com/@SEKOLAHPRESTASIPRIMA" target="_blank" aria-label="YouTube"
          class="text-orange-500 hover:text-orange-600">
         <i class="fab fa-youtube text-lg md:text-xl"></i>
       </a>
@@ -117,14 +112,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const skipBtnContainer = document.getElementById("skipBtnContainer");
   const contentSection = document.getElementById("heroContentSection");
   const toggleBtn = document.getElementById("toggleSocial");
-  const darkModeBtn = document.getElementById("darkModeToggle");
   const panel = document.getElementById("socialPanel");
 
   let isOpen = false;
 
-  // Video selesai → tampilkan hero content + floating buttons
+  // Tampilkan video setelah siap (smooth)
+  video.addEventListener("loadeddata", () => {
+    video.classList.add("opacity-100");
+  });
+
+  // Tampilkan konten setelah video selesai / dilewati
   function showContent() {
-    videoSection.style.transition = "opacity 0.6s";
+    videoSection.style.transition = "opacity 0.5s";
     videoSection.style.opacity = 0;
 
     setTimeout(() => {
@@ -135,20 +134,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Hero animation
       document.querySelectorAll(".hero-animate").forEach((el, idx) => {
-        el.style.animationDelay = `${idx * 0.15}s`;
+        el.style.animationDelay = `${idx * 0.12}s`;
         el.classList.add("animate-hero-fast");
       });
 
-      // Floating Button animasi (Social + Dark Mode)
+      // Floating Button animasi
       toggleBtn.classList.add("animate-floating");
-      darkModeBtn.classList.add("animate-floating");
-    }, 600);
+    }, 500);
   }
 
   video.addEventListener("ended", showContent);
   skipBtn.addEventListener("click", showContent);
-  video.muted = true;
-  video.play().catch(() => console.warn("Autoplay diblokir browser"));
 
   // Toggle Floating Social
   toggleBtn.addEventListener("click", () => {
@@ -163,27 +159,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     isOpen = !isOpen;
   });
-
-  // Dark mode toggle
-  darkModeBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-    darkModeBtn.innerHTML = document.body.classList.contains("dark") 
-      ? '<i class="fas fa-sun"></i>' 
-      : '<i class="fas fa-moon"></i>';
-  });
 });
 </script>
 
 <!-- ================= STYLE ================= -->
 <style>
-/* Hero Smooth Animation - versi cepat */
+/* Hero Animation */
 @keyframes heroSlideInFast {
-  0% { opacity: 0; transform: translateX(-80px) scale(0.95); filter: blur(4px); }
-  60% { opacity: 1; transform: translateX(10px) scale(1.02); filter: blur(0); }
-  80% { transform: translateX(-4px) scale(0.98); }
-  100% { opacity: 1; transform: translateX(0) scale(1); }
+  0% { opacity: 0; transform: translateX(-60px) scale(0.95); filter: blur(4px); }
+  100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
 }
-.animate-hero-fast { animation: heroSlideInFast 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.animate-hero-fast { animation: heroSlideInFast 0.8s ease-out forwards; }
 .hero-animate { opacity: 0; }
 
 /* Floating Social Panel */
@@ -195,14 +181,10 @@ document.addEventListener("DOMContentLoaded", () => {
 .social-panel.open { width: 56px; opacity: 1; transform: translateX(0) scale(1); }
 .social-panel.close { width: 0; opacity: 0; transform: translateX(50%) scale(0.8); }
 
-/* Floating Button muncul setelah video */
+/* Floating Button */
 @keyframes floatingIn {
   0% { opacity: 0; transform: translateX(100%) scale(0.8); }
-  60% { opacity: 1; transform: translateX(-10px) scale(1.05); }
-  80% { transform: translateX(5px) scale(0.97); }
   100% { opacity: 1; transform: translateX(0) scale(1); }
 }
-.animate-floating {
-  animation: floatingIn 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
+.animate-floating { animation: floatingIn 0.8s ease-out forwards; }
 </style>
