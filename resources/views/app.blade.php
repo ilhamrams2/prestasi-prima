@@ -20,19 +20,25 @@
     @stack('styles')
 </head>
 <body class="antialiased" x-data="{ sidebarCollapsed: false }">
-    <div class="min-h-screen bg-gray-50 flex f;">
-         {{-- Include Sidebar --}}
-        @include('SidebarLance')
+    <div class="min-h-screen bg-gray-50 flex">
+        
+        {{-- Sidebar dinamis berdasarkan role --}}
+        @auth
+            @if(Auth::user()->role === 'admin')
+                @include('AdminSidebar')
+            @else
+                @include('SidebarLance')
+            @endif
+        @else
+            {{-- Kalau belum login, sidebar default user --}}
+            @include('SidebarLance')
+        @endauth
 
-        {{-- Main Content Area --}}
+        {{-- Main Content --}}
         <div :class="sidebarCollapsed ? 'lg:ml-20' : 'lg:ml-80'"
              class="flex-1 transition-all duration-300">
-            
             @yield('content')
-
-            
         </div>
-
     </div>
 
     @stack('scripts')

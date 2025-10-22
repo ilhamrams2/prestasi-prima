@@ -96,7 +96,7 @@
             </svg>`;
             } else {
                 profileDiv.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 24 24" class="w-6 h-6 bg-blue-500 p-1 rounded-full">
+            <svg xmlns="https://main.imaginepresma.com/assets/images/logo-icon.svg" fill="#fff" viewBox="0 0 24 24" class="w-6 h-6 bg-blue-500 p-1 rounded-full">
                 <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 3a2 2 0 110 4 2 2 0 010-4zm0 12.5c-2.33 0-4.32-.93-5.47-2.34.03-1.54 3.12-2.39 5.47-2.39 2.36 0 5.44.85 5.47 2.39C16.32 16.57 14.33 17.5 12 17.5z"/>
             </svg>`;
             }
@@ -169,16 +169,20 @@
         }
 
 
-        function displayAiReply(reply) {
-            const formattedReply = reply.replace(/\n/g, '<br>');
-            const cleanReply = reply
-        .replace(/<br\s*\/?>/gi, '\n')
-        .replace(/<\/?[^>]+(>|$)/g, '');
-            // Buat elemen pesan kosong untuk animasi mengetik
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('flex', 'items-start', 'mb-2', 'last:mb-0', 'justify-start');
+       function displayAiReply(reply) {
+    // Bersihkan HTML tag <br> mentah dari AI agar gak nongol
+    const cleanedReply = reply
+        .replace(/<br\s*\/?>/gi, '\n') // ubah <br> jadi newline dulu
+        .replace(/\n{2,}/g, '\n\n')   // rapikan newline ganda
+        .trim();
 
-            const messageBubble = document.createElement('p');
+    // Sekarang ubah newline jadi <br> untuk ditampilkan rapi
+    const formattedReply = cleanedReply.replace(/\n/g, '<br>');
+
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('flex', 'items-start', 'mb-2', 'last:mb-0', 'justify-start');
+
+    const messageBubble = document.createElement('p');
     messageBubble.classList.add(
         'inline-block',
         'bg-gray-200',
@@ -189,47 +193,49 @@
         'max-w-[80%]',
         'whitespace-pre-wrap'
     );
-            messageDiv.appendChild(messageBubble);
-            messageBubble.classList.add('typing-cursor');
-            messageBubble.classList.remove('typing-cursor');
-            chatMessages.appendChild(messageDiv);
-            scrollToBottom();
 
-            let index = 0;
-            const typingSpeed = 20; // kecepatan mengetik (ms per karakter)
-            const textContent = formattedReply;
-            let isTag = false; // agar tidak animasikan tag <br>
+    messageDiv.appendChild(messageBubble);
+    messageBubble.classList.add('typing-cursor');
+    messageBubble.classList.remove('typing-cursor');
+    chatMessages.appendChild(messageDiv);
+    scrollToBottom();
 
-            function typeWriter() {
-                if (index < textContent.length) {
-                    const char = textContent[index];
-                    messageBubble.innerHTML += char;
+    let index = 0;
+    const typingSpeed = 20; // kecepatan mengetik (ms per karakter)
+    const textContent = formattedReply;
+    let isTag = false; // agar tidak animasikan tag <br>
 
-                    // Jika mendeteksi tag HTML, lompat sampai tanda '>'
-                    if (char === '<') isTag = true;
-                    if (char === '>') isTag = false;
+    function typeWriter() {
+        if (index < textContent.length) {
+            const char = textContent[index];
+            messageBubble.innerHTML += char;
 
+            // Jika mendeteksi tag HTML, lompat sampai tanda '>'
+            if (char === '<') isTag = true;
+            if (char === '>') isTag = false;
+
+            index++;
+            if (isTag) {
+                while (index < textContent.length && textContent[index] !== '>') {
+                    messageBubble.innerHTML += textContent[index];
                     index++;
-                    if (isTag) {
-                        // render langsung sisa tag agar tidak putus
-                        while (index < textContent.length && textContent[index] !== '>') {
-                            messageBubble.innerHTML += textContent[index];
-                            index++;
-                        }
-                        messageBubble.innerHTML += '>';
-                        index++;
-                        isTag = false;
-                    }
-
-                    scrollToBottom();
-                    setTimeout(typeWriter, typingSpeed);
-                } else {
-                    scrollToBottom();
                 }
+                messageBubble.innerHTML += '>';
+                index++;
+                isTag = false;
             }
 
-            typeWriter();
+            scrollToBottom();
+            setTimeout(typeWriter, typingSpeed);
+        } else {
+            scrollToBottom();
         }
+    }
+
+    typeWriter();
+}
+
+
 
 
         function createNavigationButton(text, url) {
@@ -449,8 +455,32 @@ function removeTypingAnimation() {
         createMessageElement('Halo! Saya asisten virtual SMK Prestasi Prima. Ada yang bisa saya bantu?', false);
         adjustTextareaHeight(userInput);
     });
-</script>
 
+    // === Efek Pulse Otomatis ===
+document.addEventListener("DOMContentLoaded", () => {
+    const openChatButton = document.getElementById("openChatButton");
+    const chatWindow = document.getElementById("chatWindow");
+
+    // Awalnya tombol berdenyut
+    openChatButton.classList.add("pulsing");
+
+    // Setiap kali tombol diklik (toggle chat)
+    openChatButton.addEventListener("click", () => {
+        const isHidden = chatWindow.classList.contains("hidden");
+
+        if (isHidden) {
+            // Saat chat mau dibuka -> hentikan pulse
+            openChatButton.classList.remove("pulsing");
+        } else {
+            // Saat chat ditutup -> hidupkan pulse lagi
+            setTimeout(() => {
+                openChatButton.classList.add("pulsing");
+            }, 300);
+        }
+    });
+});
+
+</script>
 
 <style>
     /* Custom Scrollbar Styling (Hanya untuk estetika di webkit) */
@@ -533,6 +563,3 @@ function removeTypingAnimation() {
 }
 
 </style>
-
-
-

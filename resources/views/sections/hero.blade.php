@@ -74,12 +74,6 @@
       <i class="fas fa-share-alt"></i>
     </button>
 
-    <!-- Dark Mode Button -->
-    <button id="darkModeToggle" aria-label="Mode Gelap"
-            class="bg-gray-800 text-white w-12 h-12 md:w-14 md:h-14 rounded-l-2xl shadow-lg flex items-center justify-center transition opacity-0">
-      <i class="fas fa-moon"></i>
-    </button>
-
     <!-- Panel -->
     <div id="socialPanel"
          class="social-panel bg-white bg-opacity-95 rounded-l-2xl shadow-lg flex flex-col items-center py-3 space-y-3 w-0 overflow-hidden">
