@@ -29,7 +29,7 @@ class GoogleController extends Controller
             $user = \App\Models\User::where('email', $googleUser->email)->first();
 
             if ($user && $user->role === 'admin') {
-                return redirect()->route('presmalance.login')->with('error', 'Admin accounts cannot log in with Google.');
+                return redirect()->route('login')->with('error', 'Admin accounts cannot log in with Google.');
             }
 
             if (!$user) {

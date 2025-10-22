@@ -187,4 +187,5 @@ document.addEventListener("DOMContentLoaded", () => {
   100% { opacity: 1; transform: translateX(0) scale(1); }
 }
 .animate-floating { animation: floatingIn 0.8s ease-out forwards; }
+git
 </style>
