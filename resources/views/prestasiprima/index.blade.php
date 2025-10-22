@@ -22,6 +22,12 @@
 
   {{-- === Vite Build Assets === --}}
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+  <style>
+    html {
+      smooth-scroll-behavior: smooth;
+    }
+  </style>
 </head>
 
 <body class="antialiased font-sans text-slate-800 bg-white dark:bg-gray-900 transition-colors duration-300">

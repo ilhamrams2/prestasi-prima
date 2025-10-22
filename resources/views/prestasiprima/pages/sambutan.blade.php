@@ -3,13 +3,7 @@
 
 @section('content')
 <!-- ===================== SECTION SAMBUTAN ===================== -->
-<section class="mt-20 md:mt-28 bg-gradient-to-br from-white via-gray-50 to-gray-100 relative overflow-hidden">
-
-  <!-- Ornamen Latar Animasi -->
-  <div class="absolute inset-0 -z-10">
-    <div class="absolute top-0 left-1/3 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 bg-orange-100 rounded-full blur-3xl opacity-30 animate-pulse-slow"></div>
-    <div class="absolute bottom-0 right-1/4 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 bg-blue-100 rounded-full blur-3xl opacity-30 animate-pulse-slow delay-2000"></div>
-  </div>
+<section class="mt-20 md:mt-28 bg-white relative overflow-hidden">
 
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 md:py-20 grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
 
@@ -71,31 +65,22 @@
         </a>
       </div>
 
-      <!-- Tanda tangan -->
+      {{-- <!-- Tanda tangan -->
       <div class="pt-6 sm:pt-8 opacity-0 transform translate-x-8 animate-load" style="animation-delay: 1.6s;">
         <img src="{{ asset('assets/images/sambutan/ttd-wannen.png') }}" alt="Tanda tangan Dr. Wannen"
              class="h-12 sm:h-16 opacity-80 mx-auto lg:mx-0">
-      </div>
+      </div> --}}
     </div>
   </div>
+
+  <!-- FOTO GEDUNG -->
   <section class="relative w-full bg-white overflow-hidden">
-<img alt="Gedung SMK Prestasi Prima" class="w-full h-[40vh] sm:h-[55vh] lg:h-screen object-cover object-center hover:scale-[1.02] transition-transform duration-700" src="{{ asset('assets/images/gedung/gedung.avif') }}">
-</section>
+    <img alt="Gedung SMK Prestasi Prima" class="w-full h-[40vh] sm:h-[55vh] lg:h-screen object-cover object-center hover:scale-[1.02] transition-transform duration-700" src="{{ asset('assets/images/gedung/gedung.avif') }}">
+  </section>
 </section>
 
 <!-- ===================== ANIMASI CUSTOM ===================== -->
 <style>
-@keyframes pulse-slow {
-  0%, 100% { transform: scale(1); opacity: 0.3; }
-  50% { transform: scale(1.1); opacity: 0.5; }
-}
-.animate-pulse-slow {
-  animation: pulse-slow 8s infinite;
-}
-.delay-2000 {
-  animation-delay: 2s;
-}
-
 /* Typing effect untuk quote */
 #quote-text {
   display: inline-block;

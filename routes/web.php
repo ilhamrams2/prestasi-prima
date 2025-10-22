@@ -28,7 +28,8 @@ use App\Http\Controllers\prestasiprima\{
     SambutanController,
     FaqController,
     StaffController,
-    IndustriController
+    IndustriController,
+    ProfileSekolahController
 };
 
 use App\Http\Controllers\prestasiprima\Admin\{
@@ -103,6 +104,11 @@ Route::get('/staffmanagement', [StaffController::class, 'index'])->name('staff')
 
 Route::get('/dokumentasi/industri', [IndustriController::class, 'index'])
     ->name('industri');
+
+    Route::prefix('tentang')->group(function () {
+    Route::get('/profile-sekolah', [ProfileSekolahController::class, 'index'])
+        ->name('prestasiprima.profile-sekolah');
+});
 
 
 // ============================================================
