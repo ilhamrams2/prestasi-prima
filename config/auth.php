@@ -1,4 +1,5 @@
 <?php
+use App\Models\presmaboard\PresmaboardUser;
 
 return [
 
@@ -40,6 +41,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+  'presmaboard' => [
+            'driver' => 'session',
+            'provider' => 'presmaboard_users',
+        ],
+
+
     ],
 
     /*
@@ -64,6 +72,12 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+
+    'presmaboard_users' => [
+            'driver' => 'eloquent',
+            'model' => PresmaboardUser::class,
+        ],
+
 
         // 'users' => [
         //     'driver' => 'database',

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PresmaboardLeaderboard extends Model
 {
-    use HasFactory;
+     use HasFactory;
 
     protected $fillable = [
         'student_id',
@@ -22,11 +22,6 @@ class PresmaboardLeaderboard extends Model
         'last_calculated_at' => 'datetime',
     ];
 
-    /** -------------------------
-     *  RELASI ANTAR MODEL
-     *  ------------------------*/
-
-    // Setiap leaderboard milik satu student
     public function student()
     {
         return $this->belongsTo(PresmaboardStudent::class, 'student_id');

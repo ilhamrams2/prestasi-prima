@@ -124,29 +124,7 @@
     </section>
 
     {{-- Section Workshop --}}
-    <section class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-6 relative z-10">
-        <div class="bg-orange-100 rounded-2xl p-6 flex items-center justify-between">
-            <div>
-                <h3 class="text-lg font-bold text-orange-700">Siap Magang? Upgrade Skill-mu Dulu!</h3>
-                <button
-                    class="mt-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition">
-                    Ikuti Jadwal Workshop
-                </button>
-            </div>
-            <img src="../assets/images/section/presmalancer/workshop1.png" alt="Workshop" class="h-24">
-        </div>
-
-        <div class="bg-orange-500 rounded-2xl p-6 flex items-center justify-between">
-            <div>
-                <h3 class="text-lg font-bold text-white">Cari tahu gaji di industri pilihanmu!</h3>
-                <button
-                    class="mt-3 bg-orange-100 hover:bg-orange-200 text-orange-400 font-semibold py-2 px-4 rounded-lg shadow transition">
-                    Cek Gaji & Info Lainnya
-                </button>
-            </div>
-            <img src="../assets/images/section/presmalancer/workshop2.png" alt="Salary" class="h-24">
-        </div>
-    </section>
+   
     @include('ChatbotUI')
 
     <script>
