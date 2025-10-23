@@ -47,8 +47,10 @@ return new class extends Migration
             $table->json('phase2_answers')->nullable(); // Answers to company questions
             
             // Phase 3 Data - Design Draft
+            $table->string('template_choice')->nullable(); // Selected template: modern_professional, corporate_classic, creative_design, minimal_clean
             $table->json('phase3_files')->nullable(); // Portfolio/design files
             $table->text('phase3_notes')->nullable();
+            $table->text('cover_letter_text')->nullable(); // Cover letter content for phase 3
             
             // Phase 4 Data - Review
             $table->text('final_notes')->nullable();

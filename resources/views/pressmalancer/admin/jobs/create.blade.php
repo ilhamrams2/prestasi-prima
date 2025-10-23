@@ -1,3 +1,4 @@
+@extends('app')
 @vite('resources/css/app.css')
 
 <div class="min-h-screen bg-gray-50 py-8">

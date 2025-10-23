@@ -1,17 +1,20 @@
+{{-- Left Sidebar Layout Component --}}
 @php
-    // Get current user (replace with actual auth)
-    $user = auth()->user() ?? (object)[
-        'name' => 'Ahmad Rizki',
-        'email' => 'ahmad.rizki@example.com',
-        'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
-        'role' => 'Job Seeker',
-        'location' => 'Jakarta, Indonesia',
-        'phone' => '+62 812 3456 7890',
-    ];
+    // Get current user with profile
+    $user = auth()->user() ?? \App\Models\User::find(1);
+    $profile = $user->profile ?? null;
     
-    $profileCompletion = 85;
-    $applicationsCount = 12;
-    $savedJobsCount = 5;
+    // Get avatar URL from profile
+    $avatarUrl = $profile ? $profile->avatar_url : 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&background=f97316&color=fff&size=200';
+    
+    // Get stats from profile
+    $applicationsCount = $profile->applications_count ?? 0;
+    $interviewsCount = $profile->interviews_count ?? 0;
+    $offersCount = $profile->offers_count ?? 0;
+    $savedJobsCount = 5; // TODO: Implement saved jobs
+    
+    // Profile completion (simplified)
+    $profileCompletion = 65; // TODO: Calculate from profile completeness
     
     // Current route for active state
     $currentRoute = request()->route()->getName() ?? '';
@@ -74,9 +77,10 @@ class="sidebar-wrapper">
                      class="flex flex-col items-center cursor-pointer group">
                     <div class="relative">
                         <div class="w-12 h-12 rounded-full overflow-hidden border-4 border-orange-100 group-hover:border-orange-300 transition-all">
-                            <img src="{{ $user->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name) }}" 
+                            <img src="{{ $avatarUrl }}" 
                                  alt="{{ $user->name }}"
-                                 class="w-full h-full object-cover">
+                                 class="w-full h-full object-cover"
+                                 id="sidebar-avatar-collapsed">
                         </div>
                         <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                     </div>
@@ -89,9 +93,10 @@ class="sidebar-wrapper">
                         <div class="flex items-start gap-4">
                             <div class="relative">
                                 <div class="w-16 h-16 rounded-full overflow-hidden border-4 border-orange-100">
-                                    <img src="{{ $user->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name) }}" 
+                                    <img src="{{ $avatarUrl }}" 
                                          alt="{{ $user->name }}"
-                                         class="w-full h-full object-cover">
+                                         class="w-full h-full object-cover"
+                                         id="sidebar-avatar-expanded">
                                 </div>
                                 <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
                             </div>
@@ -164,33 +169,6 @@ class="sidebar-wrapper">
                     </a>
 
                    
-
-                {{-- Divider and Premium Card (only when expanded) --}}
-                <template x-if="!isCollapsed">
-                    <div>
-                        <div class="my-6 border-t border-gray-200"></div>
-
-                        {{-- Premium Card --}}
-                        <div class="mb-4 overflow-hidden border-l-4 border-l-blue-500 bg-white rounded-lg shadow">
-                            <div class="p-4 bg-gradient-to-br from-blue-50 to-indigo-50">
-                                <div class="flex items-start gap-3 mb-3">
-                                    <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900 text-sm">Premium Member</h4>
-                                        <p class="text-xs text-gray-600 mt-1">
-                                            Upgrade untuk akses eksklusif ke workshop dan fitur premium
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-            </nav>
 
             {{-- Logout Button - Fixed at bottom --}}
             <div :class="isCollapsed ? 'p-2' : 'p-4'" class="border-t border-gray-200 bg-gray-50">
@@ -303,9 +281,6 @@ class="sidebar-wrapper">
                         <span class="flex-1 text-left font-medium">Beranda</span>
                     </a>
 
-                    
-                </div>
-            </nav>
 
             {{-- Mobile Logout --}}
             <div class="p-4 border-t border-gray-200 bg-gray-50">

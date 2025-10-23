@@ -117,7 +117,6 @@ class ChatbotController extends Controller
         // PERBAIKAN: Mengambil input menggunakan kunci 'content'
         $prompt = $request->input('content');
         $replyText = '';
-        $navigation = null;
 
         try {
             // 1. Ambil riwayat chat dari session
@@ -144,26 +143,32 @@ class ChatbotController extends Controller
 
                 $replyText = $extractedReply;
                 
-                // 3. Ekstraksi Tag Navigasi
-                $pattern = '~\[NAVIGATE_TO:\[(.*?)\]\|(.*?)\]~';
-                $replyText = preg_replace_callback($pattern, function ($matches) use (&$navigation) {
-                    $navigation = [
-                        'text' => $matches[1], // Teks Tombol
-                        'url' => $matches[2],  // URL Tujuan
+                // 3. Ekstraksi SEMUA Tag Navigasi (multiple buttons)
+                $navigationButtons = [];
+                $pattern = '~\[NAVIGATE_TO:\[([^\]]+)\]\|([^\]]+)\]~';
+                
+                // Extract all navigation tags
+                preg_match_all($pattern, $replyText, $matches, PREG_SET_ORDER);
+                foreach ($matches as $match) {
+                    $navigationButtons[] = [
+                        'text' => trim($match[1]),
+                        'url' => trim($match[2])
                     ];
-                    return ''; // Hapus tag dari teks balasan utama
-                }, $replyText);
-
+                }
+                
+                // Remove all navigation tags from reply text
+                $replyText = preg_replace($pattern, '', $replyText);
                 $replyText = trim($replyText);
 
-                // 4. Simpan prompt dan balasan AI ke riwayat menggunakan Session Helper
-                $this->saveMessage($prompt, $replyText);
+                // 4. Simpan prompt dan balasan AI ASLI (dengan tag navigasi) ke riwayat
+                // Ini penting agar AI bisa konteks bahwa dia sudah kasih tombol navigasi
+                $this->saveMessage($prompt, $extractedReply);
 
                 // 5. Kembalikan respons JSON yang terstruktur
                 return response()->json([
                     'reply' => $replyText,
-                    'navigation' => $navigation,
-                    'debug_history_count' => count($this->getChatHistory()) // Optional: for debugging
+                    'navigation' => $navigationButtons, // Array of buttons, bukan single object
+                    'debug_history_count' => count($this->getChatHistory())
                 ]);
 
             } else {

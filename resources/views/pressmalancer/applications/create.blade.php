@@ -1,4 +1,4 @@
-@vite('resources/css/app.css')
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 @section('title', 'Lamar Pekerjaan - Fase 1')
 @section('content')
 <div class="min-h-screen bg-gray-50 flex justify-center items-start py-8" x-data="applicationForm()">

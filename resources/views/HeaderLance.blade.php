@@ -8,8 +8,8 @@
 
         <!-- Language -->
         <div class="flex items-center space-x-2 px-4">
-          <a href="#"><img src="{{ asset('assets/images/bendera/id.png') }}" alt="ID" class="w-5 h-3"></a>
-          <a href="#"><img src="{{ asset('assets/images/bendera/us.png') }}" alt="EN" class="w-5 h-3"></a>
+          <a src="{{ secure_asset('assets/images/bendera/id.png') }}" alt="ID" class="w-5 h-3"></a>
+          <a src="{{ secure_asset('assets/images/bendera/us.png') }}" alt="EN" class="w-5 h-3"></a>
         </div>
 
         <!-- Phone -->
@@ -40,7 +40,7 @@
 
       <!-- Logo -->
       <a href="/" class="flex items-center space-x-2">
-        <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo" class="h-12">
+        <img src="{{ secure_asset('assets/images/logo-smk.png') }}" alt="Logo" class="h-12">
         <span class="font-bold text-lg header-logo text-white">SMK Prestasi Prima</span>
       </a>
 
@@ -82,8 +82,8 @@
 
       <!-- Language Selector -->
       <div class="flex space-x-2 px-6 py-3">
-        <img src="{{ asset('assets/images/bendera/id.png') }}" alt="ID" class="w-5 h-3">
-        <img src="{{ asset('assets/images/bendera/us.png') }}" alt="EN" class="w-5 h-3">
+        <img src="{{ secure_asset('assets/images/bendera/id.png') }}" alt="ID" class="w-5 h-3">
+        <img src="{{ secure_asset('assets/images/bendera/us.png') }}" alt="EN" class="w-5 h-3">
       </div>
 
       <!-- Menu Links -->

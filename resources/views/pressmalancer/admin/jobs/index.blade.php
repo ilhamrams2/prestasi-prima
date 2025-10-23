@@ -83,14 +83,14 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-sm border-l-4 border-l-purple-500 p-6 hover:shadow-lg transition-all duration-300">
+            <div class="bg-white rounded-lg shadow-sm border-l-4 border-l-blue-500 p-6 hover:shadow-lg transition-all duration-300">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-600 text-sm">Perusahaan</p>
                         <p class="text-3xl font-bold text-gray-900 mt-2">{{ \App\Models\Company::count() }}</p>
                     </div>
-                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                         </svg>
                     </div>
@@ -125,7 +125,7 @@
         </div>
 
         <div class="flex gap-2">
-            <a href="{{ route('admin.companies.index') }}" class="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-all duration-300 font-medium shadow-md flex items-center gap-2">
+            <a href="{{ route('admin.companies.index') }}" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 font-medium shadow-md flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                 </svg>
@@ -196,7 +196,7 @@
                             <span class="px-3 py-1 text-xs font-medium rounded-full whitespace-nowrap
                                 @if($job->job_type === 'Full Time') bg-blue-100 text-blue-800
                                 @elseif($job->job_type === 'Part Time') bg-green-100 text-green-800
-                                @elseif($job->job_type === 'Contract') bg-purple-100 text-purple-800
+                                @elseif($job->job_type === 'Contract') bg-blue-100 text-blue-800
                                 @elseif($job->job_type === 'Freelance') bg-pink-100 text-pink-800
                                 @else bg-gray-100 text-gray-800
                                 @endif">
@@ -302,7 +302,7 @@
                         <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Tidak Aktif</option>
                     </select>
 
-                    <a href="{{ route('admin.companies.index') }}" class="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-all duration-300 hover:scale-105 flex items-center gap-2 font-medium shadow-lg">
+                    <a href="{{ route('admin.companies.index') }}" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300 hover:scale-105 flex items-center gap-2 font-medium shadow-lg">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                         </svg>

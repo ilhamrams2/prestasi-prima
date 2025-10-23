@@ -26,22 +26,17 @@ class RegisterLanceController extends Controller
      */
     public function register(Request $request)
     {
-        // ✅ Ubah validasi unique ke presmalancer_users
         $request->validate([
-    'username' => ['required', 'string', 'max:255', 'unique:presmalancer_users'],
-    'email' => ['required', 'string', 'email', 'max:255', 'unique:presmalancer_users'],
-    'password' => ['required', 'string', 'min:8', 'confirmed'],
-    'date_of_birth' => ['required', 'date', 'before:today'],
-]);
-
+            'username' => ['required', 'string', 'max:255', 'unique:presmalancer_users,name'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:presmalancer_users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
 
         // Buat user baru
         $user = User::create([
-            'username' => $request->username,
+            'name' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'date_of_birth' => $request->date_of_birth,
-            'name' => $request->username,
         ]);
 
         // Trigger event bawaan Laravel
@@ -54,4 +49,3 @@ class RegisterLanceController extends Controller
         return redirect()->route('jobs.index')->with('success', 'Registrasi berhasil!');
     }
 }
-    

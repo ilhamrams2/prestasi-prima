@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forum PresmaLancer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
 <!-- ================= HERO SECTION (VIDEO) ================= -->
 <section id="heroVideoSection" 
          class="relative h-screen w-full overflow-hidden bg-cover bg-center"
@@ -173,7 +181,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
-
+{{-- <div id="skipBtnContainer" 
+       class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30">
+    <button id="skipBtn"
+            class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg shadow-lg text-base font-semibold transition">
+      Lewati Video →
+    </button>
+  </div> --}}
 <!-- ================= STYLE ================= -->
 <style>
 /* Hero Smooth Animation - versi cepat */

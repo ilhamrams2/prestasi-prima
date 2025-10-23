@@ -4,17 +4,17 @@
 @section('content')
 <div class="min-h-screen bg-gray-50">
     <!-- Header -->
-    <header class="bg-gradient-to-r from-purple-600 to-purple-700 shadow-lg">
+    <header class="bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex items-center gap-4">
-                <a href="{{ route('admin.companies.index') }}" class="p-2 hover:bg-purple-800 rounded-lg transition-colors">
+                <a href="{{ route('admin.companies.index') }}" class="p-2 hover:bg-blue-800 rounded-lg transition-colors">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
                 </a>
                 <div>
                     <h1 class="text-3xl font-bold text-white">Edit Perusahaan</h1>
-                    <p class="text-purple-100 mt-1">{{ $company->company_name }}</p>
+                    <p class="text-blue-100 mt-1">{{ $company->company_name }}</p>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                             id="company_name"
                             name="company_name"
                             value="{{ old('company_name', $company->company_name) }}"
-                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('company_name') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('company_name') border-red-500 @enderror"
                             required
                         >
                         @error('company_name')
@@ -65,7 +65,7 @@
                             id="name"
                             name="name"
                             value="{{ old('name') !== null ? old('name') : $company->name }}"
-                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('name') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('name') border-red-500 @enderror"
                             required
                         >
                         @error('name')
@@ -82,7 +82,7 @@
                             <select 
                                 id="industry"
                                 name="industry" 
-                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('industry') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('industry') border-red-500 @enderror"
                             >
                                 <option value="">Pilih Industri</option>
                                 <option value="Technology" {{ old('industry', $company->industry) == 'Technology' ? 'selected' : '' }}>Technology</option>
@@ -107,7 +107,7 @@
                                 id="location"
                                 name="location" 
                                 value="{{ old('location') !== null ? old('location') : $company->location }}"
-                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('location') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('location') border-red-500 @enderror"
                             >
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                             id="description"
                             name="description" 
                             rows="4"
-                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('description') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('description') border-red-500 @enderror"
                         >{{ old('description', $company->description) }}</textarea>
                     </div>
 
@@ -136,7 +136,7 @@
                                 id="email"
                                 name="email" 
                                 value="{{ old('email', $company->email) }}"
-                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('email') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('email') border-red-500 @enderror"
                                 required
                             >
                             @error('email')
@@ -153,7 +153,7 @@
                                 id="phone"
                                 name="phone" 
                                 value="{{ old('phone', $company->phone) }}"
-                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('phone') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('phone') border-red-500 @enderror"
                             >
                         </div>
                     </div>
@@ -169,7 +169,7 @@
                                 id="website"
                                 name="website" 
                                 value="{{ old('website', $company->website) }}"
-                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('website') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('website') border-red-500 @enderror"
                             >
                         </div>
 
@@ -182,7 +182,7 @@
                                 id="logo"
                                 name="logo" 
                                 value="{{ old('logo', $company->logo) }}"
-                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('logo') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('logo') border-red-500 @enderror"
                             >
                         </div>
                     </div>
@@ -199,7 +199,7 @@
                     <div class="flex items-center gap-4 pt-6 border-t border-gray-200">
                         <button 
                             type="submit"
-                            class="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white rounded-lg transition-all duration-300 hover:scale-105 font-semibold shadow-lg"
+                            class="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg transition-all duration-300 hover:scale-105 font-semibold shadow-lg"
                         >
                             <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -218,11 +218,11 @@
         </div>
 
         <!-- Stats Card -->
-        <div class="mt-6 bg-gradient-to-r from-purple-50 to-purple-100 border border-purple-200 rounded-lg p-6">
-            <h3 class="font-semibold text-purple-900 mb-3">Statistik Perusahaan</h3>
+        <div class="mt-6 bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-6">
+            <h3 class="font-semibold text-blue-900 mb-3">Statistik Perusahaan</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div class="bg-white rounded-lg p-4 text-center">
-                    <div class="text-2xl font-bold text-purple-600">{{ $company->jobs->count() }}</div>
+                    <div class="text-2xl font-bold text-blue-600">{{ $company->jobs->count() }}</div>
                     <div class="text-sm text-gray-600">Total Lowongan</div>
                 </div>
                 <div class="bg-white rounded-lg p-4 text-center">

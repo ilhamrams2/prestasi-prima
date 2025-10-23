@@ -8,7 +8,7 @@
 
         <!-- Language -->
         <div class="flex items-center space-x-2 px-4">
-          <a href="#"><img src="{{ asset('assets/images/bendera/id.png') }}" alt="ID" class="w-5 h-3"></a>
+src="{{ secure_asset('assets/images/bendera/id.png') }}" alt="ID" class="w-5 h-3"></a>
           <a href="#"><img src="{{ asset('assets/images/bendera/us.png') }}" alt="EN" class="w-5 h-3"></a>
         </div>
 

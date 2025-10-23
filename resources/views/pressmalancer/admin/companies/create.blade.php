@@ -4,17 +4,17 @@
 @section('content')
 <div class="min-h-screen bg-gray-50">
     <!-- Header -->
-    <header class="bg-gradient-to-r from-purple-600 to-purple-700 shadow-lg">
+    <header class="bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex items-center gap-4">
-                <a href="{{ route('admin.companies.index') }}" class="p-2 hover:bg-purple-800 rounded-lg transition-colors">
+                <a href="{{ route('admin.companies.index') }}" class="p-2 hover:bg-blue-800 rounded-lg transition-colors">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>
                 </a>
                 <div>
                     <h1 class="text-3xl font-bold text-white">Tambah Perusahaan Baru</h1>
-                    <p class="text-purple-100 mt-1">Isi informasi perusahaan di bawah ini</p>
+                    <p class="text-blue-100 mt-1">Isi informasi perusahaan di bawah ini</p>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                             id="company_name"
                             name="company_name" 
                             value="{{ old('company_name') }}"
-                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('company_name') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('company_name') border-red-500 @enderror"
                             placeholder="Contoh: PT Teknologi Indonesia"
                             required
                         >
@@ -66,7 +66,7 @@
                             id="name"
                             name="name" 
                             value="{{ old('name') }}"
-                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('name') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('name') border-red-500 @enderror"
                             placeholder="Contoh: PT Teknologi Maju"
                             required
                         >
@@ -85,7 +85,7 @@
                             <select 
                                 id="industry"
                                 name="industry" 
-                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('industry') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('industry') border-red-500 @enderror"
                             >
                                 <option value="">Pilih Industri</option>
                                 <option value="Technology" {{ old('industry') == 'Technology' ? 'selected' : '' }}>Technology</option>
@@ -110,7 +110,7 @@
                                 id="location"
                                 name="location" 
                                 value="{{ old('location') }}"
-                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('location') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('location') border-red-500 @enderror"
                                 placeholder="Contoh: Jakarta"
                             >
                         </div>
@@ -125,7 +125,7 @@
                             id="description"
                             name="description" 
                             rows="4"
-                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('description') border-red-500 @enderror"
+                            class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('description') border-red-500 @enderror"
                             placeholder="Ceritakan tentang perusahaan Anda..."
                         >{{ old('description') }}</textarea>
                     </div>
@@ -141,7 +141,7 @@
                                 id="email"
                                 name="email" 
                                 value="{{ old('email') }}"
-                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('email') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('email') border-red-500 @enderror"
                                 placeholder="info@company.com"
                                 required
                             >
@@ -159,7 +159,7 @@
                                 id="phone"
                                 name="phone" 
                                 value="{{ old('phone') }}"
-                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('phone') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('phone') border-red-500 @enderror"
                                 placeholder="021-12345678"
                             >
                         </div>
@@ -176,7 +176,7 @@
                                 id="website"
                                 name="website" 
                                 value="{{ old('website') }}"
-                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('website') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('website') border-red-500 @enderror"
                                 placeholder="https://company.com"
                             >
                         </div>
@@ -190,7 +190,7 @@
                                 id="logo"
                                 name="logo" 
                                 value="{{ old('logo') }}"
-                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 @error('logo') border-red-500 @enderror"
+                                class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('logo') border-red-500 @enderror"
                                 placeholder="https://example.com/logo.png"
                             >
                         </div>
@@ -200,7 +200,7 @@
                     <div class="flex items-center gap-4 pt-6 border-t border-gray-200">
                         <button 
                             type="submit"
-                            class="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white rounded-lg transition-all duration-300 hover:scale-105 font-semibold shadow-lg"
+                            class="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg transition-all duration-300 hover:scale-105 font-semibold shadow-lg"
                         >
                             <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>

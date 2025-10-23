@@ -10,7 +10,11 @@ use Illuminate\Support\Facades\Validator;
 
 class ApplicationController extends Controller
 {
-     /**
+    // ============================================
+    // PHASE 1: Personal Info & Documents
+    // ============================================
+    
+    /**
      * Show the application form for Phase 1
      */
     public function create($jobId)
@@ -25,18 +29,13 @@ class ApplicationController extends Controller
                                   ->where('user_id', $userId)
                                   ->first();
         
-        if (view()->exists('applications.create')) {
-            return view('applications.create', compact('job', 'application'));
-        }
-
-        // Fallback response to avoid "View not found" runtime errors
-        return response('View applications.create not found. Create resources/views/applications/create.blade.php', 200);
+        return view('pressmalancer.applications.create', compact('job', 'application'));
     }
 
     /**
      * Store Phase 1 application data
      */
-    public function store(Request $request)
+    public function storePhase1(Request $request)
     {
         // Validation
         $validator = Validator::make($request->all(), [
@@ -111,24 +110,9 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Show edit form for existing application
+     * Update Phase 1 data
      */
-    public function edit($id)
-    {
-        $application = Application::with('job.company')->findOrFail($id);
-        $job = $application->job;
-        
-        if (view()->exists('applications.create')) {
-            return view('applications.create', compact('job', 'application'));
-        }
-
-        return response('View applications.create not found. Create resources/views/applications/create.blade.php', 200);
-    }
-
-    /**
-     * Update existing application
-     */
-    public function update(Request $request, $id)
+    public function updatePhase1(Request $request, $id)
     {
         $application = Application::findOrFail($id);
 
@@ -197,7 +181,214 @@ class ApplicationController extends Controller
         }
 
         return redirect()->route('applications.phase2', $application->id)
-                       ->with('success', 'Lamaran berhasil diperbarui!');
+                       ->with('success', 'Fase 1 berhasil diperbarui!');
+    }
+
+    // ============================================
+    // PHASE 2: Company Questions
+    // ============================================
+
+    /**
+     * Show Phase 2 - Company Questions
+     */
+    public function showPhase2($id)
+    {
+        $application = Application::with('job.company')->findOrFail($id);
+        
+        // Update phase if still in phase 1
+        if ($application->current_phase == 1) {
+            $application->update(['current_phase' => 2]);
+        }
+        
+        return view('pressmalancer.applications.phase2', compact('application'));
+    }
+
+    /**
+     * Store Phase 2 - Company Questions Answers
+     */
+    public function storePhase2(Request $request, $id)
+    {
+        $application = Application::findOrFail($id);
+
+        // Validation (customize based on company questions)
+        $validator = Validator::make($request->all(), [
+            'answers' => 'nullable|array',
+            'answers.*' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                           ->withErrors($validator)
+                           ->withInput();
+        }
+
+        // Store answers as JSON
+        $application->update([
+            'phase2_answers' => $request->answers ?? [],
+            'current_phase' => 2,
+        ]);
+
+        return redirect()->route('phase3', $application->id)
+                       ->with('success', 'Fase 2 berhasil disimpan! Lanjutkan ke Fase 3.');
+    }
+
+    // ============================================
+    // PHASE 3: Design Draft / Template Selection
+    // ============================================
+
+    /**
+     * Show Phase 3 - Design Draft
+     */
+    public function showPhase3($id)
+    {
+        $application = Application::with('job.company')->findOrFail($id);
+        
+        // Update phase if still in phase 2
+        if ($application->current_phase == 2) {
+            $application->update(['current_phase' => 3]);
+        }
+        
+        // Available templates
+        $templates = [
+            'modern_professional' => [
+                'name' => 'Modern Professional',
+                'description' => 'Clean dan modern untuk perusahaan teknologi',
+            ],
+            'corporate_classic' => [
+                'name' => 'Corporate Classic',
+                'description' => 'Format dan professional untuk perusahaan besar',
+            ],
+            'creative_design' => [
+                'name' => 'Creative Design',
+                'description' => 'Kreatif dan eye-catching untuk industri kreatif',
+            ],
+            'minimal_clean' => [
+                'name' => 'Minimal Clean',
+                'description' => 'Simpel dan minimalis untuk semua industri',
+            ],
+        ];
+        
+        return view('applications.phase3', compact('application', 'templates'));
+    }
+
+    /**
+     * Store Phase 3 - Template Selection
+     */
+    public function storePhase3(Request $request, $id)
+    {
+        $application = Application::findOrFail($id);
+
+        // Validation
+        $validator = Validator::make($request->all(), [
+            'template_choice' => 'required|in:modern_professional,corporate_classic,creative_design,minimal_clean',
+            'cover_letter_text' => 'nullable|string|max:5000',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                           ->withErrors($validator)
+                           ->withInput();
+        }
+
+        // Store template selection
+        $application->update([
+            'template_choice' => $request->template_choice,
+            'cover_letter_text' => $request->cover_letter_text,
+            'current_phase' => 3,
+        ]);
+
+        return redirect()->route('applications.phase4', $application->id)
+                       ->with('success', 'Fase 3 berhasil disimpan! Lanjutkan ke Review Final.');
+    }
+
+    // ============================================
+    // PHASE 4: Review & Submit
+    // ============================================
+
+    /**
+     * Show Phase 4 - Review & Submit
+     */
+    public function showPhase4($id)
+    {
+        $application = Application::with('job.company')->findOrFail($id);
+        
+        // Update phase if still in phase 3
+        if ($application->current_phase == 3) {
+            $application->update(['current_phase' => 4]);
+        }
+        
+        return view('applications.phase4', compact('application'));
+    }
+
+    /**
+     * Submit Final Application (Phase 4)
+     */
+    public function submitFinal(Request $request, $id)
+    {
+        $application = Application::findOrFail($id);
+
+        // Validation
+        $validator = Validator::make($request->all(), [
+            'final_notes' => 'nullable|string|max:1000',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                           ->withErrors($validator)
+                           ->withInput();
+        }
+
+        // Mark as completed and submitted
+        $application->update([
+            'final_notes' => $request->final_notes,
+            'current_phase' => 4,
+            'is_completed' => true,
+            'submitted_at' => now(),
+            'status' => 'pending', // Set to pending for admin review
+        ]);
+
+        return redirect()->route('applications.success', $application->id)
+                       ->with('success', 'Lamaran berhasil dikirim! Terima kasih sudah melamar.');
+    }
+
+    /**
+     * Show success page after submission
+     */
+    public function success($id)
+    {
+        $application = Application::with('job.company')->findOrFail($id);
+        
+        return view('applications.success', compact('application'));
+    }
+
+    // ============================================
+    // GENERAL CRUD OPERATIONS
+    // ============================================
+
+    /**
+     * Show user's applications list
+     */
+    public function index()
+    {
+        $userId = 1; // auth()->id();
+        
+        $applications = Application::with(['job.company'])
+                                   ->where('user_id', $userId)
+                                   ->orderBy('created_at', 'desc')
+                                   ->paginate(10);
+        
+        return view('applications.index', compact('applications'));
+    }
+
+    /**
+     * Show edit form for existing application
+     */
+    public function edit($id)
+    {
+        $application = Application::with('job.company')->findOrFail($id);
+        $job = $application->job;
+        
+        return view('applications.create', compact('job', 'application'));
     }
 
     /**
@@ -222,141 +413,93 @@ class ApplicationController extends Controller
                        ->with('success', 'Lamaran berhasil dihapus.');
     }
 
-    /**
-     * Show Phase 2 (Placeholder for now)
-     */
-    public function showPhase2($id)
-    {
-        $application = Application::with('job.company')->findOrFail($id);
-        
-        // Update phase if still in phase 1
-        if ($application->current_phase == 1) {
-            $application->update(['current_phase' => 2]);
-        }
-        
-        if (view()->exists('applications.phase2')) {
-            return view('applications.phase2', compact('application'));
-        }
-
-        return response('View applications.phase2 not found. Create resources/views/applications/phase2.blade.php', 200);
-    }
+    // ============================================
+    // FILE DOWNLOAD OPERATIONS
+    // ============================================
 
     /**
      * Download resume file
      */
     public function downloadResume($id)
-    {
-        $application = Application::findOrFail($id);
-        
-        if (!$application->resume_path) {
-            abort(404, 'Resume tidak ditemukan.');
-        }
+{
+    $application = Application::findOrFail($id);
 
-        // Ensure file exists on the 'public' disk
-        if (!Storage::disk('public')->exists($application->resume_path)) {
-            abort(404, 'Resume tidak ditemukan.');
-        }
-
-        // Build local path for the "public" disk (storage/app/public)
-        $path = storage_path('app/public/' . $application->resume_path);
-        if (!file_exists($path)) {
-            // Fallback to disk download for non-local drivers
-        }
+    if (!$application->resume_path) {
+        abort(404, 'Resume tidak ditemukan.');
     }
-    /**
-     * Download cover letter file
-     */
-    public function downloadCoverLetter($id)
-    {
-        $application = Application::findOrFail($id);
-        
-        if (!$application->cover_letter_path) {
-            abort(404, 'Surat lamaran tidak ditemukan.');
-        }
 
-        // Ensure file exists on the 'public' disk
-        if (!Storage::disk('public')->exists($application->cover_letter_path)) {
-            abort(404, 'Surat lamaran tidak ditemukan.');
-        }
+    // Ambil path lengkap dari storage
+    $path = storage_path('app/public/' . $application->resume_path);
 
-        // Try to use the local path if the file is stored on the local "public" disk
-        $localPath = storage_path('app/public/' . $application->cover_letter_path);
-        if (file_exists($localPath)) {
-            return response()->download($localPath);
-        }
+    // Kembalikan file sebagai download
+    return response()->download($path, 'Resume_' . $application->first_name . '.pdf');
+}
 
-        // For remote disks (e.g. s3), stream the file from the disk
-        $stream = Storage::disk('public')->readStream($application->cover_letter_path);
-        if ($stream === false) {
-            abort(404, 'Surat lamaran tidak ditemukan.');
-        }
+public function downloadCoverLetter($id)
+{
+    $application = Application::findOrFail($id);
 
-        // Determine mime type: prefer local file detection if available, otherwise guess by extension
-        $mime = null;
-        $filename = basename($application->cover_letter_path);
-        // try using local file path if available
-        $localPath = storage_path('app/public/' . $application->cover_letter_path);
-        if (file_exists($localPath)) {
-            // use PHP's finfo if available, fallback to mime_content_type
-            if (function_exists('finfo_open')) {
-                $finfo = finfo_open(FILEINFO_MIME_TYPE);
-                if ($finfo !== false) {
-                    $mime = finfo_file($finfo, $localPath);
-                    finfo_close($finfo);
-                }
-            }
-            if (!$mime && function_exists('mime_content_type')) {
-                $mime = mime_content_type($localPath);
-            }
-        }
-
-        if (!$mime) {
-            // Guess by extension for common document types
-            $extension = strtolower(pathinfo($application->cover_letter_path, PATHINFO_EXTENSION));
-            switch ($extension) {
-                case 'pdf':
-                    $mime = 'application/pdf';
-                    break;
-                case 'doc':
-                    $mime = 'application/msword';
-                    break;
-                case 'docx':
-                    $mime = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-                    break;
-                default:
-                    $mime = 'application/octet-stream';
-                    break;
-            }
-        }
-
-        return response()->stream(function () use ($stream) {
-            fpassthru($stream);
-            if (is_resource($stream)) {
-                fclose($stream);
-            }
-        }, 200, [
-            'Content-Type' => $mime,
-            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
-        ]);
+    if (!$application->cover_letter_path) {
+        abort(404, 'Surat lamaran tidak ditemukan.');
     }
-    
+
+    $path = storage_path('app/public/' . $application->cover_letter_path);
+
+    return response()->download($path, 'CoverLetter_' . $application->first_name . '.pdf');
+}
+
+
+    // ============================================
+    // EDIT INDIVIDUAL PHASES FROM PHASE 4
+    // ============================================
 
     /**
-     * Show user's applications list
+     * Edit Phase 1 from Phase 4 review
      */
-    public function index()
+    public function editPhase1FromReview($id)
     {
-        $userId = 1; // auth()->id();
+        $application = Application::with('job.company')->findOrFail($id);
+        $job = $application->job;
         
-        $applications = Application::with(['job.company'])
-                                   ->where('user_id', $userId)
-                                   ->orderBy('created_at', 'desc')
-                                   ->paginate(10);
-        
-        if (view()->exists('applications.index')) {
-            return view('applications.index', compact('applications'));
-        }
+        return view('applications.create', compact('job', 'application'));
+    }
 
-        return response('View applications.index not found. Create resources/views/applications/index.blade.php', 200);
+    /**
+     * Edit Phase 2 from Phase 4 review
+     */
+    public function editPhase2FromReview($id)
+    {
+        $application = Application::with('job.company')->findOrFail($id);
+        
+        return view('pressmalancer.applications.phase2', compact('application'));
+    }
+
+    /**
+     * Edit Phase 3 from Phase 4 review
+     */
+    public function editPhase3FromReview($id)
+    {
+        $application = Application::with('job.company')->findOrFail($id);
+        
+        $templates = [
+            'modern_professional' => [
+                'name' => 'Modern Professional',
+                'description' => 'Clean dan modern untuk perusahaan teknologi',
+            ],
+            'corporate_classic' => [
+                'name' => 'Corporate Classic',
+                'description' => 'Format dan professional untuk perusahaan besar',
+            ],
+            'creative_design' => [
+                'name' => 'Creative Design',
+                'description' => 'Kreatif dan eye-catching untuk industri kreatif',
+            ],
+            'minimal_clean' => [
+                'name' => 'Minimal Clean',
+                'description' => 'Simpel dan minimalis untuk semua industri',
+            ],
+        ];
+        
+        return view('pressmalancer.applications.phase3', compact('application', 'templates'));
     }
 }

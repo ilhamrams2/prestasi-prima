@@ -1,3 +1,4 @@
+@extends('app')
 @if ($errors->any())
     <div class="mb-4 bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
         <ul class="text-red-700 text-sm list-disc list-inside">
@@ -13,15 +14,15 @@
 <script src="//unpkg.com/alpinejs" defer></script>
 <div class="min-h-screen bg-gray-50">
     <!-- Admin Header -->
-    <header class="bg-gradient-to-r from-purple-600 to-purple-700 shadow-lg">
+    <header class="bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex items-center justify-between">
                 <div>
                     <h1 class="text-3xl font-bold text-white">Kelola Perusahaan</h1>
-                    <p class="text-purple-100 mt-1">Manajemen Data Perusahaan</p>
+                    <p class="text-blue-100 mt-1">Manajemen Data Perusahaan</p>
                 </div>
                 <div class="flex items-center gap-4">
-                    <a href="{{ route('admin.jobs.index') }}" class="px-4 py-2 bg-white text-purple-700 rounded-lg hover:bg-purple-50 transition-all duration-300 hover:scale-105 font-medium">
+                    <a href="{{ route('admin.jobs.index') }}" class="px-4 py-2 bg-white text-blue-700 rounded-lg hover:bg-blue-50 transition-all duration-300 hover:scale-105 font-medium">
                         <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                         </svg>
@@ -53,7 +54,7 @@
                     <h2 class="text-2xl font-bold text-gray-900">{{ $companies->total() }} Perusahaan Terdaftar</h2>
                     <p class="text-gray-600">Total lowongan aktif: {{ \App\Models\Job::where('is_active', true)->count() }}</p>
                 </div>
-                <a href="{{ route('admin.companies.create') }}" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white rounded-lg transition-all duration-300 hover:scale-105 flex items-center gap-2 font-medium shadow-lg">
+                <a href="{{ route('admin.companies.create') }}" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg transition-all duration-300 hover:scale-105 flex items-center gap-2 font-medium shadow-lg">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
@@ -72,7 +73,7 @@
                         name="search"
                         value="{{ request('search') }}"
                         placeholder="Cari perusahaan..."
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     >
                 </div>
             </form>
@@ -81,7 +82,7 @@
         <!-- Companies Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse($companies as $company)
-                <div class="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border-l-4 border-l-purple-500">
+                <div class="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border-l-4 border-l-blue-500">
                     <div class="p-6">
                         <!-- Company Header -->
                         <div class="flex items-start gap-4 mb-4">
@@ -102,9 +103,9 @@
 
                         <!-- Company Stats -->
                         <div class="grid grid-cols-2 gap-3 mb-4">
-                            <div class="bg-purple-50 p-3 rounded-lg text-center">
-                                <div class="text-2xl font-bold text-purple-600">{{ $company->jobs->count() }}</div>
-                                <div class="text-xs text-purple-700">Lowongan</div>
+                            <div class="bg-blue-50 p-3 rounded-lg text-center">
+                                <div class="text-2xl font-bold text-blue-600">{{ $company->jobs->count() }}</div>
+                                <div class="text-xs text-blue-700">Lowongan</div>
                             </div>
                             <div class="bg-green-50 p-3 rounded-lg text-center">
                                 <div class="text-2xl font-bold text-green-600">{{ $company->jobs->where('is_active', true)->count() }}</div>
@@ -131,7 +132,7 @@
                                     <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
                                     </svg>
-                                    <a href="https://{{ $company->website }}" target="_blank" class="text-purple-600 hover:underline truncate">{{ $company->website }}</a>
+                                    <a href="https://{{ $company->website }}" target="_blank" class="text-blue-600 hover:underline truncate">{{ $company->website }}</a>
                                 </div>
                             @endif
                         </div>

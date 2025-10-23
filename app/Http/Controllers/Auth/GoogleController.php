@@ -22,38 +22,38 @@ class GoogleController extends Controller
      * Obtain the user information from Google.
      */
     public function handleGoogleCallback()
-{
-    try {
-        $googleUser = \Laravel\Socialite\Facades\Socialite::driver('google')->user();
+    {
+        try {
+            $googleUser = \Laravel\Socialite\Facades\Socialite::driver('google')->user();
 
-        $user = \App\Models\User::where('email', $googleUser->email)->first();
+            $user = \App\Models\User::where('email', $googleUser->email)->first();
 
-        if (!$user) {
-            $user = \App\Models\User::create([
-                'username' => $googleUser->name,
-                'email' => $googleUser->email,
-                'password' => \Illuminate\Support\Facades\Hash::make(uniqid()),
-                'date_of_birth' => now()->subYears(18),
-                'email_verified_at' => now(),
-                'role' => 'user', // tambahkan default role
-            ]);
+            if ($user && $user->role === 'admin') {
+                return redirect()->route('login')->with('error', 'Admin accounts cannot log in with Google.');
+            }
+
+            if (!$user) {
+                $user = \App\Models\User::create([
+                    'name' => $googleUser->name,
+                    'email' => $googleUser->email,
+                    'password' => \Illuminate\Support\Facades\Hash::make(uniqid()),
+                    'google_id' => $googleUser->id,
+                    'email_verified_at' => now(),
+                    'role' => 'user',
+                ]);
+            } elseif (!$user->google_id) {
+                $user->google_id = $googleUser->id;
+                $user->save();
+            }
+
+            \Illuminate\Support\Facades\Auth::login($user);
+    
+            return redirect()->route('jobs.index');
+
+        } catch (\Exception $e) {
+            return redirect()->route('register')->with('error', 'Unable to login using Google. Please try again.');
         }
-
-        \Illuminate\Support\Facades\Auth::login($user);
- 
-        // 🔹 Tentukan redirect berdasarkan role
-        session()->forget('url.intended');
-
-        if ($user->role === 'admin') {
-            return redirect()->route('admin.jobs.index'); // ke /admin/jobs
-        } else {
-            return redirect()->route('jobs.index'); // ke /jobs
-        }
-
-    } catch (\Exception $e) {
-        return redirect()->route('register')->with('error', 'Unable to login using Google. Please try again.');
     }
-}
 
 
 }
