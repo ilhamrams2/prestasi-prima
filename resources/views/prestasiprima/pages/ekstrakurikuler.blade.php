@@ -4,14 +4,14 @@
 
 @section('content')
 <section 
-  class="min-h-screen bg-white dark:bg-gray-900 pt-44 pb-28"
+  class="min-h-screen bg-white pt-44 pb-28 relative overflow-hidden"
 >
   <!-- ======== Header ======== -->
   <div class="text-center mb-20" data-aos="fade-down">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-[#0e162e] dark:text-white tracking-tight">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-[#0e162e] tracking-tight">
       Ekstrakurikuler <span class="text-orange-500">Prestasi Prima</span>
     </h1>
-    <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+    <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed">
       Ekstrakurikuler di SMK Prestasi Prima adalah wadah pengembangan minat dan bakat siswa
       untuk membentuk karakter unggul, mandiri, dan kreatif.
     </p>
@@ -20,7 +20,10 @@
 
   <!-- ======== Grid Ekstrakurikuler ======== -->
   <div class="max-w-7xl mx-auto px-6 relative">
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8 relative" data-aos="fade-up" data-aos-delay="200">
+    <div 
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8" 
+      data-aos="fade-up" data-aos-delay="200"
+    >
 
       @php
         $ekskul = [
@@ -72,5 +75,10 @@
       @endforeach
     </div>
   </div>
+</section>
+
+<!-- FOTO GEDUNG -->
+<section class="relative w-full bg-white overflow-hidden">
+  <img alt="Gedung SMK Prestasi Prima" class="w-full h-[40vh] sm:h-[55vh] lg:h-screen object-cover object-center hover:scale-[1.02] transition-transform duration-700" src="{{ asset('assets/images/gedung/gedung.avif') }}">
 </section>
 @endsection

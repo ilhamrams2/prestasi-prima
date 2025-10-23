@@ -3,89 +3,123 @@
 @section('title', 'Program Keahlian')
 
 @section('content')
-<section class="bg-white relative z-10 pt-28 md:pt-36 pb-24 overflow-hidden">
-  <div class="max-w-7xl mx-auto px-6 md:px-12 text-center">
+<section class="relative overflow-hidden pt-28 md:pt-36 pb-24 bg-gradient-to-b from-white via-orange-50/40 to-[#fefefe]">
+  {{-- ======= Ornamen Latar Menyilang ======= --}}
+  <div class="absolute inset-0 -z-10 overflow-hidden">
+    <div class="absolute -top-20 -left-32 w-[30rem] h-[30rem] bg-[#0e162e]/5 rotate-12 rounded-3xl blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-[25rem] h-[25rem] bg-orange-400/10 -rotate-12 rounded-3xl blur-2xl"></div>
+    <div class="absolute top-1/2 left-1/2 w-[50rem] h-[50rem] bg-gradient-to-r from-orange-100/30 to-[#0e162e]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-12 text-center relative z-10">
     
     <!-- ============ HEADER ============ -->
     <div class="mb-20">
-      <h2 class="text-4xl md:text-5xl font-bold text-[#0e162e] mb-4">Program Keahlian</h2>
-      <p class="text-gray-600 text-lg max-w-2xl mx-auto">SMK Prestasi Prima memiliki berbagai program keahlian unggulan yang siap membentuk generasi profesional, kreatif, dan berdaya saing di dunia kerja.</p>
+      <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+        <span class="text-[#0e162e] relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-orange-500/70 after:rounded-full after:translate-y-2">
+          Program
+        </span>
+        <span class="text-orange-600 ml-2">Keahlian</span>
+      </h2>
+      <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+        SMK Prestasi Prima memiliki berbagai program keahlian unggulan yang siap membentuk generasi profesional, kreatif, dan berdaya saing tinggi di dunia kerja modern.
+      </p>
     </div>
 
     <!-- ============ DAFTAR PROGRAM ============ -->
     <div class="space-y-24">
-      
-      <!-- ===== RPL ===== -->
+
+      {{-- ===== RPL ===== --}}
       <div class="grid md:grid-cols-2 gap-12 items-center fade-in-up">
-        <div>
-          <img src="{{ asset('assets/images/section/program/pplg.png') }}" alt="RPL" class="rounded-2xl shadow-lg w-full h-72 md:h-96 object-cover border-4 border-orange-100 transition-transform duration-500 hover:scale-105">
+        <div class="relative group">
+          <div class="absolute inset-0 bg-gradient-to-tr from-orange-500/10 to-[#0e162e]/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <img src="{{ asset('assets/images/section/program/pplg.png') }}" alt="RPL"
+            class="relative rounded-2xl shadow-lg w-full h-72 md:h-96 object-cover border-4 border-orange-100 transition-transform duration-500 group-hover:scale-105">
         </div>
         <div class="text-left">
           <div class="flex items-center gap-3 mb-4">
             <img src="{{ asset('assets/images/section/program/icons/pplg.png') }}" alt="Icon RPL" class="w-12 h-12">
-            <h3 class="text-3xl font-semibold text-[#0e162e]">Rekayasa Perangkat Lunak</h3>
+            <h3 class="text-3xl font-semibold text-[#0e162e]">
+              Rekayasa <span class="text-orange-600">Perangkat Lunak</span>
+            </h3>
           </div>
           <p class="text-gray-700 text-[17px] leading-relaxed mb-6">
             Mempelajari pembuatan aplikasi berbasis web, mobile, dan desktop dengan teknologi terkini.
           </p>
-          <button onclick="openModal('modalRPL')" class="inline-block bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:bg-orange-700 transition-all">
+          <button onclick="openModal('modalRPL')" 
+            class="inline-block bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:scale-105 transition-all duration-300">
             Lihat Selengkapnya
           </button>
         </div>
       </div>
 
-      <!-- ===== TJKT ===== -->
+      {{-- ===== TJKT ===== --}}
       <div class="grid md:grid-cols-2 gap-12 items-center fade-in-up">
-        <div class="md:order-2">
-          <img src="{{ asset('assets/images/section/program/tkj.png') }}" alt="TJKT" class="rounded-2xl shadow-lg w-full h-72 md:h-96 object-cover border-4 border-orange-100 transition-transform duration-500 hover:scale-105">
+        <div class="md:order-2 relative group">
+          <div class="absolute inset-0 bg-gradient-to-tl from-[#0e162e]/10 to-orange-400/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <img src="{{ asset('assets/images/section/program/tkj.png') }}" alt="TJKT"
+            class="relative rounded-2xl shadow-lg w-full h-72 md:h-96 object-cover border-4 border-orange-100 transition-transform duration-500 group-hover:scale-105">
         </div>
         <div class="text-left md:order-1">
           <div class="flex items-center gap-3 mb-4">
             <img src="{{ asset('assets/images/section/program/icons/tkj.png') }}" alt="Icon TJKT" class="w-12 h-12">
-            <h3 class="text-3xl font-semibold text-[#0e162e]">Teknik Jaringan Komputer dan Telekomunikasi</h3>
+            <h3 class="text-3xl font-semibold text-[#0e162e]">
+              Teknik <span class="text-orange-600">Jaringan Komputer & Telekomunikasi</span>
+            </h3>
           </div>
           <p class="text-gray-700 text-[17px] leading-relaxed mb-6">
             Belajar membangun dan mengelola jaringan komputer, server, serta sistem keamanan data.
           </p>
-          <button onclick="openModal('modalTJKT')" class="inline-block bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:bg-orange-700 transition-all">
+          <button onclick="openModal('modalTJKT')" 
+            class="inline-block bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:scale-105 transition-all duration-300">
             Lihat Selengkapnya
           </button>
         </div>
       </div>
 
-      <!-- ===== DKV ===== -->
+      {{-- ===== DKV ===== --}}
       <div class="grid md:grid-cols-2 gap-12 items-center fade-in-up">
-        <div>
-          <img src="{{ asset('assets/images/section/program/dkv.png') }}" alt="DKV" class="rounded-2xl shadow-lg w-full h-72 md:h-96 object-cover border-4 border-orange-100 transition-transform duration-500 hover:scale-105">
+        <div class="relative group">
+          <div class="absolute inset-0 bg-gradient-to-tr from-[#0e162e]/10 to-orange-400/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <img src="{{ asset('assets/images/section/program/dkv.png') }}" alt="DKV"
+            class="relative rounded-2xl shadow-lg w-full h-72 md:h-96 object-cover border-4 border-orange-100 transition-transform duration-500 group-hover:scale-105">
         </div>
         <div class="text-left">
           <div class="flex items-center gap-3 mb-4">
             <img src="{{ asset('assets/images/section/program/icons/dkv.png') }}" alt="Icon DKV" class="w-12 h-12">
-            <h3 class="text-3xl font-semibold text-[#0e162e]">Desain Komunikasi Visual</h3>
+            <h3 class="text-3xl font-semibold text-[#0e162e]">
+              Desain <span class="text-orange-600">Komunikasi Visual</span>
+            </h3>
           </div>
           <p class="text-gray-700 text-[17px] leading-relaxed mb-6">
             Fokus pada desain grafis, multimedia, dan komunikasi visual kreatif untuk berbagai media.
           </p>
-          <button onclick="openModal('modalDKV')" class="inline-block bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:bg-orange-700 transition-all">
+          <button onclick="openModal('modalDKV')" 
+            class="inline-block bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:scale-105 transition-all duration-300">
             Lihat Selengkapnya
           </button>
         </div>
       </div>
 
-      <!-- ===== BCF ===== -->
+      {{-- ===== BCF ===== --}}
       <div class="grid md:grid-cols-2 gap-12 items-center fade-in-up">
-        <div class="md:order-2">
-          <img src="{{ asset('assets/images/section/program/bcf.png') }}" alt="BCF" class="rounded-2xl shadow-lg w-full h-72 md:h-96 object-cover border-4 border-orange-100 transition-transform duration-500 hover:scale-105">
+        <div class="md:order-2 relative group">
+          <div class="absolute inset-0 bg-gradient-to-tl from-orange-400/10 to-[#0e162e]/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
+          <img src="{{ asset('assets/images/section/program/bcf.png') }}" alt="BCF"
+            class="relative rounded-2xl shadow-lg w-full h-72 md:h-96 object-cover border-4 border-orange-100 transition-transform duration-500 group-hover:scale-105">
         </div>
         <div class="text-left md:order-1">
           <div class="flex items-center gap-3 mb-4">
             <img src="{{ asset('assets/images/section/program/icons/bcf.png') }}" alt="Icon BCF" class="w-12 h-12">
-            <h3 class="text-3xl font-semibold text-[#0e162e]">Broadcasting & Cinematography</h3>
+            <h3 class="text-3xl font-semibold text-[#0e162e]">
+              Broadcasting <span class="text-orange-600">& Cinematography</span>
+            </h3>
           </div>
           <p class="text-gray-700 text-[17px] leading-relaxed mb-6">
             Mempelajari produksi siaran televisi, sinematografi, editing video, dan komunikasi visual audio untuk berbagai media kreatif.
           </p>
-          <button onclick="openModal('modalBCF')" class="inline-block bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:bg-orange-700 transition-all">
+          <button onclick="openModal('modalBCF')" 
+            class="inline-block bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:scale-105 transition-all duration-300">
             Lihat Selengkapnya
           </button>
         </div>
@@ -95,77 +129,50 @@
   </div>
 </section>
 
-<!-- ================= MODALS ================= -->
-
-<!-- Modal RPL -->
-<div id="modalRPL" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
-  <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full p-8 text-left relative animate-fadeIn">
-    <button onclick="closeModal('modalRPL')" class="absolute top-4 right-4 text-gray-500 hover:text-orange-600">
-      <i class="fas fa-times text-xl"></i>
-    </button>
-    <h3 class="text-3xl font-bold text-orange-600 mb-4">Rekayasa Perangkat Lunak</h3>
-    <p class="text-gray-700 leading-relaxed mb-4">
-      Jurusan ini mengajarkan pengembangan software berbasis web, mobile, dan desktop. Siswa akan mempelajari bahasa pemrograman modern seperti JavaScript, PHP, Python, serta framework populer seperti Laravel, React, dan Flutter.
-    </p>
+{{-- ==================== MODAL PROGRAM ==================== --}}
+<div id="modalRPL" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-6">
+  <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl p-8 relative">
+    <button onclick="closeModal('modalRPL')" class="absolute top-4 right-4 text-gray-500 hover:text-orange-600 text-2xl">&times;</button>
+    <h3 class="text-2xl font-bold text-orange-600 mb-4">Rekayasa Perangkat Lunak</h3>
     <p class="text-gray-700 leading-relaxed">
-      Lulusan RPL memiliki peluang besar di dunia kerja sebagai programmer, software engineer, web developer, dan masih banyak lagi.
+      Program RPL membekali siswa dengan kemampuan membuat aplikasi berbasis web, mobile, dan desktop menggunakan teknologi modern seperti JavaScript, PHP, dan Framework populer.
     </p>
   </div>
 </div>
 
-<!-- Modal TJKT -->
-<div id="modalTJKT" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
-  <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full p-8 text-left relative animate-fadeIn">
-    <button onclick="closeModal('modalTJKT')" class="absolute top-4 right-4 text-gray-500 hover:text-orange-600">
-      <i class="fas fa-times text-xl"></i>
-    </button>
-    <h3 class="text-3xl font-bold text-orange-600 mb-4">Teknik Jaringan Komputer dan Telekomunikasi</h3>
-    <p class="text-gray-700 leading-relaxed mb-4">
-      Di jurusan ini siswa akan belajar tentang jaringan komputer, server, keamanan data, dan sistem komunikasi digital. 
-    </p>
+<div id="modalTJKT" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-6">
+  <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl p-8 relative">
+    <button onclick="closeModal('modalTJKT')" class="absolute top-4 right-4 text-gray-500 hover:text-orange-600 text-2xl">&times;</button>
+    <h3 class="text-2xl font-bold text-orange-600 mb-4">Teknik Jaringan Komputer & Telekomunikasi</h3>
     <p class="text-gray-700 leading-relaxed">
-      Siswa juga diajarkan mengkonfigurasi router, switch, dan perangkat jaringan modern menggunakan teknologi terbaru.
+      Program ini memfokuskan pada penguasaan jaringan komputer, konfigurasi server, dan keamanan jaringan agar siswa siap menjadi teknisi jaringan profesional.
     </p>
   </div>
 </div>
 
-<!-- Modal DKV -->
-<div id="modalDKV" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
-  <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full p-8 text-left relative animate-fadeIn">
-    <button onclick="closeModal('modalDKV')" class="absolute top-4 right-4 text-gray-500 hover:text-orange-600">
-      <i class="fas fa-times text-xl"></i>
-    </button>
-    <h3 class="text-3xl font-bold text-orange-600 mb-4">Desain Komunikasi Visual</h3>
-    <p class="text-gray-700 leading-relaxed mb-4">
-      Jurusan DKV menyiapkan siswa menjadi desainer grafis kreatif yang menguasai Adobe Photoshop, Illustrator, dan After Effects.
-    </p>
+<div id="modalDKV" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-6">
+  <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl p-8 relative">
+    <button onclick="closeModal('modalDKV')" class="absolute top-4 right-4 text-gray-500 hover:text-orange-600 text-2xl">&times;</button>
+    <h3 class="text-2xl font-bold text-orange-600 mb-4">Desain Komunikasi Visual</h3>
     <p class="text-gray-700 leading-relaxed">
-      Lulusan DKV dapat bekerja di bidang desain grafis, multimedia, periklanan, fotografi, hingga produksi konten kreatif.
+      Program DKV mengajarkan siswa tentang desain grafis, multimedia, fotografi, dan komunikasi visual yang kreatif untuk dunia digital modern.
     </p>
   </div>
 </div>
 
-<!-- Modal BCF -->
-<div id="modalBCF" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
-  <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full p-8 text-left relative animate-fadeIn">
-    <button onclick="closeModal('modalBCF')" class="absolute top-4 right-4 text-gray-500 hover:text-orange-600">
-      <i class="fas fa-times text-xl"></i>
-    </button>
-    <h3 class="text-3xl font-bold text-orange-600 mb-4">Broadcasting & Cinematography</h3>
-    <p class="text-gray-700 leading-relaxed mb-4">
-      Jurusan ini berfokus pada dunia penyiaran dan perfilman. Siswa akan mempelajari teknik pengambilan gambar, penyuntingan video, audio mixing, serta proses produksi film dan program televisi.
-    </p>
+<div id="modalBCF" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-6">
+  <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl p-8 relative">
+    <button onclick="closeModal('modalBCF')" class="absolute top-4 right-4 text-gray-500 hover:text-orange-600 text-2xl">&times;</button>
+    <h3 class="text-2xl font-bold text-orange-600 mb-4">Broadcasting & Cinematography</h3>
     <p class="text-gray-700 leading-relaxed">
-      Lulusan BCF siap bekerja di industri broadcasting, rumah produksi, stasiun TV, hingga menjadi content creator profesional.
+      Program ini melatih siswa dalam produksi siaran, sinematografi, editing, dan komunikasi visual berbasis audio visual modern.
     </p>
   </div>
 </div>
 
-@endsection
-
+{{-- ==================== ANIMASI & SCRIPT ==================== --}}
 @push('scripts')
 <script>
-  // Modal Controls
   function openModal(id) {
     document.getElementById(id).classList.remove('hidden');
     document.body.classList.add('overflow-hidden');
@@ -175,7 +182,6 @@
     document.body.classList.remove('overflow-hidden');
   }
 
-  // Scroll Animation
   document.addEventListener("DOMContentLoaded", () => {
     const faders = document.querySelectorAll(".fade-in-up");
     const observer = new IntersectionObserver(entries => {
@@ -191,21 +197,8 @@
 </script>
 
 <style>
-  .fade-in-up {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s ease;
-  }
-  .fade-in-up.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .animate-fadeIn {
-    animation: fadeIn 0.3s ease;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
+.fade-in-up { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+.fade-in-up.show { opacity: 1; transform: translateY(0); }
 </style>
 @endpush
+@endsection

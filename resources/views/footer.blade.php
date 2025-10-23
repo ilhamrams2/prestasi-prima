@@ -206,7 +206,7 @@
           <span
             class="absolute left-0 -bottom-1 w-10 h-[2px] bg-gradient-to-r from-orange-500 to-orange-300 rounded-full"></span>
         </h2>
-        <form class="space-y-3">
+        <form class="space-y-3">  
           <input type="text" placeholder="Nama Anda"
             class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-200 focus:ring-2 focus:ring-orange-400 focus:outline-none">
           <input type="email" placeholder="Email"

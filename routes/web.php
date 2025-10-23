@@ -104,7 +104,7 @@ Route::get('/informasi/faq', [FaqController::class, 'index'])->name('faq');
 
 Route::get('/staffmanagement', [StaffController::class, 'index'])->name('staff');
 
-Route::get('/dokumentasi/industri', [IndustriController::class, 'index'])
+Route::get('/informasi/industri', [IndustriController::class, 'index'])
     ->name('industri');
 
     Route::prefix('tentang')->group(function () {
