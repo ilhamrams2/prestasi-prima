@@ -83,15 +83,15 @@
         <img src="{{ asset('assets/images/logo-icon.svg') }}" alt="Logo kecil SMK Prestasi Prima" 
              class="w-6 h-6 md:w-8 md:h-8 object-contain" loading="lazy">
       </a>
-      <a href="https://wa.me/6285195928886" target="_blank" aria-label="WhatsApp"
+      <a href="https://wa.me/6289599439033" target="_blank" aria-label="WhatsApp"
          class="text-orange-500 hover:text-orange-600">
         <i class="fab fa-whatsapp text-lg md:text-xl"></i>
       </a>
-      <a href="https://www.instagram.com/smkprestasiprima/" target="_blank" aria-label="Instagram"
+      <a href="https://instagram.com" target="_blank" aria-label="Instagram"
          class="text-orange-500 hover:text-orange-600">
         <i class="fab fa-instagram text-lg md:text-xl"></i>
       </a>
-      <a href="https://www.youtube.com/@SEKOLAHPRESTASIPRIMA" target="_blank" aria-label="YouTube"
+      <a href="https://youtube.com" target="_blank" aria-label="YouTube"
          class="text-orange-500 hover:text-orange-600">
         <i class="fab fa-youtube text-lg md:text-xl"></i>
       </a>
@@ -187,5 +187,4 @@ document.addEventListener("DOMContentLoaded", () => {
   100% { opacity: 1; transform: translateX(0) scale(1); }
 }
 .animate-floating { animation: floatingIn 0.8s ease-out forwards; }
-git
 </style>
