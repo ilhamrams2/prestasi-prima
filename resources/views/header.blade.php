@@ -60,8 +60,24 @@
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-56 text-gray-800">
             <a href="/tentang/program" class="dropdown-item">Program</a>
             <a href="/tentang/profile-sekolah" class="dropdown-item">Profile Sekolah</a>
-            <a href="{{ url('/staffmanagement') }}" class="dropdown-item">Staff Management</a>
-            <a href="{{ route('sambutan') }}" class="dropdown-item">Sambutan Pembina Yayasan</a>
+            <a href="/tentang/staffmanagement" class="dropdown-item">Staff Management</a>
+            <a href="/tentang/sambutan" class="dropdown-item">Sambutan Pembina Yayasan</a>
+          </div>
+        </div>
+
+        <div class="dropdown relative group">
+          <a href="#" class="nav-link flex items-center text-white">
+            Siswa
+            <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </a>
+          <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
+            <a href="/siswa/prestasi" class="dropdown-item">Prestasi</a>
+            <a href="https://www.instagram.com/osis_smkpp" class="dropdown-item">OSIS & MPK</a>
+            <a href="/siswa/ekstrakurikuler" class="dropdown-item">Ekstrakurikuler</a>
+            <a href="/siswa/penerimaan-siswa" class="dropdown-item">Penerimaan Siswa</a>
+            <a href="/siswa/testimoni" class="dropdown-item">Testimoni</a>
           </div>
         </div>
 
@@ -89,16 +105,25 @@
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
             <a href="/dokumentasi/gallery" class="dropdown-item">Galeri</a>
             <a href="/dokumentasi/berita" class="dropdown-item">Berita</a>
-            <a href="/dokumentasi/prestasi" class="dropdown-item">Prestasi</a>
-            <a href="/dokumentasi/ekstrakurikuler" class="dropdown-item">Ekstrakurikuler</a>
+            <a href="#" class="dropdown-item">Kegiatan</a>
           </div>
         </div>
 
-        <a href="/presmaboard" class="nav-link text-white">Presmaboard</a>
-        <a href="/presmalance" class="nav-link text-white">PresmaLance</a>
-
-
-        <a href="/pendaftaran" class="nav-link text-white">Pendaftaran</a>
+        <!-- Dokumentasi -->
+        <div class="dropdown relative group">
+          <a href="#" class="nav-link flex items-center text-white">
+            Presma
+            <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </a>
+          <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
+            <a href="/presmaboard" class="dropdown-item">Presmaboard</a>
+            <a href="/presmalance" class="dropdown-item">Presmalance</a>
+            <a href="https://absensmk.prestasiprima.sch.id/absensi/16" class="dropdown-item">Presmakad</a>
+            <a href="/pendaftaran" class="dropdown-item">Pendaftaran</a>
+          </div>
+        </div>
       </nav>
 
       <!-- Mobile Menu Button -->
@@ -119,10 +144,10 @@
 
     <!-- MOBILE MENU -->
     <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
-      <div class="flex space-x-2 px-6 py-3">
+      {{-- <div class="flex space-x-2 px-6 py-3">
         <img src="{{ asset('assets/images/bendera/id.png') }}" alt="ID" class="w-5 h-3">
         <img src="{{ asset('assets/images/bendera/us.png') }}" alt="EN" class="w-5 h-3">
-      </div>
+      </div> --}}
 
       <a href="/" class="mobile-link">Beranda</a>
 
@@ -135,8 +160,21 @@
       <div class="mobile-submenu">
         <a href="/tentang/program" class="mobile-subitem">Program</a>
         <a href="/tentang/profile-sekolah" class="mobile-subitem">Profile Sekolah</a>
-        <a href="/staffmanagement" class="mobile-subitem">Staff Management</a>
+        <a href="/tentang/staffmanagement" class="mobile-subitem">Staff Management</a>
         <a href="/tentang/sambutan" class="mobile-subitem">Sambutan Pembina Yayasan</a>
+      </div>
+
+      <button class="mobile-dropdown-btn">
+        Siswa
+        <svg class="w-4 h-4 ml-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      <div class="mobile-submenu">
+        <a href="/siswa/prestasi" class="mobile-subitem">Prestasi</a>
+        <a href="https://www.instagram.com/osis_smkpp" class="mobile-subitem">OSIS & MPK</a>
+        <a href="/siswa/ekstrakurikuler" class="mobile-subitem">Ekstrakurikuler</a>
+        <a href="/siswa/testimoni" class="mobile-subitem">Testimoni</a>
       </div>
 
       <button class="mobile-dropdown-btn">
@@ -151,9 +189,6 @@
         <a href="{{ route('prestasi') }}" class="mobile-subitem">Prestasi</a>
       </div>
 
-      
-      <a href="/presmaboard" class="mobile-link">Presmaboard</a>
-      <a href="/presmalance" class="mobile-link">PresmaLance</a>
       <button class="mobile-dropdown-btn">
         Informasi
         <svg class="w-4 h-4 ml-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -164,7 +199,20 @@
         <a href="/informasi/faq" class="mobile-subitem">FAQ</a>
         <a href="/informasi/industri" class="mobile-subitem">Industri</a>
       </div>
-      <a href="/pendaftaran" class="mobile-link">Pendaftaran</a>
+
+      <button class="mobile-dropdown-btn">
+        Presma
+        <svg class="w-4 h-4 ml-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      <div class="mobile-submenu">
+        <a href="/presmaboard" class="mobile-link">Presmaboard</a>
+        <a href="/presmalance" class="mobile-link">PresmaLance</a>
+        <a href="https://absensmk.prestasiprima.sch.id/absensi/16" class="mobile-link">Presmakad</a>
+        <a href="/pendaftaran" class="mobile-link">Pendaftaran</a>
+      </div>
+      
     </div>
   </div>
 </header>

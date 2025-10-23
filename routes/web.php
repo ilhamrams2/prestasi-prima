@@ -31,7 +31,9 @@ use App\Http\Controllers\prestasiprima\{
     IndustriController,
     ProfileSekolahController,
     EkstrakurikulerController,
-    ProgramController
+    ProgramController,
+    PenerimaanSiswaController,
+    TestimoniController
 };
 
 use App\Http\Controllers\prestasiprima\Admin\{
@@ -96,13 +98,13 @@ Route::prefix('dokumentasi/berita')
         Route::get('/{slug}', 'show')->name('detail');
     });
 
-Route::get('/dokumentasi/prestasi', function () {
+Route::get('/siswa/prestasi', function () {
     return view('prestasiprima.pages.prestasi');
 })->name('prestasi');
 
 Route::get('/informasi/faq', [FaqController::class, 'index'])->name('faq');
 
-Route::get('/staffmanagement', [StaffController::class, 'index'])->name('staff');
+Route::get('/tentang/staffmanagement', [StaffController::class, 'index'])->name('staff');
 
 Route::get('/informasi/industri', [IndustriController::class, 'index'])
     ->name('industri');
@@ -112,13 +114,17 @@ Route::get('/informasi/industri', [IndustriController::class, 'index'])
         ->name('prestasiprima.profile-sekolah');
 });
 
-Route::prefix('dokumentasi')->group(function () {
+Route::prefix('siswa')->group(function () {
     Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])
         ->name('prestasiprima.ekstrakurikuler');
         });
 
     Route::get('/tentang/program', [ProgramController::class, 'index'])->name('program');
 
+    Route::get('/siswa/penerimaan-siswa', [PenerimaanSiswaController::class, 'index'])
+    ->name('penerimaan.siswa');
+
+    Route::get('/siswa/testimoni', [TestimoniController::class, 'index'])->name('testimoni');
 
 
 // ============================================================

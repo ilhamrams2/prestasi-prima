@@ -1,103 +1,99 @@
 @extends('prestasiprima.index')
-@section('title', 'Staff & Guru - SMK Prestasi Prima')
+
+@section('title', 'Struktur Staff & Manajemen - SMK Prestasi Prima')
 
 @section('content')
+<section class="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white py-32 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 text-center">
 
-<!-- ========== STAFF SECTION ========== -->
-<section class="relative pt-32 pb-28 overflow-hidden bg-white">
-
-  <!-- Decorative Background Elements -->
-  <div class="absolute top-10 left-10 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl animate-float-slow"></div>
-  <div class="absolute bottom-10 right-10 w-72 h-72 bg-[#0e162e]/10 rounded-full blur-3xl animate-float-slow delay-300"></div>
-  <div class="absolute top-1/2 left-0 w-56 h-56 bg-gradient-to-tr from-orange-400/10 to-[#0e162e]/10 rounded-full blur-2xl animate-float-slow delay-500"></div>
-
-  <div class="relative max-w-7xl mx-auto px-4 md:px-8 text-center">
-    <!-- Title -->
-    <div class="mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold text-[#0e162e] mb-4 animate-fadeIn">
-        Struktur Manajemen Sekolah
-      </h2>
-      <div class="w-32 h-[3px] bg-gradient-to-r from-orange-500 to-[#0e162e] mx-auto mb-4 rounded-full"></div>
-      <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-        Mengenal lebih dekat para tenaga pendidik dan manajemen SMK Prestasi Prima yang berkomitmen membentuk masa depan terbaik untuk siswa.
-      </p>
+    <!-- ===== HEADER ===== -->
+    <div data-aos="fade-down" data-aos-duration="700">
+      <h1 class="text-4xl md:text-5xl font-bold text-[#0e162e] mb-4">Struktur Staff & Manajemen</h1>
+      <p class="text-gray-600 mb-16">SMK Prestasi Prima — Profesional, Berkarakter, dan Inspiratif</p>
     </div>
 
-    <!-- Kepala Sekolah & Wakil -->
-    <div class="grid md:grid-cols-2 gap-10 mb-20 relative z-10">
-      <div class="group relative bg-white border border-gray-200 p-8 rounded-3xl shadow-lg hover:shadow-2xl transition duration-500 overflow-hidden animate-slideUp">
-        <!-- Decorative accent -->
-        <div class="absolute -top-6 -right-6 w-28 h-28 bg-orange-500/15 rounded-full blur-xl"></div>
-        <div class="absolute bottom-0 left-0 w-20 h-20 bg-[#0e162e]/10 rounded-tr-[100%]"></div>
+    <!-- ===== STRUKTUR ORGANISASI ===== -->
+    <div class="relative flex flex-col items-center space-y-16">
 
-        <img src="/assets/images/staff/staff2.png" alt="Kepala Sekolah" class="mx-auto w-44 h-44 object-contain mb-6 relative z-10">
-        <h3 class="text-2xl font-semibold text-[#0e162e] group-hover:text-orange-500 transition">Drs. H. Bambang Setiawan</h3>
-        <p class="text-gray-500">Kepala Sekolah</p>
+      <!-- Level 1 -->
+      <div class="staff-level" data-aos="zoom-in" data-aos-duration="600">
+        <div class="staff-card">
+          <img src="{{ asset('assets/images/staff/hendri.jpg') }}" alt="Kepala Sekolah">
+        </div>
       </div>
 
-      <div class="group relative bg-white border border-gray-200 p-8 rounded-3xl shadow-lg hover:shadow-2xl transition duration-500 delay-200 overflow-hidden animate-slideUp">
-        <!-- Decorative accent -->
-        <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-[#0e162e]/10 rounded-full blur-xl"></div>
-        <div class="absolute top-0 right-0 w-16 h-16 bg-orange-500/10 rounded-bl-[100%]"></div>
-
-        <img src="/assets/images/staff/staff2.png" alt="Wakil Kepala Sekolah" class="mx-auto w-44 h-44 object-contain mb-6 relative z-10">
-        <h3 class="text-2xl font-semibold text-[#0e162e] group-hover:text-orange-500 transition">Siti Nurhaliza, S.Pd</h3>
-        <p class="text-gray-500">Wakil Kepala Sekolah</p>
+      <!-- Level 2 -->
+      <div class="staff-level flex flex-wrap justify-center gap-8" data-aos="zoom-in-up" data-aos-duration="700">
+        <div class="staff-card"><img src="{{ asset('assets/images/staff/kapro1.jpg') }}" alt="Kaprok DKV"></div>
+        <div class="staff-card"><img src="{{ asset('assets/images/staff/kapro2.jpg') }}" alt="Kaprok PPLG"></div>
+        <div class="staff-card"><img src="{{ asset('assets/images/staff/kapro3.jpg') }}" alt="Kaprok TJKT"></div>
+        <div class="staff-card"><img src="{{ asset('assets/images/staff/kapro4.jpg') }}" alt="Kaprok BCF"></div>
       </div>
-    </div>
 
-    <!-- Kepala Program -->
-    <div class="relative mb-24 z-10">
-      <h3 class="text-3xl font-bold text-[#0e162e] mb-10 animate-fadeIn">Kepala Program</h3>
-      <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-10">
-        @for ($i = 0; $i < 4; $i++)
-          <div class="group relative bg-white border border-gray-200 p-6 rounded-3xl shadow-md hover:shadow-xl transition duration-500 overflow-hidden animate-slideUp">
-            <div class="absolute top-0 left-0 w-20 h-20 bg-orange-500/10 rounded-br-[80%]"></div>
-            <div class="absolute -bottom-5 -right-5 w-24 h-24 bg-[#0e162e]/10 rounded-tl-[80%] blur-md"></div>
-            <img src="/assets/images/staff/staff2.png" alt="Kepala Program" class="mx-auto w-36 h-36 object-contain mb-5 relative z-10">
-            <h4 class="text-lg font-semibold text-[#0e162e] group-hover:text-orange-500 transition">Nama Kepala Program {{ $i+1 }}</h4>
-            <p class="text-gray-500 text-sm">Kepala Program Keahlian</p>
-          </div>
-        @endfor
+      <!-- Level 3 -->
+      <div class="staff-level flex flex-wrap justify-center gap-8" data-aos="fade-up" data-aos-duration="700">
+        <div class="staff-card"><img src="{{ asset('assets/images/staff/kurikulum.jpg') }}" alt="Kurikulum"></div>
+        <div class="staff-card"><img src="{{ asset('assets/images/staff/kesiswaan.jpg') }}" alt="Kesiswaan"></div>
+        <div class="staff-card"><img src="{{ asset('assets/images/staff/humas.jpg') }}" alt="Humas"></div>
       </div>
-    </div>
 
-    <!-- Staff & Guru -->
-    <div class="relative p-10 bg-gradient-to-b from-white to-orange-50/40 rounded-3xl shadow-inner border-t-4 border-orange-400/60 z-10">
-      <h3 class="text-3xl font-bold text-[#0e162e] mb-10 animate-fadeIn">Staff & Guru</h3>
-      <div class="grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-8">
-        @for ($i = 0; $i < 10; $i++)
-          <div class="group relative bg-white border border-gray-200 p-5 rounded-3xl shadow-md hover:shadow-xl hover:scale-[1.03] transition duration-500 overflow-hidden animate-slideUp">
-            <div class="absolute -top-3 right-3 w-14 h-14 bg-orange-500/10 rounded-bl-[70%]"></div>
-            <div class="absolute bottom-0 left-0 w-20 h-20 bg-[#0e162e]/10 rounded-tr-[80%] blur-md"></div>
-            <img src="/assets/images/staff/staff2.png" alt="Guru" class="mx-auto w-28 h-28 object-contain mb-4 relative z-10">
-            <h4 class="text-base font-semibold text-[#0e162e] group-hover:text-orange-500 transition">Guru {{ $i+1 }}</h4>
-            <p class="text-gray-500 text-sm">Pengajar</p>
-          </div>
+      <!-- Level 4 -->
+      <div class="staff-level grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 md:gap-10" data-aos="fade-up" data-aos-duration="700">
+        @for ($i = 1; $i <= 15; $i++)
+        <div class="staff-card" data-aos="fade-up" data-aos-delay="{{ $i * 50 }}" data-aos-duration="600">
+          <img src="{{ asset("assets/images/staff/grmpl-$i.jpg") }}" alt="Guru {{ $i }}">
+        </div>
         @endfor
       </div>
     </div>
   </div>
+
+  <!-- Ornamen Dekoratif -->
+  <div class="absolute inset-0 -z-10 overflow-hidden">
+    <div class="absolute -top-20 left-1/3 w-96 h-96 bg-orange-100 rounded-full blur-3xl opacity-40 animate-pulse"></div>
+    <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-blue-100 rounded-full blur-3xl opacity-40 animate-pulse"></div>
+  </div>
 </section>
 
-@endsection
-
-@push('styles')
+<!-- ===== STYLE TAMBAHAN ===== -->
 <style>
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
+.staff-card {
+  @apply bg-white shadow-md rounded-2xl overflow-hidden w-36 sm:w-40 md:w-44 hover:shadow-xl transition-transform duration-300 hover:-translate-y-2 border border-gray-100;
 }
-@keyframes slideUp {
-  0% { opacity: 0; transform: translateY(50px); }
-  100% { opacity: 1; transform: translateY(0); }
+.staff-card img {
+  @apply w-full h-48 object-cover transition-transform duration-500 ease-out hover:scale-105;
 }
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+
+/* Hilangkan teks di bawah gambar */
+.staff-card h3, .staff-card p {
+  display: none;
 }
-.animate-fadeIn { animation: fadeIn 1.2s ease forwards; }
-.animate-slideUp { animation: slideUp 1.3s ease forwards; }
-.animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+
+/* Responsif dan layout tetap mirip piramida */
+.staff-level {
+  @apply flex flex-wrap justify-center items-center gap-8 md:gap-10;
+}
+
+@media (max-width: 768px) {
+  .staff-level {
+    gap: 1.25rem;
+  }
+  .staff-card {
+    width: 6rem;
+  }
+  .staff-card img {
+    height: 5.5rem;
+  }
+}
 </style>
-@endpush
+
+<!-- ===== AOS OPTIMIZATION ===== -->
+<script>
+  AOS.init({
+    duration: 600,  // lebih cepat dari sebelumnya
+    easing: 'ease-out-cubic',
+    once: true,     // animasi hanya sekali agar smooth
+    offset: 120,
+  });
+</script>
+@endsection
