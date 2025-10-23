@@ -4,7 +4,7 @@
 
 @section('content')
 <section 
-  class="min-h-screen bg-gradient-to-b from-orange-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 pt-44 pb-28"
+  class="min-h-screen bg-white dark:bg-gray-900 pt-44 pb-28"
 >
   <!-- ======== Header ======== -->
   <div class="text-center mb-20" data-aos="fade-down">
@@ -24,52 +24,48 @@
 
       @php
         $ekskul = [
-          ['nama' => 'Badminton', 'gambar' => 'badminton.png'],
-          ['nama' => 'Basketball', 'gambar' => 'basketball.png'],
-          ['nama' => 'Futsal', 'gambar' => 'futsal.png'],
-          ['nama' => 'Voli', 'gambar' => 'voli.png'],
-          ['nama' => 'English Club', 'gambar' => 'english.png'],
-          ['nama' => 'FPP (Film Photography Production)', 'gambar' => 'fpp.png'],
-          ['nama' => 'GAMDEP', 'gambar' => 'gamdep.png'],
-          ['nama' => 'ICT Club', 'gambar' => 'ict.png'],
-          ['nama' => 'KIR', 'gambar' => 'kir.png'],
-          ['nama' => 'Modern Dance', 'gambar' => 'dance.png'],
-          ['nama' => 'Orange Digital', 'gambar' => 'digital.png'],
-          ['nama' => 'Orange Network', 'gambar' => 'network.png'],
-          ['nama' => 'Orange Solution', 'gambar' => 'solution.png'],
-          ['nama' => 'Orange Studio', 'gambar' => 'studio.png'],
-          ['nama' => 'PMR', 'gambar' => 'pmr.png'],
-          ['nama' => 'PPOC', 'gambar' => 'ppoc.png'],
-          ['nama' => 'Pramuka', 'gambar' => 'pramuka.png'],
-          ['nama' => 'Rohis', 'gambar' => 'rohis.png'],
-          ['nama' => 'Seni Bela Diri', 'gambar' => 'beladiri.png'],
+          ['nama' => 'Badminton', 'gambar' => 'badminton.jpg'],
+          ['nama' => 'Basketball', 'gambar' => 'basketball.jpg'],
+          ['nama' => 'Futsal', 'gambar' => 'futsall.jpg'],
+          ['nama' => 'Voli', 'gambar' => 'volly.jpg'],
+          ['nama' => 'English Club', 'gambar' => 'english.jpg'],
+          ['nama' => 'Ganefo', 'gambar' => 'ganefo.jpg'],
+          ['nama' => 'ICT Club', 'gambar' => 'ict.jpg'],
+          ['nama' => 'KIR', 'gambar' => 'kir.jpg'],
+          ['nama' => 'Modern Dance', 'gambar' => 'moderndance.jpg'],
+          ['nama' => 'Orange Digital', 'gambar' => 'digital.jpg'],
+          ['nama' => 'Orange Network', 'gambar' => 'network.jpg'],
+          ['nama' => 'Orange Solution', 'gambar' => 'solution.jpg'],
+          ['nama' => 'Orange Studio', 'gambar' => 'studio.jpg'],
+          ['nama' => 'PMR', 'gambar' => 'pmr.jpg'],
+          ['nama' => 'PPOC', 'gambar' => 'ppoc.jpg'],
+          ['nama' => 'Pramuka', 'gambar' => 'pramuka.jpg'],
+          ['nama' => 'Rohis', 'gambar' => 'rohis.jpg'],
+          ['nama' => 'Rohkris', 'gambar' => 'rohkris.jpg'],
           ['nama' => 'Silat', 'gambar' => 'silat.png'],
-          ['nama' => 'Tari Tradisional', 'gambar' => 'tari.png'],
+          ['nama' => 'Tari Tradisional', 'gambar' => 'tari.jpg'],
           ['nama' => 'Esport', 'gambar' => 'esport.jpg'],
         ];
       @endphp
 
       @foreach ($ekskul as $index => $item)
       <div 
-        class="group bg-white dark:bg-gray-800 rounded-tr-[40px] rounded-bl-[40px]
+        class="group relative rounded-tr-[40px] rounded-bl-[40px]
                shadow-md hover:shadow-lg hover:shadow-orange-200/60
                transition duration-500 transform hover:-translate-y-2
-               flex flex-col items-center justify-center p-6
-               border border-transparent hover:border-orange-100 relative overflow-hidden"
+               flex flex-col items-center justify-end text-center
+               border border-transparent hover:border-orange-100 overflow-hidden min-h-[180px] md:min-h-[200px]"
         data-aos="zoom-in" data-aos-delay="{{ $index * 50 }}"
+        style="background-image: url('{{ asset('assets/images/ekskul/' . $item['gambar']) }}'); background-size: cover; background-position: center;"
       >
-        <!-- Efek Hover Gradasi -->
-        <div class="absolute inset-0 bg-gradient-to-br from-orange-50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-700"></div>
+        <!-- Overlay gelap + efek hover -->
+        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition duration-500"></div>
 
-        <!-- Gambar Ekstrakurikuler -->
-        <img 
-          src="{{ asset('assets/images/ekskul/' . $item['gambar']) }}" 
-          alt="{{ $item['nama'] }}" 
-          class="relative z-10 max-h-16 md:max-h-20 object-contain opacity-90 group-hover:opacity-100 transition duration-500"
-        >
+        <!-- Gradasi bawah untuk teks -->
+        <div class="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent"></div>
 
         <!-- Nama Ekstrakurikuler -->
-        <h3 class="relative z-10 mt-4 text-sm md:text-base font-semibold text-gray-700 dark:text-gray-100 group-hover:text-orange-500 transition duration-300 text-center">
+        <h3 class="relative z-10 text-base md:text-lg font-semibold text-white group-hover:text-orange-400 transition duration-300 mb-4">
           {{ $item['nama'] }}
         </h3>
       </div>

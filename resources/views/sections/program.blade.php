@@ -15,7 +15,7 @@
       </div>
 
       <div class="flex gap-3 mt-6 md:mt-0">
-        <a href="#program" 
+        <a href="/tentang/program" 
            class="inline-flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition">
           Semua Program
         </a>

@@ -7,11 +7,11 @@
     <div class="max-w-7xl mx-auto w-full flex justify-end">
       <div class="flex items-center divide-x divide-white px-4 py-2 rounded-bl-lg">
 
-        <!-- Bahasa -->
+        {{-- <!-- Bahasa -->
         <div class="flex items-center space-x-2 px-4">
           <img src="{{ asset('assets/images/bendera/id.png') }}" alt="ID" class="w-5 h-3">
           <img src="{{ asset('assets/images/bendera/us.png') }}" alt="EN" class="w-5 h-3">
-        </div>
+        </div> --}}
 
         <!-- Telepon -->
         <div class="flex items-center space-x-2 px-4">
@@ -19,7 +19,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 5a2 2 0 012-2h3.3l1.3 3.9-1.9 2a11 11 0 005 5l2-2 3.9 1.3V19a2 2 0 01-2 2h-1C10.6 21 3 13.4 3 4V5z"/>
           </svg>
-          <a href="tel:089599439033">0895 - 9943 - 9033</a>
+          <a href="tel:089599439033">+62 851-9592-8886</a>
         </div>
 
         <!-- Email -->
@@ -28,7 +28,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 8l7.9 5.3a2 2 0 002.2 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
           </svg>
-          <a href="mailto:halo@smkprestasiprima.ac.id">halo@smkprestasiprima.ac.id</a>
+          <a href="mailto:halo@smkprestasiprima.ac.id">smk.prestasiprima.sch.id</a>
         </div>
 
       </div>
