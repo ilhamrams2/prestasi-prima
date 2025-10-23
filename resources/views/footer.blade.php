@@ -76,9 +76,9 @@
 
     <!-- Sosial Media -->
     <div class="flex items-center gap-4">
-      <a href="#" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i class="fab fa-instagram"></i></a>
-      <a href="#" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.tiktok.com/@smkprestasiprima?is_from_webapp=1&sender_device=pc" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i  class="fa-brands fa-tiktok text-lg"></i></a>
+      <a href="https://www.instagram.com/smkprestasiprima?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i class="fab fa-instagram"></i></a>
+      <a href="https://youtube.com/@sekolahprestasiprima?si=M4Ext5xVbckmT53e" class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i class="fab fa-youtube"></i></a>
     </div>
   </div>
 

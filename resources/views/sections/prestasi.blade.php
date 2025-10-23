@@ -7,21 +7,21 @@
       <img src="assets/images/logo-smk.png" alt="Logo Sekolah" class="mx-auto h-14 mb-4">
       <h3 class="text-lg font-bold text-gray-800">Prestasi Kami</h3>
       <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mt-2">
-        Mengabadikan momen berharga di balik setiap 
+        Mengabadikan momen berharga di balik setiap
         <span class="text-orange-600">kemenangan</span>
       </h2>
     </div>
 
     <!-- ===== Swiper Container ===== -->
     <div class="swiper prestasiSwiper relative">
-      <div class="swiper-wrapper">
+      <div class="swiper-wrapper" >
         <!-- Slides -->
-        <div class="swiper-slide">
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="swiper-slide" >
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden" >
             <img src="assets/images/section/prestasi/satu.webp" alt="Juara Dua" class="w-full object-cover">
           </div>
         </div>
-        <div class="swiper-slide">
+        <div class="swiper-slide" >
           <div class="bg-white rounded-xl shadow-lg overflow-hidden">
             <img src="assets/images/section/prestasi/dua.webp" alt="Juara Tiga" class="w-full object-cover">
           </div>
@@ -49,13 +49,17 @@
       </div>
 
       <!-- Pagination -->
-      <div class="swiper-pagination mt-6"></div>
+      <div class="swiper-pagination mt-24 " ></div>
 
       <!-- Navigation Buttons (Custom Style) -->
-      <div class="swiper-button-prev custom-nav"></div>
-      <div class="swiper-button-next custom-nav"></div>
+
     </div>
+  <div class="swiper-button-prev custom-nav"></div>
+      <div class="swiper-button-next custom-nav"></div>
   </div>
+
+
+
 </section>
 
 <!-- ===== SwiperJS ===== -->
@@ -64,6 +68,8 @@
 
 <!-- ===== Custom Style Navigasi ===== -->
 <style>
+
+
   .custom-nav {
     width: 28px !important;
     height: 28px !important;
@@ -83,8 +89,12 @@
     transform: scale(1.05);
   }
 
-  .swiper-button-prev { left: 4px !important; }
-  .swiper-button-next { right: 4px !important; }
+  .swiper-button-prev { left: -5px !important; margin-top: 94px; color: #fb923c; /* Warna oranye dari Tailwind: orange-400 */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* 🔹 shadow halus */ }
+  .swiper-button-next { right: -5px !important;  margin-top: 94px; color: #fb923c; /* Warna oranye dari Tailwind: orange-400 */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* 🔹 shadow halus */ }
 
   @media (max-width: 640px) {
     .custom-nav {
@@ -94,8 +104,9 @@
     .custom-nav::after {
       font-size: 12px !important;
     }
-    .swiper-button-prev { left: 2px !important; }
-    .swiper-button-next { right: 2px !important; }
+
+
+
   }
 </style>
 

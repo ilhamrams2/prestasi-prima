@@ -2,11 +2,11 @@
 <section id="industri" class="relative py-24 bg-white overflow-hidden">
 
   <!-- ===== Dekorasi ===== -->
-  <img src="{{ asset('assets/images/section/industri/network1.svg') }}" 
+  <img src="{{ asset('assets/images/section/industri/network1.svg') }}"
        alt="Dekorasi Network 1"
        class="absolute top-6 right-6 w-[32rem] sm:w-[36rem] md:w-[40rem] opacity-90 pointer-events-none select-none">
 
-  <img src="{{ asset('assets/images/section/industri/network2.svg') }}" 
+  <img src="{{ asset('assets/images/section/industri/network2.svg') }}"
        alt="Dekorasi Network 2"
        class="absolute bottom-0 left-0 w-44 sm:w-60 md:w-72 opacity-80 pointer-events-none select-none">
 
@@ -48,8 +48,8 @@
         <template id="logos">
           @foreach (['telkom', 'komatsu', 'kemenkop', 'jatelindo', 'panasonic', 'antam', 'starvision', 'lemnegara', 'erlangga'] as $logo)
           <div class="logo-item flex items-center justify-center bg-white/80 backdrop-blur-md rounded-2xl shadow-md p-4 transition-all duration-700 hover:shadow-xl hover:scale-105">
-            <img src="{{ asset('assets/images/section/industri/' . $logo . '.png') }}" 
-                 alt="{{ ucfirst($logo) }}" 
+            <img src="{{ asset('assets/images/section/industri/' . $logo . '.png') }}"
+                 alt="{{ ucfirst($logo) }}"
                  class="h-14 sm:h-20 md:h-24 object-contain transition-all duration-700">
           </div>
           @endforeach
@@ -66,7 +66,7 @@
 
     <!-- Tombol CTA -->
     <div class="opacity-0 translate-y-8 transition-all duration-1000 ease-out scroll-fade">
-      <a href="#" 
+      <a href="{{ route('industri') }}"
          class="inline-block mt-12 px-8 py-3 bg-orange-500 text-white font-semibold rounded-xl shadow-md hover:bg-orange-600 transition-all duration-300">
          Lihat Selengkapnya
       </a>
