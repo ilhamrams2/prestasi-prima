@@ -116,11 +116,11 @@
           </p>
 
           <div class="mt-6 flex gap-3 flex-wrap">
-            <a href="#program"
+            <a href="/tentang/program"
                class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white px-5 py-2.5 rounded-lg hover:bg-white/20 transition">
               Pelajari lebih lanjut
             </a>
-            <a href="#contact"
+            <a href="/pendaftaran"
                class="inline-flex items-center gap-2 bg-orange-500 text-white px-5 py-2.5 rounded-lg hover:bg-orange-600 transition">
               Gabung Sekarang
             </a>
