@@ -61,9 +61,9 @@
     </p>
 
     <!-- Button -->
-    <a href="#tentang" aria-label="Baca selengkapnya tentang Prestasi Prima"
+    <a href="/pendaftaran" aria-label="Baca selengkapnya tentang Prestasi Prima"
        class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transform hover:scale-105 hero-animate">
-      Selengkapnya →
+      Daftar Sekarang →
     </a>
   </div>
 
@@ -164,12 +164,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <!-- ================= STYLE ================= -->
 <style>
-/* Hero Animation */
+/* Hero Smooth Animation - versi cepat */
 @keyframes heroSlideInFast {
-  0% { opacity: 0; transform: translateX(-60px) scale(0.95); filter: blur(4px); }
-  100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0); }
+  0% { opacity: 0; transform: translateX(-80px) scale(0.95); filter: blur(4px); }
+  60% { opacity: 1; transform: translateX(10px) scale(1.02); filter: blur(0); }
+  80% { transform: translateX(-4px) scale(0.98); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
 }
-.animate-hero-fast { animation: heroSlideInFast 0.8s ease-out forwards; }
+.animate-hero-fast { animation: heroSlideInFast 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 .hero-animate { opacity: 0; }
 
 /* Floating Social Panel */
@@ -181,10 +183,15 @@ document.addEventListener("DOMContentLoaded", () => {
 .social-panel.open { width: 56px; opacity: 1; transform: translateX(0) scale(1); }
 .social-panel.close { width: 0; opacity: 0; transform: translateX(50%) scale(0.8); }
 
-/* Floating Button */
+/* Floating Button muncul setelah video */
 @keyframes floatingIn {
   0% { opacity: 0; transform: translateX(100%) scale(0.8); }
+  60% { opacity: 1; transform: translateX(-10px) scale(1.05); }
+  80% { transform: translateX(5px) scale(0.97); }
   100% { opacity: 1; transform: translateX(0) scale(1); }
 }
-.animate-floating { animation: floatingIn 0.8s ease-out forwards; }
+.animate-floating {
+  animation: floatingIn 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
 </style>
+

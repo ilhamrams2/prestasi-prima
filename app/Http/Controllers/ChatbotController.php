@@ -77,23 +77,27 @@ class ChatbotController extends Controller
      * @param array $responseBody
      * @return string|null
      */
-    private function extractReplyText(array $responseBody): ?string
-    {
-        $keys = ['reply', 'text', 'output', 'message'];
-        
-        foreach ($keys as $key) {
-            if (isset($responseBody[$key]) && is_string($responseBody[$key])) {
-                return $responseBody[$key];
-            }
-        }
-        
-        // Kasus N8N mengembalikan array data (misalnya [0] => {reply: "..."})
-        if (isset($responseBody[0]) && is_array($responseBody[0])) {
-            return $this->extractReplyText($responseBody[0]);
-        }
-        
-        return null;
+private function extractReplyText(?array $responseBody): ?string
+{
+    if ($responseBody === null) {
+        return 'Maaf, saya tidak mendapatkan respon dari AI.';
     }
+
+    $keys = ['reply', 'text', 'output', 'message'];
+    
+    foreach ($keys as $key) {
+        if (isset($responseBody[$key]) && is_string($responseBody[$key])) {
+            return $responseBody[$key];
+        }
+    }
+    
+    // Kasus N8N mengembalikan array data (misalnya [0] => {reply: "..."}).
+    if (isset($responseBody[0]) && is_array($responseBody[0])) {
+        return $this->extractReplyText($responseBody[0]);
+    }
+    
+    return 'Maaf, saya belum bisa memproses respon AI.';
+}
 
 
     /**
@@ -114,65 +118,57 @@ class ChatbotController extends Controller
             ], 422);
         }
 
-        // PERBAIKAN: Mengambil input menggunakan kunci 'content'
         $prompt = $request->input('content');
-        $replyText = '';
 
         try {
             // 1. Ambil riwayat chat dari session
-            $history = $this->getChatHistory(); 
+            $history = $this->getChatHistory();
 
             // 2. Format riwayat dan prompt untuk dikirim ke N8N
-            // Asumsi N8N mengharapkan 'content' (pesan baru) dan 'history'
             $response = Http::withoutVerifying()->timeout(15)->post($this->n8nUrl, [
-                'content' => $prompt, // Pesan baru dari user
-                'history' => $history, // Riwayat chat lengkap
+                'content' => $prompt,
+                'history' => $history,
             ]);
 
             if ($response->successful()) {
                 $responseBody = $response->json();
-                
+
                 // EKSTRAKSI: Menggunakan helper untuk mendapatkan teks balasan
                 $extractedReply = $this->extractReplyText($responseBody);
 
-                if (!$extractedReply) {
-                    // Log jika N8N berhasil dihubungi tapi balasan tidak ditemukan
-                    Log::error("N8N Reply Format Error: Reply key not found in response body.", ['body' => $responseBody]);
-                    $extractedReply = 'Maaf, server AI merespons, tetapi balasan dalam format yang tidak diharapkan.';
-                }
-
-                $replyText = $extractedReply;
-                
                 // 3. Ekstraksi SEMUA Tag Navigasi (multiple buttons)
                 $navigationButtons = [];
                 $pattern = '~\[NAVIGATE_TO:\[([^\]]+)\]\|([^\]]+)\]~';
-                
-                // Extract all navigation tags
-                preg_match_all($pattern, $replyText, $matches, PREG_SET_ORDER);
+
+                // Extract all navigation tags from original reply
+                preg_match_all($pattern, $extractedReply, $matches, PREG_SET_ORDER);
                 foreach ($matches as $match) {
                     $navigationButtons[] = [
                         'text' => trim($match[1]),
                         'url' => trim($match[2])
                     ];
                 }
-                
-                // Remove all navigation tags from reply text
-                $replyText = preg_replace($pattern, '', $replyText);
+
+                // Remove all navigation tags from reply text for display
+                $replyText = preg_replace($pattern, '', $extractedReply);
                 $replyText = trim($replyText);
 
                 // 4. Simpan prompt dan balasan AI ASLI (dengan tag navigasi) ke riwayat
-                // Ini penting agar AI bisa konteks bahwa dia sudah kasih tombol navigasi
                 $this->saveMessage($prompt, $extractedReply);
 
                 // 5. Kembalikan respons JSON yang terstruktur
                 return response()->json([
                     'reply' => $replyText,
-                    'navigation' => $navigationButtons, // Array of buttons, bukan single object
+                    'navigation' => $navigationButtons,
                     'debug_history_count' => count($this->getChatHistory())
                 ]);
 
             } else {
                 // Gagal menghubungi N8N (4xx atau 5xx)
+                Log::error("N8N HTTP Error", [
+                    'status' => $response->status(),
+                    'body' => $response->body()
+                ]);
                 return response()->json([
                     'reply' => 'Gagal menghubungi server AI (N8N). Status: ' . $response->status(),
                     'details' => $response->body()
@@ -180,11 +176,16 @@ class ChatbotController extends Controller
             }
 
         } catch (Throwable $e) {
-            // Log error internal dan berikan pesan JSON 500
-            Log::error("Chatbot N8N/Session Error: " . $e->getMessage());
+            // Log error internal dengan detail lengkap untuk debugging
+            Log::error("Chatbot N8N/Session Error", [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return response()->json([
                 'reply' => 'Maaf, terjadi kesalahan tak terduga pada server.',
-                'details' => $e->getMessage()
+                'details' => config('app.debug') ? $e->getMessage() : 'Internal Server Error'
             ], 500);
         }
     }
@@ -209,4 +210,5 @@ class ChatbotController extends Controller
         }
     }
 }
+
 
