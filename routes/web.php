@@ -33,7 +33,9 @@ use App\Http\Controllers\prestasiprima\{
     EkstrakurikulerController,
     ProgramController,
     PenerimaanSiswaController,
-    TestimoniController
+    TestimoniController,
+    KegiatanController,
+    KaryaProyekController
 };
 
 use App\Http\Controllers\prestasiprima\Admin\{
@@ -72,9 +74,51 @@ Route::get('/test-google', function () {
 // ============================================================
 // ===================== PRESTASIPRIMA ========================
 // ============================================================
+// Tentang
+Route::prefix('tentang')->group(function () {
+    Route::get('/program', [ProgramController::class, 'index'])->name('program');
+    Route::get('/profile-sekolah', [ProfileSekolahController::class, 'index'])->name('prestasiprima.profile-sekolah');
+    Route::get('/staffmanagement', [StaffController::class, 'index'])->name('staff');
+    Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
+});
 
-Route::get('/tentang/sambutan', [SambutanController::class, 'index'])->name('sambutan');
 
+// ==================== SISWA ==================== //
+Route::prefix('siswa')->group(function () {
+    Route::get('/prestasi', fn() => view('prestasiprima.pages.prestasi'))->name('prestasi');
+    Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])->name('prestasiprima.ekstrakurikuler');
+    Route::get('/penerimaan-siswa', [PenerimaanSiswaController::class, 'index'])->name('penerimaan.siswa');
+    Route::get('/testimoni', [TestimoniController::class, 'index'])->name('testimoni');
+    Route::get('/karya-proyek', [KaryaProyekController::class, 'index'])->name('karya-proyek');
+    Route::get('/karya-proyek/{slug}', [KaryaProyekController::class, 'show'])->name('karya-proyek.show');
+});
+
+
+// ==================== INFORMASI ==================== //
+Route::prefix('informasi')->group(function () {
+    Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+    Route::get('/industri', [IndustriController::class, 'index'])->name('industri');
+});
+
+
+// ==================== DOKUMENTASI ==================== //
+Route::prefix('dokumentasi')->group(function () {
+    // Galeri
+    Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
+
+    // Berita
+    Route::prefix('berita')->name('berita.')->controller(NewsController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/kategori/{slug}', 'category')->name('kategori');
+        Route::get('/{slug}', 'show')->name('detail');
+    });
+
+    // Kegiatan
+    Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan');
+});
+
+
+// ==================== PENDAFTARAN ==================== //
 Route::controller(Pendaftaran::class)->group(function () {
     Route::get('/pendaftaran', 'index')->name('pendaftaran');
 });
@@ -84,49 +128,6 @@ Route::controller(FormulirController::class)->group(function () {
     Route::post('/formulir', 'store')->name('pendaftaran.formulir.store');
     Route::get('/validasi', 'validasi')->name('pendaftaran.validasi');
 });
-
-// Galeri
-Route::get('/dokumentasi/gallery', [GalleryController::class, 'index'])->name('gallery');
-
-// Berita
-Route::prefix('dokumentasi/berita')
-    ->name('berita.')
-    ->controller(NewsController::class)
-    ->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/kategori/{slug}', 'category')->name('kategori');
-        Route::get('/{slug}', 'show')->name('detail');
-    });
-
-Route::get('/siswa/prestasi', function () {
-    return view('prestasiprima.pages.prestasi');
-})->name('prestasi');
-
-Route::get('/informasi/faq', [FaqController::class, 'index'])->name('faq');
-
-Route::get('/tentang/staffmanagement', [StaffController::class, 'index'])->name('staff');
-
-Route::get('/informasi/industri', [IndustriController::class, 'index'])
-    ->name('industri');
-
-    Route::prefix('tentang')->group(function () {
-    Route::get('/profile-sekolah', [ProfileSekolahController::class, 'index'])
-        ->name('prestasiprima.profile-sekolah');
-});
-
-Route::prefix('siswa')->group(function () {
-    Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])
-        ->name('prestasiprima.ekstrakurikuler');
-        });
-
-    Route::get('/tentang/program', [ProgramController::class, 'index'])->name('program');
-
-    Route::get('/siswa/penerimaan-siswa', [PenerimaanSiswaController::class, 'index'])
-    ->name('penerimaan.siswa');
-
-    Route::get('/siswa/testimoni', [TestimoniController::class, 'index'])->name('testimoni');
-
-
 // ============================================================
 // ======================= PRESMABOARD ========================
 // ============================================================

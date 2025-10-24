@@ -1,6 +1,4 @@
 @extends('prestasiprima.index')
-@include('ChatbotUI')
-
 @section('title', 'Berita Prestasi Prima')
 
 @section('content')

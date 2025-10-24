@@ -77,6 +77,7 @@
             <a href="https://www.instagram.com/osis_smkpp" class="dropdown-item">OSIS & MPK</a>
             <a href="/siswa/ekstrakurikuler" class="dropdown-item">Ekstrakurikuler</a>
             <a href="/siswa/penerimaan-siswa" class="dropdown-item">Penerimaan Siswa</a>
+            <a href="/siswa/karya-proyek" class="dropdown-item">Karya & Proyek</a>
             <a href="/siswa/testimoni" class="dropdown-item">Testimoni</a>
           </div>
         </div>
@@ -105,7 +106,7 @@
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
             <a href="/dokumentasi/gallery" class="dropdown-item">Galeri</a>
             <a href="/dokumentasi/berita" class="dropdown-item">Berita</a>
-            <a href="#" class="dropdown-item">Kegiatan</a>
+            <a href="/dokumentasi/kegiatan" class="dropdown-item">Kegiatan</a>
           </div>
         </div>
 
@@ -124,6 +125,12 @@
             <a href="/pendaftaran" class="dropdown-item">Pendaftaran</a>
           </div>
         </div>
+
+          <a href="{{ asset('assets/files/brosur.pdf') }}" 
+            download 
+            class="nav-link text-white hover:text-orange-400 transition-colors duration-300">
+            Download Brosur
+          </a>
       </nav>
 
       <!-- Mobile Menu Button -->
@@ -174,6 +181,8 @@
         <a href="/siswa/prestasi" class="mobile-subitem">Prestasi</a>
         <a href="https://www.instagram.com/osis_smkpp" class="mobile-subitem">OSIS & MPK</a>
         <a href="/siswa/ekstrakurikuler" class="mobile-subitem">Ekstrakurikuler</a>
+        <a href="/siswa/penerimaan-siswa" class="mobile-subitem">Penerimaan Siswa</a>
+        <a href="/siswa/karya-proyek" class="mobile-subitem">Karya & Proyek</a>
         <a href="/siswa/testimoni" class="mobile-subitem">Testimoni</a>
       </div>
 
@@ -186,7 +195,7 @@
       <div class="mobile-submenu">
         <a href="/dokumentasi/gallery" class="mobile-subitem">Galeri</a>
         <a href="/dokumentasi/berita" class="mobile-subitem">Berita</a>
-        <a href="{{ route('prestasi') }}" class="mobile-subitem">Prestasi</a>
+        <a href="/dokumentasi/kegiatan" class="mobile-subitem">Kegiatan</a>
       </div>
 
       <button class="mobile-dropdown-btn">
@@ -213,6 +222,11 @@
         <a href="/pendaftaran" class="mobile-link">Pendaftaran</a>
       </div>
       
+      <a href="{{ asset('assets/files/brosur.pdf') }}" 
+        download 
+        class="mobile-link">
+        Download Brosur
+      </a>
     </div>
   </div>
 </header>
