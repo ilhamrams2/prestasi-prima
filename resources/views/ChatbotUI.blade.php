@@ -663,10 +663,10 @@
                 chatMessages.innerHTML = '';
                 errorDiv.style.display = 'none';
                 createMessageElement(
-                    'Halo! Saya asisten virtual SMK Prestasi Prima. Ada yang bisa saya bantu?', false);
+                    'Halo! 👋 Saya adalah Asisten Virtual SMK PRESTASI PRIMA😊\n\nSelamat datang di Website resmi SMK Prestasi Prima. Adakah yang bisa saya bantu?', false);
             });
 
-            createMessageElement('Halo! Saya asisten virtual SMK Prestasi Prima. Ada yang bisa saya bantu?', false);
+            createMessageElement('Halo! 👋 Saya adalah Asisten Virtual SMK PRESTASI PRIMA😊\n\nSelamat datang di Website resmi SMK Prestasi Prima. Adakah yang bisa saya bantu?', false);
             adjustTextareaHeight(userInput);
             scrollToBottom(true); // Initial scroll to bottom
         });
@@ -931,5 +931,6 @@
         background: #fb923c;
     }
 </style>
+
 
 
