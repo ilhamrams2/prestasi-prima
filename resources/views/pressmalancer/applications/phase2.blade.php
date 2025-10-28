@@ -10,7 +10,7 @@
         x-transition:leave="transition-opacity ease-linear duration-300"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
-        class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+        class="fixed inset-0 bg-white bg-opacity-50 z-40 lg:hidden"
         style="display: none;"
     ></div>
 

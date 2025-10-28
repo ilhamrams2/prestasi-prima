@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Prestasiprima;
+namespace App\Http\Controllers\prestasiprima;
 
 use App\Http\Controllers\Controller;
 use App\Models\prestasiprima\News;
