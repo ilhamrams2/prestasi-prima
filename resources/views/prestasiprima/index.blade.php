@@ -17,6 +17,8 @@
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <style> html { scroll-behavior: smooth; } </style>
+
+  @stack('styles')
 </head>
 
 <body class="antialiased font-sans text-slate-800 bg-white transition-colors duration-300 relative overflow-x-hidden">

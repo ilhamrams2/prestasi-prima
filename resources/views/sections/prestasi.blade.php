@@ -38,12 +38,12 @@
         </div>
         <div class="swiper-slide">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <img src="assets/images/section/prestasi/satu.webp" alt="Juara Lima" class="w-full object-cover">
+            <img src="assets/images/section/prestasi/lima.webp" alt="Juara Lima" class="w-full object-cover">
           </div>
         </div>
         <div class="swiper-slide">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <img src="assets/images/section/prestasi/dua.webp" alt="Juara Enam" class="w-full object-cover">
+            <img src="assets/images/section/prestasi/enam.webp" alt="Juara Enam" class="w-full object-cover">
           </div>
         </div>
       </div>

@@ -7,12 +7,6 @@
     <div class="max-w-7xl mx-auto w-full flex justify-end">
       <div class="flex items-center divide-x divide-white px-4 py-2 rounded-bl-lg">
 
-        {{-- <!-- Bahasa -->
-        <div class="flex items-center space-x-2 px-4">
-          <img src="{{ asset('assets/images/bendera/id.png') }}" alt="ID" class="w-5 h-3">
-          <img src="{{ asset('assets/images/bendera/us.png') }}" alt="EN" class="w-5 h-3">
-        </div> --}}
-
         <!-- Telepon -->
         <div class="flex items-center space-x-2 px-4">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -52,7 +46,7 @@
         <!-- Tentang -->
         <div class="dropdown relative group">
           <a href="#" class="nav-link flex items-center text-white">
-            Tentang
+            Tentang Kami
             <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
@@ -67,7 +61,7 @@
 
         <div class="dropdown relative group">
           <a href="#" class="nav-link flex items-center text-white">
-            Siswa
+            Kehidupan Siswa
             <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
@@ -76,9 +70,9 @@
             <a href="/siswa/prestasi" class="dropdown-item">Prestasi</a>
             <a href="https://www.instagram.com/osis_smkpp" class="dropdown-item">OSIS & MPK</a>
             <a href="/siswa/ekstrakurikuler" class="dropdown-item">Ekstrakurikuler</a>
-            <a href="/siswa/penerimaan-siswa" class="dropdown-item">Penerimaan Siswa</a>
             <a href="/siswa/karya-proyek" class="dropdown-item">Karya & Proyek</a>
             <a href="/siswa/testimoni" class="dropdown-item">Testimoni</a>
+            <a href="/siswa/penerimaan-siswa" class="dropdown-item">Penerimaan Siswa</a>
           </div>
         </div>
 
@@ -151,15 +145,11 @@
 
     <!-- MOBILE MENU -->
     <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
-      {{-- <div class="flex space-x-2 px-6 py-3">
-        <img src="{{ asset('assets/images/bendera/id.png') }}" alt="ID" class="w-5 h-3">
-        <img src="{{ asset('assets/images/bendera/us.png') }}" alt="EN" class="w-5 h-3">
-      </div> --}}
-
+      
       <a href="/" class="mobile-link">Beranda</a>
 
       <button class="mobile-dropdown-btn">
-        Tentang
+        Tentang Kami
         <svg class="w-4 h-4 ml-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
         </svg>
@@ -172,7 +162,7 @@
       </div>
 
       <button class="mobile-dropdown-btn">
-        Siswa
+        Kehidupan Siswa
         <svg class="w-4 h-4 ml-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
         </svg>
@@ -181,9 +171,9 @@
         <a href="/siswa/prestasi" class="mobile-subitem">Prestasi</a>
         <a href="https://www.instagram.com/osis_smkpp" class="mobile-subitem">OSIS & MPK</a>
         <a href="/siswa/ekstrakurikuler" class="mobile-subitem">Ekstrakurikuler</a>
-        <a href="/siswa/penerimaan-siswa" class="mobile-subitem">Penerimaan Siswa</a>
         <a href="/siswa/karya-proyek" class="mobile-subitem">Karya & Proyek</a>
         <a href="/siswa/testimoni" class="mobile-subitem">Testimoni</a>
+        <a href="/siswa/penerimaan-siswa" class="mobile-subitem">Penerimaan Siswa</a>
       </div>
 
       <button class="mobile-dropdown-btn">
@@ -222,11 +212,7 @@
         <a href="/pendaftaran" class="mobile-link">Pendaftaran</a>
       </div>
       
-      <a href="{{ asset('assets/files/brosur.pdf') }}" 
-        download 
-        class="mobile-link">
-        Download Brosur
-      </a>
+      <a href="{{ asset('assets/files/brosur.pdf') }}" download class="mobile-link">Download Brosur</a>
     </div>
   </div>
 </header>

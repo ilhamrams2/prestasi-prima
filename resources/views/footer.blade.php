@@ -1,7 +1,7 @@
 <!-- ====================== MOTTO BERJALAN ====================== -->
 <section class="relative flex items-center justify-between bg-orange-500 overflow-hidden">
-  <!-- Pola kotak kiri -->
-  <div class="absolute left-0 top-0 h-full flex flex-col opacity-80">
+  <!-- Pola kotak kiri (disembunyikan di mobile) -->
+  <div class="absolute left-0 top-0 h-full hidden md:flex flex-col opacity-80">
     <div class="flex">
       <div class="w-10 h-10 bg-orange-500"></div>
       <div class="w-10 h-10 bg-gray-100"></div>
@@ -17,10 +17,10 @@
   </div>
 
   <!-- Motto teks berjalan -->
-  <div class="flex-1 overflow-hidden px-8 md:px-24 py-8 relative z-10">
-    <div class="flex whitespace-nowrap animate-[marquee_25s_linear_infinite]">
+  <div class="flex-1 overflow-hidden px-6 md:px-24 py-6 relative z-10">
+    <div class="flex whitespace-nowrap animate-marquee">
       <h2
-        class="inline-block text-white font-bold text-lg md:text-2xl uppercase tracking-wide drop-shadow leading-snug">
+        class="inline-block text-white font-bold text-base sm:text-lg md:text-2xl uppercase tracking-wide drop-shadow leading-snug">
         SMK PRESTASI PRIMA – MENCETAK GENERASI BERPRESTASI! &nbsp;&nbsp; • &nbsp;&nbsp;
         IF BETTER IS POSSIBLE, GOOD IS NOT ENOUGH! &nbsp;&nbsp; • &nbsp;&nbsp;
         BERANI HEBAT, BERANI BERPRESTASI! &nbsp;&nbsp; • &nbsp;&nbsp;
@@ -32,18 +32,18 @@
   </div>
 
   <!-- Background kotak kanan -->
-  <div class="absolute right-0 top-0 h-full flex">
+  <div class="absolute right-0 top-0 h-full hidden md:flex">
     <div class="w-40 md:w-52 bg-orange-600"></div>
     <div class="w-40 md:w-52 bg-orange-400"></div>
     <div class="w-40 md:w-52 bg-orange-300"></div>
   </div>
 
   <!-- Logo + network -->
-  <div class="relative flex items-center gap-4 pr-4 md:pr-10 z-20">
+  <div class="relative flex items-center gap-3 md:gap-4 pr-4 md:pr-10 z-20">
     <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo Sekolah"
-      class="w-12 h-12 md:w-16 md:h-16 rounded-full border-4 border-white shadow-lg relative z-10">
+      class="w-10 h-10 md:w-16 md:h-16 rounded-full border-4 border-white shadow-lg relative z-10">
     <img src="{{ asset('assets/images/section/primaboard/jaringan.png') }}" alt="Icon Network"
-      class="w-20 md:w-28 opacity-90 relative right-0">
+      class="w-16 md:w-28 opacity-90 relative right-0">
   </div>
 </section>
 
@@ -53,12 +53,24 @@
     0% {
       transform: translateX(0);
     }
-
     100% {
       transform: translateX(-50%);
     }
   }
+
+  /* Kecepatan default (desktop) */
+  .animate-marquee {
+    animation: marquee 15s linear infinite;
+  }
+
+  /* Lebih cepat di mobile */
+  @media (max-width: 768px) {
+    .animate-marquee {
+      animation: marquee 7s linear infinite;
+    }
+  }
 </style>
+
 
 <!-- =================== FOOTER MODERN 2-LINE =================== -->
 <footer class="relative bg-[#080c1b] text-gray-300 overflow-hidden">

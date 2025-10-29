@@ -115,5 +115,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { threshold: 0.2 });
 
   document.querySelectorAll(".scroll-fade").forEach(el => observer.observe(el));
-});
+});A
 </script>
