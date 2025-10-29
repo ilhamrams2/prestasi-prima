@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Prestasiprima\Admin;
+namespace App\Http\Controllers\prestasiprima\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Prestasiprima\News;
-use App\Models\Prestasiprima\Category;
+use App\Models\prestasiprima\News;
+use App\Models\prestasiprima\Category;
 use Illuminate\Support\Str;
 
 class AdminNewsController extends Controller
