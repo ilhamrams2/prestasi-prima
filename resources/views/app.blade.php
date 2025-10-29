@@ -19,26 +19,33 @@
 
     @stack('styles')
 </head>
-<body class="antialiased" x-data="{ sidebarCollapsed: false }">
+<body class="antialiased @hasSection('hideSidebar') no-sidebar @endif" x-data="{ sidebarCollapsed: false }">
     <div class="min-h-screen bg-gray-50 flex">
         
-        {{-- Sidebar dinamis berdasarkan role --}}
-        @auth
-            @if(Auth::user()->role === 'admin')
-                @include('AdminSidebar')
+        {{-- Sidebar dinamis berdasarkan role; can be hidden per-page by defining a `hideSidebar` section --}}
+        @unless(View::hasSection('hideSidebar'))
+            @auth
+                @if(Auth::user()->role === 'admin')
+                    @include('AdminSidebar')
+                @else
+                    @include('SidebarLance')
+                @endif
             @else
+                {{-- Kalau belum login, sidebar default user --}}
                 @include('SidebarLance')
-            @endif
-        @else
-            {{-- Kalau belum login, sidebar default user --}}
-            @include('SidebarLance')
-        @endauth
+            @endauth
+        @endunless
 
         {{-- Main Content --}}
-        <div :class="sidebarCollapsed ? 'lg:ml-20' : 'lg:ml-80'"
-             class="flex-1 transition-all duration-300">
-            @yield('content')
-        </div>
+        @if(View::hasSection('hideSidebar'))
+            <div class="flex-1 transition-all duration-300">
+                @yield('content')
+            </div>
+        @else
+            <div :class="sidebarCollapsed ? 'lg:ml-20' : 'lg:ml-80'" class="flex-1 transition-all duration-300">
+                @yield('content')
+            </div>
+        @endif
     </div>
 
     @stack('scripts')

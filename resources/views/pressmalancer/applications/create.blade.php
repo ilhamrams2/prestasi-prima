@@ -1,12 +1,10 @@
-@vite('resources/css/app.css')
+@extends('app')
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+@section('hideSidebar')@endsection
 @section('title', 'Lamar Pekerjaan - Fase 1')
 @section('content')
-<div class="min-h-screen bg-gray-50 flex justify-center items-start py-8" x-data="applicationForm()">
-    {{-- Sidebar --}}
-
-    {{-- Main Content --}}
-    <div :class="isCollapsed ? 'lg:ml-20' : 'lg:ml-0'" class="flex-1 transition-all duration-300">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="min-h-screen bg-gray-50 flex justify-center" x-data="applicationForm({{ isset($application) ? 'true' : 'false' }})">
+    <div class="w-full max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
             
             {{-- Progress Steps --}}
             <div class="mb-8 animate-in fade-in duration-500">
@@ -44,17 +42,16 @@
                     {{-- Step 4 --}}
                     <div class="flex flex-col items-center">
                         <div class="w-12 h-12 rounded-full border-2 border-gray-300 text-gray-400 flex items-center justify-center font-semibold">
-                            4
+                        
                         </div>
                         <span class="mt-2 text-xs sm:text-sm text-gray-500">Review & Kirim</span>
                     </div>
-                </div>
             </div>
 
-            <form action="{{ isset($application) ? route('applications.update', $application->id) : route('applications.store') }}" 
-                  method="POST" 
-                  enctype="multipart/form-data"
-                  class="space-y-6">
+        <form id="phase1Form" action="{{ isset($application) ? route('applications.phase1.update', $application->id) : route('applications.phase1.store') }}" 
+            method="POST" 
+            enctype="multipart/form-data"
+            class="space-y-6">
                 @csrf
                 @if(isset($application))
                     @method('PUT')
@@ -197,8 +194,8 @@
                             <label class="block text-sm font-medium text-gray-700 mb-2">
                                 Nama Belakang <span class="text-red-500">*</span>
                             </label>
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 name="last_name"
                                 value="{{ old('last_name', $application->last_name ?? '') }}"
                                 placeholder="Masukkan nama belakang"
@@ -423,7 +420,20 @@
                         Lanjutkan
                     </button>
                 </div>
+{{-- Alpine.js Script --}}
             </form>
+
+            <!-- Saved popup modal (inside Alpine scope) -->
+            <div x-show="showSavedPopup" x-transition class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50" style="display: none;">
+                <div class="bg-white rounded-lg shadow-xl w-11/12 max-w-md p-6 transform transition-all scale-100 animate-pop">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Informasi anda telah disimpan!</h3>
+                    <p class="text-sm text-gray-600 mb-4" x-text="savedMessage"> </p>
+                    <div class="text-right">
+                        <button @click="showSavedPopup = false" class="px-4 py-2 bg-orange-500 text-white rounded-md">OK</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -433,6 +443,8 @@
 function applicationForm() {
     return {
         isCollapsed: false,
+        showSavedPopup: false,
+        savedMessage: '',
         resumeType: 'upload',
         coverLetterType: 'upload',
         resumeFileName: '',
@@ -449,12 +461,91 @@ function applicationForm() {
             }
         },
         
-        savePersonalInfo() {
-            alert('Data pribadi tersimpan! Anda dapat melanjutkan mengisi form.');
-        }
+    async savePersonalInfo() {
+            // Submit the phase1 form via AJAX (FormData to include files)
+            try {
+                const form = document.getElementById('phase1Form');
+                const url = "{{ route('applications.phase1.save') }}";
+                const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const formData = new FormData(form);
+
+                const res = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': token,
+                        'Accept': 'application/json'
+                    },
+                    body: formData,
+                    credentials: 'same-origin'
+                });
+
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    const msg = err.errors ? Object.values(err.errors).flat().join('\n') : 'Terjadi kesalahan saat menyimpan.';
+                    this.savedMessage = msg;
+                    this.showSavedPopup = true;
+                    return;
+                }
+
+                const data = await res.json();
+                if (data.success) {
+                    this.savedMessage = data.message || 'Informasi anda telah disimpan!';
+                    this.showSavedPopup = true;
+                    // mark form as saved so Lanjutkan (submit) is enabled
+                    this.saved = true;
+                    this.applicationId = data.application_id || this.applicationId;
+                    // Optionally update the form action to use update route if application_id returned
+                    if (data.application_id) {
+                        // replace form action to the update route and ensure method spoofing for PUT
+                        const updateUrl = "{{ url('/applications') }}" + '/' + data.application_id + '/phase1';
+                        form.setAttribute('action', updateUrl);
+
+                        // If the form wasn't originally rendered as an 'update' (no @method('PUT')),
+                        // inject a hidden _method input so Laravel will treat the next submit as PUT.
+                        let methodInput = form.querySelector('input[name="_method"]');
+                        if (!methodInput) {
+                            methodInput = document.createElement('input');
+                            methodInput.type = 'hidden';
+                            methodInput.name = '_method';
+                            methodInput.value = 'PUT';
+                            form.appendChild(methodInput);
+                        } else {
+                            methodInput.value = 'PUT';
+                        }
+                    }
+                }
+            } catch (e) {
+                this.savedMessage = 'Terjadi kesalahan jaringan. Silakan coba lagi.';
+                this.showSavedPopup = true;
+            }
+        },
+        // track saved state and application id for submit handling
+        saved: false,
+        applicationId: null,
+        isInitiallySaved: false
     }
 }
 </script>
 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+@endsection
 
+<style>
+.animate-pop{animation: pop 220ms ease-out}
+@keyframes pop{0%{transform:translateY(6px) scale(.96);opacity:0}100%{transform:translateY(0) scale(1);opacity:1}}
+</style>
+
+@push('styles')
+<style>
+    /* When this view hides the sidebar, remove the left margin applied by the layout and center the main area */
+    body.no-sidebar .flex-1.transition-all.duration-300 {
+        margin-left: 0 !important;
+    }
+
+    /* Ensure the inner container is centered and has comfortable spacing */
+    body.no-sidebar .w-full.max-w-4xl {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+</style>
+@endpush

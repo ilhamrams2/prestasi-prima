@@ -145,7 +145,7 @@ Route::prefix('presmaboard')->name('presmaboard.')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/', [PresmaboardDashboardController::class, 'index'])->name('dashboard');
-        Route::get('/leaderboard', [PresmaboardLeaderboardController::class, 'index'])->name('leaderboard');
+        Route::get('/leaderboard', fn() => view('presmaboard.leaderboard'))->name('leaderboard');
 
         // Project
         Route::prefix('project')->name('project.')->controller(PresmaboardProjectController::class)->group(function () {
@@ -242,7 +242,43 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/profile/upload-avatar', [ProfileController::class, 'uploadAvatar'])->name('profile.upload-avatar');
 
-    // Applications
+    // Application Routes (requires auth in production)
+Route::prefix('applications')->name('applications.')->group(function () {
+    // List & View
+    Route::get('/', [ApplicationController::class, 'index'])->name('index');
+    Route::get('/jobs/{job}/apply', [ApplicationController::class, 'create'])->name('create');
+    Route::delete('/{application}', [ApplicationController::class, 'destroy'])->name('destroy');
+    
+    // Phase 1: Personal Info & Documents
+    Route::post('/phase1', [ApplicationController::class, 'storePhase1'])->name('phase1.store');
+    // Ajax save for Phase 1 (save personal info without moving to next phase)
+    Route::post('/phase1/save', [ApplicationController::class, 'savePhase1Ajax'])->name('phase1.save');
+    Route::put('/{application}/phase1', [ApplicationController::class, 'updatePhase1'])->name('phase1.update');
+    Route::get('/{application}/phase1/edit', [ApplicationController::class, 'editPhase1FromReview'])->name('phase1.edit');
+    
+    // Phase 2: Company Questions
+    Route::get('/{application}/phase2', [ApplicationController::class, 'showPhase2'])->name('phase2');
+    Route::post('/{application}/phase2', [ApplicationController::class, 'storePhase2'])->name('phase2.store');
+    Route::get('/{application}/phase2/edit', [ApplicationController::class, 'editPhase2FromReview'])->name('phase2.edit');
+    
+    // Phase 3: Design Draft / Template
+    Route::get('/{application}/phase3', [ApplicationController::class, 'showPhase3'])->name('phase3');
+    Route::post('/{application}/phase3', [ApplicationController::class, 'storePhase3'])->name('phase3.store');
+    Route::get('/{application}/phase3/edit', [ApplicationController::class, 'editPhase3FromReview'])->name('phase3.edit');
+    
+    // Phase 4: Review & Submit
+    Route::get('/{application}/phase4', [ApplicationController::class, 'showPhase4'])->name('phase4');
+    Route::post('/{application}/submit', [ApplicationController::class, 'submitFinal'])->name('submit');
+    Route::get('/{application}/success', [ApplicationController::class, 'success'])->name('success');
+    
+    // File Downloads
+    Route::get('/{application}/download-resume', [ApplicationController::class, 'downloadResume'])->name('download-resume');
+    Route::get('/{application}/download-cover-letter', [ApplicationController::class, 'downloadCoverLetter'])->name('download-cover-letter');
+    
+    // Legacy routes (for backward compatibility)
+    Route::get('/{application}/edit', [ApplicationController::class, 'edit'])->name('edit');
+
+    // Application Routes
     Route::get('/jobs/{job}/apply', [ApplicationController::class, 'create'])->name('applications.create');
     Route::post('/applications', [ApplicationController::class, 'store'])->name('applications.store');
     Route::get('/applications/{application}', [ApplicationController::class, 'show'])->name('applications.show');
@@ -250,12 +286,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/applications/{application}', [ApplicationController::class, 'update'])->name('applications.update');
     Route::delete('/applications/{application}', [ApplicationController::class, 'destroy'])->name('applications.destroy');
     Route::get('/applications/{application}/phase2', [ApplicationController::class, 'showPhase2'])->name('applications.phase2');
-});
-
-// ============================================================
-// ===================== ADMIN JOB PANEL ======================
-// ============================================================
-
+    });
+    // close auth middleware group
+    });
+    
+    // ============================================================ 
+    // ===================== ADMIN JOB PANEL ======================
+    // ============================================================
+    
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/jobs', [AdminJobController::class, 'index'])->name('jobs.index');
     Route::get('/jobs/create', [AdminJobController::class, 'create'])->name('jobs.create');
@@ -297,4 +335,3 @@ Route::get('/notinternet', fn() => view('errors.notinternet'))->name('notinterne
 Route::fallback(function () {
     return response()->view('errors.404', [], 404);
 });
-

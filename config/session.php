@@ -168,7 +168,20 @@ return [
     |
     */
 
-    'secure' => true,
+    /*
+    |--------------------------------------------------------------------------
+    | HTTPS Only Cookies
+    |--------------------------------------------------------------------------
+    |
+    | When this option is true, session cookies will only be sent back to the
+    | server if the browser has a HTTPS connection. In local development using
+    | plain HTTP (http://localhost) this should be false so the browser sends
+    | the session cookie and CSRF protection works. We read the value from
+    | the environment to allow different behavior in production.
+    |
+    */
+
+    'secure' => env('SESSION_SECURE_COOKIE', false),
 
     /*
     |--------------------------------------------------------------------------

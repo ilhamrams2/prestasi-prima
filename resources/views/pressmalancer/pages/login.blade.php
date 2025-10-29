@@ -1,4 +1,4 @@
-@vite('resources/css/app.css')
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 @include('header')
 <div class="min-h-screen flex items-center justify-center bg-white px-4 py-12">
     <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md border border-gray-200">
