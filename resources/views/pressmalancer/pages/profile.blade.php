@@ -1,11 +1,12 @@
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @extends('app')
 @section('title', 'Profil Saya')
+@section('centerMain', true)
 @section('content')
-<div class="min-h-screen bg-gray-50" x-data="profileEditor()">
-    {{-- Header --}}
+<div class="min-h-screen bg-gray-50 overflow-x-hidden" x-data="profileEditor()">
+    {{-- Header (constrained to same max width as content) --}}
     <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex items-center justify-between">
                 <div>
                     <h1 class="text-3xl font-bold">Profil Saya</h1>
@@ -45,8 +46,9 @@
     </div>
 
     {{-- Main Content --}}
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="w-full flex justify-center">
+    <div class="max-w-4xl w-full px-4 sm:px-6 lg:px-8 py-6 mt-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {{-- Left Column - Profile Card --}}
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-lg shadow overflow-hidden sticky top-8">
@@ -110,12 +112,12 @@
                         {{-- Stats --}}
                         <div class="grid grid-cols-2 gap-3 mt-6 pt-6 border-t border-gray-100">
                             <div class="text-center p-3 bg-orange-50 rounded-lg">
-                                <div class="text-2xl font-bold text-orange-600">12</div>
+                                <div class="text-2xl font-bold text-orange-600">{{ $applicationsCount ?? 0 }}</div>
                                 <div class="text-xs text-gray-600">Lamaran</div>
                             </div>
                             <div class="text-center p-3 bg-blue-50 rounded-lg">
-                                <div class="text-2xl font-bold text-blue-600">5</div>
-                                <div class="text-xs text-gray-600">Tersimpan</div>
+                                <div class="text-2xl font-bold text-blue-600">{{ $acceptedCount ?? ($savedJobsCount ?? 0) }}</div>
+                                <div class="text-xs text-gray-600">Diterima</div>
                             </div>
                         </div>
                     </div>
@@ -258,7 +260,7 @@ function profileEditor() {
             email: '{{ auth()->user()->email ?? "ahmad.rizki@example.com" }}',
             phone: '{{ auth()->user()->phone ?? "+62 812 3456 7890" }}',
             location: '{{ auth()->user()->profile->location ?? "Jakarta, Indonesia" }}',
-            avatar: '{{ auth()->user()->avatar ?? "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" }}',
+            avatar: '{{ $profile->avatar_url ?? auth()->user()->avatar ?? "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" }}',
             role: '{{ auth()->user()->profile->role ?? "Job Seeker" }}',
             bio: '{{ auth()->user()->profile->bio ?? "Passionate web developer with 3+ years of experience..." }}',
                 skills: {!! json_encode(json_decode(auth()->user()->profile->skills ?? '[]')) !!}
@@ -329,6 +331,8 @@ function profileEditor() {
                 const data = await response.json();
                 if (data.success && data.avatar_url) {
                     this.profile.avatar = data.avatar_url;
+                    // Broadcast event so sidebars can update live
+                    window.dispatchEvent(new CustomEvent('profile-updated', { detail: { avatar_url: data.avatar_url } }));
                     alert('Avatar berhasil diupload!');
                 } else {
                     let errorMsg = data.message || 'Gagal upload avatar.';

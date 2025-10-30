@@ -1,12 +1,12 @@
 @extends('app')
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @section('title', 'Lamar Pekerjaan - Fase 4: Review & Kirim')
+@section('hideSidebar')@endsection
 @section('content')
-<div class="min-h-screen bg-gray-50 flex" x-data="sidebarState()">
+<div class="min-h-screen bg-gray-50">
 
     {{-- Main Content --}}
-    <div :class="isCollapsed ? 'lg:ml-20' : 'lg:ml-80'" class="flex-1 transition-all duration-300">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             
             {{-- Progress Steps --}}
             <div class="mb-8 animate-in fade-in duration-500">
@@ -222,7 +222,7 @@
             </div>
 
             {{-- Final Action Buttons --}}
-            <form action="{{ route('applications.submit', $application->id) }}" method="POST" class="mt-8">
+            <form action="{{ route('applications.submit', $application->id) }}" method="POST" class="mt-8" x-ref="finalForm">
                 @csrf
                 
                 {{-- Optional Final Notes --}}
@@ -244,13 +244,32 @@
                         Kembali
                     </a>
                     
-                    <button 
-                        type="submit"
-                        class="px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-all duration-300 hover:scale-105 shadow-lg font-medium"
-                        onclick="return confirm('Apakah Anda yakin ingin mengirim lamaran ini? Setelah dikirim, lamaran tidak dapat diubah.')"
-                    >
-                        Kirim Lamaran
-                    </button>
+                    <div x-data="phase4State()" class="relative">
+                        <button 
+                            type="button"
+                            @click="openModal()"
+                            class="px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-all duration-300 hover:scale-105 shadow-lg font-medium"
+                        >
+                            Kirim Lamaran
+                        </button>
+
+                        <!-- Confirmation Modal -->
+                        <div x-show="showConfirm" x-cloak class="fixed inset-0 z-40 flex items-center justify-center">
+                            <div x-show="showConfirm" x-transition.opacity class="fixed inset-0 bg-black bg-opacity-40"></div>
+
+                            <div x-show="showConfirm" x-transition:enter="duration-300" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="duration-200" x-transition:leave-start="opacity-100 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-95 translate-y-4" class="bg-white rounded-lg shadow-xl max-w-lg w-full mx-4 z-50">
+                                <div class="p-6">
+                                    <h3 class="text-lg font-semibold text-gray-900">Konfirmasi Kirim Lamaran</h3>
+                                    <p class="mt-2 text-sm text-gray-600">Apakah Anda yakin ingin mengirim lamaran ini? Setelah dikirim, lamaran tidak dapat diubah.</p>
+
+                                    <div class="mt-6 flex justify-end gap-3">
+                                        <button type="button" @click="closeModal()" class="px-4 py-2 bg-white border rounded-md text-gray-700 hover:bg-gray-50">Batal</button>
+                                        <button type="button" @click="confirmSubmit()" class="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600">Ya, Kirim</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -259,9 +278,23 @@
 
 {{-- Alpine.js Script --}}
 <script>
-function sidebarState() {
+function phase4State() {
     return {
-        isCollapsed: false
+        showConfirm: false,
+        openModal() { this.showConfirm = true; document.body.classList.add('overflow-hidden'); },
+        closeModal() { this.showConfirm = false; document.body.classList.remove('overflow-hidden'); },
+        confirmSubmit() {
+            // find the form referenced by x-ref on the page and submit it
+            const form = document.querySelector('[x-ref="finalForm"]');
+            if (form) {
+                // remove modal to avoid blocking UI and submit
+                this.closeModal();
+                form.submit();
+            } else {
+                this.closeModal();
+                document.querySelector('form')?.submit();
+            }
+        }
     }
 }
 </script>

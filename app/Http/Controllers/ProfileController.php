@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use App\Models\User;
+use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -30,10 +31,11 @@ class ProfileController extends Controller
 
         // Calculate profile completion
         $profileCompletion = $this->calculateProfileCompletion($user, $profile);
-        
-        // Get user stats
-        $applicationsCount = $user->applications()->count();
-        $savedJobsCount = 0; // Implement saved jobs if needed
+    // Get user stats
+    // Use the Application model directly instead of an undefined User::applications() relationship
+    $applicationsCount = Application::where('user_id', $user->id)->count();
+    // 'Tersimpan' replaced with 'Diterima' = accepted applications
+    $savedJobsCount = Application::where('user_id', $user->id)->where('status', 'accepted')->count();
 
         return view('pressmalancer.pages.profile', compact('user', 'profile', 'profileCompletion', 'applicationsCount', 'savedJobsCount'));
     }
@@ -44,6 +46,19 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user = Auth::user();
+
+        // Ensure $user is an instance of the Eloquent User model so ->save() is available
+        if (! $user instanceof User) {
+            // Try to load the User model by the authenticated id as a fallback
+            $user = User::find(Auth::id());
+        }
+
+        if (! $user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthenticated.'
+            ], 401);
+        }
         
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -65,10 +80,9 @@ class ProfileController extends Controller
 
         try {
             // Update user info
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-            ]);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->save();
 
             // Get or create profile
             $profile = $user->profile ?? new Profile(['user_id' => $user->id]);

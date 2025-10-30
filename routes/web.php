@@ -312,6 +312,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::get('/companies/{company}/edit', [CompanyController::class, 'edit'])->name('companies.edit');
     Route::put('/companies/{company}', [CompanyController::class, 'update'])->name('companies.update');
     Route::delete('/companies/{company}', [CompanyController::class, 'destroy'])->name('companies.destroy');
+
+    // Applications - Admin review (approve / reject)
+    Route::get('/applications', [ApplicationController::class, 'adminIndex'])->name('applications.index');
+    Route::get('/applications/{application}', [ApplicationController::class, 'adminShow'])->name('applications.show');
+    Route::post('/applications/{application}/review', [ApplicationController::class, 'adminReview'])->name('applications.review');
 });
 
 // ============================================================

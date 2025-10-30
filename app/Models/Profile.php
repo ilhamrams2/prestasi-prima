@@ -19,12 +19,15 @@ class Profile extends Model
     protected $fillable = [
         'user_id',
         'phone',
+        'location',
         'address',
         'bio',
         'skills',
         'education',
         'experience',
         'portfolio_link',
+        'avatar',
+        'role',
     ];
 
     /**
@@ -33,6 +36,22 @@ class Profile extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Return avatar URL (storage or fallback to user's avatar or ui-avatars)
+     */
+    public function getAvatarUrlAttribute(): string
+    {
+        if ($this->avatar) {
+            return \Illuminate\Support\Facades\Storage::url($this->avatar);
+        }
+
+        if ($this->user && $this->user->avatar) {
+            return $this->user->avatar;
+        }
+
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->user->name ?? 'User') . '&background=f97316&color=fff&size=200';
     }
 
     /**

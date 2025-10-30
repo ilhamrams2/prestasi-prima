@@ -1,27 +1,40 @@
 @php
-    // Get current user (replace with actual auth)
-    $user = auth()->user() ?? (object)[
-        'name' => 'Ahmad Rizki',
-        'email' => 'ahmad.rizki@example.com',
-        'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
-        'role' => 'Job Seeker',
-        'location' => 'Jakarta, Indonesia',
-        'phone' => '+62 812 3456 7890',
-    ];
-    
-    $profileCompletion = 85;
-    $applicationsCount = 12;
-    $savedJobsCount = 5;
-    
-    // Current route for active state
+    $user = auth()->user();
+    $profile = $user ? ($user->profile ?? null) : null;
+
+    // Calculate profile completion roughly the same as controller
+    $totalFields = 8;
+    $completedFields = 0;
+    if($user && $user->name) $completedFields++;
+    if($user && $user->email) $completedFields++;
+    if($profile && $profile->phone) $completedFields++;
+    if($profile && $profile->location) $completedFields++;
+    if($profile && $profile->bio) $completedFields++;
+    if($profile && $profile->avatar) $completedFields++;
+    $skills = $profile && $profile->skills ? json_decode($profile->skills, true) : [];
+    if(is_array($skills) && count($skills) > 0) $completedFields++;
+    if(is_array($skills) && count($skills) >= 3) $completedFields++;
+    $profileCompletion = $totalFields ? round(($completedFields / $totalFields) * 100) : 0;
+
+    $applicationsCount = $user ? $user->applications()->count() : 0;
+    // Change 'Tersimpan' to 'Diterima' = accepted applications
+    $acceptedCount = $user ? $user->applications()->where('status', 'accepted')->count() : 0;
+
     $currentRoute = request()->route()->getName() ?? '';
 @endphp
 
 <div x-data="{ 
     isCollapsed: false, 
     isMobileOpen: false,
+    profileAvatar: '{{ $profile?->avatar ? \Illuminate\Support\Facades\Storage::url($profile->avatar) : ($user?->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name ?? 'User')) }}',
     toggleCollapse() {
         this.isCollapsed = !this.isCollapsed;
+        // notify layout to recompute centered content offset
+        try {
+            window.dispatchEvent(new CustomEvent('sidebar-toggled', { detail: { collapsed: this.isCollapsed } }));
+        } catch (e) {
+            // ignore
+        }
     },
     toggleMobile() {
         this.isMobileOpen = !this.isMobileOpen;
@@ -34,7 +47,7 @@
     navigate(url) {
         window.location.href = url;
     }
-}" 
+}" @profile-updated.window="profileAvatar = $event.detail.avatar_url ?? $event.detail.avatar ?? profileAvatar" 
 class="sidebar-wrapper">
     {{-- Mobile Sidebar Overlay --}}
     <div x-show="isMobileOpen" 
@@ -74,8 +87,8 @@ class="sidebar-wrapper">
                      class="flex flex-col items-center cursor-pointer group">
                     <div class="relative">
                         <div class="w-12 h-12 rounded-full overflow-hidden border-4 border-orange-100 group-hover:border-orange-300 transition-all">
-                            <img src="{{ $user->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name) }}" 
-                                 alt="{{ $user->name }}"
+                            <img x-bind:src="profileAvatar" src="{{ $profile?->avatar ? \Illuminate\Support\Facades\Storage::url($profile->avatar) : ($user->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name)) }}" 
+                                 alt="{{ $user->name ?? 'User' }}"
                                  class="w-full h-full object-cover">
                         </div>
                         <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
@@ -89,8 +102,8 @@ class="sidebar-wrapper">
                         <div class="flex items-start gap-4">
                             <div class="relative">
                                 <div class="w-16 h-16 rounded-full overflow-hidden border-4 border-orange-100">
-                                    <img src="{{ $user->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name) }}" 
-                                         alt="{{ $user->name }}"
+                                    <img x-bind:src="profileAvatar" src="{{ $profile?->avatar ? \Illuminate\Support\Facades\Storage::url($profile->avatar) : ($user->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name)) }}" 
+                                         alt="{{ $user->name ?? 'User' }}"
                                          class="w-full h-full object-cover">
                                 </div>
                                 <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
@@ -103,7 +116,7 @@ class="sidebar-wrapper">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                                     </svg>
-                                    <span class="text-xs text-gray-500 truncate">{{ $user->location ?? 'Jakarta, Indonesia' }}</span>
+                                    <span class="text-xs text-gray-500 truncate">{{ $profile->location ?? $user->location ?? 'Jakarta, Indonesia' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -127,12 +140,12 @@ class="sidebar-wrapper">
                         <div class="grid grid-cols-2 gap-2 pt-3 border-t border-gray-100">
                             <div class="text-center p-2 bg-orange-50 rounded-lg">
                                 <div class="text-lg font-bold text-orange-600">{{ $applicationsCount }}</div>
-                                <div class="text-xs text-gray-600">Lamaran</div>
+                                    <div class="text-xs text-gray-600">Lamaran</div>
                             </div>
-                            <div class="text-center p-2 bg-blue-50 rounded-lg">
-                                <div class="text-lg font-bold text-blue-600">{{ $savedJobsCount }}</div>
-                                <div class="text-xs text-gray-600">Tersimpan</div>
-                            </div>
+                                <div class="text-center p-2 bg-blue-50 rounded-lg">
+                                    <div class="text-lg font-bold text-blue-600">{{ $acceptedCount }}</div>
+                                    <div class="text-xs text-gray-600">Diterima</div>
+                                </div>
                         </div>
 
                         {{-- View Profile Button --}}
@@ -163,33 +176,20 @@ class="sidebar-wrapper">
                         <div x-show="!isCollapsed && {{ request()->routeIs('jobs.index') ? 'true' : 'false' }}" class="w-1 h-6 bg-white rounded-full"></div>
                     </a>
 
+                    {{-- Applications (user-facing) --}}
+                    <a href="{{ route('applications.index') }}"
+                       class="w-full flex items-center rounded-lg transition-all duration-300 group {{ request()->routeIs('applications.*') ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-200' : 'text-gray-700 hover:bg-orange-50 hover:text-orange-600' }} {{ $isCollapsed ?? false ? 'justify-center px-3 py-3' : 'gap-3 px-4 py-3' }}"
+                       x-bind:class="isCollapsed ? 'justify-center px-3 py-3' : 'gap-3 px-4 py-3'"
+                       x-bind:title="isCollapsed ? 'Applications' : null">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <span x-show="!isCollapsed" class="flex-1 text-left font-medium">Applications</span>
+                    </a>
+
                    
 
-                {{-- Divider and Premium Card (only when expanded) --}}
-                <template x-if="!isCollapsed">
-                    <div>
-                        <div class="my-6 border-t border-gray-200"></div>
-
-                        {{-- Premium Card --}}
-                        <div class="mb-4 overflow-hidden border-l-4 border-l-blue-500 bg-white rounded-lg shadow">
-                            <div class="p-4 bg-gradient-to-br from-blue-50 to-indigo-50">
-                                <div class="flex items-start gap-3 mb-3">
-                                    <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900 text-sm">Premium Member</h4>
-                                        <p class="text-xs text-gray-600 mt-1">
-                                            Upgrade untuk akses eksklusif ke workshop dan fitur premium
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
+                {{-- Premium card removed per request --}}
             </nav>
 
             {{-- Logout Button - Fixed at bottom --}}
@@ -273,8 +273,8 @@ class="sidebar-wrapper">
                                 <div class="text-xs text-gray-600">Lamaran</div>
                             </div>
                             <div class="text-center p-2 bg-blue-50 rounded-lg">
-                                <div class="text-lg font-bold text-blue-600">{{ $savedJobsCount }}</div>
-                                <div class="text-xs text-gray-600">Tersimpan</div>
+                                <div class="text-lg font-bold text-blue-600">{{ $acceptedCount }}</div>
+                                <div class="text-xs text-gray-600">Diterima</div>
                             </div>
                         </div>
 

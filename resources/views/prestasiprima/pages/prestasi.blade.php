@@ -27,12 +27,12 @@
       <div class="swiper prestasiSwiper pb-16">
         <div class="swiper-wrapper">
           @foreach ([
-            ['satu.webp', 'Juara Dua'],
-            ['dua.webp', 'Juara Tiga'],
-            ['tiga.webp', 'Juara Empat'],
-            ['empat.webp', 'Juara Lima'],
-            ['satu.webp', 'Juara Enam'],
-            ['dua.webp', 'Juara Tujuh']
+            ['satu.webp', 'Juara Satu'],
+            ['dua.webp', 'Juara Dua'],
+            ['tiga.webp', 'Juara Tiga'],
+            ['empat.webp', 'Juara Empat'],
+            ['satu.webp', 'Juara Satu'],
+            ['dua.webp', 'Juara Dua']
           ] as $item)
           <div class="swiper-slide">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden">
@@ -51,8 +51,8 @@
     <div class="mt-12">
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
         @foreach ([
-          'satu.webp','dua.webp','tiga.webp','empat.webp','satu.webp',
-          'dua.webp','tiga.webp','empat.webp','satu.webp','dua.webp'
+          'satu.webp','dua.webp','tiga.webp','empat.webp','lima.webp',
+          'enam.webp','tujuh.webp','delapan.webp','sembilan.webp','sepuluh.webp'
         ] as $img)
         <div class="rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 group">
           <img src="{{ asset('assets/images/section/prestasi/' . $img) }}"

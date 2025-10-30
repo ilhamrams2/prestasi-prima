@@ -287,7 +287,7 @@ class ApplicationController extends Controller
             $application->update(['current_phase' => 2]);
         }
         
-        return view('applications.phase2', compact('application'));
+        return view('pressmalancer.applications.phase2', compact('application'));
     }
 
     /**
@@ -315,8 +315,11 @@ class ApplicationController extends Controller
             'current_phase' => 2,
         ]);
 
-        return redirect()->route('applications.phase3', $application->id)
-                       ->with('success', 'Fase 2 berhasil disimpan! Lanjutkan ke Fase 3.');
+    // Redirect to the Phase 3 show route so the $templates array is prepared
+    // by showPhase3(). Returning the view here omitted $templates and caused
+    // an undefined variable error in the Blade template.
+    return redirect()->route('applications.phase3', $application->id)
+               ->with('success', 'Fase 2 berhasil disimpan! Lanjutkan ke Fase 3.');
     }
 
     // ============================================
@@ -353,9 +356,13 @@ class ApplicationController extends Controller
                 'name' => 'Minimal Clean',
                 'description' => 'Simpel dan minimalis untuk semua industri',
             ],
+            'manual' => [
+                'name' => 'Manual',
+                'description' => 'Buat desain sendiri (unggah file atau beri instruksi desain)',
+            ],
         ];
         
-        return view('applications.phase3', compact('application', 'templates'));
+        return view('pressmalancer.applications.phase3', compact('application', 'templates'));
     }
 
     /**
@@ -384,7 +391,7 @@ class ApplicationController extends Controller
             'current_phase' => 3,
         ]);
 
-        return redirect()->route('applications.phase4', $application->id)
+        return view('pressmalancer.applications.phase4', compact('application'))
                        ->with('success', 'Fase 3 berhasil disimpan! Lanjutkan ke Review Final.');
     }
 
@@ -434,7 +441,7 @@ class ApplicationController extends Controller
             'status' => 'pending', // Set to pending for admin review
         ]);
 
-        return redirect()->route('applications.success', $application->id)
+        return view('pressmalancer.applications.success', compact('application'))
                        ->with('success', 'Lamaran berhasil dikirim! Terima kasih sudah melamar.');
     }
 
@@ -464,8 +471,8 @@ class ApplicationController extends Controller
                                    ->where('user_id', $userId)
                                    ->orderBy('created_at', 'desc')
                                    ->paginate(10);
-        
-        return view('applications.index', compact('applications'));
+
+        return view('pressmalancer.applications.index', compact('applications'));
     }
 
     /**
@@ -476,7 +483,7 @@ class ApplicationController extends Controller
         $application = Application::with('job.company')->findOrFail($id);
         $job = $application->job;
         
-        return view('applications.create', compact('job', 'application'));
+        return view('pressmalancer.applications.create', compact('job', 'application'));
     }
 
     /**
@@ -609,7 +616,7 @@ class ApplicationController extends Controller
             ],
         ];
         
-        return view('applications.phase3', compact('application', 'templates'));
+        return view('pressmalancer.applications.phase3', compact('application', 'templates'));
     }
 
     /**
@@ -619,5 +626,63 @@ class ApplicationController extends Controller
     private function resolvePublicStoragePath(string $key): string
     {
         return storage_path('app/public/' . $key);
+    }
+
+    // ============================================
+    // ADMIN: Review / Approve / Reject
+    // ============================================
+
+    /**
+     * Show application details for admin review
+     */
+    public function adminShow($id)
+    {
+        $application = Application::with(['job.company', 'user'])->findOrFail($id);
+
+        return view('pressmalancer.admin.applications.ApplicationDashboard', compact('application'));
+    }
+
+    /**
+     * Admin index - list applications for review
+     */
+    public function adminIndex(Request $request)
+    {
+        $query = Application::with(['job.company', 'user'])->orderBy('created_at', 'desc');
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $applications = $query->paginate(20);
+
+        return view('pressmalancer.admin.applications.index', compact('applications'));
+    }
+
+    /**
+     * Admin reviews (approve/reject) an application
+     */
+    public function adminReview(Request $request, $id)
+    {
+        $application = Application::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'decision' => 'required|in:accepted,rejected',
+            'admin_notes' => 'nullable|string|max:2000',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $decision = $request->decision;
+
+        $application->update([
+            'status' => $decision,
+            'admin_notes' => $request->admin_notes,
+            'reviewed_by' => auth()->id() ?? 1,
+            'reviewed_at' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Keputusan disimpan: ' . ucfirst($decision));
     }
 }

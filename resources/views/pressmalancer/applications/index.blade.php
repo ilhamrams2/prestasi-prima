@@ -5,7 +5,7 @@
 <div class="min-h-screen bg-gray-50 flex" x-data="sidebarState()">
     
     {{-- Main Content --}}
-    <div :class="isCollapsed ? 'lg:ml-20' : 'lg:ml-80'" class="flex-1 transition-all duration-300">
+    <div class="flex-1 transition-all duration-300">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             
             {{-- Header --}}

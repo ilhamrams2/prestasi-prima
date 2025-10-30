@@ -1,12 +1,11 @@
 @extends('app')
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @section('title', 'Lamar Pekerjaan - Fase 2')
+@section('hideSidebar')@endsection
 @section('content')
-<div class="min-h-screen bg-gray-50 flex" x-data="sidebarState()">
+<div class="min-h-screen bg-gray-50">
 
-    {{-- Main Content --}}
-    <div :class="isCollapsed ? 'lg:ml-20' : 'lg:ml-80'" class="flex-1 transition-all duration-300">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             
             {{-- Progress Steps --}}
             <div class="mb-8 animate-in fade-in duration-500">
@@ -225,7 +224,6 @@
                     </span>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 

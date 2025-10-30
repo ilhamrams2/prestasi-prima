@@ -1,12 +1,12 @@
 @extends('app')
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @section('title', 'Lamar Pekerjaan - Fase 3: Design Draft')
+@section('hideSidebar')@endsection
 @section('content')
-<div class="min-h-screen bg-gray-50 flex" x-data="phase3Form()">
+<div class="min-h-screen bg-gray-50" x-data="phase3Form()">
 
     {{-- Main Content --}}
-    <div :class="isCollapsed ? 'lg:ml-20' : 'lg:ml-80'" class="flex-1 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             
             {{-- Progress Steps --}}
             <div class="mb-8 animate-in fade-in duration-500">
@@ -156,93 +156,109 @@
 
                             {{-- Preview Content --}}
                             <div class="p-6 space-y-6">
-                                {{-- Applicant Info --}}
-                                <div>
-                                    <h3 class="text-xl font-semibold text-blue-600 mb-1">{{ $application->full_name }}</h3>
-                                    <p class="text-gray-600">{{ $application->email }}</p>
-                                    <p class="text-gray-600">{{ $application->phone }}</p>
-                                    <p class="text-sm text-gray-500 mt-2">{{ $application->address }}</p>
-                                </div>
+                                {{-- Modern Professional Preview --}}
+                                <div x-show="selectedTemplate === 'modern_professional'" x-cloak>
+                                    <div>
+                                        <h3 class="text-xl font-semibold text-blue-600 mb-1">{{ $application->full_name }}</h3>
+                                        <p class="text-gray-600">{{ $application->email }}</p>
+                                        <p class="text-gray-600">{{ $application->phone }}</p>
+                                        <p class="text-sm text-gray-500 mt-2">{{ $application->address }}</p>
+                                    </div>
 
-                                {{-- Position Applied --}}
-                                <div class="grid grid-cols-2 gap-4 pt-4 border-t">
-                                    <div>
-                                        <h4 class="text-sm font-medium text-blue-600 mb-2">Posisi yang Dilamar:</h4>
-                                        <p class="font-medium text-gray-900">{{ $application->job->title }}</p>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-sm font-medium text-blue-600 mb-2">Perusahaan:</h4>
-                                        <p class="font-medium text-gray-900">{{ $application->job->company->name ?? 'PT Digital Indonesia' }}</p>
-                                    </div>
-                                </div>
-
-                                {{-- Job Details --}}
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <h5 class="text-xs text-gray-500">Departemen</h5>
-                                        <p class="font-medium text-gray-900">{{ $application->job->department ?? 'SDD' }}</p>
-                                    </div>
-                                    <div>
-                                        <h5 class="text-xs text-gray-500">Tipe:</h5>
-                                        <p class="font-medium text-gray-900">{{ $application->job->type ?? 'Full Time' }}</p>
-                                    </div>
-                                    <div>
-                                        <h5 class="text-xs text-gray-500">Dapat Mulai</h5>
-                                        <p class="font-medium text-gray-900">{{ now()->addDays(14)->format('d F Y') }}</p>
-                                    </div>
-                                </div>
-
-                                {{-- Additional Info --}}
-                                <div class="pt-4 border-t">
-                                    <h4 class="text-sm font-medium text-blue-600 mb-2">Informasi Utama</h4>
-                                    <div class="space-y-2">
-                                        <div class="flex justify-between">
-                                            <span class="text-gray-600">Ekspektasi Gaji:</span>
-                                            <span class="font-medium">Di atas Rp 20.000.000</span>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span class="text-gray-600">Preferensi Kerja:</span>
-                                            <span class="font-medium">Work from Home</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {{-- Documents --}}
-                                <div class="pt-4 border-t">
-                                    <h4 class="text-sm font-medium text-blue-600 mb-2">Dokumen Lampiran</h4>
-                                    <div class="grid grid-cols-2 gap-4">
+                                    <div class="grid grid-cols-2 gap-4 pt-4 border-t">
                                         <div>
-                                            <span class="text-gray-600">Resume:</span>
-                                            <span class="font-medium">
-                                                @if($application->resume_path)
-                                                    ✓ Tersedia
-                                                @else
-                                                    ✗ Tidak ada
-                                                @endif
-                                            </span>
+                                            <h4 class="text-sm font-medium text-blue-600 mb-2">Posisi yang Dilamar:</h4>
+                                            <p class="font-medium text-gray-900">{{ $application->job->title }}</p>
                                         </div>
                                         <div>
-                                            <span class="text-gray-600">Surat Lamaran:</span>
-                                            <span class="font-medium">
-                                                @if($application->cover_letter_path)
-                                                    ✓ Tersedia
-                                                @else
-                                                    ✗ Tidak ada
-                                                @endif
-                                            </span>
+                                            <h4 class="text-sm font-medium text-blue-600 mb-2">Perusahaan:</h4>
+                                            <p class="font-medium text-gray-900">{{ $application->job->company->name ?? 'PT Digital Indonesia' }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="pt-4 border-t">
+                                        <h4 class="text-sm font-medium text-blue-600 mb-2">Informasi Utama</h4>
+                                        <div class="space-y-2">
+                                            <div class="flex justify-between">
+                                                <span class="text-gray-600">Ekspektasi Gaji:</span>
+                                                <span class="font-medium">Di atas Rp 20.000.000</span>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span class="text-gray-600">Preferensi Kerja:</span>
+                                                <span class="font-medium">Work from Home</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                {{-- Skills --}}
-                                <div class="pt-4 border-t">
-                                    <h4 class="text-sm font-medium text-blue-600 mb-2">Keahlian</h4>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="px-3 py-1 bg-gray-100 text-sm rounded-full">Git/Version Control</span>
+                                {{-- Corporate Classic Preview --}}
+                                <div x-show="selectedTemplate === 'corporate_classic'" x-cloak>
+                                    <div class="font-sans">
+                                        <h3 class="text-xl font-semibold text-gray-800 mb-1">{{ $application->full_name }}</h3>
+                                        <p class="text-gray-700">{{ $application->email }} · {{ $application->phone }}</p>
+                                        <p class="text-sm text-gray-500 mt-2">{{ $application->address }}</p>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-4 pt-4 border-t text-sm text-gray-800">
+                                        <div>
+                                            <h4 class="text-xs font-medium text-gray-600 mb-1">Posisi</h4>
+                                            <p class="font-medium">{{ $application->job->title }}</p>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-xs font-medium text-gray-600 mb-1">Perusahaan</h4>
+                                            <p class="font-medium">{{ $application->job->company->name ?? 'PT Digital Indonesia' }}</p>
+                                        </div>
                                     </div>
                                 </div>
 
-                                {{-- Cover Letter Text --}}
+                                {{-- Creative Design Preview --}}
+                                <div x-show="selectedTemplate === 'creative_design'" x-cloak>
+                                    <div class="text-indigo-700">
+                                        <h3 class="text-2xl font-bold mb-1">{{ $application->full_name }}</h3>
+                                        <p class="italic text-sm text-indigo-600">{{ $application->job->title }}</p>
+                                    </div>
+
+                                    <div class="pt-4 border-t">
+                                        <p class="text-gray-700">{{ \Illuminate\Support\Str::limit($application->cover_letter_text ?? 'Belum ada surat lamaran', 300) }}</p>
+                                    </div>
+                                </div>
+
+                                {{-- Minimal Clean Preview --}}
+                                <div x-show="selectedTemplate === 'minimal_clean'" x-cloak>
+                                    <div>
+                                        <h3 class="text-lg font-medium text-gray-900 mb-1">{{ $application->full_name }}</h3>
+                                        <p class="text-gray-600">{{ $application->email }}</p>
+                                    </div>
+                                    <div class="pt-4 border-t text-sm text-gray-700">
+                                        <div class="flex justify-between">
+                                            <div>
+                                                <div class="text-xs text-gray-500">Posisi</div>
+                                                <div class="font-medium">{{ $application->job->title }}</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-xs text-gray-500">Perusahaan</div>
+                                                <div class="font-medium">{{ $application->job->company->name ?? 'PT Digital Indonesia' }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Manual - user creates own design: show upload + instructions --}}
+                                <div x-show="selectedTemplate === 'manual'" x-cloak>
+                                    <div class="space-y-4">
+                                        <p class="text-sm text-gray-600">Pilih file desain Anda atau beri instruksi desain di bawah. (Catatan: instruksi/manual belum disimpan ke database — saya bisa tambahkan penyimpanan jika mau.)</p>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Unggah Desain (PDF/PNG/JPG)</label>
+                                            <input type="file" name="manual_design_file" accept="application/pdf,image/*" class="mt-2">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700">Instruksi Desain</label>
+                                            <textarea name="manual_instructions" rows="4" class="w-full mt-2 px-3 py-2 border rounded-md" placeholder="Contoh: header biru, font serif untuk nama, sertakan foto di kanan atas..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- Cover Letter Text (common editable area) --}}
                                 <div class="pt-4 border-t">
                                     <h4 class="text-sm font-medium text-blue-600 mb-2">Motivasi Melamar</h4>
                                     <textarea 
@@ -274,7 +290,6 @@
                     </div>
                 </div>
             </form>
-        </div>
     </div>
 </div>
 
@@ -282,7 +297,6 @@
 <script>
 function phase3Form() {
     return {
-        isCollapsed: false,
         selectedTemplate: '{{ old('template_choice', $application->template_choice ?? 'modern_professional') }}'
     }
 }

@@ -1,3 +1,5 @@
+@extends('app')
+@vite('resources/css/app.css')
 @if ($errors->any())
     <div class="mb-4 bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
         <ul class="text-red-700 text-sm list-disc list-inside">
@@ -12,11 +14,12 @@
 @section('content')
 <script src="//unpkg.com/alpinejs" defer></script>
 <div class="min-h-screen bg-gray-50">
-    <!-- Admin Header -->
-    <header class="bg-gradient-to-r from-purple-600 to-purple-700 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Admin Header (full-bleed, fixed) -->
+    <header class="fixed top-0 left-0 w-full bg-gradient-to-r from-purple-600 to-purple-700 shadow-lg z-40">
+        <div class="-mx-4 sm:-mx-6 lg:-mx-8">
+            <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex items-center justify-between">
-                <div>
+                <div class="pl-6 lg:pl-24">
                     <h1 class="text-3xl font-bold text-white">Kelola Perusahaan</h1>
                     <p class="text-purple-100 mt-1">Manajemen Data Perusahaan</p>
                 </div>
@@ -32,8 +35,8 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Main Content (add top padding so fixed header doesn't overlap) -->
+    <div class="pt-36 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Success Message -->
         @if(session('success'))
             <div class="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded-lg animate-in fade-in duration-300">
