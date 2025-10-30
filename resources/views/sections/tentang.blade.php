@@ -5,10 +5,9 @@
     <!-- ========== Background Dekoratif ========== -->
     <div class="absolute inset-0 pointer-events-none">
       <img src="assets/images/section/tentang/bulet.svg"
-          alt="Dekorasi Lingkaran"
-          class="absolute -bottom-[80px] -right-[90px] w-[280px] md:w-[420px] opacity-30 object-contain select-none">
+           alt="Dekorasi Lingkaran"
+           class="absolute -bottom-[80px] -right-[90px] w-[280px] md:w-[420px] opacity-30 object-contain select-none">
     </div>
-
 
     <!-- Gambar Kepala Sekolah -->
     <div class="relative flex justify-center fade-in-right">
@@ -35,10 +34,10 @@
 
     <!-- Teks Tentang Kami -->
     <div class="text-center md:text-left max-w-xl fade-in-left">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-left">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
         Tentang <span class="text-orange-600">Kami</span>
       </h2>
-      <p class="text-gray-600 leading-relaxed mb-10 text-sm md:text-base text-left max-w-prose">
+      <p class="text-gray-600 leading-relaxed mb-10 text-sm md:text-base max-w-prose">
         Kami adalah lembaga pendidikan yang berkomitmen mencetak generasi unggul, kreatif, dan siap menghadapi tantangan masa depan.
         Dengan dukungan tenaga pendidik profesional serta fasilitas modern, kami menghadirkan pengalaman belajar berbasis praktik nyata.
         Fokus kami adalah membimbing siswa untuk mengembangkan potensi, mengasah keterampilan, dan membangun karakter agar mampu
@@ -96,11 +95,11 @@
 <style>
 .fade-in-up, .fade-in-left, .fade-in-right {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(20px);
   transition: all 0.8s ease-out;
 }
-.fade-in-left { transform: translateX(-15px); }
-.fade-in-right { transform: translateX(15px); }
+.fade-in-left { transform: translateX(-30px); }
+.fade-in-right { transform: translateX(30px); }
 
 .show { opacity: 1; transform: translate(0,0); }
 
@@ -119,30 +118,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const fadeElems = document.querySelectorAll(".fade-in-up, .fade-in-left, .fade-in-right");
   const statNumbers = document.querySelectorAll(".stat-number");
 
-  // Fungsi animasi angka
+  // Animasi angka
   const animateNumber = (el) => {
     const target = +el.dataset.target;
-    const duration = 2000; // durasi 2 detik
+    const duration = 2000;
     const startTime = performance.now();
 
     const update = (now) => {
       const progress = Math.min((now - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // easing agar halus
+      const eased = 1 - Math.pow(1 - progress, 3);
       const value = Math.floor(eased * target);
       el.textContent = value.toLocaleString() + (target >= 100 ? "+" : "");
-      if (progress < 1) requestAnimationFrame(update);
+      if(progress < 1) requestAnimationFrame(update);
     };
     requestAnimationFrame(update);
   };
 
-  // Observer untuk animasi fade dan angka
+  // IntersectionObserver untuk fade-in dan angka
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
+      if(entry.isIntersecting){
         entry.target.classList.add("show");
-        if (entry.target.classList.contains("stat-number")) {
+        if(entry.target.classList.contains("stat-number")){
           animateNumber(entry.target);
         }
+        observer.unobserve(entry.target); // animasi hanya sekali
       }
     });
   }, { threshold: 0.4 });

@@ -4,25 +4,30 @@
   <!-- ===== Dekorasi Jaringan ===== -->
   <img src="assets/images/section/presmalancer/jaringan.png" 
        alt="Network Top Right"
-       class="absolute top-0 right-0 w-64 sm:w-80 md:w-96 object-cover opacity-90 brightness-125">
+       class="absolute top-0 right-0 w-64 sm:w-80 md:w-96 object-cover opacity-90 brightness-125 aos-init aos-animate" 
+       data-aos="fade-down-right" data-aos-duration="1200" data-aos-once="true">
+       
   <img src="assets/images/section/presmalancer/jaringan2.png" 
        alt="Network Bottom Left"
-       class="absolute bottom-0 left-0 w-24 sm:w-32 md:w-40 object-cover opacity-70">
+       class="absolute bottom-0 left-0 w-24 sm:w-32 md:w-40 object-cover opacity-70 aos-init aos-animate" 
+       data-aos="fade-up-left" data-aos-duration="1200" data-aos-once="true">
 
   <!-- ===== Konten Utama ===== -->
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12 grid md:grid-cols-12 items-center gap-6">
 
-    <!-- ===== Bagian Kiri: Teks dan Logo ===== -->
-    <div class="md:col-span-8 text-white space-y-4 sm:space-y-6 md:pr-8 text-center md:text-left">
+<!-- ===== Bagian Kiri: Teks dan Logo ===== -->
+    <div class="md:col-span-8 text-white space-y-4 sm:space-y-6 md:pr-8 text-center md:text-left"
+         data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
       
       <!-- Logo (Desktop) -->
-      <div class="flex justify-center md:justify-start gap-3 sm:gap-4 mb-2 hidden md:flex">
+      <div class="flex justify-center md:justify-start gap-3 sm:gap-4 mb-2 hidden md:flex aos-init aos-animate" data-aos="fade-down" data-aos-duration="800">
         <img src="assets/images/section/presmalancer/logo.webp" alt="Logo 1" class="h-10 sm:h-12 drop-shadow-md">
         <img src="assets/images/section/presmalancer/yayasan.png" alt="Logo 2" class="h-10 sm:h-12 drop-shadow-md">
       </div>
 
       <!-- Deskripsi -->
-      <h2 class="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold leading-snug max-w-2xl mx-auto md:mx-0">
+      <h2 class="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold leading-snug max-w-2xl mx-auto md:mx-0 aos-init aos-animate"
+          data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
         Presmalance hadir untuk siswa dan alumni SMK. Temukan magang, kerja paruh waktu, 
         dan proyek freelance sesuai keahlianmu. Tingkatkan skill dan wujudkan karier impianmu!
       </h2>
@@ -31,7 +36,8 @@
       <a href="/presmalance" 
          class="inline-flex items-center px-5 py-2.5 font-semibold rounded-lg shadow 
                 bg-white text-orange-600 hover:bg-gray-100 hover:scale-105 
-                transition-all w-max mx-auto md:mx-0">
+                transition-all w-max mx-auto md:mx-0 aos-init aos-animate"
+         data-aos="zoom-in" data-aos-duration="800" data-aos-delay="600">
         Presmalancer <span class="ml-2">→</span>
       </a>
     </div>
@@ -80,10 +86,11 @@
   <img src="assets/images/section/presmalancer/logo.webp" 
        alt="Logo Sekolah" 
        class="absolute bottom-0 -right-16 sm:-right-20 md:-right-24 
-              w-36 sm:w-40 md:w-48 opacity-50 pointer-events-none hidden md:block">
+              w-36 sm:w-40 md:w-48 opacity-50 pointer-events-none hidden md:block aos-init aos-animate"
+       data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
 
   <!-- ===== Logo (Mobile Only, pojok kiri atas) ===== -->
-  <div class="absolute top-4 left-4 flex gap-2 md:hidden z-30">
+  <div class="absolute top-4 left-4 flex gap-2 md:hidden z-30 aos-init aos-animate" data-aos="fade-down" data-aos-duration="800">
     <img src="assets/images/section/presmalancer/logo.webp" alt="Logo Mobile 1" class="h-8 sm:h-9 drop-shadow-md">
     <img src="assets/images/section/presmalancer/yayasan.png" alt="Logo Mobile 2" class="h-8 sm:h-9 drop-shadow-md">
   </div>
@@ -177,3 +184,28 @@
     }
   }
 </style>
+
+<!-- ===== ANIMASI FLOATING UNTUK DEKORASI ===== -->
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    25% { transform: translateY(-8px) translateX(3px); }
+    50% { transform: translateY(-4px) translateX(-3px); }
+    75% { transform: translateY(4px) translateX(2px); }
+  }
+
+  /* Floating efek untuk jaringan */
+  img[alt="Network Top Right"],
+  img[alt="Network Bottom Left"] {
+    animation: float 6s ease-in-out infinite;
+  }
+</style>
+
+<!-- ===== INISIALISASI AOS ===== -->
+<script>
+  AOS.init({
+    once: true,
+    easing: 'ease-in-out',
+    duration: 1000,
+  });
+</script>

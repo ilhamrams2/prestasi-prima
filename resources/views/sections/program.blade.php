@@ -1,121 +1,158 @@
-<!-- ================= SECTION PROGRAM KEAHLIAN (Gabungan) ================= -->
-<section id="program" class="bg-gray-50 py-20 overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 md:px-8">
+<!-- ================= SECTION PROGRAM KEAHLIAN ================= -->
+<section id="program" class="relative bg-gray-50 py-20 overflow-hidden" data-aos="fade-up">
+
+  <!-- ======= LOGO LATAR BELAKANG (stay di section) ======= -->
+  <img src="{{ asset('assets/images/logo-smk.png') }}" 
+       alt="Logo SMK Prestasi Prima" 
+       class="absolute inset-0 m-auto w-[600px] opacity-5 object-contain pointer-events-none select-none">
+
+  <div class="relative max-w-7xl mx-auto px-4 md:px-8 z-10">
 
     <!-- ================= HEADER ================= -->
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-12 fade-in-up">
-      <div>
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-12"
+         data-aos="fade-up" data-aos-delay="100">
+
+      <div data-aos="fade-right" data-aos-delay="200">
         <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">
           Program <span class="text-orange-600">Keahlian</span>
         </h2>
-        <p class="text-gray-600 mt-3 max-w-2xl">
+        <p class="text-gray-600 mt-3 max-w-2xl" data-aos="fade-up" data-aos-delay="300">
           Empat jurusan unggulan siap membentuk generasi kreatif dan kompeten:
           PPLG, TKJ, BCF, dan DKV — lengkap dengan kurikulum praktik industri.
         </p>
       </div>
 
-      <div class="flex gap-3 mt-6 md:mt-0">
-        <a href="/tentang/program" 
+      <div class="flex gap-3 mt-6 md:mt-0" data-aos="zoom-in" data-aos-delay="400">
+        <a href="/tentang/program"
            class="inline-flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition">
           Semua Program
         </a>
-        <a href="/pendaftaran" 
+        <a href="/pendaftaran"
            class="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-orange-700 transition">
           Daftar Sekarang
         </a>
       </div>
     </div>
 
-    <!-- ================= 4 CARD JURUSAN ================= -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8 fade-in-up delay-100" id="program-grid">
+    <!-- ================= GRID 4 JURUSAN ================= -->
+    <div id="program-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">
 
       <!-- Card: PPLG -->
-      <div class="relative group rounded-xl overflow-hidden shadow-lg">
-        <img src="{{ asset('assets/images/section/program/pplg.png') }}" alt="PPLG" class="w-full h-96 object-cover">
+      <div class="relative group rounded-xl overflow-hidden shadow-lg"
+           data-aos="zoom-in-up" data-aos-delay="100">
+        <img src="{{ asset('assets/images/section/program/pplg.png') }}" alt="PPLG"
+             class="w-full h-96 object-cover">
         <div class="absolute inset-0 bg-black/40 transition duration-700"></div>
         <div class="absolute inset-0 flex flex-col justify-end text-center p-8 z-10">
-          <img src="{{ asset('assets/images/section/program/icons/pplg.png') }}" alt="icon" class="mx-auto w-12 h-12 mb-3">
-          <h3 class="text-white font-bold text-xl">Pengembangan Perangkat Lunak dan Gim</h3>
-          <a href="#" class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline lihat-selengkapnya"
-             data-target="pplg" aria-controls="jurusan-detail-wrapper">
+          <img src="{{ asset('assets/images/section/program/icons/pplg.png') }}" 
+               alt="icon" class="mx-auto w-12 h-12 mb-3" data-aos="fade-up" data-aos-delay="200">
+          <h3 class="text-white font-bold text-xl" data-aos="fade-up" data-aos-delay="250">
+            Pengembangan Perangkat Lunak dan Gim
+          </h3>
+          <a href="#" data-target="pplg" aria-controls="jurusan-detail-wrapper"
+             class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline lihat-selengkapnya"
+             data-aos="fade-up" data-aos-delay="300">
              Lihat Selengkapnya
           </a>
         </div>
       </div>
 
       <!-- Card: TKJ -->
-      <div class="relative group rounded-xl overflow-hidden shadow-lg">
-        <img src="{{ asset('assets/images/section/program/tkj.png') }}" alt="TKJ" class="w-full h-96 object-cover">
+      <div class="relative group rounded-xl overflow-hidden shadow-lg"
+           data-aos="zoom-in-up" data-aos-delay="200">
+        <img src="{{ asset('assets/images/section/program/tkj.png') }}" alt="TKJ"
+             class="w-full h-96 object-cover">
         <div class="absolute inset-0 bg-black/40 transition duration-700"></div>
         <div class="absolute inset-0 flex flex-col justify-end text-center p-8 z-10">
-          <img src="{{ asset('assets/images/section/program/icons/tkj.png') }}" alt="icon" class="mx-auto w-12 h-12 mb-3">
-          <h3 class="text-white font-bold text-xl">Teknik Jaringan Komputer dan Telekomunikasi</h3>
-          <a href="#" class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline lihat-selengkapnya"
-             data-target="tkj" aria-controls="jurusan-detail-wrapper">
+          <img src="{{ asset('assets/images/section/program/icons/tkj.png') }}" 
+               alt="icon" class="mx-auto w-12 h-12 mb-3" data-aos="fade-up" data-aos-delay="300">
+          <h3 class="text-white font-bold text-xl" data-aos="fade-up" data-aos-delay="350">
+            Teknik Jaringan Komputer dan Telekomunikasi
+          </h3>
+          <a href="#" data-target="tkj" aria-controls="jurusan-detail-wrapper"
+             class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline lihat-selengkapnya"
+             data-aos="fade-up" data-aos-delay="400">
              Lihat Selengkapnya
           </a>
         </div>
       </div>
 
       <!-- Card: BCF -->
-      <div class="relative group rounded-xl overflow-hidden shadow-lg">
-        <img src="{{ asset('assets/images/section/program/bcf.png') }}" alt="Broadcast" class="w-full h-96 object-cover">
+      <div class="relative group rounded-xl overflow-hidden shadow-lg"
+           data-aos="zoom-in-up" data-aos-delay="300">
+        <img src="{{ asset('assets/images/section/program/bcf.png') }}" alt="Broadcast"
+             class="w-full h-96 object-cover">
         <div class="absolute inset-0 bg-black/40 transition duration-700"></div>
         <div class="absolute inset-0 flex flex-col justify-end text-center p-8 z-10">
-          <img src="{{ asset('assets/images/section/program/icons/bcf.png') }}" alt="icon" class="mx-auto w-12 h-12 mb-3">
-          <h3 class="text-white font-bold text-xl">Broadcast dan Film</h3>
-          <a href="#" class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline lihat-selengkapnya"
-             data-target="bcf" aria-controls="jurusan-detail-wrapper">
+          <img src="{{ asset('assets/images/section/program/icons/bcf.png') }}" 
+               alt="icon" class="mx-auto w-12 h-12 mb-3" data-aos="fade-up" data-aos-delay="400">
+          <h3 class="text-white font-bold text-xl" data-aos="fade-up" data-aos-delay="450">
+            Broadcast dan Film
+          </h3>
+          <a href="#" data-target="bcf" aria-controls="jurusan-detail-wrapper"
+             class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline lihat-selengkapnya"
+             data-aos="fade-up" data-aos-delay="500">
              Lihat Selengkapnya
           </a>
         </div>
       </div>
 
       <!-- Card: DKV -->
-      <div class="relative group rounded-xl overflow-hidden shadow-lg">
-        <img src="{{ asset('assets/images/section/program/dkv.png') }}" alt="DKV" class="w-full h-96 object-cover">
+      <div class="relative group rounded-xl overflow-hidden shadow-lg"
+           data-aos="zoom-in-up" data-aos-delay="400">
+        <img src="{{ asset('assets/images/section/program/dkv.png') }}" alt="DKV"
+             class="w-full h-96 object-cover">
         <div class="absolute inset-0 bg-black/40 transition duration-700"></div>
         <div class="absolute inset-0 flex flex-col justify-end text-center p-8 z-10">
-          <img src="{{ asset('assets/images/section/program/icons/dkv.png') }}" alt="icon" class="mx-auto w-12 h-12 mb-3">
-          <h3 class="text-white font-bold text-xl">Desain Komunikasi Visual</h3>
-          <a href="#" class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline lihat-selengkapnya"
-             data-target="dkv" aria-controls="jurusan-detail-wrapper">
+          <img src="{{ asset('assets/images/section/program/icons/dkv.png') }}" 
+               alt="icon" class="mx-auto w-12 h-12 mb-3" data-aos="fade-up" data-aos-delay="500">
+          <h3 class="text-white font-bold text-xl" data-aos="fade-up" data-aos-delay="550">
+            Desain Komunikasi Visual
+          </h3>
+          <a href="#" data-target="dkv" aria-controls="jurusan-detail-wrapper"
+             class="mt-3 inline-block text-sm text-orange-300 font-semibold hover:underline lihat-selengkapnya"
+             data-aos="fade-up" data-aos-delay="600">
              Lihat Selengkapnya
           </a>
         </div>
       </div>
     </div>
 
-    <!-- ================= WRAPPER DETAIL (DINAMIS, MUNCUL DI SINI) ================= -->
-    <div id="jurusan-detail-wrapper" class="py-10 bg-white hidden opacity-0 transition duration-700 transform translate-y-6">
-      <div class="max-w-7xl mx-auto px-4 md:px-8" id="jurusan-detail-content">
-        <!-- Konten akan dimasukkan via JS -->
-      </div>
+    <!-- ================= DETAIL JURUSAN (DINAMIS) ================= -->
+    <div id="jurusan-detail-wrapper"
+         class="py-10 bg-white hidden opacity-0 transition duration-700 transform translate-y-6"
+         data-aos="fade-up" data-aos-delay="200">
+      <div id="jurusan-detail-content" class="max-w-7xl mx-auto px-4 md:px-8"></div>
     </div>
 
-    <!-- ================= FEATURED & VIDEO JURUSAN (Tetap) ================= -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch fade-in-up delay-200 mt-10">
+    <!-- ================= FEATURED & VIDEO JURUSAN ================= -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch mt-10">
 
-      <!-- Kiri: Featured Card -->
-      <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-white group flex flex-col justify-end h-[480px]">
-        <img src="{{ asset('assets/images/section/program/herobg.png') }}" alt="Featured Program"
+      <!-- Featured Card -->
+      <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-white group flex flex-col justify-end h-[480px]"
+           data-aos="fade-right" data-aos-delay="300" data-aos-duration="1000">
+        <img src="{{ asset('assets/images/section/program/herobg.png') }}" 
+             alt="Featured Program"
              class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
 
-        <div class="relative z-10 p-8 text-white">
-          <span class="inline-block bg-orange-500/90 px-3 py-1 rounded-full text-xs font-medium tracking-wide w-fit">
+        <div class="relative z-10 p-8 text-white" data-aos="zoom-in" data-aos-delay="400">
+          <span class="inline-block bg-orange-500/90 px-3 py-1 rounded-full text-xs font-medium tracking-wide w-fit"
+                data-aos="fade-down" data-aos-delay="450">
             Unggulan
           </span>
 
-          <h3 class="mt-4 text-3xl md:text-4xl font-extrabold leading-tight drop-shadow">
+          <h3 class="mt-4 text-3xl md:text-4xl font-extrabold leading-tight drop-shadow"
+              data-aos="fade-up" data-aos-delay="500">
             Belajar Praktis — Dari Koding sampai Produksi Film
           </h3>
 
-          <p class="mt-3 text-sm md:text-base text-orange-100/90 max-w-md">
+          <p class="mt-3 text-sm md:text-base text-orange-100/90 max-w-md"
+             data-aos="fade-up" data-aos-delay="600">
             Kurikulum berbasis proyek dengan kolaborasi industri, magang, dan portofolio siap kerja.
           </p>
 
-          <div class="mt-6 flex gap-3 flex-wrap">
+          <div class="mt-6 flex gap-3 flex-wrap" data-aos="zoom-in" data-aos-delay="700">
             <a href="/tentang/program"
                class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white px-5 py-2.5 rounded-lg hover:bg-white/20 transition">
               Pelajari lebih lanjut
@@ -128,12 +165,13 @@
         </div>
       </div>
 
-      <!-- Kanan: Video Jurusan -->
-      <div class="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 flex flex-col justify-between h-[480px] relative overflow-hidden">
+      <!-- Video Jurusan -->
+      <div class="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 flex flex-col justify-between h-[480px] relative overflow-hidden"
+           data-aos="fade-left" data-aos-delay="400" data-aos-duration="1000">
+
         <div class="absolute -top-16 -right-16 w-64 h-64 bg-orange-100 rounded-full opacity-30 blur-2xl"></div>
 
-        <!-- Header -->
-        <div class="relative text-center mb-6">
+        <div class="relative text-center mb-6" data-aos="fade-down" data-aos-delay="450">
           <h3 class="text-2xl font-bold text-orange-600 mb-2 flex items-center justify-center gap-2">
             <i class="ph ph-video-camera text-2xl"></i> Video Jurusan Menarik
           </h3>
@@ -142,15 +180,13 @@
           </p>
         </div>
 
-        <!-- Video Thumbnails -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
-
           <!-- Video 1 -->
           <div class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 hover:shadow-xl transition group cursor-pointer"
+               data-aos="zoom-in-up" data-aos-delay="500"
                onclick="openVideoModal('https://www.youtube.com/embed/Asi93VHxRgs')">
             <div class="relative">
-              <img src="https://img.youtube.com/vi/Asi93VHxRgs/hqdefault.jpg" 
-                   alt="Study & Career Expo"
+              <img src="https://img.youtube.com/vi/Asi93VHxRgs/hqdefault.jpg"
                    class="w-full h-40 object-cover group-hover:scale-105 transition">
               <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                 <i class="ph ph-play-circle text-white text-6xl"></i>
@@ -164,10 +200,10 @@
 
           <!-- Video 2 -->
           <div class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 hover:shadow-xl transition group cursor-pointer"
+               data-aos="zoom-in-up" data-aos-delay="650"
                onclick="openVideoModal('https://www.youtube.com/embed/zQYlLdHDCOI')">
             <div class="relative">
-              <img src="https://img.youtube.com/vi/zQYlLdHDCOI/hqdefault.jpg" 
-                   alt="Saintek Semua Jurusan"
+              <img src="https://img.youtube.com/vi/zQYlLdHDCOI/hqdefault.jpg"
                    class="w-full h-40 object-cover group-hover:scale-105 transition">
               <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                 <i class="ph ph-play-circle text-white text-6xl"></i>
@@ -180,28 +216,18 @@
           </div>
         </div>
 
-        <!-- Lihat Semua -->
-        <div class="relative text-center mt-6">
-          <a href="#galeri-video" class="inline-block text-orange-600 font-semibold text-sm hover:text-orange-700">
+        <div class="relative text-center mt-6" data-aos="fade-up" data-aos-delay="750">
+          <a href="#galeri-video"
+             class="inline-block text-orange-600 font-semibold text-sm hover:text-orange-700">
             Lihat semua video →
           </a>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- ================= MODAL VIDEO ================= -->
-  <div id="videoModal"
-       class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 transition duration-300">
-    <div class="bg-white rounded-2xl overflow-hidden max-w-3xl w-full mx-4 shadow-lg relative">
-      <button onclick="closeVideoModal()"
-              class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition">
-        <i class="ph ph-x text-xl"></i>
-      </button>
-      <iframe id="videoFrame" class="w-full aspect-video" src="" allowfullscreen></iframe>
-    </div>
-  </div>
 </section>
+
+
 
 <!-- ================= STYLE ANIMASI & CUSTOM ================= -->
 <style>
