@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
                     'name' => 'PT Aditya Birla',
                     'email' => 'hr@adityabirla.com',
                     'password' => bcrypt('password'),
-                    'role' => 'company',
+                    'role' => 'admin',
                     'email_verified_at' => now(),
                 ],
                 'company' => [

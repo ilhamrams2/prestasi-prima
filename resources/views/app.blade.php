@@ -49,38 +49,69 @@
                      so the offset updates when the sidebar toggles. --}}
                 <div x-ref="center" class="center-wrapper transition-all duration-300"
                      x-init="(() => {
+                         // Robust centering: compute delta between viewport center and content center,
+                         // but avoid applying tiny repeated transforms. Also disable transition for
+                         // the very first apply so the page doesn't visibly jump twice.
+                         let lastDelta = null;
+                         let firstApplied = false;
+
+                         const applyDelta = (delta, { instant = false } = {}) => {
+                             // Only apply if change is noticeable (>=2px) or not applied yet
+                             if (lastDelta !== null && Math.abs(delta - lastDelta) <= 2) return;
+
+                             if (instant) {
+                                 // Temporarily disable transition for a single frame
+                                 const prev = $refs.center.style.transition;
+                                 $refs.center.style.transition = 'none';
+                                 $refs.center.style.transform = delta ? `translate3d(${delta}px, 0, 0)` : '';
+                                 // Force layout and then restore transition
+                                 requestAnimationFrame(() => {
+                                     $refs.center.style.transition = prev || '';
+                                 });
+                             } else {
+                                 $refs.center.style.transform = delta ? `translate3d(${delta}px, 0, 0)` : '';
+                             }
+
+                             lastDelta = delta;
+                         };
+
                          const compute = () => {
+                             if (!$refs.center) return;
                              // Only apply centering on wide screens
-                             if (window.innerWidth < 1024) { $refs.center.style.transform = ''; return; }
+                             if (window.innerWidth < 1024) { applyDelta(0); return; }
 
-                            // compute viewport center
-                            const viewportCenter = Math.round(window.innerWidth / 2);
-                            // measure the current centered wrapper
-                            const rect = $refs.center.getBoundingClientRect();
-                            const contentCenter = Math.round(rect.left + rect.width / 2);
+                             const viewportCenter = Math.round(window.innerWidth / 2);
+                             const rect = $refs.center.getBoundingClientRect();
+                             const currentDelta = lastDelta ?? 0;
+                             // rect already reflects current transform; subtract previously applied delta
+                             const contentCenter = Math.round(rect.left + rect.width / 2 - currentDelta);
+                             const rawDelta = Math.round(viewportCenter - contentCenter);
+                             const correction = 0;
+                             const delta = rawDelta + correction;
 
-                            // delta to move content so its center matches viewport center
-                            const rawDelta = Math.round(viewportCenter - contentCenter);
-                            // small visual correction (leave 0 by default). Positive moves content right.
-                            const correction = 0;
-                            const delta = rawDelta + correction;
+                             // For the very first compute, apply instantly (no transition) to avoid a visible double-move.
+                             if (!firstApplied) {
+                                 applyDelta(delta, { instant: true });
+                                 firstApplied = true;
+                             } else {
+                                 applyDelta(delta, { instant: false });
+                             }
+                         };
 
-                            // Apply transform using translate3d for better rendering
-                            $refs.center.style.transform = delta ? `translate3d(${delta}px, 0, 0)` : '';
-                        };
+                         const scheduleCompute = () => {
+                             compute();
+                             // run again shortly after in case images/fonts changed layout
+                             setTimeout(compute, 120);
+                             setTimeout(compute, 400);
+                         };
 
-                        const scheduleCompute = () => {
-                            compute();
-                            setTimeout(compute, 80);
-                            setTimeout(compute, 300);
-                        };
-
-                        scheduleCompute();
-                        window.addEventListener('resize', scheduleCompute);
-                        window.addEventListener('sidebar-toggled', scheduleCompute);
-                        // also listen for a small delay after DOMContentLoaded
-                        document.addEventListener('DOMContentLoaded', scheduleCompute);
-                    })()">
+                         // initial
+                         scheduleCompute();
+                         // final once the page fully loads
+                         window.addEventListener('load', scheduleCompute);
+                         window.addEventListener('resize', scheduleCompute);
+                         window.addEventListener('sidebar-toggled', scheduleCompute);
+                     })()">
                     @yield('content')
                 </div>
             </div>
