@@ -1,15 +1,22 @@
-@include('header')
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Presmalance - Login</title>
+    <title>@yield('title', 'SMK Prestasi Prima')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- === Favicon === --}}
+  <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-smk.png') }}">
+  <link rel="apple-touch-icon" href="{{ asset('assets/images/logo-smk.png') }}">
+
+        @stack('styles')
+
 </head>
 
 <body class="bg-white font-sans relative overflow-x-hidden">
+
+    @include('header')
 
     {{-- Dekorasi Lingkaran PNG --}}
     <img src="../assets/images/section/presmalancer/oren rock2.png" alt="Lingkaran Kiri Atas"
@@ -19,7 +26,7 @@
         class="absolute bottom-0 -right-20 w-72 opacity-70 -z-10">
 
     {{-- Section Hero --}}
-    <section class="max-w-5xl mx-auto px-6 py-12 relative z-10">
+    <section class="max-w-5xl mx-auto px-6 py-12 mt-16 md:mt-20 relative z-10">
         <div class="grid md:grid-cols-2 gap-8 items-center">
             <div>
                 <h1 class="text-2xl md:text-3xl font-bold text-gray-800 leading-snug">
@@ -74,7 +81,7 @@
             Cari magang atau kerja part-time seru di perusahaan pilihanmu!
         </h2>
 
-        <div class="relative flex items-center max-w-6xl mx-auto px-6">
+        <div class="relative flex items-center max-w-7xl mx-auto px-4 sm:px-10">
             <button id="prevBtn"
                 class="absolute -left-5 bg-orange-500 text-white rounded-full w-10 h-10 flex items-center justify-center shadow hover:bg-orange-600 transition z-10">
                 &#10094;
@@ -108,7 +115,7 @@
                     @foreach ($loopedCompanies as $c)
                         <div
                             class="flex-shrink-0 w-56 bg-orange-50 border rounded-xl shadow p-6 hover:shadow-lg transition flex flex-col items-center justify-center">
-                            <img src="{{ $c['logo'] }}" class="h-10 mb-2">
+                            <img src="{{ $c['logo'] }}" class="h-10 mb-2" alt="Logo perusahaan mitra">
                             <p class="bg-gray-200 rounded-full px-3 py-1 text-xs">{{ $c['lowongan'] }} lowongan tersedia
                             </p>
                         </div>
@@ -123,30 +130,8 @@
         </div>
     </section>
 
-    {{-- Section Workshop --}}
-    <section class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-6 relative z-10">
-        <div class="bg-orange-100 rounded-2xl p-6 flex items-center justify-between">
-            <div>
-                <h3 class="text-lg font-bold text-orange-700">Siap Magang? Upgrade Skill-mu Dulu!</h3>
-                <button
-                    class="mt-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition">
-                    Ikuti Jadwal Workshop
-                </button>
-            </div>
-            <img src="../assets/images/section/presmalancer/workshop1.png" alt="Workshop" class="h-24">
-        </div>
+    @include('footer')
 
-        <div class="bg-orange-500 rounded-2xl p-6 flex items-center justify-between">
-            <div>
-                <h3 class="text-lg font-bold text-white">Cari tahu gaji di industri pilihanmu!</h3>
-                <button
-                    class="mt-3 bg-orange-100 hover:bg-orange-200 text-orange-400 font-semibold py-2 px-4 rounded-lg shadow transition">
-                    Cek Gaji & Info Lainnya
-                </button>
-            </div>
-            <img src="../assets/images/section/presmalancer/workshop2.png" alt="Salary" class="h-24">
-        </div>
-    </section>
     @include('ChatbotUI')
 
     <script>
@@ -189,8 +174,8 @@
         setInterval(() => moveCarousel(1), 5000);
     </script>
 
+
 </body>
 
 </html>
-@include('footer')
 
