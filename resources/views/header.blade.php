@@ -72,7 +72,6 @@
             <a href="/siswa/ekstrakurikuler" class="dropdown-item">Ekstrakurikuler</a>
             <a href="/siswa/karya-proyek" class="dropdown-item">Karya & Proyek</a>
             <a href="/siswa/testimoni" class="dropdown-item">Testimoni</a>
-            <a href="/siswa/penerimaan-siswa" class="dropdown-item">Penerimaan Siswa</a>
           </div>
         </div>
 
@@ -86,6 +85,7 @@
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
             <a href="/informasi/faq" class="dropdown-item">FAQ</a>
             <a href="/informasi/industri" class="dropdown-item">Industri</a>
+            <a href="/informasi/penerimaan-siswa" class="dropdown-item">Penerimaan Siswa</a>
           </div>
         </div>
 
@@ -116,7 +116,9 @@
             <a href="/presmaboard" class="dropdown-item">Presmaboard</a>
             <a href="/presmalance" class="dropdown-item">Presmalance</a>
             <a href="https://absensmk.prestasiprima.sch.id/absensi/16" class="dropdown-item">Presmakad</a>
-            <a href="/pendaftaran" class="dropdown-item">Pendaftaran</a>
+            <a href="/pendaftaran" class="dropdown-item">Presmastart</a>
+            <a href="/presmacontact" class="dropdown-item">Presmacontact</a>
+
           </div>
         </div>
 
@@ -173,7 +175,6 @@
         <a href="/siswa/ekstrakurikuler" class="mobile-subitem">Ekstrakurikuler</a>
         <a href="/siswa/karya-proyek" class="mobile-subitem">Karya & Proyek</a>
         <a href="/siswa/testimoni" class="mobile-subitem">Testimoni</a>
-        <a href="/siswa/penerimaan-siswa" class="mobile-subitem">Penerimaan Siswa</a>
       </div>
 
       <button class="mobile-dropdown-btn">
@@ -197,6 +198,8 @@
       <div class="mobile-submenu">
         <a href="/informasi/faq" class="mobile-subitem">FAQ</a>
         <a href="/informasi/industri" class="mobile-subitem">Industri</a>
+        <a href="/informasi/penerimaan-siswa" class="mobile-subitem">Penerimaan Siswa</a>
+
       </div>
 
       <button class="mobile-dropdown-btn">
@@ -209,7 +212,8 @@
         <a href="/presmaboard" class="mobile-link">Presmaboard</a>
         <a href="/presmalance" class="mobile-link">PresmaLance</a>
         <a href="https://absensmk.prestasiprima.sch.id/absensi/16" class="mobile-link">Presmakad</a>
-        <a href="/pendaftaran" class="mobile-link">Pendaftaran</a>
+        <a href="/pendaftaran" class="mobile-link">Presmastart</a>
+        <a href="/presmacontact" class="mobile-link">Presmacontact</a>
       </div>
       
       <a href="{{ asset('assets/files/brosur.pdf') }}" download class="mobile-link">Download Brosur</a>

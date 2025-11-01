@@ -35,7 +35,8 @@ use App\Http\Controllers\prestasiprima\{
     PenerimaanSiswaController,
     TestimoniController,
     KegiatanController,
-    KaryaProyekController
+    KaryaProyekController,
+    ContactController
 };
 
 use App\Http\Controllers\prestasiprima\Admin\{
@@ -87,7 +88,6 @@ Route::prefix('tentang')->group(function () {
 Route::prefix('siswa')->group(function () {
     Route::get('/prestasi', fn() => view('prestasiprima.pages.prestasi'))->name('prestasi');
     Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])->name('prestasiprima.ekstrakurikuler');
-    Route::get('/penerimaan-siswa', [PenerimaanSiswaController::class, 'index'])->name('penerimaan.siswa');
     Route::get('/testimoni', [TestimoniController::class, 'index'])->name('testimoni');
     Route::get('/karya-proyek', [KaryaProyekController::class, 'index'])->name('karya-proyek');
     Route::get('/karya-proyek/{slug}', [KaryaProyekController::class, 'show'])->name('karya-proyek.show');
@@ -98,6 +98,7 @@ Route::prefix('siswa')->group(function () {
 Route::prefix('informasi')->group(function () {
     Route::get('/faq', [FaqController::class, 'index'])->name('faq');
     Route::get('/industri', [IndustriController::class, 'index'])->name('industri');
+    Route::get('/penerimaan-siswa', [PenerimaanSiswaController::class, 'index'])->name('penerimaan.siswa');
 });
 
 
@@ -117,6 +118,8 @@ Route::prefix('dokumentasi')->group(function () {
     Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan');
 });
 
+Route::get('/presmacontact', [ContactController::class, 'index'])->name('presmacontact');
+Route::post('/presmacontact/send', [ContactController::class, 'sendMessage'])->name('presmacontact.send');
 
 // ==================== PENDAFTARAN ==================== //
 Route::controller(Pendaftaran::class)->group(function () {
@@ -128,6 +131,8 @@ Route::controller(FormulirController::class)->group(function () {
     Route::post('/formulir', 'store')->name('pendaftaran.formulir.store');
     Route::get('/validasi', 'validasi')->name('pendaftaran.validasi');
 });
+
+
 // ============================================================
 // ======================= PRESMABOARD ========================
 // ============================================================

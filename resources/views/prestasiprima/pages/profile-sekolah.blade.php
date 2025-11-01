@@ -5,38 +5,39 @@
 
 @section('content')
 
-<!-- ====================== HERO SECTION ====================== -->
-<section class="relative bg-[#0e1620] text-white pt-36 pb-28 overflow-hidden">
-  <div class="absolute inset-0">
-    <img src="{{ asset('assets/images/section/profile/hero-sekolah.webp') }}" alt="SMK Prestasi Prima"
-      class="w-full h-full object-cover opacity-25">
-  </div>
-
-  <div class="relative z-10 text-center max-w-3xl mx-auto px-4" data-aos="fade-down" data-aos-duration="800">
-    <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
-      Profil <span class="text-orange-500">Sekolah</span>
-    </h1>
-    <p class="text-gray-200 text-lg leading-relaxed">
-      Mencetak generasi unggul, kreatif, dan kompeten untuk masa depan bangsa yang gemilang.
-    </p>
-  </div>
-</section>
-
-<!-- ====================== SEJARAH SEKOLAH ====================== -->
-<section class="py-24 bg-[#0e1620] text-white relative overflow-hidden">
-  <div class="absolute inset-0 bg-gradient-to-b from-[#0e1620] via-[#111a26] to-[#0e1620]"></div>
-
-  <div class="max-w-7xl mx-auto relative px-6">
-    <div class="text-center mb-16" data-aos="fade-up">
-      <h2 class="text-4xl font-extrabold mb-3">
-        <span class="text-orange-500">Sejarah</span> Sekolah
-      </h2>
-      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
-        Perjalanan panjang SMK Prestasi Prima dalam membangun pendidikan vokasi unggul yang adaptif terhadap perkembangan zaman.
-      </p>
+  <!-- ====================== HERO SECTION ====================== -->
+  <section class="relative bg-[#0e1620] text-white pt-36 pb-28 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="{{ asset('assets/images/gedung/gedungsiswa.avif') }}" alt="SMK Prestasi Prima"
+           class="w-full h-full object-cover opacity-25" loading="lazy" decoding="async">
     </div>
 
-    <div class="relative border-l-4 border-orange-500 ml-6 space-y-14">
+    <div class="relative z-10 text-center max-w-3xl mx-auto px-4" data-aos="fade-down" data-aos-duration="800">
+      <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo SMK Prestasi Prima"
+           class="w-24 h-24 mx-auto mb-5 animate-fade-in" loading="lazy">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+        SMK <span class="text-orange-500">Prestasi Prima</span>
+      </h1>
+      <p class="text-gray-200 text-lg leading-relaxed italic">
+        "If better is possible, good is not enough"
+      </p>
+    </div>
+  </section>
+
+  <!-- ====================== SEJARAH SEKOLAH ====================== -->
+  <section class="py-24 bg-[#0e1620] text-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0e1620] via-[#111a26] to-[#0e1620]"></div>
+
+    <div class="max-w-7xl mx-auto relative px-6">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl font-extrabold mb-3">
+          <span class="text-orange-500">Sejarah</span> Sekolah
+        </h2>
+        <p class="text-gray-200 text-lg max-w-2xl mx-auto">
+          Perjalanan panjang SMK Prestasi Prima dalam membangun pendidikan vokasi unggul yang adaptif terhadap perkembangan zaman.
+        </p>
+      </div>
+
       @php
         $timeline = [
           ['year' => '2011', 'title' => 'Pendirian Awal', 'desc' => 'SMK Prestasi Prima resmi didirikan di Cipayung, Jakarta Timur, dengan semangat mencetak lulusan unggul dan berkarakter.'],
@@ -48,194 +49,212 @@
         ];
       @endphp
 
-      @foreach ($timeline as $i => $item)
-        <div class="relative pl-10" data-aos="fade-up" data-aos-delay="{{ $i * 100 }}">
-          <div
-            class="absolute -left-4 top-2 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
-            <span>{{ substr($item['year'], -2) }}</span>
+      <div class="relative border-l-4 border-orange-500 ml-6 space-y-16">
+        @foreach ($timeline as $i => $item)
+          <div class="relative pl-10" data-aos="fade-up" data-aos-delay="{{ $i * 100 }}">
+            <div class="absolute -left-4 top-2 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+              <span>{{ substr($item['year'], -2) }}</span>
+            </div>
+            <div class="bg-[#111a26] rounded-2xl p-6 shadow-lg hover:shadow-orange-500/30 transition">
+              <h3 class="text-xl font-semibold text-orange-400 mb-1">
+                {{ $item['year'] }} — {{ $item['title'] }}
+              </h3>
+              <p class="text-gray-300 leading-relaxed">{{ $item['desc'] }}</p>
+            </div>
           </div>
-          <div class="bg-[#111a26] rounded-2xl p-6 shadow-lg hover:shadow-orange-500/30 transition">
-            <h3 class="text-xl font-semibold text-orange-400 mb-1">{{ $item['year'] }} — {{ $item['title'] }}</h3>
-            <p class="text-gray-300 leading-relaxed">{{ $item['desc'] }}</p>
+        @endforeach
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== VISI & MISI ====================== -->
+  <section class="relative py-28 bg-white text-gray-800 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-white via-orange-50/30 to-white"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10 px-6 md:px-10 grid md:grid-cols-2 gap-14 items-center">
+      <div data-aos="fade-right" data-aos-duration="900">
+        <div class="relative group">
+          <img src="{{ asset('assets/images/gedung/gedungtinggi.webp') }}" alt="Visi Misi Sekolah"
+               class="rounded-3xl shadow-2xl transform group-hover:scale-105 transition duration-700 ease-out" loading="lazy">
+          <div class="absolute bottom-6 left-6">
+            <p class="bg-orange-500/90 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg backdrop-blur-sm">
+              SMK Prestasi Prima
+            </p>
           </div>
         </div>
-      @endforeach
-    </div>
-  </div>
+      </div>
 
-  <div class="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-[#0e1620] to-transparent"></div>
-</section>
+      <div data-aos="fade-left" data-aos-duration="900">
+        <h2 class="text-4xl font-extrabold mb-8 leading-tight text-[#0e1620]">
+          Visi & <span class="text-orange-500">Misi</span> Sekolah
+        </h2>
 
-<!-- ====================== VISI & MISI (Modern Clean Version - White Background) ====================== -->
-<section class="relative py-28 bg-white text-gray-800 overflow-hidden">
-  {{-- Background dekoratif halus --}}
-  <div class="absolute inset-0 bg-gradient-to-br from-white via-orange-50/30 to-white"></div>
-
-  <div class="max-w-7xl mx-auto relative z-10 px-6 md:px-10 grid md:grid-cols-2 gap-14 items-center">
-    {{-- Gambar --}}
-    <div data-aos="fade-right" data-aos-duration="900">
-      <div class="relative group">
-        <img src="{{ asset('assets/images/gedung/gedungtinggi.webp') }}" 
-             alt="Visi Misi Sekolah"
-             class="rounded-3xl shadow-2xl transform group-hover:scale-105 transition duration-700 ease-out">
-        <div class="absolute bottom-6 left-6">
-          <p class="bg-orange-500/90 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg backdrop-blur-sm">
-            SMK Prestasi Prima
+        <div class="mb-8">
+          <h3 class="font-semibold text-xl mb-3 text-orange-600 tracking-wide">Visi</h3>
+          <p class="text-gray-700 leading-relaxed text-lg bg-orange-50/60 p-5 rounded-2xl shadow-md border border-orange-100">
+            Mewujudkan lulusan yang <strong class="text-orange-600">unggul</strong> dan <strong class="text-orange-600">terpercaya</strong>
+            dalam mengembangkan serta mempersiapkan tenaga terampil di bidang Teknologi Informasi dan Komunikasi yang beriman,
+            bertaqwa, cerdas, percaya diri, berwawasan global, dan berkarakter Pancasila.
           </p>
         </div>
+
+        <div>
+          <h3 class="font-semibold text-xl mb-4 text-orange-600 tracking-wide">Misi</h3>
+          <ul class="space-y-4">
+            @php
+              $misi = [
+                'Menyelenggarakan proses belajar mengajar yang berkualitas dalam mencapai kompetensi peserta didik yang berstandar nasional dan internasional.',
+                'Menyiapkan tamatan yang mampu berkompetisi pada era revolusi industri 4.0 dan globalisasi sesuai dengan kompetensi bidangnya.',
+                'Memberikan pelayanan pendidikan berbasis pembelajaran abad 21 agar peserta didik memperoleh ilmu pengetahuan dan teknologi terkini.',
+                'Mengembangkan sikap profesional yang menghargai etika dan keberagaman serta menerapkan budaya kerja yang membentuk jati diri berkarakter bangsa.'
+              ];
+            @endphp
+
+            @foreach ($misi as $point)
+              <li class="flex items-start gap-3 bg-white rounded-2xl p-4 border border-orange-100 shadow-sm hover:shadow-lg hover:border-orange-300 transition">
+                <div class="w-3 h-3 mt-2 bg-orange-500 rounded-full flex-shrink-0 shadow-sm"></div>
+                <p class="text-gray-700 leading-relaxed">{{ $point }}</p>
+              </li>
+            @endforeach
+          </ul>
+        </div>
       </div>
     </div>
+  </section>
 
-    {{-- Teks Visi Misi --}}
-    <div data-aos="fade-left" data-aos-duration="900">
-      <h2 class="text-4xl font-extrabold mb-8 leading-tight text-[#0e1620]">
-        Visi & <span class="text-orange-500">Misi</span> Sekolah
-      </h2>
-
-      {{-- VISI --}}
-      <div class="mb-8">
-        <h3 class="font-semibold text-xl mb-3 text-orange-600 tracking-wide">Visi</h3>
-        <p class="text-gray-700 leading-relaxed text-lg bg-orange-50/60 p-5 rounded-2xl shadow-md border border-orange-100">
-          Mewujudkan lulusan yang <strong class="text-orange-600">unggul</strong> dan 
-          <strong class="text-orange-600">terpercaya</strong> dalam mengembangkan serta mempersiapkan tenaga terampil 
-          di bidang Teknologi Informasi dan Komunikasi yang beriman, bertaqwa, cerdas, percaya diri, 
-          berwawasan global, dan berkarakter Pancasila.
-        </p>
-      </div>
-
-      {{-- MISI --}}
-      <div>
-        <h3 class="font-semibold text-xl mb-4 text-orange-600 tracking-wide">Misi</h3>
-        <ul class="space-y-4">
-          <li class="flex items-start gap-3 bg-white rounded-2xl p-4 border border-orange-100 shadow-sm hover:shadow-lg hover:border-orange-300 transition">
-            <div class="w-3 h-3 mt-2 bg-orange-500 rounded-full flex-shrink-0 shadow-sm"></div>
-            <p class="text-gray-700 leading-relaxed">Menyelenggarakan proses belajar mengajar yang berkualitas dalam mencapai kompetensi peserta didik yang berstandar nasional dan internasional.</p>
-          </li>
-          <li class="flex items-start gap-3 bg-white rounded-2xl p-4 border border-orange-100 shadow-sm hover:shadow-lg hover:border-orange-300 transition">
-            <div class="w-3 h-3 mt-2 bg-orange-500 rounded-full flex-shrink-0 shadow-sm"></div>
-            <p class="text-gray-700 leading-relaxed">Menyiapkan tamatan yang mampu berkompetisi pada era revolusi industri 4.0 dan globalisasi sesuai dengan kompetensi bidangnya.</p>
-          </li>
-          <li class="flex items-start gap-3 bg-white rounded-2xl p-4 border border-orange-100 shadow-sm hover:shadow-lg hover:border-orange-300 transition">
-            <div class="w-3 h-3 mt-2 bg-orange-500 rounded-full flex-shrink-0 shadow-sm"></div>
-            <p class="text-gray-700 leading-relaxed">Memberikan pelayanan pendidikan berbasis pembelajaran abad 21 agar peserta didik memperoleh ilmu pengetahuan dan teknologi terkini.</p>
-          </li>
-          <li class="flex items-start gap-3 bg-white rounded-2xl p-4 border border-orange-100 shadow-sm hover:shadow-lg hover:border-orange-300 transition">
-            <div class="w-3 h-3 mt-2 bg-orange-500 rounded-full flex-shrink-0 shadow-sm"></div>
-            <p class="text-gray-700 leading-relaxed">Mengembangkan sikap profesional yang menghargai etika dan keberagaman serta menerapkan budaya kerja yang membentuk jati diri berkarakter bangsa.</p>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ====================== FASILITAS SEKOLAH - NEON LINES GRID TERPISAH ====================== -->
-<section class="relative bg-gradient-to-b from-white via-gray-50 to-white text-gray-900 overflow-hidden">
-  <div class="text-center py-24 px-6">
-    <h2 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
-      Fasilitas <span class="text-orange-500 drop-shadow-[0_0_10px_rgba(255,115,0,0.8)]">Sekolah</span>
-    </h2>
-    <p class="text-gray-600 max-w-2xl mx-auto text-lg">
-      Setiap fasilitas kami didesain modern dengan sentuhan teknologi dan estetika, mendukung suasana belajar kreatif.
-    </p>
-  </div>
-
-  @php
-    $fasilitas = [
-      [
-        'title' => 'Laboratorium & Studio',
-        'desc' => 'Tempat eksplorasi teknologi, inovasi, dan kreativitas visual siswa dengan perangkat canggih dan ruang inspiratif.',
-        'images' => ['lab1.webp','lab2.webp','lab3.webp','lab4.webp'],
-      ],
-      [
-        'title' => 'Fasilitas Akademik',
-        'desc' => 'Lingkungan akademik berteknologi tinggi dengan suasana nyaman dan terintegrasi digital.',
-        'images' => ['akademik1.webp','akademik2.webp','akademik3.webp','akademik4.webp'],
-      ],
-      [
-        'title' => 'Fasilitas Olahraga',
-        'desc' => 'Ruang olahraga modern yang menunjang kesehatan, semangat, dan kebersamaan antar siswa.',
-        'images' => ['olahraga1.webp','olahraga2.webp','olahraga3.webp','olahraga4.webp'],
-      ],
-      [
-        'title' => 'Fasilitas Umum Sekolah',
-        'desc' => 'Area sosial, hijau, dan interaktif yang mendukung keseimbangan antara akademik dan kehidupan sehari-hari.',
-        'images' => ['umum1.webp','umum2.webp','umum3.webp','umum4.webp'],
-      ],
-    ];
-  @endphp
-
-  @foreach ($fasilitas as $index => $item)
-  <div class="relative py-24 {{ $loop->even ? 'bg-[#0e1620] text-white' : 'bg-white text-gray-900' }}">
-    <div class="max-w-7xl mx-auto px-6 md:px-10 space-y-12 relative">
-
-      {{-- ===== TEKS ===== --}}
-      <div data-aos="fade-up" class="relative z-10 text-center md:text-left max-w-3xl mx-auto">
-        <h3 class="text-3xl md:text-4xl font-bold mb-4 relative inline-block">
-          {{ $item['title'] }}
-          <span class="absolute -bottom-1 left-0 w-20 h-[3px] bg-orange-500 shadow-[0_0_15px_rgba(255,115,0,0.8)] rounded-full"></span>
-        </h3>
-        <p class="opacity-90 leading-relaxed text-lg">{{ $item['desc'] }}</p>
-      </div>
-
-      {{-- ===== GRID GAMBAR TERPISAH ===== --}}
-      <div data-aos="fade-up" class="relative">
-        {{-- Garis artistik dekoratif --}}
-        <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-30" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 100 Q200 0 400 100 T800 100" stroke="url(#orange)" stroke-width="2" />
-          <path d="M0 300 Q200 400 400 300 T800 300" stroke="url(#orange)" stroke-width="2" />
-          <defs>
-            <linearGradient id="orange" x1="0" x2="800" y1="0" y2="0" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#ff7b00" stop-opacity="1">
-                <animate attributeName="stop-color" values="#ff7b00;#ffaa33;#ff7b00" dur="4s" repeatCount="indefinite"/>
-              </stop>
-              <stop offset="1" stop-color="#ffaa33" stop-opacity="1">
-                <animate attributeName="stop-color" values="#ffaa33;#ff7b00;#ffaa33" dur="4s" repeatCount="indefinite"/>
-              </stop>
-            </linearGradient>
-          </defs>
-        </svg>
-
-        {{-- Grid Gambar --}}
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 relative z-10">
-          @foreach ($item['images'] as $img)
-          <div class="group relative overflow-hidden rounded-2xl shadow-xl border border-orange-400/40 
-                      hover:border-orange-500 transition duration-500 hover:shadow-[0_0_25px_rgba(255,115,0,0.6)] hover:scale-[1.03]">
-            <img 
-              loading="lazy"
-              src="{{ asset('assets/images/section/fasilitas/' . $img) }}" 
-              alt="{{ $item['title'] }}"
-              class="w-full h-48 md:h-56 object-cover transition-transform duration-700 group-hover:scale-110">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-          </div>
-          @endforeach
+  <!-- ====================== PROFIL KEPALA SEKOLAH ====================== -->
+  <section class="relative py-24 bg-[#0e1620] text-white overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 items-center">
+      <!-- Foto Kepala Sekolah -->
+      <div data-aos="fade-right" data-aos-duration="900" class="flex justify-center">
+        <div class="relative group">
+          <img src="{{ asset('assets/images/section/tentang/kepala-sekolah.png') }}" 
+               alt="Kepala Sekolah SMK Prestasi Prima"
+               class="rounded-3xl shadow-2xl w-80 md:w-96 h-auto object-cover transform group-hover:scale-105 transition duration-700 ease-out">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition duration-700"></div>
         </div>
       </div>
 
+      <!-- Sambutan -->
+      <div data-aos="fade-left" data-aos-duration="900">
+        <h2 class="text-4xl font-extrabold mb-5 text-orange-400 tracking-wide">
+          Sambutan <span class="text-white">Kepala Sekolah</span>
+        </h2>
+
+        <p class="text-gray-300 leading-relaxed mb-6 text-justify">
+          <span class="block mb-3">Assalamu’alaikum Warahmatullahi Wabarakatuh.</span>
+          Dengan penuh rasa syukur, SMK Prestasi Prima terus berkomitmen menjadi lembaga pendidikan 
+          yang tidak hanya menyiapkan peserta didik untuk dunia kerja, tetapi juga membentuk karakter unggul, 
+          kreatif, dan berdaya saing global di era modern ini.
+        </p>
+
+        <blockquote class="relative border-l-4 border-orange-500 pl-5 italic text-orange-300 text-lg mb-8 overflow-hidden">
+          <span id="typing-quote" class="inline-block"></span>
+        </blockquote>
+
+        <p class="mt-6 text-gray-300 font-semibold text-lg">
+          — <span class="text-orange-400">Hendry Kurniawan, S.Kom., M.I.Kom.</span><br>
+          Kepala Sekolah SMK Prestasi Prima
+        </p>
+      </div>
     </div>
-  </div>
-  @endforeach
-</section>
-
-{{-- ======== Tambahkan animasi glow lembut untuk SVG garis ======== --}}
-<style>
-@keyframes glow-line {
-  0%, 100% {
-    filter: drop-shadow(0 0 6px rgba(255, 120, 0, 0.6));
-  }
-  50% {
-    filter: drop-shadow(0 0 15px rgba(255, 160, 50, 0.9));
-  }
-}
-svg path {
-  animation: glow-line 3s ease-in-out infinite;
-}
-</style>
-
-
-<!-- FOTO GEDUNG -->
-  <section class="relative w-full bg-white overflow-hidden">
-    <img alt="Gedung SMK Prestasi Prima" class="w-full h-[40vh] sm:h-[55vh] lg:h-screen object-cover object-center hover:scale-[1.02] transition-transform duration-700" src="{{ asset('assets/images/gedung/gedung.avif') }}">
   </section>
+
+  <!-- ====================== ANIMASI QUOTE ====================== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const text = "“Pendidikan bukan hanya tentang masa depan, tetapi tentang membangun masa kini dengan penuh makna dan tanggung jawab.”";
+      const typingElement = document.getElementById("typing-quote");
+      let index = 0;
+
+      function typeEffect() {
+        if (index < text.length) {
+          typingElement.textContent += text.charAt(index);
+          index++;
+          setTimeout(typeEffect, 50);
+        }
+      }
+      typeEffect();
+    });
+  </script>
+
+  <!-- ====================== VIDEO PROFIL SEKOLAH ====================== -->
+  <section class="py-24 bg-white text-gray-800 relative z-20">
+    <div class="max-w-5xl mx-auto text-center px-6">
+      <h2 class="text-4xl font-extrabold mb-6">
+        Video <span class="text-orange-500">Profil Sekolah</span>
+      </h2>
+      <p class="text-gray-600 mb-10 max-w-2xl mx-auto">
+        Saksikan sekilas perjalanan dan suasana belajar di SMK Prestasi Prima melalui video berikut.
+      </p>
+
+      <div class="relative w-full max-w-4xl mx-auto pb-[56.25%] overflow-hidden rounded-2xl shadow-xl">
+        <iframe class="absolute top-0 left-0 w-full h-full"
+                src="https://www.youtube.com/embed/EYzn0caf0_k?si=rCs4oPLk_iowbcV8"
+                title="Video Profil SMK Prestasi Prima"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== LOKASI SEKOLAH ====================== -->
+  <section class="relative bg-gradient-to-br from-[#0d141d] via-[#121b26] to-[#1a2636] text-white py-28 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 text-center relative z-10">
+      <h2 class="text-5xl font-extrabold mb-6 tracking-tight">
+        Lokasi <span class="bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">Sekolah</span>
+      </h2>
+
+      <p class="text-gray-300 text-lg mb-12 max-w-3xl mx-auto leading-relaxed">
+        Temukan <span class="text-orange-400 font-semibold">SMK Prestasi Prima</span> — pusat pendidikan unggulan 
+        yang membina generasi profesional masa depan. 
+        Terletak strategis di kawasan yang mudah dijangkau, 
+        sekolah kami menghadirkan lingkungan belajar modern dan inspiratif.
+      </p>
+
+      <div class="rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-[#111a25] hover:scale-[1.02] transition-transform duration-500 ease-in-out" data-aos="fade-up">
+        <iframe class="w-full h-[450px]" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4748268020353!2d106.8972187!3d-6.332476499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed2681bc7c67%3A0x777152b1d3f74a62!2sSMK%20Prestasi%20Prima!5e0!3m2!1sid!2sid!4v1756647265168!5m2!1sid!2sid"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <div class="mt-12 mx-auto max-w-2xl bg-[#111a25] border border-white/10 rounded-2xl p-6 shadow-lg">
+        <h3 class="text-2xl font-semibold mb-3 text-orange-400">Alamat Lengkap</h3>
+        <p class="text-gray-300 leading-relaxed">
+          <strong>SMK Prestasi Prima</strong><br>
+          Jl. Hankam Raya No.89, RT.4/RW.5, Cilangkap, Kec. Cipayung, 
+          Kota Jakarta Timur, DKI Jakarta 13870<br>
+          📍 <span class="italic text-orange-300">Dekat dengan Universitas Krisnadwipayana & Terminal Cilangkap</span>
+        </p>
+
+        <div class="flex justify-center gap-4 mt-6">
+          <a href="https://goo.gl/maps/k3PUPcTZhQKxW1t69" target="_blank"
+             class="px-6 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-semibold shadow-md transition-all">
+            Buka di Google Maps
+          </a>
+          <a href="/contact"
+             class="px-6 py-2 rounded-xl border border-orange-400 text-orange-400 hover:bg-orange-500 hover:text-white font-semibold transition-all">
+            Hubungi Kami
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== TESTIMONI LINK SECTION ====================== -->
+<section class="py-24 bg-white text-center text-gray-800">
+    <h2 class="text-4xl font-extrabold mb-6">
+      Suara dari <span class="text-orange-500">Alumni & Orang Tua</span>
+    </h2>
+    <p class="text-gray-600 max-w-2xl mx-auto mb-10">
+      Dengarkan pengalaman langsung dari mereka yang telah merasakan perjalanan bersama SMK Prestasi Prima.
+    </p>
+    <a href="{{ url('/testimoni') }}"
+       class="inline-block px-8 py-3 bg-orange-500 text-white font-semibold rounded-xl shadow-md hover:bg-orange-600 transition-all">
+      Lihat Semua Testimoni →
+    </a>
+  </section>
+
 @endsection
