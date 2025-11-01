@@ -157,36 +157,42 @@
             class="absolute left-0 -bottom-1 w-10 h-[2px] bg-gradient-to-r from-orange-500 to-orange-300 rounded-full"></span>
         </h3>
         <ul class="text-sm text-gray-400 space-y-3 mt-4">
-          <li><a href="#" class="hover:text-orange-400 transition">Kegiatan Sekolah</a></li>
-          <li><a href="#" class="hover:text-orange-400 transition">Kerja Sama Industri</a></li>
+          <li><a href="/dokumentasi/kegiatan" class="hover:text-orange-400 transition">Kegiatan Sekolah</a></li>
+          <li><a href="/informasi/industri" class="hover:text-orange-400 transition">Kerja Sama Industri</a></li>
           <li><a href="#" class="hover:text-orange-400 transition">Beasiswa & Prestasi</a></li>
           <li><a href="#" class="hover:text-orange-400 transition">Layanan Alumni</a></li>
-          <li><a href="#" class="hover:text-orange-400 transition">Download Brosur</a></li>
+          <li><a href="{{ asset('assets/files/brosur.pdf') }}" download  class="hover:text-orange-400 transition">Download Brosur</a></li>
         </ul>
       </div>
 
       <!-- Kolom 4: FAQ -->
       <div>
-        <h3 class="text-lg font-semibold text-white mb-4 relative">
-          FAQ
-          <span
-            class="absolute left-0 -bottom-1 w-10 h-[2px] bg-gradient-to-r from-orange-500 to-orange-300 rounded-full"></span>
-        </h3>
-        <ul class="space-y-3 text-sm text-gray-400 mt-4">
-          <li>
-            <span class="font-medium text-white">Bagaimana cara mendaftar?</span><br>
-            Melalui <a href="/pendaftaran" class="text-orange-400 hover:underline">Pendaftaran Online</a>.
-          </li>
-          <li>
-            <span class="font-medium text-white">Apakah tersedia jurusan teknologi?</span><br>
-            Ya, kami memiliki jurusan RPL, TKJ, dan DKV.
-          </li>
-          <li>
-            <span class="font-medium text-white">Dimana lokasi sekolah?</span><br>
-            Jl. Raya Cibubur No.99, Jakarta Timur.
-          </li>
-        </ul>
-      </div>
+  <h3 class="text-lg font-semibold text-white mb-4 relative">
+    FAQ
+    <span class="absolute left-0 -bottom-1 w-10 h-[2px] bg-gradient-to-r from-orange-500 to-orange-300 rounded-full"></span>
+  </h3>
+  <ul class="space-y-3 text-sm text-gray-400 mt-4">
+    <li>
+      <span class="font-medium text-white">Bagaimana cara mendaftar?</span><br>
+      Pendaftaran dapat dilakukan melalui 
+      <a href="/pendaftaran" class="text-orange-400 hover:underline">laman online</a> 
+      atau langsung ke sekolah.
+    </li>
+
+    <li>
+      <span class="font-medium text-white">Kapan jadwal PPDB dibuka?</span><br>
+      Setiap tahun mulai <strong>Desember hingga Juni</strong>.
+    </li>
+
+    <li>
+      <span class="font-medium text-white">Ingin tahu info lebih lanjut?</span><br>
+      Kunjungi 
+      <a href="/presmacontact" class="text-orange-400 hover:underline">Hubungi Kami</a> 
+      untuk informasi lengkap.
+    </li>
+  </ul>
+</div>
+
     </div>
   </div>
 

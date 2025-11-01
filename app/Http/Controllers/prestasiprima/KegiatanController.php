@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\prestasiprima;
+namespace App\Http\Controllers\Prestasiprima;
 
 use App\Http\Controllers\Controller;
+use App\Models\Prestasiprima\Kegiatan;
 use Illuminate\Http\Request;
 
 class KegiatanController extends Controller
 {
-    /**
-     * Menampilkan halaman kegiatan SMK Prestasi Prima
-     */
     public function index()
     {
-        // Kirim data ke view
-        return view('prestasiprima.pages.kegiatan');
+        // Ambil semua data kegiatan dari database, urutkan berdasarkan tanggal terbaru
+        $kegiatan = Kegiatan::orderBy('tanggal', 'desc')->get();
+
+        // Kirim ke view
+        return view('prestasiprima.pages.kegiatan', compact('kegiatan'));
     }
 }

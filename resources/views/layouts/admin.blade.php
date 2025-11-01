@@ -25,16 +25,75 @@
     </div>
 
     <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-1">
+
+      {{-- === DASHBOARD === --}}
+      <a href="{{ route('prestasiprima.admin.dashboard') }}"
+         class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-800 bg-gray-100 font-semibold hover:bg-gray-200 transition">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </a>
+
+      {{-- === MENU BERITA === --}}
       <a href="{{ route('prestasiprima.admin.berita.index') }}" 
          class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition">
         <i class="fa-solid fa-newspaper"></i>
         <span>Manajemen Berita</span>
       </a>
 
+      {{-- === MENU GALERI === --}}
       <a href="{{ route('prestasiprima.admin.gallery.index') }}" 
          class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition">
         <i class="fa-solid fa-image"></i>
         <span>Manajemen Galeri</span>
+      </a>
+
+      {{-- === MENU PRESTASI === --}}
+      <a href="{{ route('prestasiprima.admin.prestasi.index') }}" 
+         class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition">
+        <i class="fa-solid fa-trophy"></i>
+        <span>Manajemen Prestasi</span>
+      </a>
+
+      {{-- === MENU KEGIATAN === --}}
+      <a href="{{ route('prestasiprima.admin.kegiatan.index') }}" 
+         class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition">
+        <i class="fa-solid fa-calendar-days"></i>
+        <span>Manajemen Kegiatan</span>
+      </a>
+
+      {{-- === MENU STAFF === --}}
+      <a href="#" 
+         class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition">
+        <i class="fa-solid fa-user-tie"></i>
+        <span>Manajemen Staff</span>
+      </a>
+
+      {{-- === MENU KARYA & PROYEK === --}}
+      <a href="#" 
+         class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition">
+        <i class="fa-solid fa-lightbulb"></i>
+        <span>Manajemen Karya & Proyek</span>
+      </a>
+
+      {{-- === MENU EKSTRAKURIKULER === --}}
+      <a href="#" 
+         class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition">
+        <i class="fa-solid fa-people-group"></i>
+        <span>Manajemen Ekstrakurikuler</span>
+      </a>
+
+      {{-- === MENU INDUSTRI === --}}
+      <a href="#" 
+         class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition">
+        <i class="fa-solid fa-building"></i>
+        <span>Manajemen Industri</span>
+      </a>
+
+      {{-- === MENU TESTIMONI === --}}
+      <a href="#" 
+         class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition">
+        <i class="fa-solid fa-comment-dots"></i>
+        <span>Manajemen Testimoni</span>
       </a>
 
       <hr class="my-3 border-gray-200">

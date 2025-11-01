@@ -1,64 +1,53 @@
 @extends('prestasiprima.index')
 
-@section('title', 'Prestasi Kami')
+@section('title', 'Prestasi Siswa - SMK Prestasi Prima')
 
 @section('content')
-<!-- ================= PAGE PRESTASI ================= -->
 <section id="prestasi" class="pt-36 pb-20 bg-white relative overflow-hidden">
   <div class="max-w-7xl mx-auto px-4 md:px-8 text-center">
 
     <!-- ===== Header ===== -->
-    <div class="mb-12">
+    <div class="mb-12" data-aos="fade-down">
       <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo Sekolah" class="mx-auto h-14 mb-4">
       <h3 class="text-lg font-bold text-gray-800">Prestasi Kami</h3>
       <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mt-2">
-        Mengabadikan momen berharga di balik setiap
-        <span class="text-orange-600">kemenangan</span>
+        Galeri <span class="text-orange-600">Prestasi Siswa</span>
       </h2>
     </div>
 
-    <!-- ===== Swiper Container (wrapper relative untuk tombol absolute) ===== -->
-    <div class="relative">
-      <!-- Tombol navigasi di luar slide (posisi absolute relatif ke parent) -->
-      <button class="swiper-button-prev custom-nav absolute -left-8 top-1/2 -translate-y-1/2 z-20" aria-label="Previous"></button>
-      <button class="swiper-button-next custom-nav absolute -right-8 top-1/2 -translate-y-1/2 z-20" aria-label="Next"></button>
+    <!-- ===== Swiper Prestasi ===== -->
+    <div class="relative flex items-center justify-center" data-aos="zoom-in" data-aos-delay="100">
+      <!-- Tombol Navigasi di luar gambar -->
+      <button class="swiper-button-prev custom-nav absolute -left-20 md:-left-24 z-20" aria-label="Previous"></button>
+      <button class="swiper-button-next custom-nav absolute -right-20 md:-right-24 z-20" aria-label="Next"></button>
 
-      <!-- Swiper utama: tambahkan padding-bottom supaya pagination tidak tumpang tindih -->
-      <div class="swiper prestasiSwiper pb-16">
+      <div class="swiper prestasiSwiper w-full">
         <div class="swiper-wrapper">
-          @foreach ([
-            ['satu.webp', 'Juara Satu'],
-            ['dua.webp', 'Juara Dua'],
-            ['tiga.webp', 'Juara Tiga'],
-            ['empat.webp', 'Juara Empat'],
-            ['satu.webp', 'Juara Satu'],
-            ['dua.webp', 'Juara Dua']
-          ] as $item)
-          <div class="swiper-slide">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-              <img src="{{ asset('assets/images/section/prestasi/' . $item[0]) }}" alt="{{ $item[1] }}" class="w-full object-cover">
+          @foreach ($prestasis->take(5) as $prestasi)
+            <div class="swiper-slide">
+              <div class="rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500">
+                <img src="{{ asset('storage/' . $prestasi->gambar) }}"
+                     alt="Prestasi Siswa"
+                     class="w-full h-72 object-cover hover:scale-105 transition-transform duration-700 ease-in-out">
+              </div>
             </div>
-          </div>
           @endforeach
         </div>
       </div>
-
-      <!-- Pagination (diletakkan di luar bawah slider) -->
-      <div class="swiper-pagination mt-4"></div>
     </div>
 
-    <!-- ===== GRID PRESTASI TAMBAHAN (HANYA GAMBAR) ===== -->
-    <div class="mt-12">
+    <!-- Pagination lebih dekat dengan gambar -->
+    <div class="swiper-pagination mt-4 relative"></div>
+
+    <!-- ===== Grid Tambahan ===== -->
+    <div class="mt-16" data-aos="fade-up" data-aos-delay="200">
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-        @foreach ([
-          'satu.webp','dua.webp','tiga.webp','empat.webp','lima.webp',
-          'enam.webp','tujuh.webp','delapan.webp','sembilan.webp','sepuluh.webp'
-        ] as $img)
-        <div class="rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 group">
-          <img src="{{ asset('assets/images/section/prestasi/' . $img) }}"
-               alt="Prestasi"
-               class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-500">
-        </div>
+        @foreach ($prestasis as $prestasi)
+          <div class="rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 group">
+            <img src="{{ asset('storage/' . $prestasi->gambar) }}"
+                 alt="Prestasi Siswa"
+                 class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
         @endforeach
       </div>
     </div>
@@ -70,116 +59,89 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-<!-- Custom Style Navigasi -->
+<!-- AOS -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    new Swiper(".prestasiSwiper", {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      autoplay: { delay: 3000, disableOnInteraction: false },
+      pagination: { el: ".swiper-pagination", clickable: true },
+      navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+      breakpoints: {
+        640: { slidesPerView: 2 },
+        768: { slidesPerView: 3 },
+        1024: { slidesPerView: 4 },
+      },
+    });
+
+    AOS.init({ duration: 1000, once: true });
+  });
+</script>
+
 <style>
-  /* Tombol navigasi (di luar area gambar) */
+  /* ===== Tombol Navigasi ===== */
   .custom-nav {
-    width: 36px !important;
-    height: 36px !important;
+    width: 46px !important;
+    height: 46px !important;
     background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 9999px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     color: #ea580c;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.22s ease, background-color 0.22s ease;
     border: none;
+    transition: all 0.3s ease;
     cursor: pointer;
   }
-  /* Default Swiper pseudo content (panah) styling */
+
   .swiper-button-next.custom-nav::after,
   .swiper-button-prev.custom-nav::after {
-    font-size: 16px !important;
-    font-weight: 700;
-    color: inherit;
+    font-size: 18px !important;
+    font-weight: bold;
   }
+
   .custom-nav:hover {
     background-color: #ea580c;
-    color: white;
-    transform: scale(1.06);
+    color: #fff;
+    transform: scale(1.1);
   }
 
-  /* Posisikan pagination benar di bawah (tidak overlapping) */
+  /* ===== Pagination (Titik) ===== */
   .swiper-pagination {
     position: relative !important;
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 0.75rem;
+    margin-top: 1rem; /* lebih dekat ke gambar */
   }
 
-  /* Optional: ubah warna bullet aktif supaya sesuai tema */
   .swiper-pagination-bullet {
-    width: 8px;
-    height: 8px;
-    opacity: 0.6;
-    background: #cbd5e1; /* gray-300 */
+    background-color: #ea580c !important;
+    opacity: 0.5;
+    transition: all 0.3s ease;
   }
+
   .swiper-pagination-bullet-active {
-    background: #ea580c; /* orange theme */
+    background-color: #ea580c !important;
     opacity: 1;
-    width: 10px;
-    height: 10px;
+    transform: scale(1.25);
   }
 
-  /* Responsive adjustments */
+  /* ===== Responsif ===== */
   @media (max-width: 768px) {
-    .custom-nav { width: 30px !important; height: 30px !important; }
-    .swiper-button-next { right: -6px !important; }
-    .swiper-button-prev { left: -6px !important; }
-  }
-
-  /* Pastikan slide image tidak ter-overflow oleh tombol visual */
-  .swiper .swiper-slide { overflow: visible; }
-</style>
-
-<!-- Swiper Config -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const prestasiSwiper = new Swiper(".prestasiSwiper", {
-      slidesPerView: 1,
-      spaceBetween: 20,
-      loop: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-        bulletClass: 'swiper-pagination-bullet',
-        bulletActiveClass: 'swiper-pagination-bullet-active'
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      breakpoints: {
-        640: { slidesPerView: 2, spaceBetween: 20 },
-        768: { slidesPerView: 3, spaceBetween: 24 },
-        1024: { slidesPerView: 4, spaceBetween: 28 },
-      },
-    });
-
-    // Background dekoratif (gunakan asset() supaya path benar)
-    const prestasiSection = document.getElementById("prestasi");
-    if (prestasiSection) {
-      const networkImg = document.createElement("img");
-      networkImg.src = "{{ asset('assets/images/section/prestasi/netowrk.svg') }}";
-      networkImg.alt = "Network";
-      networkImg.className =
-        "absolute -bottom-16 -left-48 w-[460px] md:w-[560px] opacity-40 select-none pointer-events-none";
-      prestasiSection.appendChild(networkImg);
-
-      const raceImg = document.createElement("img");
-      raceImg.src = "{{ asset('assets/images/section/tentang/race.svg') }}";
-      raceImg.alt = "Race";
-      raceImg.className =
-        "absolute -bottom-80 -right-24 w-[480px] md:w-[600px] opacity-40 select-none pointer-events-none";
-      prestasiSection.appendChild(raceImg);
+    .custom-nav {
+      width: 36px !important;
+      height: 36px !important;
     }
-  });
-</script>
+    .swiper-button-prev {
+      left: -10px !important;
+    }
+    .swiper-button-next {
+      right: -10px !important;
+    }
+  }
+</style>
 @endsection

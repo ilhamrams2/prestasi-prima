@@ -104,4 +104,11 @@ class AdminNewsController extends Controller
 
         return back()->with('success', 'Berita berhasil dihapus!');
     }
+
+    // === SHOW DETAIL BERITA ===
+    public function show($id)
+    {
+        $news = News::with('category')->findOrFail($id);
+        return view('prestasiprima.admin.berita.show', compact('news'));
+    }
 }

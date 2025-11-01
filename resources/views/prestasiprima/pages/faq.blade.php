@@ -1,6 +1,6 @@
 @extends('prestasiprima.index')
 
-@section('title', 'FAQ Sekolah Prestasi Prima')
+@section('title', 'FAQ - SMK Prestasi Prima')
 
 @section('content')
 <section 
@@ -20,42 +20,79 @@
       <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-400 rounded-full"></span>
     </h1>
     <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-      Klik atau arahkan kursor pada pertanyaan untuk melihat jawabannya.
+      Klik pertanyaan di bawah untuk melihat jawabannya.
     </p>
   </div>
 
-  {{-- Grid FAQ --}}
-  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 px-6">
+  {{-- List FAQ per baris --}}
+  <div class="max-w-4xl mx-auto space-y-6 px-6">
     @php
       $faqs = [
-        ['icon' => 'GraduationCap', 'question' => 'Bagaimana cara mendaftar di Sekolah Prestasi Prima?', 'answer' => 'Pendaftaran dapat dilakukan secara online melalui laman resmi sekolah, atau dengan datang langsung ke bagian administrasi sambil membawa dokumen yang dibutuhkan.'],
-        ['icon' => 'Clock', 'question' => 'Kapan penerimaan siswa baru dibuka?', 'answer' => 'Pendaftaran biasanya dimulai pada bulan Januari hingga Juli. Informasi lebih lanjut akan diumumkan di website dan media sosial sekolah.'],
-        ['icon' => 'Award', 'question' => 'Apakah sekolah ini menyediakan program beasiswa?', 'answer' => 'Ya, kami menyediakan berbagai program beasiswa akademik dan non-akademik bagi siswa berprestasi dan siswa dari keluarga kurang mampu.'],
-        ['icon' => 'Lightbulb', 'question' => 'Bagaimana sistem pembelajaran di Sekolah Prestasi Prima?', 'answer' => 'Kami menggabungkan metode pembelajaran konvensional dengan teknologi digital, membangun karakter, kreativitas, dan kolaborasi siswa.'],
-        ['icon' => 'Building2', 'question' => 'Apa saja fasilitas unggulan sekolah?', 'answer' => 'Kami memiliki laboratorium komputer, perpustakaan modern, ruang multimedia, lapangan olahraga, dan area belajar yang nyaman serta aman.'],
-        ['icon' => 'PhoneCall', 'question' => 'Bagaimana cara menghubungi pihak sekolah?', 'answer' => 'Anda dapat menghubungi kami melalui halaman Kontak, email resmi, atau datang langsung ke sekolah pada jam operasional (Senin–Jumat, 08.00–15.00).'],
+        [
+          'question' => 'Kurikulum apa yang digunakan di SMK Prestasi Prima?',
+          'answer' => 'SMK Prestasi Prima menerapkan Kurikulum Merdeka, yang berfokus pada pengembangan kompetensi, karakter, serta kesiapan siswa menghadapi dunia kerja dan industri kreatif modern.',
+        ],
+        [
+          'question' => 'Ada berapa jurusan di SMK Prestasi Prima?',
+          'answer' => '<strong>SMK Prestasi Prima</strong> memiliki empat jurusan unggulan:<br><br>
+            <strong>PPLG</strong> – Pemrograman, aplikasi, dan gim digital.<br>
+            <strong>BCF</strong> – Broadcasting, penyiaran, dan perfilman.<br>
+            <strong>TJKT</strong> – Jaringan komputer & teknologi komunikasi.<br>
+            <strong>DKV</strong> – Desain grafis, ilustrasi digital, dan media kreatif.',
+        ],
+        [
+          'question' => 'Ada berapa jumlah ekstrakurikuler di SMK Prestasi Prima?',
+          'answer' => 'SMK Prestasi Prima memiliki <strong>21 kegiatan ekstrakurikuler</strong> untuk mengembangkan minat, bakat, dan kemampuan sosial siswa di luar kegiatan akademik.',
+        ],
+        [
+          'question' => 'Apakah sekolah memiliki sistem keamanan yang baik?',
+          'answer' => 'Ya, seluruh area sekolah dilengkapi dengan CCTV serta petugas keamanan yang selalu siaga demi kenyamanan dan keselamatan seluruh warga sekolah.',
+        ],
+        [
+          'question' => 'Berapa biaya sekolah saat ini?',
+          'answer' => 'Informasi biaya pendidikan dapat diperoleh melalui kantor administrasi sekolah. Evaluasi biaya dilakukan setiap bulan Januari untuk tahun ajaran berikutnya.',
+        ],
+        [
+          'question' => 'Apakah sekolah memiliki fasilitas lengkap?',
+          'answer' => 'Tersedia laboratorium untuk setiap jurusan: lab komputer, studio desain, lab broadcasting, serta ruang praktik yang mendukung pembelajaran berbasis industri.',
+        ],
+        [
+          'question' => 'Apa akreditasi SMK Prestasi Prima?',
+          'answer' => 'SMK Prestasi Prima telah meraih <strong>Akreditasi A (Unggul)</strong> — bukti mutu pendidikan dan kualitas pembelajaran yang tinggi.',
+        ],
+        [
+          'question' => 'Ada berapa gedung di area pembelajaran?',
+          'answer' => 'Terdapat empat gedung utama:<br><br>
+            <strong>Gedung A:</strong> administrasi, perpustakaan, dan lab kimia.<br>
+            <strong>Gedung B:</strong> ruang kelas dan lab PPLG, DKV, TJKT, BCF.<br>
+            <strong>Gedung C:</strong> ruang OSIS, administrasi tambahan.<br>
+            <strong>Gedung D:</strong> unit produksi & ruang praktik kewirausahaan.',
+        ],
       ];
     @endphp
 
     @foreach ($faqs as $index => $faq)
     <div 
-      class="relative bg-white backdrop-blur-xl rounded-2xl border border-gray-100 shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer group"
+      class="bg-white backdrop-blur-xl rounded-2xl border border-gray-100 shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer group"
       @click="open === {{ $index }} ? open = null : open = {{ $index }}"
-      @mouseenter="window.innerWidth >= 768 ? open = {{ $index }} : null"
-      @mouseleave="window.innerWidth >= 768 ? open = null : null"
-      :class="{ 'ring-2 ring-orange-400/70 scale-[1.02]': open === {{ $index }} }"
+      :class="{ 'ring-2 ring-orange-400/70 scale-[1.01]': open === {{ $index }} }"
+      x-data="{ show: false }"
+      x-intersect.once="show = true"
+      x-transition:enter="transition ease-out duration-700"
+      x-transition:enter-start="opacity-0 translate-y-6"
+      x-transition:enter-end="opacity-100 translate-y-0"
     >
       {{-- Pertanyaan --}}
       <div class="flex items-center gap-4 px-6 py-6">
         <div class="p-3 rounded-xl bg-orange-100 text-orange-500 shadow-md group-hover:bg-orange-500 group-hover:text-white transition-all duration-300">
-          <i data-lucide="{{ $faq['icon'] }}" class="w-6 h-6"></i>
+          <i data-lucide="help-circle" class="w-6 h-6"></i>
         </div>
         <h2 class="text-lg md:text-xl font-semibold text-gray-800 leading-snug flex-1">
           {{ $faq['question'] }}
         </h2>
         <i 
           data-lucide="chevron-down" 
-          class="w-5 h-5 text-orange-400 transition-transform duration-300"
+          class="w-5 h-5 text-orange-400 transition-transform duration-500"
           :class="{ 'rotate-180 text-orange-600': open === {{ $index }} }"
         ></i>
       </div>
@@ -63,10 +100,15 @@
       {{-- Jawaban --}}
       <div 
         x-show="open === {{ $index }}"
-        x-collapse
-        class="px-6 pb-6 text-gray-600 text-sm md:text-base leading-relaxed border-t border-gray-100"
+        x-transition:enter="transition-all ease-in-out duration-700"
+        x-transition:enter-start="max-h-0 opacity-0"
+        x-transition:enter-end="max-h-[1000px] opacity-100"
+        x-transition:leave="transition-all ease-in-out duration-500"
+        x-transition:leave-start="max-h-[1000px] opacity-100"
+        x-transition:leave-end="max-h-0 opacity-0"
+        class="px-6 pb-6 text-gray-600 text-sm md:text-base leading-relaxed border-t border-gray-100 overflow-hidden"
       >
-        {{ $faq['answer'] }}
+        {!! $faq['answer'] !!}
       </div>
     </div>
     @endforeach
@@ -75,7 +117,7 @@
   {{-- CTA --}}
   <div class="mt-24 text-center">
     <p class="text-gray-700 text-lg mb-6">Masih ada pertanyaan lain?</p>
-    <a href="#"
+    <a href="{{ url('/presmacontact') }}"
       class="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
       Hubungi Kami Sekarang
       <i data-lucide="message-circle" class="w-5 h-5"></i>
@@ -83,7 +125,13 @@
   </div>
 </section>
 
-{{-- Lucide Icons --}}
+{{-- FOTO GEDUNG --}}
+<section class="relative w-full bg-white overflow-hidden select-none pointer-events-none">
+  <img alt="Gedung SMK Prestasi Prima" 
+       class="w-full h-[40vh] sm:h-[55vh] lg:h-screen object-cover object-center hover:scale-[1.02] transition-transform duration-700" 
+       src="{{ asset('assets/images/gedung/gedung.avif') }}">
+</section>
+
 @push('scripts')
 <script>
   lucide.createIcons();

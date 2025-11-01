@@ -71,10 +71,9 @@
             <a href="https://www.instagram.com/osis_smkpp" class="dropdown-item">OSIS & MPK</a>
             <a href="/siswa/ekstrakurikuler" class="dropdown-item">Ekstrakurikuler</a>
             <a href="/siswa/karya-proyek" class="dropdown-item">Karya & Proyek</a>
-            <a href="/siswa/testimoni" class="dropdown-item">Testimoni</a>
           </div>
         </div>
-
+        
         <div class="dropdown relative group">
           <a href="#" class="nav-link flex items-center text-white">
             Informasi
@@ -85,6 +84,7 @@
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
             <a href="/informasi/faq" class="dropdown-item">FAQ</a>
             <a href="/informasi/industri" class="dropdown-item">Industri</a>
+            <a href="/informasi/testimoni" class="dropdown-item">Testimoni</a>
             <a href="/informasi/penerimaan-siswa" class="dropdown-item">Penerimaan Siswa</a>
           </div>
         </div>
@@ -174,7 +174,6 @@
         <a href="https://www.instagram.com/osis_smkpp" class="mobile-subitem">OSIS & MPK</a>
         <a href="/siswa/ekstrakurikuler" class="mobile-subitem">Ekstrakurikuler</a>
         <a href="/siswa/karya-proyek" class="mobile-subitem">Karya & Proyek</a>
-        <a href="/siswa/testimoni" class="mobile-subitem">Testimoni</a>
       </div>
 
       <button class="mobile-dropdown-btn">
@@ -198,6 +197,7 @@
       <div class="mobile-submenu">
         <a href="/informasi/faq" class="mobile-subitem">FAQ</a>
         <a href="/informasi/industri" class="mobile-subitem">Industri</a>
+        <a href="/informasi/testimoni" class="mobile-subitem">Testimoni</a>
         <a href="/informasi/penerimaan-siswa" class="mobile-subitem">Penerimaan Siswa</a>
 
       </div>

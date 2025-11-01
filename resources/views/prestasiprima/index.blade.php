@@ -76,7 +76,7 @@
         "/siswa/ekstrakurikuler": "Sedang memuat halaman Ekstrakurikuler...",
         "/siswa/penerimaan-siswa": "Sedang memuat halaman Penerimaan Siswa...",
         "/siswa/karya-proyek": "Sedang memuat halaman Karya & Proyek Siswa...",
-        "/siswa/testimoni": "Sedang memuat halaman Testimoni Siswa...",
+        "/informasi/testimoni": "Sedang memuat halaman Testimoni Siswa...",
         "/informasi/faq": "Sedang memuat halaman FAQ...",
         "/informasi/industri": "Sedang memuat halaman Industri...",
         "/dokumentasi/gallery": "Sedang memuat halaman Galeri...",

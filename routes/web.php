@@ -36,12 +36,16 @@ use App\Http\Controllers\prestasiprima\{
     TestimoniController,
     KegiatanController,
     KaryaProyekController,
-    ContactController
+    ContactController,
+    PrestasiController
 };
 
 use App\Http\Controllers\prestasiprima\Admin\{
     AdminGalleryController,
-    AdminNewsController
+    AdminNewsController,
+    AdminPrestasiController,
+    AdminKegiatanController,
+    AdminDashboardController
 };
 
 use App\Http\Controllers\Presmaboard\{
@@ -86,9 +90,8 @@ Route::prefix('tentang')->group(function () {
 
 // ==================== SISWA ==================== //
 Route::prefix('siswa')->group(function () {
-    Route::get('/prestasi', fn() => view('prestasiprima.pages.prestasi'))->name('prestasi');
-    Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])->name('prestasiprima.ekstrakurikuler');
-    Route::get('/testimoni', [TestimoniController::class, 'index'])->name('testimoni');
+    Route::get('/prestasi', [PrestasiController::class, 'index'])->name('prestasi.index');
+    Route::post('/prestasi', [PrestasiController::class, 'store'])->name('prestasi.store');    Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])->name('prestasiprima.ekstrakurikuler');
     Route::get('/karya-proyek', [KaryaProyekController::class, 'index'])->name('karya-proyek');
     Route::get('/karya-proyek/{slug}', [KaryaProyekController::class, 'show'])->name('karya-proyek.show');
 });
@@ -98,6 +101,7 @@ Route::prefix('siswa')->group(function () {
 Route::prefix('informasi')->group(function () {
     Route::get('/faq', [FaqController::class, 'index'])->name('faq');
     Route::get('/industri', [IndustriController::class, 'index'])->name('industri');
+    Route::get('/testimoni', [TestimoniController::class, 'index'])->name('testimoni');
     Route::get('/penerimaan-siswa', [PenerimaanSiswaController::class, 'index'])->name('penerimaan.siswa');
 });
 
@@ -115,7 +119,7 @@ Route::prefix('dokumentasi')->group(function () {
     });
 
     // Kegiatan
-    Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan');
+    Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
 });
 
 Route::get('/presmacontact', [ContactController::class, 'index'])->name('presmacontact');
@@ -192,6 +196,11 @@ Route::prefix('presmaboard')->name('presmaboard.')->group(function () {
 
 Route::prefix('prestasiprima/admin')->name('prestasiprima.admin.')->group(function () {
 
+    // === DASHBOARD ===
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])
+        ->name('dashboard');
+
+    // === GALLERY ===
     Route::prefix('gallery')->name('gallery.')->controller(AdminGalleryController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
@@ -201,7 +210,30 @@ Route::prefix('prestasiprima/admin')->name('prestasiprima.admin.')->group(functi
         Route::delete('/{id}', 'destroy')->name('destroy');
     });
 
+    // === BERITA ===
     Route::prefix('berita')->name('berita.')->controller(AdminNewsController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::put('/{id}', 'update')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
+        Route::get('/{id}', 'show')->name('show');
+    });
+
+    // === PRESTASI ===
+    Route::prefix('prestasi')->name('prestasi.')->controller(AdminPrestasiController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{id}', 'show')->name('show'); // <=== route detail prestasi
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::put('/{id}', 'update')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
+    });
+
+    // === KEGIATAN ===
+    Route::prefix('kegiatan')->name('kegiatan.')->controller(AdminKegiatanController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
