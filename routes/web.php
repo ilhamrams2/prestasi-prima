@@ -65,6 +65,7 @@ use App\Http\Controllers\Presmaboard\{
 
 Route::view('/', 'prestasiprima.pages.landing')->name('landing');
 Route::view('/welcome', 'welcome')->name('welcome');
+Route::view('/virtual-tour', 'Tour.VirtualTour')->name('virtual-tour');
 
 // Chatbot
 Route::post('/send', [ChatbotController::class, 'send'])->name('chatbot.send');
