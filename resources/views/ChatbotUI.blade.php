@@ -1,4 +1,11 @@
 {{-- Chatbot Floating Button & Window --}}
+
+@once
+    @push('styles')
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    @endpush
+@endonce
+
 {{-- Pastikan ada CSRF meta tag di parent page --}}
 @if (!isset($__csrfTokenSet))
     @php $__csrfTokenSet = true; @endphp
@@ -47,9 +54,12 @@
         </button>
     </div>
 
-
-
     <div id="chatMessages" class="flex-grow overflow-y-auto p-2 sm:p-3 space-y-3 custom-scrollbar bg-white relative">
+        <div class="flex items-start mb-2 last:mb-0 justify-start space-x-2"><img src="/assets/images/logo-icon.svg"
+                alt="AI" class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white p-1 flex-shrink-0 object-contain">
+            <div
+                class="inline-block bg-gray-200 text-black text-xs sm:text-sm p-2 sm:p-3 rounded-lg max-w-[80%] relative whitespace-pre-wrap">Halo! saya adalah asisten virtual SMK Prestasi Prima. Saya menyediakan layanan untuk navigasi dan informasi seputar sekolah. Adakah yang bisa saya bantu? Jika ada maka tanya saya saja 😊</div>
+        </div>
     </div>
 
     {{-- Scroll to bottom button (muncul saat user scroll up) --}}
@@ -211,7 +221,8 @@
                 messageDiv.classList.add('flex', 'items-end', 'mb-2', 'space-x-2');
 
                 const profileDiv = document.createElement('div');
-                profileDiv.classList.add('w-7', 'h-7', 'md:w-8', 'md:h-8', 'flex-shrink-0', 'rounded-full', 'flex', 'items-center',
+                profileDiv.classList.add('w-7', 'h-7', 'md:w-8', 'md:h-8', 'flex-shrink-0', 'rounded-full', 'flex',
+                    'items-center',
                     'justify-center');
 
                 // SVG profil bot & user
@@ -227,7 +238,8 @@
                 }
 
                 const messageBubble = document.createElement('div');
-                messageBubble.classList.add('max-w-[80%]', 'px-3', 'py-2', 'sm:px-4', 'sm:py-2', 'rounded-2xl', 'text-xs', 'sm:text-sm');
+                messageBubble.classList.add('max-w-[80%]', 'px-3', 'py-2', 'sm:px-4', 'sm:py-2', 'rounded-2xl',
+                    'text-xs', 'sm:text-sm');
 
                 // Kalau type = loading → tampilkan animasi 3 titik
                 if (type === 'loading') {
@@ -351,7 +363,8 @@
                 const profileImg = document.createElement('img');
                 profileImg.src = '/assets/images/logo-icon.svg';
                 profileImg.alt = 'AI';
-                profileImg.classList.add('w-7', 'h-7', 'md:w-8', 'md:h-8', 'rounded-full', 'bg-white', 'p-1', 'flex-shrink-0',
+                profileImg.classList.add('w-7', 'h-7', 'md:w-8', 'md:h-8', 'rounded-full', 'bg-white', 'p-1',
+                    'flex-shrink-0',
                     'object-contain');
 
                 const messageBubble = document.createElement('div');
@@ -663,10 +676,13 @@
                 chatMessages.innerHTML = '';
                 errorDiv.style.display = 'none';
                 createMessageElement(
-                    'Halo! 👋 Saya adalah Asisten Virtual SMK PRESTASI PRIMA😊\n\nSelamat datang di Website resmi SMK Prestasi Prima. Adakah yang bisa saya bantu?', false);
+                    'Halo! 👋 Saya adalah Asisten Virtual SMK PRESTASI PRIMA😊\n\nSelamat datang di Website resmi SMK Prestasi Prima. Adakah yang bisa saya bantu?',
+                    false);
             });
 
-            createMessageElement('Halo! 👋 Saya adalah Asisten Virtual SMK PRESTASI PRIMA😊\n\nSelamat datang di Website resmi SMK Prestasi Prima. Adakah yang bisa saya bantu?', false);
+            createMessageElement(
+                'Halo! 👋 Saya adalah Asisten Virtual SMK PRESTASI PRIMA😊\n\nSelamat datang di Website resmi SMK Prestasi Prima. Adakah yang bisa saya bantu?',
+                false);
             adjustTextareaHeight(userInput);
             scrollToBottom(true); // Initial scroll to bottom
         });
@@ -834,103 +850,103 @@
         .animate-ping {
             animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
         }
-        
     </style>
     <style>
-    /* === CHAT WINDOW WRAPPER === */
-    #chatContainer {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 360px; /* Ukuran ideal */
-        max-width: 90vw;
-        height: 520px; /* Tinggi ideal */
-        max-height: 85vh;
-        background: white;
-        border-radius: 16px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        z-index: 9999;
-        transition: all 0.3s ease-in-out;
-    }
+        /* === CHAT WINDOW WRAPPER === */
+        #chatContainer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 360px;
+            /* Ukuran ideal */
+            max-width: 90vw;
+            height: 520px;
+            /* Tinggi ideal */
+            max-height: 85vh;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 9999;
+            transition: all 0.3s ease-in-out;
+        }
 
-    /* === RESPONSIVE UNTUK MOBILE === */
-    @media (max-width: 480px) {
-       #chatContainer {
-    position: fixed;
-    bottom: 90px;
-    right: 30px;
-    width: 300px;        /* Lebar lebih kecil */
-    height: 420px;       /* Tinggi lebih pendek */
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 9999;
-    transition: all 0.3s ease-in-out;
-}
-    }
+        /* === RESPONSIVE UNTUK MOBILE === */
+        @media (max-width: 480px) {
+            #chatContainer {
+                position: fixed;
+                bottom: 90px;
+                right: 30px;
+                width: 300px;
+                /* Lebar lebih kecil */
+                height: 420px;
+                /* Tinggi lebih pendek */
+                background: white;
+                border-radius: 16px;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                z-index: 9999;
+                transition: all 0.3s ease-in-out;
+            }
+        }
 
-    /* === HEADER CHAT (opsional, kalau ada judul) === */
-    #chatHeader {
-        background: linear-gradient(90deg, #f97316, #fb923c);
-        color: white;
-        padding: 10px 15px;
-        font-weight: 600;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        /* === HEADER CHAT (opsional, kalau ada judul) === */
+        #chatHeader {
+            background: linear-gradient(90deg, #f97316, #fb923c);
+            color: white;
+            padding: 10px 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* Tombol close (X) */
-    #chatHeader button {
-        background: transparent;
-        border: none;
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-    }
+        /* Tombol close (X) */
+        #chatHeader button {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-    /* === BODY CHAT === */
-    #chatMessages {
-        flex: 1;
-        overflow-y: auto;
-        padding: 10px 15px;
-        background: #f9fafb;
-    }
+        /* === BODY CHAT === */
+        #chatMessages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 15px;
+            background: #f9fafb;
+        }
 
-    /* === INPUT AREA === */
-    #chatInputContainer {
-        display: flex;
-        border-top: 1px solid #e5e7eb;
-        background: #fff;
-    }
+        /* === INPUT AREA === */
+        #chatInputContainer {
+            display: flex;
+            border-top: 1px solid #e5e7eb;
+            background: #fff;
+        }
 
-    #chatInput {
-        flex: 1;
-        border: none;
-        padding: 10px;
-        outline: none;
-    }
+        #chatInput {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            outline: none;
+        }
 
-    #sendBtn {
-        background: #f97316;
-        color: white;
-        border: none;
-        padding: 10px 14px;
-        border-radius: 0 0 16px 0;
-        cursor: pointer;
-        transition: background 0.2s;
-    }
+        #sendBtn {
+            background: #f97316;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 0 0 16px 0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
 
-    #sendBtn:hover {
-        background: #fb923c;
-    }
-</style>
-
-
-
+        #sendBtn:hover {
+            background: #fb923c;
+        }
+    </style>
