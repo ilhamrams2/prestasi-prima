@@ -232,10 +232,19 @@
         </form>
       </div>
 
-      <div class="mt-4 text-center">
-        <p class="text-gray-400 text-sm mb-2">Support by:</p>
-        <img src="{{ asset('assets/images/support/logo.png') }}" alt="Support Logo"
-          class="mx-auto w-48 md:w-64 opacity-90 hover:opacity-100 transition duration-300 drop-shadow-xl">
+      @php
+        $supportLogos = [
+            ['src' => asset('assets/images/support/logo.png'), 'alt' => 'Support Logo'],
+        ];
+      @endphp
+      <div class="mt-6">
+        <p class="text-gray-400 text-sm mb-3 text-center">Support by:</p>
+        @foreach ($supportLogos as $logo)
+          <div class="w-full bg-white/95 rounded-3xl shadow-lg shadow-black/20 ring-1 ring-white/60 px-6 py-4 md:px-8 md:py-5 transition-transform duration-200 hover:scale-[1.01]">
+            <img src="{{ $logo['src'] }}" alt="{{ $logo['alt'] }}"
+              class="w-full max-w-full object-contain mx-auto">
+          </div>
+        @endforeach
       </div>
     </div>
   </div>
@@ -250,7 +259,7 @@
         <span>Oren Solution - <span class="font-medium text-white">Version 2.0</span></span>
       </p>
       <p class="text-gray-500 text-sm text-center md:text-right">
-        Dibuat oleh: <span class="text-orange-400 font-medium">Zwingli, Gilbran, Hamba Allah, Ardy, Chia</span>
+        Dibuat oleh: <span class="text-orange-400 font-medium">Zwingli, Gibran, Abimanyu, Ardy</span>
       </p>
     </div>
   </div>
