@@ -7,7 +7,7 @@
         align-items: center;
         justify-content: center;
         overflow: hidden;
-        background-color: #040100;
+        background-color: #ffffff;
         color: #fff6e5;
     }
 
@@ -15,7 +15,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: url('{{ asset('assets/images/tour/hero.jpg') }}') center/cover no-repeat;
+        background-color: #ffffff;
         transform: scale(1.08);
         filter: brightness(0.45) saturate(1.1);
         z-index: 0;
@@ -25,7 +25,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(4, 1, 0, 0.6) 0%, rgba(4, 1, 0, 0.9) 70%, rgba(4, 1, 0, 1) 100%);
+        background-color: #ffffff;
         z-index: 1;
     }
 

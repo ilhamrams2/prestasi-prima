@@ -117,6 +117,7 @@
             <a href="/presmalance" class="dropdown-item">Presmalance</a>
             <a href="https://absensmk.prestasiprima.sch.id/absensi/16" class="dropdown-item">Presmakad</a>
             <a href="/pendaftaran" class="dropdown-item">Presmastart</a>
+            <a href="/virtual-tour" class="dropdown-item">Presma ViTour</a>
             <a href="/presmacontact" class="dropdown-item">Presmacontact</a>
 
           </div>
@@ -213,6 +214,7 @@
         <a href="/presmalance" class="mobile-link">PresmaLance</a>
         <a href="https://absensmk.prestasiprima.sch.id/absensi/16" class="mobile-link">Presmakad</a>
         <a href="/pendaftaran" class="mobile-link">Presmastart</a>
+        <a href="/virtual-tour" class="mobile-link">Presma ViTour</a>
         <a href="/presmacontact" class="mobile-link">Presmacontact</a>
       </div>
       
