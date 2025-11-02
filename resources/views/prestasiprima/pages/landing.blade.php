@@ -6,6 +6,7 @@
   @include('sections.tentang')
   @include('sections.program')
   @include('sections.sejarah')
+  @include('sections.virtual-tour')
   @include('sections.prestasi')
   @include('sections.presmalancer')
   @include('sections.kerjasama-ptn')

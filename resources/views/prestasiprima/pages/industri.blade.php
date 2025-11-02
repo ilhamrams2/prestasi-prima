@@ -20,25 +20,9 @@
       </p>
     </div>
 
-    {{-- ===== GRID MITRA (dipertahankan dari versi lama) ===== --}}
+    {{-- ===== GRID MITRA DARI DATABASE ===== --}}
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8 relative" data-aos="fade-up" data-aos-delay="200">
-      @php
-        $mitras = [
-          'antam' => 'Antam',
-          'erlangga' => 'Erlangga',
-          'jatelindo' => 'Jatelindo',
-          'kemenkop' => 'Kemenkop',
-          'komatsu' => 'Komatsu',
-          'lemnegara' => 'Lemnegara',
-          'panasonic' => 'Panasonic',
-          'prambos' => 'Prambos',
-          'starvision' => 'Starvision',
-          'telkom' => 'Telkom',
-          'wika' => 'WIKA'
-        ];
-      @endphp
-
-      @foreach ($mitras as $slug => $name)
+      @foreach ($industris as $industri)
       <div 
         class="group bg-white rounded-tr-[40px] rounded-bl-[40px] 
                shadow-md hover:shadow-lg hover:shadow-orange-200/60 
@@ -47,9 +31,13 @@
 
         <div class="absolute inset-0 bg-gradient-to-br from-orange-50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-700"></div>
 
-        <img src="{{ asset('assets/images/section/industri/' . $slug . '.png') }}" 
-             alt="{{ $name }}" 
+        @if($industri->logo)
+        <img src="{{ asset('storage/' . $industri->logo) }}" 
+             alt="{{ $industri->nama }}" 
              class="relative z-10 max-h-16 md:max-h-20 object-contain opacity-90 group-hover:opacity-100 transition duration-500">
+        @else
+        <span class="text-gray-400">{{ $industri->nama }}</span>
+        @endif
       </div>
       @endforeach
     </div>

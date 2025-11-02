@@ -45,7 +45,8 @@ use App\Http\Controllers\prestasiprima\Admin\{
     AdminNewsController,
     AdminPrestasiController,
     AdminKegiatanController,
-    AdminDashboardController
+    AdminDashboardController,
+    AdminIndustriController
 };
 
 use App\Http\Controllers\Presmaboard\{
@@ -101,7 +102,10 @@ Route::prefix('siswa')->group(function () {
 // ==================== INFORMASI ==================== //
 Route::prefix('informasi')->group(function () {
     Route::get('/faq', [FaqController::class, 'index'])->name('faq');
-    Route::get('/industri', [IndustriController::class, 'index'])->name('industri');
+
+    Route::get('/industri', [IndustriController::class, 'index'])->name('industri.index');
+    Route::get('/industri/{slug}', [IndustriController::class, 'show'])->name('industri.show');
+    
     Route::get('/testimoni', [TestimoniController::class, 'index'])->name('testimoni');
     Route::get('/penerimaan-siswa', [PenerimaanSiswaController::class, 'index'])->name('penerimaan.siswa');
 });
@@ -227,7 +231,7 @@ Route::prefix('prestasiprima/admin')->name('prestasiprima.admin.')->group(functi
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
-        Route::get('/{id}', 'show')->name('show'); // <=== route detail prestasi
+        Route::get('/{id}', 'show')->name('show'); // route detail prestasi
         Route::get('/{id}/edit', 'edit')->name('edit');
         Route::put('/{id}', 'update')->name('update');
         Route::delete('/{id}', 'destroy')->name('destroy');
@@ -242,7 +246,18 @@ Route::prefix('prestasiprima/admin')->name('prestasiprima.admin.')->group(functi
         Route::put('/{id}', 'update')->name('update');
         Route::delete('/{id}', 'destroy')->name('destroy');
     });
+
+    // === INDUSTRI ===
+    Route::prefix('industri')->name('industri.')->controller(AdminIndustriController::class)->group(function () {
+        Route::get('/', 'index')->name('index');           // list industri
+        Route::get('/create', 'create')->name('create');   // form tambah
+        Route::post('/', 'store')->name('store');          // simpan
+        Route::get('/{industri}/edit', 'edit')->name('edit');    // form edit
+        Route::put('/{industri}', 'update')->name('update');     // update
+        Route::delete('/{industri}', 'destroy')->name('destroy');// hapus
+    });
 });
+
 
 // ============================================================
 // ======================= PRESMALANCE ========================
