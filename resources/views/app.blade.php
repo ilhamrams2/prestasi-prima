@@ -7,8 +7,9 @@
 
     <title>{{ config('app.name', 'Job Portal') }} - @yield('title', 'Cari Lowongan Kerja')</title>
 
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}">
+     {{-- === Favicon === --}}
+  <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-smk.png') }}">
+  <link rel="apple-touch-icon" href="{{ asset('assets/images/logo-smk.png') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

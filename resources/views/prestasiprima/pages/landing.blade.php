@@ -13,4 +13,5 @@
   @include('sections.primaboard')
   @include('sections.industri')
   @include('sections.blog')
+  @include('sections.tour')
 @endsection
