@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core@5/index.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/markers-plugin@5/index.min.css" />
-
+    
     <style>
         body, html {
             margin: 0;
@@ -124,14 +124,64 @@
         .nav-container {
             position: fixed;
             left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 20px;
             width: 210px;
             background: rgba(20, 10, 5, 0.75);
             backdrop-filter: blur(6px);
             border-radius: 15px;
             padding: 12px 0;
             z-index: 1001;
+            transition: all 0.3s ease;
+            max-height: 80vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 136, 0, 0.45) transparent;
+        }
+        .nav-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .nav-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .nav-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 136, 0, 0.45);
+            border-radius: 4px;
+        }
+        .nav-container.collapsed {
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            overflow: hidden;
+        }
+        .nav-container.collapsed .nav-title,
+        .nav-container.collapsed .nav-item {
+            display: none;
+        }
+        .nav-toggle {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 40px;
+            height: 40px;
+            background: #ff7b00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            transition: transform 0.3s ease, background 0.3s ease;
+            z-index: 2;
+        }
+        .nav-toggle:hover {
+            background: #ff9933;
+            transform: rotate(90deg);
+        }
+        .nav-container.collapsed .nav-toggle {
+            position: static;
+            margin: 5px;
         }
         .nav-title {
             padding: 12px 18px;
@@ -159,6 +209,89 @@
             font-weight: bold;
         }
 
+        .back-button {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 26px;
+            background: linear-gradient(135deg, #ffb347, #ff6a00);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 999px;
+            box-shadow: 0 15px 26px rgba(255, 126, 0, 0.4);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            z-index: 1002;
+            overflow: hidden;
+            animation: backButtonFloat 4.8s ease-in-out infinite;
+        }
+        .back-button::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .back-button span {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1;
+        }
+        .back-button-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.18);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+        }
+        .back-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 20px 34px rgba(255, 126, 0, 0.48);
+        }
+        .back-button:hover::before {
+            opacity: 1;
+        }
+        .back-button:hover .back-button-icon {
+            transform: translateX(-4px);
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .back-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -55%;
+            width: 45%;
+            height: 160%;
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-50%) rotate(30deg);
+            transition: transform 0.6s ease;
+            pointer-events: none;
+        }
+        .back-button:hover::after {
+            transform: translate(220%, -50%) rotate(30deg);
+        }
+
+        @keyframes backButtonFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+
         /* ==========================
             TITLE BAR
         ========================== */
@@ -177,25 +310,45 @@
         }
 
         /* ==========================
-            RESET BUTTON
+            MOBILE RESPONSIVE
         ========================== */
-        .reset-btn {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            width: 44px;
-            height: 44px;
-            background: #ff7b00;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 20px;
-            z-index: 1001;
+        @media (max-width: 768px) {
+            .nav-container {
+                left: 10px;
+                top: 10px;
+                width: 180px;
+                padding: 8px 0;
+            }
+            .nav-container.collapsed {
+                width: 44px;
+                height: 44px;
+            }
+            .nav-title {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            .nav-item {
+                padding: 10px 12px;
+                margin: 3px 8px;
+                font-size: 13px;
+            }
+            .nav-toggle {
+                width: 34px;
+                height: 34px;
+                font-size: 18px;
+            }
+            .title-bar {
+                top: 15px;
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            .back-button {
+                bottom: 16px;
+                right: 16px;
+                padding: 12px 22px;
+                font-size: 15px;
+            }
         }
-        .reset-btn:hover { background: #ff9933; }
     </style>
 </head>
 
@@ -207,7 +360,7 @@
             <div class="loading-card">
                 <span class="loading-ring"></span>
                 <span class="loading-ring secondary"></span>
-                <img src="{{ asset('assets/images/logo-smk.png') }}" class="loading-logo">
+                <img src="{{ asset('assets/images/logo-smk.png') }}" alt="SMK Prestasi Prima Logo" class="loading-logo">
             </div>
             <div class="loading-text">Loading Virtual Tour</div>
             <div class="loading-subtext">Mempersiapkan tampilan 360°</div>
@@ -218,20 +371,24 @@
     <div id="viewer"></div>
 
     <!-- Navigation -->
-    <div id="nav-container" class="nav-container">
+    <div id="nav-container" class="nav-container collapsed">
+        <div class="nav-toggle" id="nav-toggle">▼</div>
         <div class="nav-title">Navigasi</div>
     </div>
+
+    <a href="{{ url('/') }}" class="back-button" aria-label="Kembali ke beranda">
+        <span>
+            <span class="back-button-icon">←</span>
+            <span>Beranda</span>
+        </span>
+    </a>
 
     <!-- Title -->
     <div id="title-bar" class="title-bar"></div>
 
-    <!-- Reset Button -->
-    <div id="reset-btn" class="reset-btn">⟳</div>
-
     <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core@5/index.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/markers-plugin@5/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/autorotate-plugin@5/index.min.js"></script>
 
     <script>
         /* =======================================
@@ -252,11 +409,14 @@
         ];
 
         let currentScene = 0;
+        let userInteractionTimeout = null;
+        let isRotating = true;
+        let rotationInterval = null;
 
         const loading = document.getElementById('loading-overlay');
         const nav = document.getElementById('nav-container');
+        const navToggle = document.getElementById('nav-toggle');
         const titleBar = document.getElementById('title-bar');
-        const resetBtn = document.getElementById('reset-btn');
 
         /* =======================================
             VIEWER INIT
@@ -265,16 +425,59 @@
             container: document.querySelector('#viewer'),
             panorama: scenes[0].file,
             navbar: false,
+            defaultYaw: 0,
+            defaultPitch: 0,
+            fisheye: false,
             plugins: [
-                [PhotoSphereViewer.MarkersPlugin, {}],
-                [PhotoSphereViewer.AutorotatePlugin, {
-                    autostartDelay: 3000,
-                    autorotateSpeed: '2rpm',
-                }]
+                [PhotoSphereViewer.MarkersPlugin, {}]
             ],
         });
 
         const markers = viewer.getPlugin(PhotoSphereViewer.MarkersPlugin);
+        
+        /* =======================================
+            MANUAL AUTO ROTATION (100% WORKS!)
+        ======================================= */
+        function startRotation() {
+            if (rotationInterval) {
+                clearInterval(rotationInterval);
+            }
+
+            isRotating = true;
+            console.log('🔄 Manual rotation STARTED');
+
+            rotationInterval = setInterval(() => {
+                if (!isRotating) {
+                    return;
+                }
+
+                const { yaw, pitch } = viewer.getPosition();
+                viewer.rotate({
+                    yaw: yaw + 0.0015,
+                    pitch
+                });
+            }, 16); // ~60fps
+        }
+
+        function stopRotation() {
+            if (!isRotating) {
+                return;
+            }
+
+            isRotating = false;
+            console.log('⏸️ Manual rotation STOPPED');
+        }
+
+        function scheduleRotationResume() {
+            if (userInteractionTimeout) {
+                clearTimeout(userInteractionTimeout);
+            }
+
+            userInteractionTimeout = setTimeout(() => {
+                console.log('▶️ Resume rotation after inactivity');
+                startRotation();
+            }, 3000);
+        }
 
         /* =======================================
             BUILD NAV MENU
@@ -315,11 +518,9 @@
             if (i < scenes.length - 1) {
                 markers.addMarker({
                     id: "hs-" + i,
-                    longitude: 0.2,
-                    latitude: 0.05,
+                    position: { yaw: 0.2, pitch: 0.05 },
                     image: "https://cdn-icons-png.flaticon.com/512/1828/1828817.png",
-                    width: 48,
-                    height: 48,
+                    size: { width: 48, height: 48 },
                     tooltip: "Menuju " + scenes[i+1].name,
                     data: { target: i + 1 }
                 });
@@ -333,20 +534,63 @@
         });
 
         /* =======================================
-            RESET VIEW BUTTON
+            NAVIGATION TOGGLE
         ======================================= */
-        resetBtn.onclick = () => {
-            viewer.animate({ yaw: 0, pitch: 0, zoom: 0 });
+        navToggle.onclick = () => {
+            nav.classList.toggle('collapsed');
+            navToggle.textContent = nav.classList.contains('collapsed') ? '▼' : '✕';
         };
+
+        /* =======================================
+            USER INTERACTION HANDLING
+        ======================================= */
+        const stopEvents = ['pointerdown', 'mousedown', 'touchstart'];
+        const resumeEvents = ['pointerup', 'mouseup', 'touchend', 'touchcancel'];
+
+        stopEvents.forEach(evt => {
+            viewer.container.addEventListener(evt, () => {
+                stopRotation();
+                if (userInteractionTimeout) {
+                    clearTimeout(userInteractionTimeout);
+                    userInteractionTimeout = null;
+                }
+            }, { passive: true });
+        });
+
+        resumeEvents.forEach(evt => {
+            viewer.container.addEventListener(evt, () => {
+                scheduleRotationResume();
+            }, { passive: true });
+        });
+
+        viewer.container.addEventListener('wheel', () => {
+            stopRotation();
+            scheduleRotationResume();
+        }, { passive: true });
 
         /* =======================================
             ON PANORAMA LOADED
         ======================================= */
-        viewer.addEventListener('panorama-loaded', () => {
+        viewer.addEventListener('ready', () => {
+            console.log('✅ Viewer ready - Starting MANUAL rotation');
             loading.classList.add('hidden');
             updateMenu();
             updateTitle();
             loadHotspots(currentScene);
+            
+            // Start manual rotation
+            startRotation();
+        });
+
+        viewer.addEventListener('panorama-loaded', () => {
+            console.log('✅ Panorama loaded - Restarting MANUAL rotation');
+            loading.classList.add('hidden');
+            updateMenu();
+            updateTitle();
+            loadHotspots(currentScene);
+            
+            // Restart rotation setiap ganti scene
+            startRotation();
         });
 
         updateMenu();

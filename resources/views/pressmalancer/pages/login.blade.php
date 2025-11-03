@@ -1,3 +1,4 @@
+@extends('app')
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @include('header')
 <div class="min-h-screen flex items-center justify-center bg-white px-4 py-12">
