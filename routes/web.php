@@ -37,7 +37,8 @@ use App\Http\Controllers\prestasiprima\{
     KegiatanController,
     KaryaProyekController,
     ContactController,
-    PrestasiController
+    PrestasiController,
+    TrafficController
 };
 
 use App\Http\Controllers\prestasiprima\Admin\{
@@ -46,7 +47,8 @@ use App\Http\Controllers\prestasiprima\Admin\{
     AdminPrestasiController,
     AdminKegiatanController,
     AdminDashboardController,
-    AdminIndustriController
+    AdminIndustriController,
+    AdminStaffController
 };
 
 use App\Http\Controllers\Presmaboard\{
@@ -108,6 +110,9 @@ Route::prefix('informasi')->group(function () {
     
     Route::get('/testimoni', [TestimoniController::class, 'index'])->name('testimoni');
     Route::get('/penerimaan-siswa', [PenerimaanSiswaController::class, 'index'])->name('penerimaan.siswa');
+
+    Route::get('/traffic', [TrafficController::class, 'index'])->name('traffic.index');
+    Route::post('/traffic/calculate', [TrafficController::class, 'calculateDistance'])->name('traffic.calculate');
 });
 
 
@@ -256,6 +261,18 @@ Route::prefix('prestasiprima/admin')->name('prestasiprima.admin.')->group(functi
         Route::put('/{industri}', 'update')->name('update');     // update
         Route::delete('/{industri}', 'destroy')->name('destroy');// hapus
     });
+
+    // === STAFF ===
+    Route::prefix('staff')->name('staff.')->controller(AdminStaffController::class)->group(function () {
+        Route::get('/', 'index')->name('index');            // list staff
+        Route::get('/create', 'create')->name('create');    // form tambah staff
+        Route::post('/', 'store')->name('store');           // simpan staff baru
+        Route::get('/{staff}', 'show')->name('show');       // detail staff
+        Route::get('/{staff}/edit', 'edit')->name('edit');  // form edit staff
+        Route::put('/{staff}', 'update')->name('update');   // update staff
+        Route::delete('/{staff}', 'destroy')->name('destroy'); // hapus staff
+    });
+
 });
 
 

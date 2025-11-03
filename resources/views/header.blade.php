@@ -85,6 +85,7 @@
             <a href="/informasi/faq" class="dropdown-item">FAQ</a>
             <a href="/informasi/industri" class="dropdown-item">Industri</a>
             <a href="/informasi/testimoni" class="dropdown-item">Testimoni</a>
+            <a href="/informasi/traffic" class="dropdown-item">Traffic Tour</a>
             <a href="/informasi/penerimaan-siswa" class="dropdown-item">Penerimaan Siswa</a>
           </div>
         </div>
@@ -117,7 +118,7 @@
             <a href="/presmalance" class="dropdown-item">Presmalance</a>
             <a href="https://absensmk.prestasiprima.sch.id/absensi/16" class="dropdown-item">Presmakad</a>
             <a href="/pendaftaran" class="dropdown-item">Presmastart</a>
-            <a href="/virtual-tour" class="dropdown-item">Presma ViTour</a>
+            <a href="/virtual-tour" class="dropdown-item">Presmatour</a>
             <a href="/presmacontact" class="dropdown-item">Presmacontact</a>
 
           </div>
@@ -199,6 +200,7 @@
         <a href="/informasi/faq" class="mobile-subitem">FAQ</a>
         <a href="/informasi/industri" class="mobile-subitem">Industri</a>
         <a href="/informasi/testimoni" class="mobile-subitem">Testimoni</a>
+        <a href="/informasi/traffic" class="mobile-subitem">Traffic Tour</a>
         <a href="/informasi/penerimaan-siswa" class="mobile-subitem">Penerimaan Siswa</a>
 
       </div>
@@ -214,7 +216,7 @@
         <a href="/presmalance" class="mobile-link">PresmaLance</a>
         <a href="https://absensmk.prestasiprima.sch.id/absensi/16" class="mobile-link">Presmakad</a>
         <a href="/pendaftaran" class="mobile-link">Presmastart</a>
-        <a href="/virtual-tour" class="mobile-link">Presma ViTour</a>
+        <a href="/virtual-tour" class="mobile-link">Presmatour</a>
         <a href="/presmacontact" class="mobile-link">Presmacontact</a>
       </div>
       
