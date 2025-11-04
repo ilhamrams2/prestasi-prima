@@ -19,6 +19,38 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+      	$this->call([
+          PrestasiprimaStaffSeeder::class,
+          ]);
+      
+      $this->call([
+          PrestasiprimaPrestasiSeeder::class,
+          ]);
+      
+      $this->call([
+          PrestasiprimaPrestasiSeeder::class,
+          ]);
+      
+      $this->call([
+          PrestasiprimaNewsSeeder::class,
+          ]);
+      
+      $this->call([
+          PrestasiprimaKegiatanSeeder::class,
+          ]);
+      
+      $this->call([
+          PrestasiprimaIndustriSeeder::class,
+          ]);
+      
+      $this->call([
+          PrestasiprimaGallerySeeder::class,
+          ]);
+      
+       $this->call([
+          PrestasiprimaCategorySeeder::class,
+          ]);
+      	
         // ==========================================================
         // SEEDER PRESMALANCER (YANG SUDAH ADA)
         // ==========================================================
@@ -569,3 +601,4 @@ class DatabaseSeeder extends Seeder
         ]);
     }
 }
+

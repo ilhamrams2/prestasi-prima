@@ -256,6 +256,11 @@
             transition: transform 0.3s ease, background 0.3s ease;
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
         }
+        .back-button-icon svg {
+            width: 15px;
+            height: 15px;
+            color: #ffffff;
+        }
         .back-button:hover {
             transform: translateY(-3px) scale(1.03);
             box-shadow: 0 20px 34px rgba(255, 126, 0, 0.48);
@@ -378,7 +383,13 @@
 
     <a href="{{ url('/') }}" class="back-button" aria-label="Kembali ke beranda">
         <span>
-            <span class="back-button-icon">←</span>
+            <span class="back-button-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.75" />
+                    <path d="M13.5 8.5L9.5 12l4 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    <line x1="10" y1="12" x2="15" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </span>
             <span>Beranda</span>
         </span>
     </a>

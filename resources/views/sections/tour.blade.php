@@ -146,7 +146,7 @@
             <img src="{{ asset('assets/images/logo-smk.png') }}" alt="SMK Prestasi Prima" class="tour-logo">
         </div>
         <div>
-            <div class="tour-title">Loading Virtual Tour</div>
+            <div class="tour-title">Mulaikan Virtual Tour SMK Prestasi Prima</div>
             <div class="tour-subtitle">Rasakan pengalaman imersif menjelajahi SMK Prestasi Prima secara 360°</div>
         </div>
         <a href="{{ route('virtual-tour') }}" class="tour-button">
