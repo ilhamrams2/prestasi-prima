@@ -29,7 +29,7 @@ class ApplicationController extends Controller
                                   ->where('user_id', $userId)
                                   ->first();
         
-        return view('applications.create', compact('job', 'application'));
+        return view('pressmalancer.applications.create', compact('job', 'application'));
     }
 
     /**
@@ -411,7 +411,7 @@ class ApplicationController extends Controller
             $application->update(['current_phase' => 4]);
         }
         
-        return view('applications.phase4', compact('application'));
+        return view('pressmalancer.applications.phase4', compact('application'));
     }
 
     /**
@@ -452,7 +452,7 @@ class ApplicationController extends Controller
     {
         $application = Application::with('job.company')->findOrFail($id);
         
-        return view('applications.success', compact('application'));
+        return view('pressmalancer.applications.success', compact('application'));
     }
 
     // ============================================
@@ -587,7 +587,7 @@ class ApplicationController extends Controller
     {
         $application = Application::with('job.company')->findOrFail($id);
         
-        return view('applications.phase2', compact('application'));
+        return view('pressmalancer.applications.phase2', compact('application'));
     }
 
     /**
@@ -686,3 +686,4 @@ class ApplicationController extends Controller
         return redirect()->back()->with('success', 'Keputusan disimpan: ' . ucfirst($decision));
     }
 }
+
