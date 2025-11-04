@@ -86,10 +86,16 @@ Route::get('/test-google', function () {
 // Tentang
 Route::prefix('tentang')->group(function () {
     Route::get('/program', [ProgramController::class, 'index'])->name('program');
+        Route::get('/program/pplg', [ProgramController::class, 'pplg'])->name('program.pplg');
+        Route::get('/program/dkv', [ProgramController::class, 'dkv'])->name('program.dkv');
+        Route::get('/program/tjkt', [ProgramController::class, 'tjkt'])->name('program.tjkt');
+        Route::get('/program/bcf', [ProgramController::class, 'bcf'])->name('program.bcf');
     Route::get('/profile-sekolah', [ProfileSekolahController::class, 'index'])->name('prestasiprima.profile-sekolah');
     Route::get('/staffmanagement', [StaffController::class, 'index'])->name('staff');
     Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
 });
+
+
 
 
 // ==================== SISWA ==================== //

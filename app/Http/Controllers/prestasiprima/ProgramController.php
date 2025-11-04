@@ -20,6 +20,27 @@ class ProgramController extends Controller
         // kamu bisa ubah bagian ini menjadi query ke model.
         // Untuk sekarang kita arahkan ke view statis.
 
-        return view('prestasiprima.pages.program');
+        return view('prestasiprima.pages.program.index');
     }
+
+    public function pplg()
+    {
+        return view('prestasiprima.pages.program.pplg');
+    }
+
+    public function dkv()
+    {
+        return view('prestasiprima.pages.program.dkv');
+    }
+
+    public function tjkt()
+    {
+        return view('prestasiprima.pages.program.tjkt');
+    }
+
+    public function bcf()
+    {
+        return view('prestasiprima.pages.program.bcf');
+    }
+
 }

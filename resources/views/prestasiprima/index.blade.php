@@ -51,57 +51,61 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // === INIT AOS ===
-      AOS.init({ once: false, offset: 100, duration: 800, easing: 'ease-in-out' });
+  // === INIT AOS ===
+  AOS.init({ once: false, offset: 100, duration: 800, easing: 'ease-in-out' });
 
-      // === ACTIVE LINK ===
-      const path = window.location.pathname;
-      document.querySelectorAll("#navbar .nav-link").forEach(link => {
-        const href = link.getAttribute("href");
-        if ((href === "/" && path === "/") || (href !== "/" && path.startsWith(href)))
-          link.classList.add("border-b-2", "border-orange-500");
-      });
+  // === AKTIFKAN ICON LUCIDE ===
+  if (window.lucide) lucide.createIcons();
 
-      // === PRELOADER ===
-      const loader = document.getElementById("pageLoader");
-      const loaderText = document.getElementById("loaderText");
+  // === ACTIVE LINK ===
+  const path = window.location.pathname;
+  document.querySelectorAll("#navbar .nav-link").forEach(link => {
+    const href = link.getAttribute("href");
+    if ((href === "/" && path === "/") || (href !== "/" && path.startsWith(href)))
+      link.classList.add("border-b-2", "border-orange-500");
+  });
 
-      const pageMap = {
-        "/": "Sedang memuat halaman Beranda...",
-        "/tentang/program": "Sedang memuat halaman Program Keahlian...",
-        "/tentang/profile-sekolah": "Sedang memuat Profil Sekolah...",
-        "/tentang/staffmanagement": "Sedang memuat halaman Staff & Guru...",
-        "/tentang/sambutan": "Sedang memuat halaman Sambutan...",
-        "/siswa/prestasi": "Sedang memuat halaman Prestasi Siswa...",
-        "/siswa/ekstrakurikuler": "Sedang memuat halaman Ekstrakurikuler...",
-        "/siswa/penerimaan-siswa": "Sedang memuat halaman Penerimaan Siswa...",
-        "/siswa/karya-proyek": "Sedang memuat halaman Karya & Proyek Siswa...",
-        "/informasi/testimoni": "Sedang memuat halaman Testimoni Siswa...",
-        "/informasi/faq": "Sedang memuat halaman FAQ...",
-        "/informasi/industri": "Sedang memuat halaman Industri...",
-        "/dokumentasi/gallery": "Sedang memuat halaman Galeri...",
-        "/dokumentasi/berita": "Sedang memuat halaman Berita...",
-        "/dokumentasi/kegiatan": "Sedang memuat halaman Kegiatan...",
-        "/presmaboard": "Sedang memuat halaman Presma Board...",
-        "/presmalance": "Sedang memuat halaman Presma Lance...",
-        "/pendaftaran": "Sedang memuat halaman Pendaftaran..."
-      };
+  // === PRELOADER ===
+  const loader = document.getElementById("pageLoader");
+  const loaderText = document.getElementById("loaderText");
 
-      loaderText.textContent = pageMap[path] || "Sedang memuat halaman...";
+  const pageMap = {
+    "/": "Sedang memuat halaman Beranda...",
+    "/tentang/program": "Sedang memuat halaman Program Keahlian...",
+    "/tentang/profile-sekolah": "Sedang memuat Profil Sekolah...",
+    "/tentang/staffmanagement": "Sedang memuat halaman Staff & Guru...",
+    "/tentang/sambutan": "Sedang memuat halaman Sambutan...",
+    "/siswa/prestasi": "Sedang memuat halaman Prestasi Siswa...",
+    "/siswa/ekstrakurikuler": "Sedang memuat halaman Ekstrakurikuler...",
+    "/siswa/penerimaan-siswa": "Sedang memuat halaman Penerimaan Siswa...",
+    "/siswa/karya-proyek": "Sedang memuat halaman Karya & Proyek Siswa...",
+    "/informasi/testimoni": "Sedang memuat halaman Testimoni Siswa...",
+    "/informasi/faq": "Sedang memuat halaman FAQ...",
+    "/informasi/industri": "Sedang memuat halaman Industri...",
+    "/dokumentasi/gallery": "Sedang memuat halaman Galeri...",
+    "/dokumentasi/berita": "Sedang memuat halaman Berita...",
+    "/dokumentasi/kegiatan": "Sedang memuat halaman Kegiatan...",
+    "/presmaboard": "Sedang memuat halaman Presma Board...",
+    "/presmalance": "Sedang memuat halaman Presma Lance...",
+    "/pendaftaran": "Sedang memuat halaman Pendaftaran..."
+  };
 
-      const hideLoader = () => {
-        if (!loader) return;
-        loader.style.opacity = "0";
-        setTimeout(() => loader.remove(), 600);
-      };
+  loaderText.textContent = pageMap[path] || "Sedang memuat halaman...";
 
-      if (document.readyState === "complete") {
-        requestAnimationFrame(hideLoader);
-      } else {
-        window.addEventListener("load", hideLoader, { once: true });
-        setTimeout(hideLoader, 1800);
-      }
-    });
+  const hideLoader = () => {
+    if (!loader) return;
+    loader.style.opacity = "0";
+    setTimeout(() => loader.remove(), 600);
+  };
+
+  if (document.readyState === "complete") {
+    requestAnimationFrame(hideLoader);
+  } else {
+    window.addEventListener("load", hideLoader, { once: true });
+    setTimeout(hideLoader, 1800);
+  }
+});
+
   </script>
 
   <style>
