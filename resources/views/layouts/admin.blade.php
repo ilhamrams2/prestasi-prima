@@ -70,7 +70,7 @@
       </a>
 
       {{-- Manajemen Staff --}}
-      <a href="#" 
+      <a href="{{ route('prestasiprima.admin.staff.index') }}" 
          class="flex items-center gap-3 px-4 py-2 rounded-lg transition
          {{ str_contains($currentRoute, 'staff') ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' }}">
         <i class="fa-solid fa-user-tie"></i>

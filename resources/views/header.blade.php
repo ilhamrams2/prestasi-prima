@@ -85,7 +85,7 @@
             <a href="/informasi/faq" class="dropdown-item">FAQ</a>
             <a href="/informasi/industri" class="dropdown-item">Industri</a>
             <a href="/informasi/testimoni" class="dropdown-item">Testimoni</a>
-            <a href="/informasi/traffic" class="dropdown-item">Traffic Tour</a>
+            <a href="/informasi/lulusan-ptn" class="dropdown-item">Lulusan PTN</a>
             <a href="/informasi/penerimaan-siswa" class="dropdown-item">Penerimaan Siswa</a>
           </div>
         </div>
@@ -200,7 +200,7 @@
         <a href="/informasi/faq" class="mobile-subitem">FAQ</a>
         <a href="/informasi/industri" class="mobile-subitem">Industri</a>
         <a href="/informasi/testimoni" class="mobile-subitem">Testimoni</a>
-        <a href="/informasi/traffic" class="mobile-subitem">Traffic Tour</a>
+        <a href="/informasi/lulusan-ptn" class="mobile-subitem">Lulusan PTN</a>
         <a href="/informasi/penerimaan-siswa" class="mobile-subitem">Penerimaan Siswa</a>
 
       </div>
