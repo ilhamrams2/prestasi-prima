@@ -45,9 +45,9 @@
   @include('footer')
 
   {{-- ==================== SCRIPTS ==================== --}}
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@latest" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -89,12 +89,18 @@
 
       loaderText.textContent = pageMap[path] || "Sedang memuat halaman...";
 
-      window.addEventListener("load", () => {
-        setTimeout(() => {
-          loader.style.opacity = "0";
-          setTimeout(() => loader.remove(), 700);
-        }, 500);
-      });
+      const hideLoader = () => {
+        if (!loader) return;
+        loader.style.opacity = "0";
+        setTimeout(() => loader.remove(), 600);
+      };
+
+      if (document.readyState === "complete") {
+        requestAnimationFrame(hideLoader);
+      } else {
+        window.addEventListener("load", hideLoader, { once: true });
+        setTimeout(hideLoader, 1800);
+      }
     });
   </script>
 
