@@ -38,7 +38,8 @@ use App\Http\Controllers\prestasiprima\{
     KaryaProyekController,
     ContactController,
     PrestasiController,
-    TrafficController
+    TrafficController,
+    FasilitasController
 };
 
 use App\Http\Controllers\prestasiprima\Admin\{
@@ -93,9 +94,8 @@ Route::prefix('tentang')->group(function () {
     Route::get('/profile-sekolah', [ProfileSekolahController::class, 'index'])->name('prestasiprima.profile-sekolah');
     Route::get('/staffmanagement', [StaffController::class, 'index'])->name('staff');
     Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
+    Route::get('/fasilitas', [FasilitasController::class, 'index'])->name('fasilitas');
 });
-
-
 
 
 // ==================== SISWA ==================== //

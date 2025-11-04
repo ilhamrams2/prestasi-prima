@@ -54,6 +54,7 @@
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-56 text-gray-800">
             <a href="/tentang/program" class="dropdown-item">Program</a>
             <a href="/tentang/profile-sekolah" class="dropdown-item">Profile Sekolah</a>
+            <a href="/tentang/fasilas" class="dropdown-item">Fasilitas Sekolah</a>
             <a href="/tentang/staffmanagement" class="dropdown-item">Staff Management</a>
             <a href="/tentang/sambutan" class="dropdown-item">Sambutan Pembina Yayasan</a>
           </div>
@@ -161,6 +162,7 @@
       <div class="mobile-submenu">
         <a href="/tentang/program" class="mobile-subitem">Program</a>
         <a href="/tentang/profile-sekolah" class="mobile-subitem">Profile Sekolah</a>
+        <a href="/tentang/fasilas" class="mobile-subitem">Fasilitas Sekolah</a>
         <a href="/tentang/staffmanagement" class="mobile-subitem">Staff Management</a>
         <a href="/tentang/sambutan" class="mobile-subitem">Sambutan Pembina Yayasan</a>
       </div>
