@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\Job;
+use App\Models\prestasiprima\Prestasi;
 use App\Models\Profile;
 use Carbon\Carbon;
 // Impor yang ditambahkan
@@ -19,20 +20,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Schema::disableForeignKeyConstraints();
       	$this->call([
           PrestasiprimaStaffSeeder::class,
           ]);
       
       $this->call([
           PrestasiprimaPrestasiSeeder::class,
-          ]);
-      
-      $this->call([
-          PrestasiprimaPrestasiSeeder::class,
-          ]);
-      
-      $this->call([
-          PrestasiprimaNewsSeeder::class,
           ]);
       
       $this->call([
@@ -47,8 +41,13 @@ class DatabaseSeeder extends Seeder
           PrestasiprimaGallerySeeder::class,
           ]);
       
-       $this->call([
+      $this->call([
           PrestasiprimaCategorySeeder::class,
+          ]);
+
+      $this->call([
+          PrestasiprimaNewsSeeder::class,
+          PrestasiprimaUserSeeder::class,
           ]);
       	
         // ==========================================================
@@ -187,15 +186,11 @@ class DatabaseSeeder extends Seeder
         // SEEDER PRESTASIPRIMA (BARU DITAMBAHKAN DARI SQL)
         // ==========================================================
 
-        // Nonaktifkan foreign key untuk truncate (penting untuk urutan)
-        Schema::disableForeignKeyConstraints();
-
         $this->seedPrestasiprimaCategories();
         $this->seedPrestasiprimaGalleries();
         // News harus dijalankan setelah Categories karena ada category_id
         $this->seedPrestasiprimaNews(); 
 
-        // Aktifkan kembali foreign key
         Schema::enableForeignKeyConstraints();
     }
 
@@ -601,4 +596,3 @@ class DatabaseSeeder extends Seeder
         ]);
     }
 }
-

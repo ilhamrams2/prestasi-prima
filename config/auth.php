@@ -36,10 +36,17 @@ return [
     */
 
     'guards' => [
+
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'authPP' => [ // 👈 guard baru
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
     ],
 
     /*
@@ -97,6 +104,12 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+
+        'ppusers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\prestasiprima\PPuser::class,
+        ],
+
     ],
 
     /*

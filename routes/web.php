@@ -49,7 +49,8 @@ use App\Http\Controllers\prestasiprima\Admin\{
     AdminKegiatanController,
     AdminDashboardController,
     AdminIndustriController,
-    AdminStaffController
+    AdminStaffController,
+    AuthPPController
 };
 
 use App\Http\Controllers\Presmaboard\{
@@ -207,10 +208,20 @@ Route::prefix('presmaboard')->name('presmaboard.')->group(function () {
 });
 
 // ============================================================
+// ================ PRESTASIPRIMA LOGIN =======================
+// ============================================================
+
+Route::prefix('authPP')->group(function () {
+    Route::get('login', [AuthPPController::class, 'showLoginForm'])->name('authPP.login');
+    Route::post('login', [AuthPPController::class, 'login'])->name('authPP.login.post');
+    Route::post('logout', [AuthPPController::class, 'logout'])->name('authPP.logout');
+});
+
+// ============================================================
 // ================ PRESTASIPRIMA ADMIN PANEL =================
 // ============================================================
 
-Route::prefix('prestasiprima/admin')->name('prestasiprima.admin.')->group(function () {
+Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprima.admin.')->group(function () {
 
     // === DASHBOARD ===
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])
@@ -399,20 +410,20 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 // =================== AUTH VIA PROVIDERS =====================
 // ============================================================
 
-Route::controller(SocialAuthController::class)
-    ->prefix('auth')
-    ->name('social.')
-    ->group(function () {
-        Route::get('{provider}', 'redirect')->name('redirect');
-        Route::get('{provider}/callback', 'callback')->name('callback');
-    });
+// Route::controller(SocialAuthController::class)
+//     ->prefix('auth')
+//     ->name('social.')
+//     ->group(function () {
+//         Route::get('{provider}', 'redirect')->name('redirect');
+//         Route::get('{provider}/callback', 'callback')->name('callback');
+//     });
 
 // ============================================================
 // ======================== ERROR PAGES =======================
 // ============================================================
 
-Route::get('/notinternet', fn() => view('errors.notinternet'))->name('notinternet');
+// Route::get('/notinternet', fn() => view('errors.notinternet'))->name('notinternet');
 
-Route::fallback(function () {
-    return response()->view('errors.404', [], 404);
-});
+// Route::fallback(function () {
+//     return response()->view('errors.404', [], 404);
+// });
