@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-<!-- ================= HERO SECTION (VIDEO OPTIMIZED) ================= -->
-=======
-﻿<!-- ================= HERO SECTION (VIDEO) ================= -->
->>>>>>> de966ed766b24f40ec46e5bd6452836508544469
 <section id="heroVideoSection" 
          class="relative h-screen w-full overflow-hidden bg-black">
 
