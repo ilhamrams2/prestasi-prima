@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Presmaboard;
+namespace App\Http\Controllers\presmaboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\presmaboard\PresmaboardStudent;
@@ -9,23 +9,15 @@ use Illuminate\Http\Request;
 class PresmaboardController extends Controller
 {
     function index()
-{
-    $students = PresmaboardStudent::withAvg('scores', 'score')
-        ->orderBy('scores_avg_score', 'desc')
-        ->get()
-        ->values(); // ✅ reset index supaya $students[0], [1], [2] valid
+    {
+        $students = PresmaboardStudent::withAvg('scores', 'score')
+            ->orderBy('scores_avg_score', 'desc')
+            ->get();
 
-    // ✅ (opsional tapi disarankan)
-    // kalau tidak ada data sama sekali, kirim koleksi kosong agar tidak error di Blade
-    if ($students->isEmpty()) {
-        $students = collect();
+        return view('presmaboard.leaderboard', [
+            'students' => $students
+        ]);
     }
-
-    return view('presmaboard.leaderboard', [
-        'students' => $students
-    ]);
-}
-
 
     function eligible(PresmaboardStudent $student)
     {

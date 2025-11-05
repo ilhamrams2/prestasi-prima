@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\presmaboard\StudentSeeder;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Company;
@@ -9,6 +10,11 @@ use App\Models\Job;
 use App\Models\prestasiprima\Prestasi;
 use App\Models\Profile;
 use Carbon\Carbon;
+use Database\Seeders\presmaboard\AchievementSeeder;
+use Database\Seeders\presmaboard\ProjectCategorySeeder;
+use Database\Seeders\presmaboard\ProjectSeeder;
+use Database\Seeders\presmaboard\ScoreSeeder;
+use Database\Seeders\presmaboard\UserSeeder;
 // Impor yang ditambahkan
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -23,33 +29,21 @@ class DatabaseSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
       	$this->call([
           PrestasiprimaStaffSeeder::class,
-          ]);
-      
-      $this->call([
-          PrestasiprimaPrestasiSeeder::class,
-          ]);
-      
-      $this->call([
+          AchievementSeeder::class,
+          ProjectCategorySeeder::class,
+          ScoreSeeder::class,
+          StudentSeeder::class,
+          UserSeeder::class,
+          ProjectSeeder::class,
           PrestasiprimaKegiatanSeeder::class,
-          ]);
-      
-      $this->call([
+          PrestasiprimaPrestasiSeeder::class,
           PrestasiprimaIndustriSeeder::class,
-          ]);
-      
-      $this->call([
           PrestasiprimaGallerySeeder::class,
-          ]);
-      
-      $this->call([
           PrestasiprimaCategorySeeder::class,
-          ]);
-
-      $this->call([
           PrestasiprimaNewsSeeder::class,
           PrestasiprimaUserSeeder::class,
           ]);
-      	
+
         // ==========================================================
         // SEEDER PRESMALANCER (YANG SUDAH ADA)
         // ==========================================================

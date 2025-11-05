@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PresmaboardStudent extends Model
 {
-    use HasFactory;
+     use HasFactory;
 
     protected $fillable = [
         'nama',
@@ -45,7 +45,7 @@ class PresmaboardStudent extends Model
     public function currentLeaderboard()
     {
         return $this->hasOne(PresmaboardLeaderboard::class, 'student_id')
-            ->latestOfMany(); // leaderboard terbaru
+            ->latestOfMany(); 
     }
 
     public function latestScore()
