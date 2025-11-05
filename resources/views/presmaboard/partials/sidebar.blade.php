@@ -62,30 +62,30 @@
 
             <p class="text-gray-400 uppercase text-xs font-semibold mb-2 mt-4">Akademik</p>
 
-            <a href="{{ route('presmaboard.admin.student') }}"
+            <a href="{{ route('presmaboard.admin.student.index') }}"
                 class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
-                text-gray-700 hover:bg-orange-50 hover:text-orange-600 {{ request()->routeIs('presmaboard.admin.student') ? 'bg-orange-50 text-orange-600 font-semibold' : '' }}">
+                text-gray-700 hover:bg-orange-50 hover:text-orange-600 {{ request()->routeIs('presmaboard.admin.student.*') ? 'bg-orange-50 text-orange-600 font-semibold' : '' }}">
                 <i class="ri-user-3-line text-lg"></i>
                 <span>Siswa</span>
             </a>
 
-            <a href="{{ route('presmaboard.admin.project') }}"
+            <a href="{{ route('presmaboard.admin.project.index') }}"
                 class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
-                text-gray-700 hover:bg-orange-50 hover:text-orange-600 {{ request()->routeIs('presmaboard.admin.project') ? 'bg-orange-50 text-orange-600 font-semibold' : '' }}">
+                text-gray-700 hover:bg-orange-50 hover:text-orange-600 {{ request()->routeIs('presmaboard.admin.project.*') ? 'bg-orange-50 text-orange-600 font-semibold' : '' }}">
                 <i class="ri-code-box-line text-lg"></i>
                 <span>Project</span>
             </a>
 
-            <a href="{{ route('presmaboard.admin.achievement') }}"
+            <a href="{{ route('presmaboard.admin.achievement.index') }}"
                 class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
-                text-gray-700 hover:bg-orange-50 hover:text-orange-600 {{ request()->routeIs('presmaboard.admin.achievement') ? 'bg-orange-50 text-orange-600 font-semibold' : '' }}">
+                text-gray-700 hover:bg-orange-50 hover:text-orange-600 {{ request()->routeIs('presmaboard.admin.achievement.*') ? 'bg-orange-50 text-orange-600 font-semibold' : '' }}">
                 <i class="ri-medal-line text-lg"></i>
                 <span>Prestasi</span>
             </a>
 
-            <a href="{{ route('presmaboard.admin.score') }}"
+            <a href="{{ route('presmaboard.admin.score.index') }}"
                 class="flex items-center space-x-3 px-3 py-2 rounded-lg transition
-                text-gray-700 hover:bg-orange-50 hover:text-orange-600 {{ request()->routeIs('presmaboard.admin.score') ? 'bg-orange-50 text-orange-600 font-semibold' : '' }}">
+                text-gray-700 hover:bg-orange-50 hover:text-orange-600 {{ request()->routeIs('presmaboard.admin.score.*') ? 'bg-orange-50 text-orange-600 font-semibold' : '' }}">
                 <i class="ri-file-list-3-line text-lg"></i>
                 <span>Nilai PKP</span>
             </a>
