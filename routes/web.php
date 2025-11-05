@@ -171,13 +171,7 @@ Route::prefix('presmaboard')->name('presmaboard.')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/', [PresmaboardDashboardController::class, 'index'])->name('dashboard');
-        Route::get('/leaderboard', function () {
-            $students = \App\Models\presmaboard\PresmaboardStudent::withAvg('scores', 'score')
-                ->orderBy('scores_avg_score', 'desc')
-                ->get();
-
-            return view('presmaboard.leaderboard', compact('students'));
-        })->name('leaderboard');
+        Route::get('/leaderboard', [PresmaboardController::class, 'index'])->name('leaderboard');
 
         // Project
         Route::prefix('project')->name('project.')->controller(PresmaboardProjectController::class)->group(function () {
