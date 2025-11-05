@@ -65,7 +65,7 @@
 
       <!-- Kiri: Featured -->
       <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-white group flex flex-col justify-end h-[360px] sm:h-[420px] md:h-[480px]">
-        <img src="{{ asset('assets/images/section/program/herobg.png') }}" alt="Featured Program"
+        <img src="{{ asset('assets/images/section/program/herobg.webp') }}" alt="Featured Program"
           class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition duration-700">
         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
         <div class="relative z-10 p-6 sm:p-8 text-white">
