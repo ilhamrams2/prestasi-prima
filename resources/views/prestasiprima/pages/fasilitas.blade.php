@@ -3,71 +3,72 @@
 @section('title', 'Fasilitas SMK Prestasi Prima')
 
 @section('content')
-<section class="min-h-screen bg-white pt-44 pb-28 relative overflow-hidden">
+<section class="min-h-screen bg-gradient-to-b from-white via-orange-50/20 to-white pt-44 pb-32 overflow-hidden">
 
   {{-- ========== HERO / HEADER ========== --}}
-  <div class="text-center mb-16" data-aos="fade-down">
-    <h1 class="text-4xl md:text-5xl font-bold text-[#0e162e] mb-4">
+  <div class="text-center mb-20" data-aos="fade-down">
+    <h1 class="text-4xl md:text-5xl font-extrabold text-[#0e162e] mb-4 tracking-tight">
       Fasilitas <span class="text-orange-500">Prestasi Prima</span>
     </h1>
-    <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed">
-      Kami percaya bahwa setiap siswa memiliki potensi dan keunikan untuk dikembangkan menjadi individu yang utuh 
-      dengan karakter kuat, dasar akademik, dan keterampilan tinggi.
+    <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed text-lg">
+      Kami menyediakan lingkungan belajar modern yang mendukung kreativitas, inovasi, dan pembelajaran berbasis teknologi.
     </p>
-    <div class="w-24 h-[4px] bg-gradient-to-r from-orange-500 to-yellow-400 mx-auto mt-6 rounded-full shadow-lg shadow-orange-200/70"></div>
+    <div class="w-24 h-[3px] bg-gradient-to-r from-orange-500 to-yellow-400 mx-auto mt-6 rounded-full"></div>
   </div>
 
   {{-- ========== LABORATORIUM & STUDIO ========== --}}
-  <div class="max-w-7xl mx-auto px-6 mb-20">
-    <h2 class="text-2xl md:text-3xl font-bold text-center text-[#0e162e] mb-10">Laboratorium & Studio</h2>
+  <div class="max-w-7xl mx-auto px-6 mb-28">
+    <h2 class="text-2xl md:text-3xl font-bold text-center text-[#0e162e] mb-12">Laboratorium & Studio</h2>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-6" data-aos="fade-up">
-      @for ($i = 0; $i < 5; $i++)
-      <div class="overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition duration-300">
-        <img src="{{ asset('assets/images/fasilitas/lab1.png') }}" alt="Fasilitas Laboratorium" class="w-full h-52 object-cover">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-10" data-aos="fade-up" data-aos-delay="100">
+      @for ($i = 1; $i <= 5; $i++)
+      <div class="group flex justify-center items-center bg-white rounded-2xl relative">
+        <img src="{{ asset('assets/images/fasilitas/lab' . $i . '.png') }}"
+             alt="Laboratorium {{ $i }}"
+             class="w-full h-64 object-contain transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] transform group-hover:scale-105 group-hover:translate-y-[-4px]">
       </div>
       @endfor
     </div>
   </div>
 
   {{-- ========== FASILITAS AKADEMIK ========== --}}
-  <div class="max-w-7xl mx-auto px-6 mb-20">
-    <h2 class="text-2xl md:text-3xl font-bold text-center text-[#0e162e] mb-10">Fasilitas Akademik</h2>
+  <div class="max-w-7xl mx-auto px-6 mb-28">
+    <h2 class="text-2xl md:text-3xl font-bold text-center text-[#0e162e] mb-12">Fasilitas Akademik</h2>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-6" data-aos="fade-up">
-      @for ($i = 0; $i < 3; $i++)
-      <div class="overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition duration-300">
-        <img src="{{ asset('assets/images/fasilitas/lab1.png') }}" alt="Fasilitas Akademik" class="w-full h-52 object-cover">
-      </div>
-      @endfor
-    </div>
-  </div>
-
-  {{-- ========== FASILITAS OLAHRAGA ========== --}}
-  <div class="max-w-7xl mx-auto px-6 mb-20">
-    <h2 class="text-2xl md:text-3xl font-bold text-center text-[#0e162e] mb-10">Fasilitas Olahraga</h2>
-
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-6" data-aos="fade-up">
-      @for ($i = 0; $i < 3; $i++)
-      <div class="overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition duration-300">
-        <img src="{{ asset('assets/images/fasilitas/lab1.png') }}" alt="Fasilitas Olahraga" class="w-full h-52 object-cover">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-10" data-aos="fade-up" data-aos-delay="200">
+      @for ($i = 1; $i <= 3; $i++)
+      <div class="group flex justify-center items-center bg-white rounded-2xl relative">
+        <img src="{{ asset('assets/images/fasilitas/akademik' . $i . '.png') }}"
+             alt="Fasilitas Akademik {{ $i }}"
+             class="w-full h-64 object-contain transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] transform group-hover:scale-105 group-hover:translate-y-[-4px]">
       </div>
       @endfor
     </div>
   </div>
 
   {{-- ========== FASILITAS UMUM ========== --}}
-  <div class="max-w-7xl mx-auto px-6">
-    <h2 class="text-2xl md:text-3xl font-bold text-center text-[#0e162e] mb-10">Fasilitas Umum</h2>
+  <div class="max-w-7xl mx-auto px-6 mb-12">
+    <h2 class="text-2xl md:text-3xl font-bold text-center text-[#0e162e] mb-12">Fasilitas Umum</h2>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-6" data-aos="fade-up">
-      @for ($i = 0; $i < 4; $i++)
-      <div class="overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition duration-300">
-        <img src="{{ asset('assets/images/fasilitas/lab1.png') }}" alt="Fasilitas Umum" class="w-full h-52 object-cover">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-10" data-aos="fade-up" data-aos-delay="300">
+      @for ($i = 1; $i <= 5; $i++)
+      <div class="group flex justify-center items-center bg-white rounded-2xl relative">
+        <img src="{{ asset('assets/images/fasilitas/fasum' . $i . '.png') }}"
+             alt="Fasilitas Umum {{ $i }}"
+             class="w-full h-64 object-contain transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] transform group-hover:scale-105 group-hover:translate-y-[-4px]">
       </div>
       @endfor
     </div>
   </div>
 
 </section>
+
+{{-- ========== AOS ANIMATION ========== --}}
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    AOS.init({ duration: 1000, once: true, offset: 120 });
+  });
+</script>
 @endsection

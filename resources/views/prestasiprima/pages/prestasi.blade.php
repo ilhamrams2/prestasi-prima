@@ -4,10 +4,10 @@
 
 @section('content')
 <section id="prestasi" class="pt-36 pb-20 bg-white relative overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 md:px-8 text-center">
+  <div class="max-w-7xl mx-auto px-4 md:px-8">
 
     <!-- ===== Header ===== -->
-    <div class="mb-12" data-aos="fade-down">
+    <div class="text-center mb-12" data-aos="fade-down">
       <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo Sekolah" class="mx-auto h-14 mb-4">
       <h3 class="text-lg font-bold text-gray-800">Prestasi Kami</h3>
       <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mt-2">
@@ -17,7 +17,7 @@
 
     <!-- ===== Swiper Prestasi ===== -->
     <div class="relative flex items-center justify-center" data-aos="zoom-in" data-aos-delay="100">
-      <!-- Tombol Navigasi di luar gambar -->
+      <!-- Tombol Navigasi -->
       <button class="swiper-button-prev custom-nav absolute -left-20 md:-left-24 z-20" aria-label="Previous"></button>
       <button class="swiper-button-next custom-nav absolute -right-20 md:-right-24 z-20" aria-label="Next"></button>
 
@@ -36,30 +36,51 @@
       </div>
     </div>
 
-    <!-- Pagination lebih dekat dengan gambar -->
+    <!-- Pagination -->
     <div class="swiper-pagination mt-4 relative"></div>
 
-    <!-- ===== Grid Tambahan ===== -->
-    <div class="mt-16" data-aos="fade-up" data-aos-delay="200">
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-        @foreach ($prestasis as $prestasi)
-          <div class="rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 group">
-            <img src="{{ asset('storage/' . $prestasi->gambar) }}"
-                 alt="Prestasi Siswa"
-                 class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
-          </div>
-        @endforeach
+    <!-- ===== Daftar Prestasi Detail (Bergantian Layout) ===== -->
+<div class="mt-20 space-y-16">
+  @foreach ($prestasis as $index => $prestasi)
+    @php
+      $isEven = $loop->iteration % 2 == 0;
+    @endphp
+
+    <div class="flex flex-col md:flex-row items-center {{ $isEven ? 'md:flex-row-reverse' : '' }}"
+         data-aos="{{ $isEven ? 'fade-left' : 'fade-right' }}"
+         data-aos-delay="200">
+
+      <!-- Gambar -->
+<div class="w-full md:w-1/3 flex justify-center transition-all duration-500">
+  <img src="{{ asset('storage/' . $prestasi->gambar) }}"
+       alt="{{ $prestasi->judul }}"
+       class="w-56 h-72 object-cover">
+</div>
+
+      <!-- Deskripsi -->
+      <div class="w-full md:w-2/3 
+                  {{ $isEven ? 'md:text-right md:pr-6 flex justify-end' : 'md:text-left md:pl-6 flex justify-start' }}">
+        <div class="max-w-md">
+          <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $prestasi->judul }}</h3>
+          <p class="text-gray-600 leading-relaxed mb-2">{{ $prestasi->deskripsi }}</p>
+          <p class="text-sm text-orange-600 font-medium">
+            {{ \Carbon\Carbon::parse($prestasi->tanggal)->translatedFormat('d F Y') }}
+          </p>
+        </div>
       </div>
     </div>
+  @endforeach
+</div>
+
 
   </div>
 </section>
 
-<!-- SwiperJS -->
+<!-- ===== SwiperJS ===== -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-<!-- AOS -->
+<!-- ===== AOS ===== -->
 <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
@@ -84,7 +105,7 @@
 </script>
 
 <style>
-  /* ===== Tombol Navigasi ===== */
+  /* ===== Tombol Navigasi Swiper ===== */
   .custom-nav {
     width: 46px !important;
     height: 46px !important;
@@ -112,10 +133,10 @@
     transform: scale(1.1);
   }
 
-  /* ===== Pagination (Titik) ===== */
+  /* ===== Pagination ===== */
   .swiper-pagination {
     position: relative !important;
-    margin-top: 1rem; /* lebih dekat ke gambar */
+    margin-top: 1rem;
   }
 
   .swiper-pagination-bullet {
