@@ -34,12 +34,12 @@
             @endphp
 
             {{-- Dashboard --}}
-            <a href="{{ route('prestasiprima.admin.dashboard') }}"
-                class="flex items-center gap-3 px-4 py-2 rounded-lg transition
+      <a href="{{ route('prestasiprima.admin.dashboard') }}"
+         class="flex items-center gap-3 px-4 py-2 rounded-lg transition
          {{ $currentRoute === 'prestasiprima.admin.dashboard' ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' }}">
-                <i class="fa-solid fa-house"></i>
-                <span>Dashboard</span>
-            </a>
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </a>
 
             {{-- Manajemen Berita --}}
             <a href="{{ route('prestasiprima.admin.berita.index') }}"
@@ -123,17 +123,14 @@
         </nav>
 
         <div class="p-4 border-t border-gray-200">
-            <button type="button"
-                class="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-semibold px-4 py-2 rounded-lg transition">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <form action="{{ route('authPP.logout') }}" method="POST" class="inline">
-                    @csrf
-                    <button type="submit"
-                        class="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg shadow-md transition">
-                        Logout
-                    </button>
-                </form>
+        <form action="{{ route('authPP.logout') }}" method="POST">
+            @csrf
+            <button type="submit"
+            class="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg shadow-md transition">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
             </button>
+        </form>
         </div>
     </aside>
 

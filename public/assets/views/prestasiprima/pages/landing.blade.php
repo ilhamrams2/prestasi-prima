@@ -1,0 +1,16 @@
+@extends('prestasiprima.index')
+@section('title','Beranda - SMK Prestasi Prima')
+
+@section('content')
+  @include('sections.hero')
+  @include('sections.tentang')
+  @include('sections.program')
+  @include('sections.sejarah')
+  @include('sections.virtual-tour')
+  @include('sections.prestasi')
+  @include('sections.presmalancer')
+  @include('sections.kerjasama-ptn')
+  @include('sections.primaboard')
+  @include('sections.industri')
+  @include('sections.blog')
+@endsection
