@@ -167,8 +167,8 @@ Route::prefix('presmaboard')->name('presmaboard.')->group(function () {
     Route::post('/login', [PresmaboardAuthController::class, 'authenticate'])->name('authenticate');
     Route::get('/logout', [PresmaboardAuthController::class, 'logout'])->name('logout');
 
-    // Admin Area
-    Route::prefix('admin')->name('admin.')->group(function () {
+    // Admin Area (requires presmaboard auth)
+    Route::prefix('admin')->name('admin.')->middleware(['auth:presmaboard'])->group(function () {
 
         Route::get('/', [PresmaboardDashboardController::class, 'index'])->name('dashboard');
         Route::get('/leaderboard', [PresmaboardController::class, 'index'])->name('leaderboard');

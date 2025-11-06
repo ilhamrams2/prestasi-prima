@@ -12,9 +12,14 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-    if (! $request->expectsJson()) {
-        return route('login');
-    }
+        if (! $request->expectsJson()) {
+            // If the incoming request is for presmaboard area, redirect to presmaboard login
+            if ($request->is('presmaboard') || $request->is('presmaboard/*') || str_starts_with($request->route()?->getName() ?? '', 'presmaboard.')) {
+                return route('presmaboard.login');
+            }
+
+            return route('login');
+        }
     }
 
 }
