@@ -116,7 +116,9 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 relative z-10">
           <div class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 hover:shadow-xl transition group cursor-pointer"
-            onclick="openVideoModal('https:www.youtube.com/embed/Asi93VHxRgs')">
+            role="button" tabindex="0"
+            onclick="openVideoModal('https://www.youtube.com/embed/Asi93VHxRgs')"
+            onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); openVideoModal('https://www.youtube.com/embed/Asi93VHxRgs'); }">
             <div class="relative">
               <img src="https://img.youtube.com/vi/Asi93VHxRgs/hqdefault.jpg" alt="Study & Career Expo"
                 class="w-full h-36 sm:h-40 object-cover group-hover:scale-105 transition">
@@ -131,7 +133,9 @@
           </div>
 
           <div class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 hover:shadow-xl transition group cursor-pointer"
-            onclick="openVideoModal('https:www.youtube.com/embed/zQYlLdHDCOI')">
+            role="button" tabindex="0"
+            onclick="openVideoModal('https://www.youtube.com/embed/zQYlLdHDCOI')"
+            onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); openVideoModal('https://www.youtube.com/embed/zQYlLdHDCOI'); }">
             <div class="relative">
               <img src="https://img.youtube.com/vi/zQYlLdHDCOI/hqdefault.jpg" alt="Saintek Semua Jurusan"
                 class="w-full h-36 sm:h-40 object-cover group-hover:scale-105 transition">
@@ -164,7 +168,7 @@
         class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition">
         <i class="ph ph-x text-xl"></i>
       </button>
-      <iframe id="videoFrame" class="w-full aspect-video" src="" allowfullscreen></iframe>
+  <iframe id="videoFrame" title="Video Jurusan" class="w-full aspect-video" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
   </div>
 </section>
