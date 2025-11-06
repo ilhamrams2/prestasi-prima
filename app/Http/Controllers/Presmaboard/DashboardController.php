@@ -21,8 +21,41 @@ class DashboardController extends Controller
             ->get()
             ->groupBy('jurusan')
             ->map(function ($student) {
-                return number_format($student->avg('scores_avg_score'), 2);
+                return (float) number_format($student->avg('scores_avg_score') ?? 0, 2);
             });
+
+        // Ensure known jurusan keys exist for the chart (lowercase keys)
+        $average_major_score = collect([
+            'bcf' => $average_major_score->get('BCF', 0) ?: $average_major_score->get('bcf', 0),
+            'pplg' => $average_major_score->get('PPLG', 0) ?: $average_major_score->get('pplg', 0),
+            'dkv' => $average_major_score->get('DKV', 0) ?: $average_major_score->get('dkv', 0),
+            'tkj' => $average_major_score->get('TKJ', 0) ?: $average_major_score->get('tkj', 0),
+        ]);
+
+        // Build simple monthly trends (last 6 months) for sparklines in the stat cards
+        $months = collect(range(5, 0))->map(function ($i) {
+            return \Illuminate\Support\Carbon::now()->subMonths($i);
+        })->values();
+
+        $student_trend = [];
+        $project_trend = [];
+        $achievement_trend = [];
+
+        foreach ($months as $m) {
+            $student_trend[] = PresmaboardStudent::whereYear('created_at', $m->year)
+                ->whereMonth('created_at', $m->month)
+                ->count();
+
+            $project_trend[] = PresmaboardProject::whereYear('created_at', $m->year)
+                ->whereMonth('created_at', $m->month)
+                ->count();
+
+            $achievement_trend[] = PresmaboardAchievement::whereYear('tanggal', $m->year)
+                ->whereMonth('tanggal', $m->month)
+                ->count();
+        }
+
+        $months_labels = $months->map(fn($d) => $d->format('M'))->toArray();
 
         $largest_year = PresmaboardAchievement::selectRaw('MAX(YEAR(tanggal)) as tahun')
             ->value('tahun');
@@ -45,7 +78,11 @@ class DashboardController extends Controller
             'achievement_count' => $achievement_count,
             'project_count' => $project_count,
             'average_major_score' => $average_major_score,
-            'achievement_average' => $achievement_average
+            'achievement_average' => $achievement_average,
+            'student_trend' => $student_trend,
+            'project_trend' => $project_trend,
+            'achievement_trend' => $achievement_trend,
+            'months_labels' => $months_labels,
         ]);
     }
 }

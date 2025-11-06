@@ -21,38 +21,38 @@
 
         {{-- ====== STATISTIK UTAMA ====== --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            @php
-                $stats = [
-                    [
-                        'icon' => 'ri-user-3-line',
-                        'label' => 'Total Siswa',
-                        'value' => $student_count,
-                        'color' => 'blue',
-                    ],
-                    [
-                        'icon' => 'ri-trophy-line',
-                        'label' => 'Total Prestasi',
-                        'value' => $achievement_count,
-                        'color' => 'yellow',
-                    ],
-                    [
-                        'icon' => 'ri-folder-open-line',
-                        'label' => 'Total Projek',
-                        'value' => $project_count,
-                        'color' => 'orange',
-                    ],
-                ];
-            @endphp
-
-            @foreach ($stats as $item)
-                <div class="bg-white rounded-xl shadow-md p-5 relative hover:shadow-lg transition-all">
-                    <div class="absolute top-3 right-3 bg-{{ $item['color'] }}-100 p-2 rounded-lg">
-                        <i class="{{ $item['icon'] }} text-{{ $item['color'] }}-600 text-xl"></i>
-                    </div>
-                    <h3 class="text-gray-600 font-semibold text-sm">{{ $item['label'] }}</h3>
-                    <p class="text-2xl font-bold mt-2 text-gray-800">{{ $item['value'] }}</p>
+            <div class="bg-white rounded-xl shadow-md p-5 relative hover:shadow-lg transition-all">
+                <div class="absolute top-3 right-3 bg-blue-100 p-2 rounded-lg">
+                    <i class="ri-user-3-line text-blue-600 text-xl"></i>
                 </div>
-            @endforeach
+                <h3 class="text-gray-600 font-semibold text-sm">Total Siswa</h3>
+                <p class="text-2xl font-bold mt-2 text-gray-800">{{ $student_count }}</p>
+                <div class="mt-3">
+                    <canvas id="sparkStudents" height="40"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-5 relative hover:shadow-lg transition-all">
+                <div class="absolute top-3 right-3 bg-yellow-100 p-2 rounded-lg">
+                    <i class="ri-trophy-line text-yellow-600 text-xl"></i>
+                </div>
+                <h3 class="text-gray-600 font-semibold text-sm">Total Prestasi</h3>
+                <p class="text-2xl font-bold mt-2 text-gray-800">{{ $achievement_count }}</p>
+                <div class="mt-3">
+                    <canvas id="sparkAchievements" height="40"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-5 relative hover:shadow-lg transition-all">
+                <div class="absolute top-3 right-3 bg-orange-100 p-2 rounded-lg">
+                    <i class="ri-folder-open-line text-orange-600 text-xl"></i>
+                </div>
+                <h3 class="text-gray-600 font-semibold text-sm">Total Projek</h3>
+                <p class="text-2xl font-bold mt-2 text-gray-800">{{ $project_count }}</p>
+                <div class="mt-3">
+                    <canvas id="sparkProjects" height="40"></canvas>
+                </div>
+            </div>
         </div>
 
         {{-- ====== GRAFIK ANALITIK ====== --}}
@@ -105,7 +105,6 @@
                         }
                     }
                 });
-
                 const ctxPrestasi = document.getElementById('prestasiChart');
                 const namaLomba = [
                     achievement_average.Jan.desc ?? '',
@@ -181,6 +180,41 @@
                         }
                     }
                 });
+
+                // Render sparklines for the stat cards
+                const monthsLabels = @json($months_labels ?? []);
+                const studentTrend = @json($student_trend ?? []);
+                const projectTrend = @json($project_trend ?? []);
+                const achievementTrend = @json($achievement_trend ?? []);
+
+                function renderSparkline(canvasId, data, color) {
+                    const el = document.getElementById(canvasId);
+                    if (!el) return;
+                    new Chart(el, {
+                        type: 'line',
+                        data: {
+                            labels: monthsLabels,
+                            datasets: [{
+                                data: data,
+                                borderColor: color,
+                                backgroundColor: 'rgba(0,0,0,0)',
+                                tension: 0.3,
+                                pointRadius: 0,
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {legend: {display: false}},
+                            scales: {x: {display: false}, y: {display: false}}
+                        }
+                    });
+                }
+
+                renderSparkline('sparkStudents', studentTrend, '#2563eb');
+                renderSparkline('sparkAchievements', achievementTrend, '#d97706');
+                renderSparkline('sparkProjects', projectTrend, '#f97316');
             });
         </script>
     @endsection
