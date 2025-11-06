@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Prestasiprima;
 
 use App\Http\Controllers\Controller;
-use App\Models\Prestasiprima\Kegiatan;
+use App\Models\prestasiprima\Kegiatan;
 use Illuminate\Http\Request;
 
 class KegiatanController extends Controller
@@ -17,3 +17,4 @@ class KegiatanController extends Controller
         return view('prestasiprima.pages.kegiatan', compact('kegiatan'));
     }
 }
+
