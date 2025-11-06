@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\presmaboard;
+namespace App\Http\Controllers\Presmaboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\presmaboard\PresmaboardProject;

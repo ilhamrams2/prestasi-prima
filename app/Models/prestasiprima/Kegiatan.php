@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Prestasiprima;
+namespace App\Models\prestasiprima;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

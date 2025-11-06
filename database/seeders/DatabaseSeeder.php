@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
           PrestasiprimaCategorySeeder::class,
           PrestasiprimaNewsSeeder::class,
           PrestasiprimaUserSeeder::class,
+          PresmaboardDatabaseSeeder::class,
           ]);
 
         // ==========================================================
