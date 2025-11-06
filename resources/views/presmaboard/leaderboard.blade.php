@@ -10,26 +10,24 @@
     $third  = $students->get(2);
 
     // Helper kecil: ambil foto jika ada, else default
-    $studentPhoto = static function ($student) {
+    function studentPhoto($student) {
         if ($student && !empty($student->foto)) {
             return asset('storage/presmaboard/students/' . $student->foto);
         }
         return asset('assets/images/presmaboard/user.png');
-    };
+    }
 
-    $studentName = static function ($student) {
+    function studentName($student) {
         return $student && !empty($student->nama) ? $student->nama : '-';
-    };
+    }
 
-    $studentScore = static function ($student) {
-        return $student && isset($student->scores_avg_score)
-            ? number_format($student->scores_avg_score, 2)
-            : number_format(0, 2);
-    };
+    function studentScore($student) {
+        return $student && isset($student->scores_avg_score) ? number_format($student->scores_avg_score, 2) : number_format(0, 2);
+    }
 
-    $studentProfileRoute = static function ($student) {
+    function studentProfileRoute($student) {
         return $student ? route('presmaboard.eligible', $student->id) : '#';
-    };
+    }
 @endphp
 
     <!-- SECTION BOARDNAME -->
@@ -63,13 +61,13 @@
                 <div
                     class="w-24 h-24 sm:w-28 sm:h-28 rounded-lg overflow-hidden mb-3
                   flex items-center justify-center shadow-md animate-fadeInScale">
-                    <img src="{{ $studentPhoto($second) }}"
+                    <img src="{{ studentPhoto($second) }}"
                         alt="avatar" class="w-full h-full object-cover">
                 </div>
                 <span
                     class="text-lg sm:text-xl font-bold text-orange-500 mb-5
                    animate-fadeInUp [animation-delay:0.3s] group-hover:animate-pulseGlow">
-                    {{ $studentName($second) }}
+                    {{ studentName($second) }}
                 </span>
 
                 <div
@@ -86,11 +84,11 @@
                             class="w-12 h-10 sm:w-[48px] sm:h-[40px] mt-2 mb-3
                       animate-kingInteractive group-hover:animate-bounce">
                         <span class="text-3xl sm:text-4xl font-bold mb-2 counter"
-                            data-value="{{ $studentScore($second) }}">0</span>
+                            data-value="{{ studentScore($second) }}">0</span>
                         <span class="text-lg sm:text-xl font-semibold mb-3">PKP</span>
 
                         @if($second)
-                            <a href="{{ $studentProfileRoute($second) }}"
+                            <a href="{{ studentProfileRoute($second) }}"
                                 class="bg-white text-orange-500 font-semibold px-4 py-2 rounded-md shadow text-sm
                                 transition-transform duration-300 ease-in-out
                                 hover:scale-135 hover:shadow-lg hover:shadow-orange-400/50
@@ -116,13 +114,13 @@
                 <div
                     class="w-28 h-28 sm:w-32 sm:h-32 rounded-lg overflow-hidden mb-3
                   flex items-center justify-center shadow-md animate-fadeInScale">
-                    <img src="{{ $studentPhoto($first) }}"
+                    <img src="{{ studentPhoto($first) }}"
                         alt="avatar" class="w-full h-full object-cover">
                 </div>
                 <span
                     class="text-xl sm:text-2xl font-bold text-orange-500 mb-5
                    animate-fadeInUp [animation-delay:0.3s] group-hover:animate-pulseGlow">
-                    {{ $studentName($first) }}
+                    {{ studentName($first) }}
                 </span>
 
                 <div
@@ -139,11 +137,11 @@
                             class="w-14 h-12 sm:w-[70px] sm:h-[55px] mt-2 mb-3
                       animate-kingInteractive group-hover:animate-bounce">
                         <span class="text-4xl sm:text-5xl font-bold mb-2 counter"
-                            data-value="{{ $studentScore($first) }}">0</span>
+                            data-value="{{ studentScore($first) }}">0</span>
                         <span class="text-lg sm:text-xl font-semibold mb-3">PKP</span>
 
                         @if($first)
-                            <a href="{{ $studentProfileRoute($first) }}"
+                            <a href="{{ studentProfileRoute($first) }}"
                                 class="bg-white text-orange-500 font-semibold px-4 py-2 rounded-md shadow text-sm
                                 transition-transform duration-300 ease-in-out
                                 hover:scale-135 hover:shadow-lg hover:shadow-orange-400/50
@@ -169,13 +167,13 @@
                 <div
                     class="w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden mb-3
                   flex items-center justify-center shadow-md animate-fadeInScale">
-                    <img src="{{ $studentPhoto($third) }}"
+                    <img src="{{ studentPhoto($third) }}"
                         alt="avatar" class="w-full h-full object-cover">
                 </div>
                 <span
                     class="text-base sm:text-lg font-bold text-orange-500 mb-5
                    animate-fadeInUp [animation-delay:0.3s] group-hover:animate-pulseGlow">
-                    {{ $studentName($third) }}
+                    {{ studentName($third) }}
                 </span>
 
                 <div
@@ -192,11 +190,11 @@
                             class="w-10 h-8 sm:w-[40px] sm:h-[34px] mt-2 mb-3
                       animate-kingInteractive group-hover:animate-bounce">
                         <span class="text-3xl sm:text-4xl font-bold mb-2 counter"
-                            data-value="{{ $studentScore($third) }}">0</span>
+                            data-value="{{ studentScore($third) }}">0</span>
                         <span class="text-lg sm:text-xl font-semibold mb-3">PKP</span>
 
                         @if($third)
-                            <a href="{{ $studentProfileRoute($third) }}"
+                            <a href="{{ studentProfileRoute($third) }}"
                                 class="bg-white text-orange-500 font-semibold px-4 py-2 rounded-md shadow text-sm
                                 transition-transform duration-300 ease-in-out
                                 hover:scale-135 hover:shadow-lg hover:shadow-orange-400/50
@@ -239,9 +237,9 @@
               <td class="px-4 py-4 w-12">{{ $loop->iteration + 3 }}</td>
               <td class="px-4 py-4 w-44">
                 <div class="flex items-center space-x-3">
-               <img class="w-10 h-10 rounded-full object-cover"
-                   src="{{ $student->foto ? asset('storage/presmaboard/students/' . $student->foto) : asset('assets/images/presmaboard/user.png') }}"
-                   alt="student profile">
+                  <img class="w-10 h-10 rounded-full object-cover"
+                       src="{{ $student->foto ? asset('storage/presmaboard/students/' . $student->foto) : asset('assets/images/presmaboard/user.png') }}"
+                       alt="profile picture">
                   <span class="font-medium text-gray-700">{{ $student->nama ?? '-' }}</span>
                 </div>
               </td>

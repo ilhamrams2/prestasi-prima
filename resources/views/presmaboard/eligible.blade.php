@@ -1,195 +1,128 @@
 @extends('prestasiprima.index')
-@section('title','eligible')
+@section('title', 'Eligible')
 
 @section('content')
-<style>
-    /* Fade In Up */
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fadeInUp {
-        animation: fadeInUp 0.6s ease-out both;
-    }
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-        width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-        background: #cbd5e0; /* gray-400 */
-        border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background: #a0aec0; /* gray-500 */
-    }
-</style>
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-<div class="p-4 md:p-6 min-h-screen flex flex-col items-center mt-32">
-    <div class="w-full max-w-[1275px] space-y-6">
-        <!-- Profile + Info -->
-        <div class="flex flex-col lg:flex-row gap-4 md:gap-6">
-            <!-- Profile Card -->
-            <div class="bg-white p-4 md:p-6 rounded-2xl shadow-md flex items-center space-x-4 md:space-x-6
-                        w-full lg:max-w-[500px] lg:h-[240px] animate-fadeInUp transform transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-                <img src="{{ asset('assets/images/presmaboard/bahlil.png') }}"
-                     alt="profile"
-                     class="w-24 h-24 md:w-[150px] md:h-[150px] rounded-full object-cover">
-                <div>
-                    <h2 class="text-xl md:text-2xl font-bold">Bahlul</h2>
-                    <p class="text-gray-500 text-base md:text-lg font-medium">Goblin</p>
-                    <p class="text-gray-600 text-base md:text-lg font-medium">137 Tahun</p>
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        /* Scrollbar lembut */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
+    </style>
+
+    <div class="bg-gray-50 p-4 md:p-6 min-h-screen flex flex-col items-center mt-28">
+        <div class="w-full max-w-7xl space-y-6">
+
+            <!-- Profile + Info -->
+            <div class="flex flex-col lg:flex-row gap-6">
+                <!-- Profile Card -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm flex items-center space-x-6 w-full lg:max-w-sm animate-fadeInUp hover:shadow-md transition duration-300">
+                    <img src="{{ $student->foto ? asset('storage/presmaboard/students/' . $student->foto) : asset('assets/images/presmaboard/user.png') }}"
+     alt="profile"
+     class="w-24 h-24 object-cover rounded-full border border-gray-200 shadow-sm" />
+
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-800">{{ $student->nama }}</h2>
+                        <p class="text-slate-500 text-base">{{ $student->gender == 'l' ? 'Laki-laki' : 'Perempuan' }}</p>
+                    </div>
+                </div>
+
+                <!-- Info Boxes -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
+                    @php
+                        $info = [
+                            ['Rangking', $student->rank],
+                            ['Nilai Rata-Rata', number_format($student->scores_avg_score, 2)],
+                            ['Angkatan', $student->angkatan],
+                            ['Kelas', strtoupper($student->kelas)],
+                            ['Jurusan', strtoupper($student->jurusan)],
+                        ];
+                    @endphp
+
+                    @foreach ($info as $item)
+                        <div
+                            class="bg-white rounded-2xl shadow-sm p-5 flex flex-col items-center justify-center text-center
+                               hover:shadow-md hover:-translate-y-1 transition duration-300 animate-fadeInUp">
+                            <div
+                                class="bg-gradient-to-br from-orange-400 to-orange-500 w-11 h-11 flex items-center justify-center rounded-xl mb-2 shadow-sm">
+                                <img src="{{ asset('assets/images/presmaboard/user.svg') }}" alt="icon"
+                                    class="w-4 h-4 filter brightness-0 invert">
+                            </div>
+                            <p class="text-slate-500 text-sm font-medium">{{ $item[0] }}</p>
+                            <p class="text-slate-800 text-lg font-extrabold">{{ $item[1] }}</p>
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
-            <!-- Info Boxes -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 md:gap-4 w-full">
-                <!-- Rangking -->
-                <div class="bg-white rounded-2xl shadow-md p-4 md:p-5 flex items-center space-x-3 md:space-x-4 lg:col-span-2
-                            animate-fadeInUp transform transition duration-300 hover:-translate-y-1 hover:shadow-lg group">
-                    <div class="bg-orange-500 rounded-xl flex items-center justify-center w-10 h-10 md:w-12 md:h-12 flex-shrink-0 relative overflow-hidden">
-                        <span class="absolute inset-0 rounded-xl border-2 border-orange-400 opacity-0 group-hover:opacity-100 animate-ping"></span>
-                        <img src="{{ asset('assets/images/presmaboard/user.svg') }}" alt="icon" class="w-4 h-4 md:w-[17px] md:h-[18px] relative z-10">
-                    </div>
-                    <div class="flex flex-col">
-                        <p class="text-gray-500 text-xs md:text-sm font-medium">Rangking</p>
-                        <p class="font-extrabold text-lg md:text-xl text-gray-800">3</p>
-                    </div>
-                </div>
-
-                <!-- Nilai Rata-rata -->
-                <div class="bg-white rounded-2xl shadow-md p-4 md:p-5 flex items-center space-x-3 md:space-x-4 lg:col-span-2
-                            animate-fadeInUp transform transition duration-300 hover:-translate-y-1 hover:shadow-lg group">
-                    <div class="bg-orange-500 rounded-xl flex items-center justify-center w-10 h-10 md:w-12 md:h-12 flex-shrink-0 relative overflow-hidden">
-                        <span class="absolute inset-0 rounded-xl border-2 border-orange-400 opacity-0 group-hover:opacity-100 animate-ping"></span>
-                        <img src="{{ asset('assets/images/presmaboard/user.svg') }}" alt="icon" class="w-4 h-4 md:w-[17px] md:h-[18px] relative z-10">
-                    </div>
-                    <div class="flex flex-col">
-                        <p class="text-gray-500 text-xs md:text-sm font-medium">Nilai Rata-Rata</p>
-                        <p class="font-extrabold text-lg md:text-xl text-gray-800">90/100</p>
+            <!-- Bottom Section -->
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-4">
+                <!-- Achievements -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm animate-fadeInUp xl:col-span-1 hover:shadow-md transition duration-300">
+                    <h3 class="text-lg font-semibold mb-4 text-slate-800">Pencapaian</h3>
+                    <div class="max-h-[460px] overflow-y-auto divide-y divide-gray-200">
+                        @forelse ($student->achievements as $achievement)
+                            <div class="flex items-start gap-3 py-3">
+                                <span class="text-yellow-500 text-2xl">🏆</span>
+                                <div>
+                                    <p class="font-medium text-slate-800">{{ $achievement->judul }}</p>
+                                    <p class="text-slate-600 text-sm">{{ $achievement->deskripsi }}</p>
+                                </div>
+                            </div>
+                        @empty
+                            <p class="text-gray-400 italic text-center py-10">Belum ada pencapaian yang ditambahkan.</p>
+                        @endforelse
                     </div>
                 </div>
 
-                <!-- Angkatan -->
-                <div class="bg-white rounded-2xl shadow-md p-4 md:p-5 flex items-center space-x-3 md:space-x-4 lg:col-span-2
-                            animate-fadeInUp transform transition duration-300 hover:-translate-y-1 hover:shadow-lg group">
-                    <div class="bg-orange-500 rounded-xl flex items-center justify-center w-10 h-10 md:w-12 md:h-12 flex-shrink-0 relative overflow-hidden">
-                        <span class="absolute inset-0 rounded-xl border-2 border-orange-400 opacity-0 group-hover:opacity-100 animate-ping"></span>
-                        <img src="{{ asset('assets/images/presmaboard/user.svg') }}" alt="icon" class="w-4 h-4 md:w-[17px] md:h-[18px] relative z-10">
-                    </div>
-                    <div class="flex flex-col">
-                        <p class="text-gray-500 text-xs md:text-sm font-medium">Angkatan</p>
-                        <p class="font-extrabold text-lg md:text-xl text-gray-800">2025/2026</p>
-                    </div>
-                </div>
-
-                <!-- Kelas -->
-                <div class="bg-white rounded-2xl shadow-md p-4 md:p-5 flex items-center space-x-3 md:space-x-4 lg:col-span-3
-                            animate-fadeInUp transform transition duration-300 hover:-translate-y-1 hover:shadow-lg group">
-                    <div class="bg-orange-500 rounded-xl flex items-center justify-center w-10 h-10 md:w-12 md:h-12 flex-shrink-0 relative overflow-hidden">
-                        <span class="absolute inset-0 rounded-xl border-2 border-orange-400 opacity-0 group-hover:opacity-100 animate-ping"></span>
-                        <img src="{{ asset('assets/images/presmaboard/user.svg') }}" alt="icon" class="w-4 h-4 md:w-[17px] md:h-[18px] relative z-10">
-                    </div>
-                    <div class="flex flex-col">
-                        <p class="text-gray-500 text-xs md:text-sm font-medium">Kelas</p>
-                        <p class="font-extrabold text-lg md:text-xl text-gray-800">DPR</p>
-                    </div>
-                </div>
-
-                <!-- Jurusan -->
-                <div class="bg-white rounded-2xl shadow-md p-4 md:p-5 flex items-center space-x-3 md:space-x-4 lg:col-span-3
-                            animate-fadeInUp transform transition duration-300 hover:-translate-y-1 hover:shadow-lg group">
-                    <div class="bg-orange-500 rounded-xl flex items-center justify-center w-10 h-10 md:w-12 md:h-12 flex-shrink-0 relative overflow-hidden">
-                        <span class="absolute inset-0 rounded-xl border-2 border-orange-400 opacity-0 group-hover:opacity-100 animate-ping"></span>
-                        <img src="{{ asset(path: 'assets/images/presmaboard/user.svg') }}" alt="icon" class="w-4 h-4 md:w-[17px] md:h-[18px] relative z-10">
-                    </div>
-                    <div class="flex flex-col">
-                        <p class="text-gray-500 text-xs md:text-sm font-medium">Jurusan</p>
-                        <p class="font-extrabold text-lg md:text-xl text-gray-800">Sumber Daya</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bagian bawah: Achievements & Projects -->
-        <div class="flex flex-col xl:flex-row gap-4 md:gap-5 mt-4 md:mt-6">
-            <!-- Pencapaian -->
-            <div class="bg-white p-4 md:p-6 rounded-2xl shadow-md w-full xl:max-w-[500px] xl:h-[563px] animate-fadeInUp">
-                <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4">Pencapaian Korupsi</h3>
-                <div class="max-h-[400px] overflow-y-auto pr-2 divide-y divide-gray-200">
-                    <div class="flex items-start space-x-3 py-2">
-                        <span class="text-yellow-500 text-2xl">🏆</span>
-                        <div>
-                            <p class="font-medium">Kasus Korupsi Tambang Batubara</p>
-                            <p class="text-gray-600 text-sm">Penyalahgunaan izin eksploitasi batubara oleh oknum pejabat daerah...</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-3 py-2">
-                        <span class="text-yellow-500 text-2xl">🏆</span>
-                        <div>
-                            <p class="font-medium">Korupsi Perizinan Hutan</p>
-                            <p class="text-gray-600 text-sm">Manipulasi dokumen perizinan untuk pembukaan lahan sawit ilegal.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-3 py-2">
-                        <span class="text-yellow-500 text-2xl">🏆</span>
-                        <div>
-                            <p class="font-medium">Penyelundupan Kayu Ilegal</p>
-                            <p class="text-gray-600 text-sm">Perdagangan hasil hutan tanpa izin resmi melalui jalur laut.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-3 py-2">
-                        <span class="text-yellow-500 text-2xl">🏆</span>
-                        <div>
-                            <p class="font-medium">Penyelewengan Dana Rehabilitasi Lingkungan</p>
-                            <p class="text-gray-600 text-sm">Dana perbaikan pasca tambang digunakan untuk kepentingan pribadi.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-3 py-2">
-                        <span class="text-yellow-500 text-2xl">🏆</span>
-                        <div>
-                            <p class="font-medium">Kasus Korupsi Pertambangan Emas</p>
-                            <p class="text-gray-600 text-sm">Oknum pejabat menerima suap terkait izin pertambangan emas ilegal.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-3 py-2">
-                        <span class="text-yellow-500 text-2xl">🏆</span>
-                        <div>
-                            <p class="font-medium">Penyalahgunaan Izin Ekspor Hasil Laut</p>
-                            <p class="text-gray-600 text-sm">Penyelundupan hasil laut bernilai tinggi tanpa membayar pajak negara.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project -->
-            <div class="w-full xl:max-w-[719px] xl:h-[533px] p-4 md:p-6 animate-fadeInUp">
-                <h3 class="text-lg md:text-xl font-semibold mb-2">Project</h3>
-                <div class="h-[3px] bg-gray-800 mb-4 w-full"></div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4 max-h-[480px] overflow-y-auto pr-2">
-                    @for ($i = 0; $i < 12; $i++)
-                    <div class="relative rounded-xl overflow-hidden shadow-md group transform transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-                        <!-- Gambar -->
-                        <img src="https://picsum.photos/400/300?random={{ $i }}"
-                             alt="project"
-                             class="w-full h-24 md:h-32 object-cover transform group-hover:scale-110 transition duration-500 ease-in-out">
-
-                        <!-- Overlay Hover -->
-                        <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 flex items-center justify-center
-                                    transition-opacity duration-300 group-hover:opacity-100">
-                            <p class="text-white font-semibold text-sm md:text-base transform translate-y-4
-                                      group-hover:translate-y-0 transition duration-500 ease-out">
-                                Portfolio Project
+                <!-- Projects -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm animate-fadeInUp xl:col-span-2 hover:shadow-md transition duration-300">
+                    <h3 class="text-lg font-semibold mb-4 text-slate-800">Project</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-h-[460px] overflow-y-auto">
+                        @forelse ($student->projects as $project)
+                            <div
+                                class="relative rounded-xl overflow-hidden shadow-sm group hover:shadow-lg transition duration-300">
+                                <img src="{{ asset('storage/presmaboard/projects/' . $project->gambar) }}" alt="project"
+                                    class="w-full h-28 object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out">
+                                <div
+                                    class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
+                                    <p class="text-white text-sm font-semibold">{{ $project->judul ?? 'Project Siswa' }}</p>
+                                </div>
+                            </div>
+                        @empty
+                            <p class="text-gray-400 italic text-center col-span-full py-10">Belum ada project yang diunggah.
                             </p>
-                        </div>
+                        @endforelse
                     </div>
-                    @endfor
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
