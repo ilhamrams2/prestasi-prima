@@ -84,3 +84,4 @@
          src="{{ asset('assets/images/gedung/gedung.avif') }}">
   </section>
 @endsection
+
