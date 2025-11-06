@@ -9,6 +9,132 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        #alert-container {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            z-index: 60;
+            width: calc(100% - 3rem);
+            max-width: 22rem;
+        }
+
+        .custom-alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem 1.1rem;
+            border-radius: 0.875rem;
+            border-left: 0.3rem solid transparent;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+            background: #f8fafc;
+            color: #0f172a;
+            animation: fadeIn 0.35s ease-out;
+        }
+
+        .custom-alert.success {
+            border-left-color: #22c55e;
+            background: #f0fdf4;
+            color: #166534;
+        }
+
+        .custom-alert.error {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        .custom-alert.info {
+            border-left-color: #3b82f6;
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .custom-alert.warning {
+            border-left-color: #f59e0b;
+            background: #fffbeb;
+            color: #92400e;
+        }
+
+        .custom-alert-icon {
+            font-size: 1.35rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custom-alert-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .custom-alert-cta {
+            display: inline-flex;
+            margin-top: 0.75rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        .custom-alert-close {
+            background: transparent;
+            border: none;
+            color: inherit;
+            font-size: 1.3rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .custom-alert-close:hover {
+            opacity: 0.7;
+        }
+
+        .custom-alert-content {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.45s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+        }
+
+        @media (max-width: 640px) {
+            #alert-container {
+                left: 1.5rem;
+                right: 1.5rem;
+                max-width: none;
+            }
+        }
+    </style>
+
 </head>
 
 <body class="bg-gradient-to-br from-orange-50 to-white flex items-center justify-center min-h-screen">
@@ -58,7 +184,7 @@
         </form>
 
         <div class="text-center text-xs text-gray-400 mt-6">
-            © {{ date('Y') }} PresmaBoard | Sistem Penilaian Mahasiswa
+            © {{ date('Y') }} PresmaBoard | Sistem Penilaian Siswa
         </div>
     </div>
 

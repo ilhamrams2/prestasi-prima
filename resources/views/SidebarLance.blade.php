@@ -87,7 +87,7 @@ class="sidebar-wrapper">
                      class="flex flex-col items-center cursor-pointer group">
                     <div class="relative">
                         <div class="w-12 h-12 rounded-full overflow-hidden border-4 border-orange-100 group-hover:border-orange-300 transition-all">
-                            <img x-bind:src="profileAvatar" src="{{ $profile?->avatar ? \Illuminate\Support\Facades\Storage::url($profile->avatar) : ($user->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name)) }}" 
+                            <img x-bind:src="profileAvatar" src="{{ $profile?->avatar ? \Illuminate\Support\Facades\Storage::url($profile->avatar) : ($user?->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name ?? 'User')) }}" 
                                  alt="{{ $user->name ?? 'User' }}"
                                  class="w-full h-full object-cover">
                         </div>
@@ -102,14 +102,14 @@ class="sidebar-wrapper">
                         <div class="flex items-start gap-4">
                             <div class="relative">
                                 <div class="w-16 h-16 rounded-full overflow-hidden border-4 border-orange-100">
-                                    <img x-bind:src="profileAvatar" src="{{ $profile?->avatar ? \Illuminate\Support\Facades\Storage::url($profile->avatar) : ($user->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name)) }}" 
+                                    <img x-bind:src="profileAvatar" src="{{ $profile?->avatar ? \Illuminate\Support\Facades\Storage::url($profile->avatar) : ($user?->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name ?? 'User')) }}" 
                                          alt="{{ $user->name ?? 'User' }}"
                                          class="w-full h-full object-cover">
                                 </div>
                                 <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h3 class="font-semibold text-gray-900 truncate">{{ $user->name }}</h3>
+                                <h3 class="font-semibold text-gray-900 truncate">{{ $user->name ?? '-' }}</h3>
                                 <p class="text-sm text-gray-600 truncate">{{ $user->role ?? 'Job Seeker' }}</p>
                                 <div class="flex items-center gap-1 mt-1">
                                     <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -232,14 +232,14 @@ class="sidebar-wrapper">
                         <div class="flex items-start gap-4">
                             <div class="relative">
                                 <div class="w-16 h-16 rounded-full overflow-hidden border-4 border-orange-100">
-                                    <img src="{{ $user->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name) }}" 
-                                         alt="{{ $user->name }}"
+                                    <img src="{{ $user?->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name ?? 'User') }}" 
+                                         alt="{{ $user->name ?? 'User' }}"
                                          class="w-full h-full object-cover">
                                 </div>
                                 <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h3 class="font-semibold text-gray-900 truncate">{{ $user->name }}</h3>
+                                <h3 class="font-semibold text-gray-900 truncate">{{ $user->name ?? 'User' }}</h3>
                                 <p class="text-sm text-gray-600 truncate">{{ $user->role ?? 'Job Seeker' }}</p>
                                 <div class="flex items-center gap-1 mt-1">
                                     <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

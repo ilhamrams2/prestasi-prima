@@ -42,6 +42,11 @@ return [
             'provider' => 'users',
         ],
 
+        'presmaboard' => [
+            'driver' => 'session',
+            'provider' => 'presmaboard_users',
+        ],
+
         'authPP' => [ // 👈 guard baru
             'driver' => 'session',
             'provider' => 'users',
@@ -70,6 +75,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'presmaboard_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\presmaboard\PresmaboardUser::class,
         ],
 
         // 'users' => [

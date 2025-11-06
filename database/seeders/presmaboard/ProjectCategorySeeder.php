@@ -3,7 +3,6 @@
 namespace Database\Seeders\presmaboard;
 
 use App\Models\presmaboard\PresmaboardProjectCategory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +13,7 @@ class ProjectCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table((new PresmaboardProjectCategory())->getTable())->insert([
+        $categories = [
             ['nama' => 'Software Development', 'jurusan' => 'pplg'],
             ['nama' => 'Web & Mobile App', 'jurusan' => 'pplg'],
             ['nama' => 'Game Development', 'jurusan' => 'pplg'],
@@ -38,7 +37,13 @@ class ProjectCategorySeeder extends Seeder
             ['nama' => 'Short Film & Documentary Project', 'jurusan' => 'bcf'],
             ['nama' => 'Photography & Visual Storytelling', 'jurusan' => 'bcf'],
             ['nama' => 'Broadcasting & Live Streaming', 'jurusan' => 'bcf'],
+        ];
 
-        ]);
+        foreach ($categories as $category) {
+            DB::table((new PresmaboardProjectCategory())->getTable())->updateOrInsert(
+                ['nama' => $category['nama']],  // key for uniqueness check
+                ['jurusan' => $category['jurusan']]  // values to insert or update
+            );
+        }
     }
 }

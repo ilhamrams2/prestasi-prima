@@ -1,0 +1,2 @@
+- [x] Update presmaboard admin sidebar links to reference the correct named routes (`presmaboard.admin.*.index`).
+- [x] Align `request()->routeIs()` checks in the sidebar with the updated route names if necessary.
