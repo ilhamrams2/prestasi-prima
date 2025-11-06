@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head></head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <title>@yield('title')</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+  </head>
 @extends('prestasiprima.index')
 @section('title','Beranda - SMK Prestasi Prima')
 
@@ -14,3 +23,4 @@
   @include('sections.industri')
   @include('sections.blog')
 @endsection
+</html>

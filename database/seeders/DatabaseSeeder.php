@@ -185,6 +185,10 @@ class DatabaseSeeder extends Seeder
         // News harus dijalankan setelah Categories karena ada category_id
         $this->seedPrestasiprimaNews(); 
 
+    // Seed presmaboard data (students, projects, scores, achievements, leaderboards)
+    // This calls database/seeders/PresmaboardDatabaseSeeder.php
+    $this->call([\Database\Seeders\PresmaboardDatabaseSeeder::class]);
+
         Schema::enableForeignKeyConstraints();
     }
 
