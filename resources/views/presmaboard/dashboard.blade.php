@@ -7,7 +7,7 @@
 
         {{-- ====== HEADER SELAMAT DATANG ====== --}}
         <div
-            class="bg-orange-600 text-white rounded-2xl shadow-lg p-6 flex flex-col md:flex-row md:items-center md:justify-between">
+            class="bg-gradient-to-r from-orange-600 to-yellow-400 text-white rounded-2xl shadow-lg p-6 flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
                 <h2 class="text-xl font-bold">
                     Selamat Datang, {{ session('username') ?? 'Administrator' }} 👋
