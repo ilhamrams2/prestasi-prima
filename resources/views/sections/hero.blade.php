@@ -1,19 +1,23 @@
+<!-- ================= HERO SECTION (VIDEO) ================= -->
 <section id="heroVideoSection" 
-         class="relative h-screen w-full overflow-hidden bg-black">
-
-  <!-- Hero Video (Lazy-loaded) -->
-  <video id="heroVideo" preload="none" autoplay muted playsinline
-         poster="{{ asset('assets/images/sekolah-bg.webp') }}"
-         class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700">
-    <!-- source akan dimuat via JavaScript (lazy) -->
-  </video>
+         class="relative h-screen w-full overflow-hidden bg-cover bg-center"
+         style="background-image: url('{{ asset('assets/images/section/hero/herobg.png') }}');">
 
   <!-- Overlay -->
   <div class="absolute inset-0 bg-black/40 z-10"></div>
 
+  <!-- Hero Video -->
+  <video id="heroVideo" preload="none" autoplay muted playsinline 
+         poster="{{ asset('assets/images/section/hero/herobg.png') }}"
+         class="absolute inset-0 w-full h-full object-cover z-20 opacity-0 transition-opacity duration-700 will-change-transform"
+         loading="lazy">
+    <source src="{{ asset('assets/videos/videos.mp4') }}" type="video/mp4">
+    Browsermu tidak mendukung video.
+  </video>
+
   <!-- Tombol Lewati -->
   <div id="skipBtnContainer" 
-       class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30 flex justify-center w-full">
+       class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30 w-full flex justify-center">
     <button id="skipBtn" aria-label="Lewati video intro"
             class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md shadow-md text-sm font-medium transition w-full max-w-[120px]">
       Lewati →
@@ -23,11 +27,11 @@
 
 <!-- ================= HERO CONTENT ================= -->
 <section id="heroContentSection"
-         class="relative w-full min-h-screen md:h-[90vh] flex items-center text-white pt-8 overflow-hidden hidden opacity-0 transition-opacity duration-700">
+         class="relative w-full min-h-screen md:h-[90vh] flex items-center text-white pt-8 overflow-hidden hidden">
 
   <!-- Background -->
   <div class="absolute inset-0">
-    <img src="{{ asset('assets/images/sekolah-bg.webp') }}" alt="Hero Background" 
+    <img src="{{ asset('assets/images/section/hero/herobg.png') }}" alt="Hero Background" 
          class="w-full h-full object-cover" loading="lazy">
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
   </div>
@@ -99,8 +103,8 @@
   </div>
 </section>
 
-<!-- ================= SCRIPT (OPTIMIZED) ================= -->
-<script defer>
+<!-- ================= SCRIPT ================= -->
+<script>
 document.addEventListener("DOMContentLoaded", () => {
   const videoSection = document.getElementById("heroVideoSection");
   const video = document.getElementById("heroVideo");
@@ -112,44 +116,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let isOpen = false;
 
-  // Lazy-load video source hanya saat hampir terlihat
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const source = document.createElement("source");
-        source.src = "{{ asset('assets/videos/videos.mp4') }}";
-        source.type = "video/webm";
-        video.appendChild(source);
-        video.load();
-        observer.disconnect();
-      }
-    });
-  });
-  observer.observe(video);
-
-  // Tampilkan video setelah siap (fade in)
+  // Tampilkan video setelah siap (smooth)
   video.addEventListener("loadeddata", () => {
     video.classList.add("opacity-100");
   });
 
-  // Fungsi tampilkan konten utama
+  // Tampilkan konten setelah video selesai / dilewati
   function showContent() {
-    videoSection.style.transition = "opacity 0.5s ease";
+    videoSection.style.transition = "opacity 0.5s";
     videoSection.style.opacity = 0;
 
     setTimeout(() => {
       videoSection.style.display = "none";
       skipBtnContainer.style.display = "none";
       contentSection.classList.remove("hidden");
-      contentSection.classList.add("opacity-100");
+      contentSection.style.opacity = 1;
 
-      // Animasi hero text
+      // Hero animation
       document.querySelectorAll(".hero-animate").forEach((el, idx) => {
         el.style.animationDelay = `${idx * 0.12}s`;
         el.classList.add("animate-hero-fast");
       });
 
-      // Animasi tombol sosial
+      // Floating Button animasi
       toggleBtn.classList.add("animate-floating");
     }, 500);
   }
@@ -173,35 +162,36 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-<!-- ================= STYLE (OPTIMIZED) ================= -->
+<!-- ================= STYLE ================= -->
 <style>
-/* Hero Smooth Animation */
+/* Hero Smooth Animation - versi cepat */
 @keyframes heroSlideInFast {
-  0% { opacity: 0; transform: translateY(30px) scale(0.96); filter: blur(3px); }
-  60% { opacity: 1; transform: translateY(-4px) scale(1.02); filter: blur(0); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
+  0% { opacity: 0; transform: translateX(-80px) scale(0.95); filter: blur(4px); }
+  60% { opacity: 1; transform: translateX(10px) scale(1.02); filter: blur(0); }
+  80% { transform: translateX(-4px) scale(0.98); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
 }
-.animate-hero-fast {
-  animation: heroSlideInFast 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
+.animate-hero-fast { animation: heroSlideInFast 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 .hero-animate { opacity: 0; }
 
 /* Floating Social Panel */
 .social-panel {
   transition: width 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
   opacity: 0;
-  transform: translateX(50%) scale(0.9);
+  transform: translateX(50%) scale(0.8);
 }
 .social-panel.open { width: 56px; opacity: 1; transform: translateX(0) scale(1); }
-.social-panel.close { width: 0; opacity: 0; transform: translateX(50%) scale(0.9); }
+.social-panel.close { width: 0; opacity: 0; transform: translateX(50%) scale(0.8); }
 
-/* Floating Button */
+/* Floating Button muncul setelah video */
 @keyframes floatingIn {
   0% { opacity: 0; transform: translateX(100%) scale(0.8); }
-  70% { opacity: 1; transform: translateX(-6px) scale(1.05); }
+  60% { opacity: 1; transform: translateX(-10px) scale(1.05); }
+  80% { transform: translateX(5px) scale(0.97); }
   100% { opacity: 1; transform: translateX(0) scale(1); }
 }
-.animate-floating { animation: floatingIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.animate-floating {
+  animation: floatingIn 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
 </style>
 
-{{--  --}}

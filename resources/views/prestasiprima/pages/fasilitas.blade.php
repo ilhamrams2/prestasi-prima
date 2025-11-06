@@ -38,7 +38,7 @@
     <div class="grid grid-cols-2 md:grid-cols-3 gap-10" data-aos="fade-up" data-aos-delay="200">
       @for ($i = 1; $i <= 3; $i++)
       <div class="group flex justify-center items-center bg-white rounded-2xl relative">
-        <img src="{{ asset('assets/images/fasilitas/akademik' . $i . '.png') }}"
+        <img src="{{ asset('assets/images/fasilitas/saranabelajar' . $i . '.png') }}"
              alt="Fasilitas Akademik {{ $i }}"
              class="w-full h-64 object-contain transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] transform group-hover:scale-105 group-hover:translate-y-[-4px]">
       </div>

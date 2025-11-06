@@ -88,7 +88,7 @@
         <span class="bg-orange-400 text-white px-4 py-1 rounded-full text-sm inline-flex items-center gap-1">
           <i data-lucide="user" class="w-4 h-4"></i> Kepala Program
         </span>
-        <h3 class="text-2xl font-bold text-gray-900 mt-3">Rina Lestari, S.Sn.</h3>
+        <h3 class="text-2xl font-bold text-gray-900 mt-3">Cahyako Tri Harsatmo S.Ds</h3>
         <blockquote class="mt-4 bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-lg shadow-sm italic text-gray-700 relative">
           <span class="absolute -top-3 left-4 text-orange-400 text-3xl font-serif">“</span>
           Kami membentuk desainer muda yang kreatif, komunikatif, dan siap bersaing di industri kreatif global.

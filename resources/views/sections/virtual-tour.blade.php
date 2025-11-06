@@ -10,13 +10,13 @@
       <span class="text-orange-500">Secara Virtual</span>
     </h2>
 
-    {{-- Subtitle / Microcopy --}}
+    {{-- Subtitle --}}
     <p class="text-sm md:text-base text-gray-500 mb-8"
        data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
       Jelajahi ruang kelas, laboratorium, dan fasilitas unggulan kami dari mana saja!
     </p>
 
-    {{-- Tagline --}}
+    {{-- Deskripsi --}}
     <p class="text-lg md:text-xl text-gray-700 mb-12"
        data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
       Rasakan pengalaman menjelajahi sekolah kami melalui tur virtual 360°, lihat fasilitas unggulan, ruang belajar, laboratorium, dan lingkungan sekolah secara interaktif.
@@ -29,6 +29,7 @@
          data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="250">
          Mulai Virtual Tour
       </a>
+
       {{-- Arrow animasi --}}
       <div class="mt-4 animate-bounce text-orange-500">
         <i class="fa-solid fa-arrow-down"></i>
@@ -64,24 +65,13 @@
 
   </div>
 
-  {{-- Decorative shapes --}}
+  {{-- Decorative blur shape --}}
   <div class="absolute top-0 left-0 w-64 h-64 bg-orange-200/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-float-slow"></div>
   <div class="absolute bottom-0 right-0 w-72 h-72 bg-orange-300/20 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 animate-float-slow"></div>
 
-  {{-- Icons dekoratif lebih besar --}}
-  <img src="{{ asset('assets/images/section/virtual-tour/icon1.svg') }}" 
-       alt="Icon Dekorasi Kiri" 
-       class="absolute top-1/4 left-0 w-80 h-80 opacity-0 glow-icon sway-left"
-       data-aos="fade-up-right" data-aos-duration="1200" data-aos-delay="400">
-
-  <img src="{{ asset('assets/images/section/virtual-tour/icon2.svg') }}" 
-       alt="Icon Dekorasi Kanan" 
-       class="absolute bottom-1/4 right-0 w-80 h-80 opacity-0 glow-icon sway-right"
-       data-aos="fade-up-left" data-aos-duration="1200" data-aos-delay="400">
-
 </section>
 
-{{-- CSS untuk floating, hover & efek hidup --}}
+{{-- CSS tambahan --}}
 <style>
   @keyframes floatSlow {
     0%, 100% { transform: translateY(0); }
@@ -97,34 +87,8 @@
     transition: transform 0.5s ease;
   }
 
-  /* Glow effect saat muncul */
-  .glow-icon {
-    filter: drop-shadow(0 0 30px rgba(255, 165, 0, 1));
-    transition: filter 0.5s ease, opacity 0.5s ease;
-  }
-  .glow-icon[data-aos].aos-animate {
-    opacity: 1;
-  }
-
-  /* Sway animation */
-  @keyframes sway-left {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(30px); }
-  }
-  @keyframes sway-right {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(-30px); }
-  }
-  .sway-left.aos-animate {
-    animation: sway-left 4s ease-in-out infinite alternate;
-  }
-  .sway-right.aos-animate {
-    animation: sway-right 4s ease-in-out infinite alternate;
-  }
-
   /* Responsive scaling untuk mobile */
   @media (max-width: 768px) {
-    .w-80.h-80 { display: none !important; } /* Hilangkan ikon di mobile */
     .md\:w-4\/5 { width: 90% !important; }
     .lg\:w-2\/3 { width: 95% !important; }
   }

@@ -15,7 +15,7 @@
       </div>
 
       <div class="flex flex-col sm:flex-row justify-center gap-3 mt-6 md:mt-0">
-        <a href="#program"
+        <a href="tentang/program"
           class="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition text-sm md:text-base">
           Semua Program
         </a>
@@ -27,32 +27,41 @@
     </div>
 
     <!-- ================= 4 CARD JURUSAN ================= -->
-    <div id="program-grid"
-      class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 mb-8 fade-in-up delay-100">
+<div id="program-grid"
+  class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 mb-8 fade-in-up delay-100">
 
-      <!-- Template Card -->
-      @foreach(['pplg'=>'PPLG','tkj'=>'TKJ','bcf'=>'BCF','dkv'=>'DKV'] as $key=>$label)
-      <div class="relative group rounded-xl overflow-hidden shadow-lg">
-        <img src="{{ asset('assets/images/section/program/'.$key.'.png') }}" alt="{{ $label }}"
-          class="w-full h-64 sm:h-80 md:h-96 object-cover transition-transform duration-700">
-        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition duration-700"></div>
-        <div class="absolute inset-0 flex flex-col justify-end text-center p-5 sm:p-6 md:p-8 z-10">
-          <img src="{{ asset('assets/images/section/program/icons/'.$key.'.png') }}" alt="icon"
-            class="mx-auto w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3">
-          <h3 class="text-white font-bold text-lg sm:text-xl leading-snug">{{
-              $label === 'PPLG' ? 'Pengembangan Perangkat Lunak dan Gim' :
-              ($label === 'TKJ' ? 'Teknik Jaringan Komputer dan Telekomunikasi' :
-              ($label === 'BCF' ? 'Broadcast dan Film' : 'Desain Komunikasi Visual'))
-            }}</h3>
-          <a href="#"
-            class="mt-3 inline-block text-xs sm:text-sm text-orange-300 font-semibold hover:underline lihat-selengkapnya"
-            data-target="{{ strtolower($label) }}" aria-controls="jurusan-detail-wrapper">
-            Lihat Selengkapnya
-          </a>
-        </div>
-      </div>
-      @endforeach
+  <!-- Template Card -->
+  @foreach(['pplg'=>'PPLG','tjkt'=>'TJKT','bcf'=>'BCF','dkv'=>'DKV'] as $key => $label)
+  <div class="relative group rounded-xl overflow-hidden shadow-lg">
+    <!-- Gambar utama -->
+    <img src="{{ asset('assets/images/section/program/' . $key . '.png') }}" alt="{{ $label }}"
+      class="w-full h-64 sm:h-80 md:h-96 object-cover transition-transform duration-700 group-hover:scale-105">
+    
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition duration-700"></div>
+    
+    <!-- Konten -->
+    <div class="absolute inset-0 flex flex-col justify-end text-center p-5 sm:p-6 md:p-8 z-10">
+      <img src="{{ asset('assets/images/section/program/icons/' . $key . '.png') }}" alt="icon"
+        class="mx-auto w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3">
+      <h3 class="text-white font-bold text-lg sm:text-xl leading-snug">
+        {{
+          $label === 'PPLG' ? 'Pengembangan Perangkat Lunak dan Gim' :
+          ($label === 'TJKT' ? 'Teknik Jaringan Komputer dan Telekomunikasi' :
+          ($label === 'BCF' ? 'Broadcast dan Film' : 'Desain Komunikasi Visual'))
+        }}
+      </h3>
+
+      <!-- Tombol Lihat Selengkapnya -->
+      <a href="{{ url('/tentang/program/' . strtolower($key)) }}"
+        class="mt-3 inline-block text-xs sm:text-sm text-orange-300 font-semibold hover:underline">
+        Lihat Selengkapnya
+      </a>
     </div>
+  </div>
+  @endforeach
+</div>
+
 
     <!-- ================= WRAPPER DETAIL ================= -->
     <div id="jurusan-detail-wrapper"
@@ -79,7 +88,7 @@
             Kurikulum berbasis proyek dengan kolaborasi industri, magang, dan portofolio siap kerja.
           </p>
           <div class="mt-6 flex flex-wrap justify-center sm:justify-start gap-3">
-            <a href="#program"
+            <a href="tentang/program"
               class="inline-flex items-center gap-2 bg-white/10 border border-white/30 text-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg hover:bg-white/20 transition text-xs sm:text-sm">
               Pelajari lebih lanjut
             </a>

@@ -39,7 +39,8 @@ use App\Http\Controllers\prestasiprima\{
     ContactController,
     PrestasiController,
     TrafficController,
-    FasilitasController
+    FasilitasController,
+    LulusanPtnController
 };
 
 use App\Http\Controllers\prestasiprima\Admin\{
@@ -120,6 +121,9 @@ Route::prefix('informasi')->group(function () {
 
     Route::get('/traffic', [TrafficController::class, 'index'])->name('traffic.index');
     Route::post('/traffic/calculate', [TrafficController::class, 'calculateDistance'])->name('traffic.calculate');
+
+    Route::get('/lulusan-ptn', [LulusanPtnController::class, 'index'])->name('lulusan.ptn');
+    
 });
 
 

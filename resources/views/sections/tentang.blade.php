@@ -84,7 +84,7 @@
       </div>
 
       <!-- Tombol -->
-      <a href="#" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 md:px-8 py-2.5 md:py-3 shadow-lg rounded-lg transition transform hover:scale-105 hover:shadow-xl">
+      <a href="/tentang/profile-sekolah" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 md:px-8 py-2.5 md:py-3 shadow-lg rounded-lg transition transform hover:scale-105 hover:shadow-xl">
         Selengkapnya →
       </a>
     </div>
