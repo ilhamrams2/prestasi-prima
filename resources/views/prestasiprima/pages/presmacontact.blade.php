@@ -32,26 +32,26 @@
       <form method="POST" action="{{ route('presmacontact.send') }}" class="space-y-5">
         @csrf
         <div>
-          <label class="block font-semibold text-gray-700 mb-2">Nama Lengkap</label>
-          <input type="text" name="nama" placeholder="Masukkan nama anda"
+          <label for="contact_nama" class="block font-semibold text-gray-700 mb-2">Nama Lengkap</label>
+          <input id="contact_nama" type="text" name="nama" placeholder="Masukkan nama anda"
             class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition">
         </div>
 
         <div>
-          <label class="block font-semibold text-gray-700 mb-2">Email</label>
-          <input type="email" name="email" placeholder="Masukkan email aktif"
+          <label for="contact_email" class="block font-semibold text-gray-700 mb-2">Email</label>
+          <input id="contact_email" type="email" name="email" placeholder="Masukkan email aktif"
             class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition">
         </div>
 
         <div>
-          <label class="block font-semibold text-gray-700 mb-2">Pesan</label>
-          <textarea name="pesan" rows="5" placeholder="Tuliskan pesan atau pertanyaan anda"
+          <label for="contact_message" class="block font-semibold text-gray-700 mb-2">Pesan</label>
+          <textarea id="contact_message" name="pesan" rows="5" placeholder="Tuliskan pesan atau pertanyaan anda"
             class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition"></textarea>
         </div>
 
         <button type="submit"
           class="w-full py-3 bg-orange-600 hover:bg-orange-700 text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <i class="fas fa-paper-plane mr-2"></i> Kirim Sekarang
+          <i class="ri-send-plane-line mr-2"></i> Kirim Sekarang
         </button>
       </form>
     </div>
@@ -66,9 +66,9 @@
 
     {{-- Informasi Kontak --}}
     <div class="space-y-4 text-white/90">
-      <p><i class="fas fa-map-marker-alt text-white/80 mr-3"></i> Jl. Hankam Raya No. 89, Cilangkap, Cipayung, Jakarta Timur, DKI Jakarta</p>
-      <p><i class="fas fa-envelope text-white/80 mr-3"></i> smk.prestasiprima.sch.id</p>
-      <p><i class="fas fa-phone-alt text-white/80 mr-3"></i> +62 851-9592-8886</p>
+  <p><i class="ri-map-pin-line text-white/80 mr-3"></i> Jl. Hankam Raya No. 89, Cilangkap, Cipayung, Jakarta Timur, DKI Jakarta</p>
+  <p><i class="ri-mail-line text-white/80 mr-3"></i> smk.prestasiprima.sch.id</p>
+  <p><i class="ri-phone-line text-white/80 mr-3"></i> +62 851-9592-8886</p>
     </div>
 
     {{-- Social Media --}}
@@ -77,15 +77,15 @@
       <div class="flex items-center gap-4">
         <a href="https://www.facebook.com/p/SMK-Prestasi-PRIMA-100035392916117/"
            class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
-           <i class="fab fa-facebook-f"></i>
+           <i class="ri-facebook-fill"></i>
         </a>
         <a href="https://www.instagram.com/smkprestasiprima/"
            class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
-           <i class="fab fa-instagram"></i>
+           <i class="ri-instagram-line"></i>
         </a>
         <a href="https://www.youtube.com/@SEKOLAHPRESTASIPRIMA"
            class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
-           <i class="fab fa-youtube"></i>
+           <i class="ri-youtube-line"></i>
         </a>
       </div>
     </div>
@@ -103,9 +103,9 @@
   {{-- === MAP === --}}
   <div class="container mx-auto mt-20 px-6 animate-fade-up delay-500">
     <div class="rounded-3xl overflow-hidden shadow-2xl border border-gray-300">
-      <iframe 
+      <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4748268020353!2d106.8972187!3d-6.332476499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed2681bc7c67%3A0x777152b1d3f74a62!2sSMK%20Prestasi%20Prima!5e0!3m2!1sid!2sid!4v1756647265168!5m2!1sid!2sid"
-        width="100%" height="420" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        width="100%" height="420" style="border:0;" allowfullscreen="" loading="lazy" title="Lokasi SMK Prestasi Prima"></iframe>
     </div>
   </div>
 </section>

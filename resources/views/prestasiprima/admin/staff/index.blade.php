@@ -39,14 +39,14 @@
                 <td class="px-6 py-4">{{ ucfirst($staff->kategori) }}</td>
                 <td class="px-6 py-4 flex justify-center gap-2">
                     <a href="{{ route('prestasiprima.admin.staff.show', $staff->id) }}" 
-                       class="text-blue-500 hover:text-blue-700"><i class="fas fa-eye"></i></a>
+                       class="text-blue-500 hover:text-blue-700"><i class="ri-eye-line text-lg"></i></a>
                     <a href="{{ route('prestasiprima.admin.staff.edit', $staff->id) }}" 
-                       class="text-yellow-500 hover:text-yellow-700"><i class="fas fa-edit"></i></a>
+                       class="text-yellow-500 hover:text-yellow-700"><i class="ri-edit-line text-lg"></i></a>
                     <form action="{{ route('prestasiprima.admin.staff.destroy', $staff->id) }}" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="text-red-500 hover:text-red-700">
-                            <i class="fas fa-trash"></i>
+                            <i class="ri-delete-bin-line text-lg"></i>
                         </button>
                     </form>
                 </td>

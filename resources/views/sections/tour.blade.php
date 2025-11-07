@@ -150,7 +150,7 @@
             <div class="tour-subtitle">Rasakan pengalaman imersif menjelajahi SMK Prestasi Prima secara 360°</div>
         </div>
         <a href="{{ route('virtual-tour') }}" class="tour-button">
-            <i class="fas fa-play-circle"></i>
+            <i class="ri-play-circle-line"></i>
             Mulai Virtual Tour
         </a>
     </div>

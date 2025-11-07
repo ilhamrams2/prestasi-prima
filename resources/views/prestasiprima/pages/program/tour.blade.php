@@ -52,12 +52,9 @@
 
         {{-- Icon VR Cardboard --}}
         <div class="absolute top-4 right-4 bg-orange-500/80 p-3 rounded-full shadow-md animate-bounce">
-          <i class="fa-solid fa-vr-cardboard text-white text-xl"></i>
+          <i class="ri-vr-line text-white text-xl"></i>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-{{-- Font Awesome --}}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">

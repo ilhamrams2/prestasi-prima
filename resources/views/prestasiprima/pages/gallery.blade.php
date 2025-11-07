@@ -63,14 +63,14 @@
     <div class="flex flex-wrap justify-center gap-4 mb-16">
         @php
             $icons = [
-                'all' => 'fa-layer-group',
-                'Kegiatan Sekolah' => 'fa-school',
-                'Prestasi' => 'fa-trophy',
-                'Kunjungan' => 'fa-route',
-                'Lomba' => 'fa-medal',
-                'Ekstrakurikuler' => 'fa-people-group',
-                'Kesehatan' => 'fa-heart-pulse',
-                'Olahraga' => 'fa-dumbbell',
+                'all' => 'ri-stack-line',
+                'Kegiatan Sekolah' => 'ri-community-line',
+                'Prestasi' => 'ri-trophy-line',
+                'Kunjungan' => 'ri-route-line',
+                'Lomba' => 'ri-medal-line',
+                'Ekstrakurikuler' => 'ri-team-line',
+                'Kesehatan' => 'ri-heart-pulse-line',
+                'Olahraga' => 'ri-dumbbell-line',
             ];
         @endphp
 
@@ -81,12 +81,12 @@
                 : 'bg-white/60 dark:bg-gray-800/60 text-gray-700 dark:text-gray-200 hover:bg-orange-500 hover:text-white'"
             class="flex items-center gap-2 px-5 py-2.5 text-sm rounded-full font-medium transition-all duration-300 transform hover:scale-105 backdrop-blur-md border border-gray-200 dark:border-gray-700"
         >
-            <i class="fas {{ $icons['all'] }} text-lg"></i>
+            <i class="{{ $icons['all'] }} text-lg"></i>
             <span>Semua</span>
         </button>
 
         @foreach ($categories as $cat)
-            @php $icon = $icons[$cat] ?? 'fa-image'; @endphp
+            @php $icon = $icons[$cat] ?? 'ri-image-line'; @endphp
             <button
                 @click="category='{{ $cat }}'; visible=3"
                 :class="category==='{{ $cat }}' 
@@ -94,7 +94,7 @@
                     : 'bg-white/60 dark:bg-gray-800/60 text-gray-700 dark:text-gray-200 hover:bg-orange-500 hover:text-white'"
                 class="flex items-center gap-2 px-5 py-2.5 text-sm rounded-full font-medium transition-all duration-300 transform hover:scale-105 backdrop-blur-md border border-gray-200 dark:border-gray-700"
             >
-                <i class="fas {{ $icon }} text-lg"></i>
+                <i class="{{ $icon }} text-lg"></i>
                 <span>{{ $cat }}</span>
             </button>
         @endforeach

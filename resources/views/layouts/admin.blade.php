@@ -8,7 +8,6 @@
 
     {{-- FONT & ICON --}}
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
     {{-- VITE --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -37,7 +36,7 @@
       <a href="{{ route('prestasiprima.admin.dashboard') }}"
          class="flex items-center gap-3 px-4 py-2 rounded-lg transition
          {{ $currentRoute === 'prestasiprima.admin.dashboard' ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' }}">
-        <i class="fa-solid fa-house"></i>
+    <i class="ri-home-4-line text-lg"></i>
         <span>Dashboard</span>
       </a>
 
@@ -45,7 +44,7 @@
             <a href="{{ route('prestasiprima.admin.berita.index') }}"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg transition
          {{ str_contains($currentRoute, 'berita') ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' }}">
-                <i class="fa-solid fa-newspaper"></i>
+                <i class="ri-newspaper-line text-lg"></i>
                 <span>Manajemen Berita</span>
             </a>
 
@@ -53,7 +52,7 @@
             <a href="{{ route('prestasiprima.admin.gallery.index') }}"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg transition
          {{ str_contains($currentRoute, 'gallery') ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' }}">
-                <i class="fa-solid fa-image"></i>
+                <i class="ri-image-line text-lg"></i>
                 <span>Manajemen Galeri</span>
             </a>
 
@@ -61,7 +60,7 @@
             <a href="{{ route('prestasiprima.admin.prestasi.index') }}"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg transition
         {{ $currentRoute === 'prestasiprima.admin.prestasi.index' ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' }}">
-                <i class="fa-solid fa-trophy"></i>
+                <i class="ri-trophy-line text-lg"></i>
                 <span>Manajemen Prestasi</span>
             </a>
 
@@ -69,7 +68,7 @@
             <a href="{{ route('prestasiprima.admin.kegiatan.index') }}"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg transition
          {{ str_contains($currentRoute, 'kegiatan') ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' }}">
-                <i class="fa-solid fa-calendar-days"></i>
+                <i class="ri-calendar-event-line text-lg"></i>
                 <span>Manajemen Kegiatan</span>
             </a>
 
@@ -77,7 +76,7 @@
             <a href="{{ route('prestasiprima.admin.staff.index') }}"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg transition
          {{ str_contains($currentRoute, 'staff') ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' }}">
-                <i class="fa-solid fa-user-tie"></i>
+                <i class="ri-user-settings-line text-lg"></i>
                 <span>Manajemen Staff</span>
             </a>
 
@@ -85,7 +84,7 @@
             <a href="#"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg transition
          {{ str_contains($currentRoute, 'karya') ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' }}">
-                <i class="fa-solid fa-lightbulb"></i>
+                <i class="ri-lightbulb-line text-lg"></i>
                 <span>Manajemen Karya & Proyek</span>
             </a>
 
@@ -93,7 +92,7 @@
             <a href="#"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg transition
          {{ str_contains($currentRoute, 'ekstra') ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' }}">
-                <i class="fa-solid fa-people-group"></i>
+                <i class="ri-team-line text-lg"></i>
                 <span>Manajemen Ekstrakurikuler</span>
             </a>
 
@@ -101,7 +100,7 @@
             <a href="{{ route('prestasiprima.admin.industri.index') }}"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg transition
          {{ str_contains($currentRoute, 'industri') ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' }}">
-                <i class="fa-solid fa-building"></i>
+                <i class="ri-building-4-line text-lg"></i>
                 <span>Manajemen Industri</span>
             </a>
 
@@ -109,7 +108,7 @@
             <a href="#"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg transition
          {{ str_contains($currentRoute, 'testimoni') ? 'bg-gray-100 text-gray-900 font-semibold' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' }}">
-                <i class="fa-solid fa-comment-dots"></i>
+                <i class="ri-chat-3-line text-lg"></i>
                 <span>Manajemen Testimoni</span>
             </a>
 
@@ -117,7 +116,7 @@
 
             <a href="/" target="_blank"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition">
-                <i class="fa-solid fa-globe"></i>
+                <i class="ri-earth-line text-lg"></i>
                 <span>Lihat Website</span>
             </a>
         </nav>
@@ -127,7 +126,7 @@
             @csrf
             <button type="submit"
             class="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg shadow-md transition">
-            <i class="fa-solid fa-right-from-bracket"></i>
+            <i class="ri-logout-box-line text-lg"></i>
             Logout
             </button>
         </form>
@@ -141,7 +140,7 @@
             <div class="flex items-center justify-between px-6 py-4">
                 <h2 class="text-xl font-semibold text-gray-800">@yield('title')</h2>
                 <div class="flex items-center gap-3 text-gray-600">
-                    <i class="fa-solid fa-user-circle text-2xl text-gray-700"></i>
+                    <i class="ri-user-3-line text-2xl text-gray-700"></i>
                     <span>Admin</span>
                 </div>
             </div>

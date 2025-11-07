@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+# Removed the custom "Content-signal" directive that Lighthouse flagged as invalid.

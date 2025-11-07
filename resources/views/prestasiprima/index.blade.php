@@ -28,10 +28,6 @@
   <meta name="twitter:title" content="@yield('title', 'SMK Prestasi Prima')">
   <meta name="twitter:description" content="@yield('meta_description', $defaultDescription)">
 
-  {{-- === Fonts & Icons === --}}
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
   {{-- === Favicon === --}}
   <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-smk.png') }}">
   <link rel="apple-touch-icon" href="{{ asset('assets/images/logo-smk.png') }}">
