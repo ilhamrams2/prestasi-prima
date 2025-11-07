@@ -1,6 +1,5 @@
-user-agent: *
-disallow: /downloads/
+User-agent: *
+Disallow: /downloads/
 
-user-agent: magicsearchbot
-disallow: /uploads/
-# Removed the custom "Content-signal" directive that Lighthouse flagged as invalid.
+User-agent: MagicSearchBot
+Disallow: /uploads/
