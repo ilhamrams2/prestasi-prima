@@ -23,13 +23,23 @@ class AchievementController extends Controller
             ->orderBy('nama')
             ->get();
 
+        // Jurusan dengan jumlah prestasi terbanyak
+        $topJurusan = PresmaboardAchievement::selectRaw('presmaboard_students.jurusan, COUNT(*) as total')
+            ->join('presmaboard_students', 'presmaboard_achievements.student_id', '=', 'presmaboard_students.id')
+            ->groupBy('presmaboard_students.jurusan')
+            ->orderByDesc('total')
+            ->first();
+
+    $prestasiNasional = $topJurusan ? mb_strtoupper(trim($topJurusan->jurusan)) : '-';
+
         return view('presmaboard.achievement', [
             'achievements' => $achievements,
             'students' => $students,
             'statistics' => [
                 'total_achievements' => PresmaboardAchievement::count(),
                 'most_achievement_student' => $students->sortByDesc('achievements_count')->first()?->nama,
-            ]
+            ],
+            'prestasiNasional' => $prestasiNasional,
         ]);
     }
 
