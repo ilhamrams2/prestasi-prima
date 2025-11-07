@@ -107,11 +107,27 @@
 
 @section('scripts')
 {{-- AOS Animation & Smooth Scroll --}}
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  AOS.init({
-    duration: 1000,
-    once: true,
+  const initAOSProgram = () => {
+    const config = { duration: 1000, once: true };
+    if (window.initAOS) {
+      return window.initAOS(config);
+    }
+    if (typeof window.ensureAOS === 'function') {
+      return window.ensureAOS().then((AOS) => {
+        AOS.init(config);
+        return AOS;
+      });
+    }
+    if (window.AOS) {
+      window.AOS.init(config);
+      return Promise.resolve(window.AOS);
+    }
+    return Promise.reject(new Error('AOS loader is not available.'));
+  };
+
+  initAOSProgram().catch((error) => {
+    console.error('Failed to initialize AOS on Program page', error);
   });
 
   // Smooth scroll
@@ -125,8 +141,4 @@
     });
   });
 </script>
-@endsection
-
-@section('styles')
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 @endsection

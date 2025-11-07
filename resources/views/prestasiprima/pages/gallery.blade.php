@@ -174,5 +174,4 @@
 .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
 </style>
 
-<script src="//unpkg.com/alpinejs" defer></script>
 @endsection

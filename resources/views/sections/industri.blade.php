@@ -88,7 +88,6 @@
 
 <!-- ================= STYLE ================= -->
 @push('styles')
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <style>
 @keyframes scroll-horizontal {
   0% { transform: translateX(0); }
@@ -129,13 +128,14 @@
 
 <!-- ================= SCRIPT ================= -->
 @push('scripts')
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-  AOS.init({ 
-    once: true, 
-    duration: 1000, 
-    offset: 100, 
-    easing: 'ease-out-cubic' 
-  });
+  const configIndustriSection = { once: true, duration: 1000, offset: 100, easing: 'ease-out-cubic' };
+  if (window.initAOS) {
+    window.initAOS(configIndustriSection).catch((error) => console.error('Failed to initialize AOS on Industri section', error));
+  } else if (typeof window.ensureAOS === 'function') {
+    window.ensureAOS().then((AOS) => AOS.init(configIndustriSection)).catch((error) => console.error('Failed to initialize AOS on Industri section', error));
+  } else if (window.AOS) {
+    window.AOS.init(configIndustriSection);
+  }
 </script>
 @endpush

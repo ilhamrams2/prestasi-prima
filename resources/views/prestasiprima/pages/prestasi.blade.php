@@ -55,31 +55,56 @@
   </div>
 </section>
 
-<!-- SwiperJS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-<!-- AOS -->
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<!-- Swiper fallback when JavaScript is disabled -->
+<noscript>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</noscript>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    new Swiper(".prestasiSwiper", {
-      slidesPerView: 1,
-      spaceBetween: 20,
-      loop: true,
-      autoplay: { delay: 3000, disableOnInteraction: false },
-      pagination: { el: ".swiper-pagination", clickable: true },
-      navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-      breakpoints: {
-        640: { slidesPerView: 2 },
-        768: { slidesPerView: 3 },
-        1024: { slidesPerView: 4 },
-      },
-    });
+    const loadSwiper = () => {
+      if (typeof window.ensureSwiper === 'function') {
+        return window.ensureSwiper();
+      }
+      if (window.Swiper) {
+        return Promise.resolve(window.Swiper);
+      }
+      return Promise.reject(new Error('Swiper loader is not available.'));
+    };
 
-    AOS.init({ duration: 1000, once: true });
+    loadSwiper().then((Swiper) => {
+      new Swiper(".prestasiSwiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: { delay: 3000, disableOnInteraction: false },
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+        breakpoints: {
+          640: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+        },
+      });
+
+      const config = { duration: 1000, once: true };
+      if (window.initAOS) {
+        return window.initAOS(config);
+      }
+      if (typeof window.ensureAOS === 'function') {
+        return window.ensureAOS().then((AOS) => {
+          AOS.init(config);
+          return AOS;
+        });
+      }
+      if (window.AOS) {
+        window.AOS.init(config);
+        return window.AOS;
+      }
+      throw new Error('AOS loader is not available.');
+    }).catch((error) => {
+      console.error('Failed to bootstrap Prestasi Swiper/AOS', error);
+    });
   });
 </script>
 

@@ -55,9 +55,14 @@
 </section>
 
 {{-- AOS Animation --}}
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-  AOS.init({ duration: 900, once: true });
+  const config = { duration: 900, once: true };
+  if (window.initAOS) {
+    window.initAOS(config).catch((error) => console.error('Failed to initialize AOS on Industri page', error));
+  } else if (typeof window.ensureAOS === 'function') {
+    window.ensureAOS().then((AOS) => AOS.init(config)).catch((error) => console.error('Failed to initialize AOS on Industri page', error));
+  } else if (window.AOS) {
+    window.AOS.init(config);
+  }
 </script>
 @endsection

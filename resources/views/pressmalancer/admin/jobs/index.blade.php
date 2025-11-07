@@ -3,7 +3,6 @@
 @section('title', 'Admin - Kelola Lowongan Kerja')
 
 @section('content')
-<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 <div class="min-h-screen bg-gray-50">
     <!-- Admin Header (full-bleed, fixed) -->
     <header class="fixed top-0 left-0 w-full bg-gradient-to-r from-orange-500 to-orange-600 shadow-lg z-40">

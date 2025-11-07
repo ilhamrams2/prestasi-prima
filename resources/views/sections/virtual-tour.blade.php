@@ -95,8 +95,13 @@
 </style>
 
 {{-- AOS --}}
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-  AOS.init({ once: true });
+  const configVirtualTour = { once: true };
+  if (window.initAOS) {
+    window.initAOS(configVirtualTour).catch((error) => console.error('Failed to initialize AOS on Virtual Tour section', error));
+  } else if (typeof window.ensureAOS === 'function') {
+    window.ensureAOS().then((AOS) => AOS.init(configVirtualTour)).catch((error) => console.error('Failed to initialize AOS on Virtual Tour section', error));
+  } else if (window.AOS) {
+    window.AOS.init(configVirtualTour);
+  }
 </script>

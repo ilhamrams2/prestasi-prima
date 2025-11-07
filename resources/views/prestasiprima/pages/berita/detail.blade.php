@@ -218,14 +218,15 @@
   @endpush
 
   @push('scripts')
-    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
-      AOS.init({
-        duration: 800,
-        once: true,
-        offset: 80,
-      });
+      const configBeritaDetail = { duration: 800, once: true, offset: 80 };
+      if (window.initAOS) {
+        window.initAOS(configBeritaDetail).catch((error) => console.error('Failed to initialize AOS on Berita detail', error));
+      } else if (typeof window.ensureAOS === 'function') {
+        window.ensureAOS().then((AOS) => AOS.init(configBeritaDetail)).catch((error) => console.error('Failed to initialize AOS on Berita detail', error));
+      } else if (window.AOS) {
+        window.AOS.init(configBeritaDetail);
+      }
     </script>
   @endpush
 @endsection
