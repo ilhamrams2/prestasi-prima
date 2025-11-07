@@ -42,7 +42,7 @@
             });
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart.js removed from global layout to avoid loading on pages without charts. Loaded lazily where needed. -->
 
 
 

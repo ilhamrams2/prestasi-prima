@@ -69,117 +69,88 @@
         </div>
 
 
-        {{-- ====== CHART JS ====== --}}
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        {{-- ====== CHART JS (lazy-loaded) ====== --}}
         <script>
             const average_major_score = @json($average_major_score);
             const achievement_average = @json($achievement_average);
-            console.log(achievement_average.Apr.length);
 
-            document.addEventListener("DOMContentLoaded", () => {
+            function initCharts() {
+                // avoid running if Chart.js not available
+                if (typeof Chart === 'undefined') return;
+
                 const ctxNilai = document.getElementById('nilaiChart');
-                new Chart(ctxNilai, {
-                    type: 'bar',
-                    data: {
-                        labels: ['BCF', 'PPLG', 'DKV', 'TKJ'].map(k => k.toUpperCase()),
-                        datasets: [{
-                            label: 'Rata-Rata Nilai',
-                            data: [average_major_score.bcf, average_major_score.pplg,
-                                average_major_score.dkv, average_major_score.tkj
-                            ],
-                            backgroundColor: '#f97316',
-                            borderRadius: 6
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
-                        }
-                    }
-                });
-                const ctxPrestasi = document.getElementById('prestasiChart');
-                const namaLomba = [
-                    achievement_average.Jan.desc ?? '',
-                    achievement_average.Feb.desc ?? '',
-                    achievement_average.Mar.desc ?? '',
-                    achievement_average.Apr.desc ?? '',
-                    achievement_average.May.desc ?? '',
-                    achievement_average.Jun.desc ?? '',
-                    achievement_average.Jul.desc ?? '',
-                    achievement_average.Aug.desc ?? '',
-                    achievement_average.Sep.desc ?? '',
-                    achievement_average.Oct.desc ?? '',
-                    achievement_average.Nov.desc ?? '',
-                    achievement_average.Dec.desc ?? '',
-                ];
-
-                new Chart(ctxPrestasi, {
-                    type: 'line',
-                    data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov',
-                            'Dec'
-                        ],
-                        datasets: [{
-                            label: 'Jumlah Kemenangan',
-                            data: [
-                                achievement_average.Jan.count ?? 0,
-                                achievement_average.Feb.count ?? 0,
-                                achievement_average.Mar.count ?? 0,
-                                achievement_average.Apr.count ?? 0,
-                                achievement_average.May.count ?? 0,
-                                achievement_average.Jun.count ?? 0,
-                                achievement_average.Jul.count ?? 0,
-                                achievement_average.Aug.count ?? 0,
-                                achievement_average.Sep.count ?? 0,
-                                achievement_average.Oct.count ?? 0,
-                                achievement_average.Nov.count ?? 0,
-                                achievement_average.Dec.count ?? 0
-                            ],
-                            borderColor: '#f59e0b',
-                            backgroundColor: 'rgba(251, 146, 60, 0.25)',
-                            fill: true,
-                            tension: 0.4,
-                            pointBackgroundColor: '#f97316',
-                            pointRadius: 5,
-                            pointHoverRadius: 7,
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    color: '#374151'
-                                }
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    title: (items) => `Bulan: ${items[0].label}`,
-                                    label: (context) =>
-                                        `${namaLomba[context.dataIndex]} (${context.parsed.y} kemenangan)`
-                                },
+                if (ctxNilai) {
+                    new Chart(ctxNilai, {
+                        type: 'bar',
+                        data: {
+                            labels: ['BCF', 'PPLG', 'DKV', 'TKJ'].map(k => k.toUpperCase()),
+                            datasets: [{
+                                label: 'Rata-Rata Nilai',
+                                data: [average_major_score.bcf, average_major_score.pplg,
+                                    average_major_score.dkv, average_major_score.tkj
+                                ],
                                 backgroundColor: '#f97316',
-                                titleColor: '#fff',
-                                bodyColor: '#fff',
-                                padding: 10,
-                                displayColors: false
+                                borderRadius: 6
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: { y: { beginAtZero: true } },
+                            plugins: { legend: { display: false } }
+                        }
+                    });
+                }
+
+                const ctxPrestasi = document.getElementById('prestasiChart');
+                if (ctxPrestasi) {
+                    const namaLomba = [
+                        achievement_average.Jan?.desc ?? '', achievement_average.Feb?.desc ?? '',
+                        achievement_average.Mar?.desc ?? '', achievement_average.Apr?.desc ?? '',
+                        achievement_average.May?.desc ?? '', achievement_average.Jun?.desc ?? '',
+                        achievement_average.Jul?.desc ?? '', achievement_average.Aug?.desc ?? '',
+                        achievement_average.Sep?.desc ?? '', achievement_average.Oct?.desc ?? '',
+                        achievement_average.Nov?.desc ?? '', achievement_average.Dec?.desc ?? ''
+                    ];
+
+                    new Chart(ctxPrestasi, {
+                        type: 'line',
+                        data: {
+                            labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+                            datasets: [{
+                                label: 'Jumlah Kemenangan',
+                                data: [
+                                    achievement_average.Jan?.count ?? 0, achievement_average.Feb?.count ?? 0,
+                                    achievement_average.Mar?.count ?? 0, achievement_average.Apr?.count ?? 0,
+                                    achievement_average.May?.count ?? 0, achievement_average.Jun?.count ?? 0,
+                                    achievement_average.Jul?.count ?? 0, achievement_average.Aug?.count ?? 0,
+                                    achievement_average.Sep?.count ?? 0, achievement_average.Oct?.count ?? 0,
+                                    achievement_average.Nov?.count ?? 0, achievement_average.Dec?.count ?? 0
+                                ],
+                                borderColor: '#f59e0b',
+                                backgroundColor: 'rgba(251, 146, 60, 0.25)',
+                                fill: true,
+                                tension: 0.4,
+                                pointBackgroundColor: '#f97316',
+                                pointRadius: 5,
+                                pointHoverRadius: 7,
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: { y: { beginAtZero: true } },
+                            plugins: {
+                                legend: { labels: { color: '#374151' } },
+                                tooltip: {
+                                    callbacks: {
+                                        title: (items) => `Bulan: ${items[0].label}`,
+                                        label: (context) => `${namaLomba[context.dataIndex]} (${context.parsed.y} kemenangan)`
+                                    },
+                                    backgroundColor: '#f97316', titleColor: '#fff', bodyColor: '#fff', padding: 10, displayColors: false
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
 
                 // Render sparklines for the stat cards
                 const monthsLabels = @json($months_labels ?? []);
@@ -192,29 +163,29 @@
                     if (!el) return;
                     new Chart(el, {
                         type: 'line',
-                        data: {
-                            labels: monthsLabels,
-                            datasets: [{
-                                data: data,
-                                borderColor: color,
-                                backgroundColor: 'rgba(0,0,0,0)',
-                                tension: 0.3,
-                                pointRadius: 0,
-                                borderWidth: 2
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {legend: {display: false}},
-                            scales: {x: {display: false}, y: {display: false}}
-                        }
+                        data: { labels: monthsLabels, datasets: [{ data: data, borderColor: color, backgroundColor: 'rgba(0,0,0,0)', tension: 0.3, pointRadius: 0, borderWidth: 2 }] },
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
                     });
                 }
 
                 renderSparkline('sparkStudents', studentTrend, '#2563eb');
                 renderSparkline('sparkAchievements', achievementTrend, '#d97706');
                 renderSparkline('sparkProjects', projectTrend, '#f97316');
+            }
+
+            function loadChartJsAndInit() {
+                if (typeof Chart !== 'undefined') { initCharts(); return; }
+                const s = document.createElement('script');
+                s.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+                s.defer = true;
+                s.onload = initCharts;
+                document.head.appendChild(s);
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const canvases = document.querySelectorAll('canvas');
+                const needsCharts = Array.from(canvases).some(c => /^(nilaiChart|prestasiChart|spark)/.test(c.id));
+                if (needsCharts) loadChartJsAndInit();
             });
         </script>
     @endsection
