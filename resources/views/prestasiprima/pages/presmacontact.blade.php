@@ -57,29 +57,47 @@
     </div>
 
     {{-- === CONTACT INFO CARD === --}}
-    <div class="bg-gray-900 text-white rounded-3xl shadow-xl p-10 relative overflow-hidden animate-fade-up delay-300">
-      <div class="absolute inset-0 bg-gradient-to-br from-orange-600/20 to-transparent"></div>
-      <div class="relative z-10 space-y-6">
-        <h3 class="text-3xl font-extrabold text-orange-500 mb-6">Hubungi Kami</h3>
+<div class="bg-gradient-to-br from-orange-500 to-orange-400 text-white rounded-3xl shadow-2xl p-10 relative overflow-hidden animate-fade-up delay-300">
+  {{-- Overlay dekoratif --}}
+  <div class="absolute inset-0 bg-gradient-to-tr from-orange-600/40 to-orange-200/20 rounded-3xl pointer-events-none"></div>
+  
+  <div class="relative z-10 space-y-6">
+    <h3 class="text-3xl font-extrabold text-white mb-6">Hubungi Kami</h3>
 
-        <div class="space-y-4 text-gray-200">
-          <p><i class="fas fa-map-marker-alt text-orange-400 mr-3"></i> Jl. Kayu Manis No.123, Jakarta Timur</p>
-          <p><i class="fas fa-envelope text-orange-400 mr-3"></i> info@smkprestasiprima.sch.id</p>
-          <p><i class="fas fa-phone-alt text-orange-400 mr-3"></i> (021) 555-7890</p>
-          <p><i class="fab fa-whatsapp text-orange-400 mr-3"></i> +62 812 3456 7890</p>
-        </div>
+    {{-- Informasi Kontak --}}
+    <div class="space-y-4 text-white/90">
+      <p><i class="fas fa-map-marker-alt text-white/80 mr-3"></i> Jl. Hankam Raya No. 89, Cilangkap, Cipayung, Jakarta Timur, DKI Jakarta</p>
+      <p><i class="fas fa-envelope text-white/80 mr-3"></i> smk.prestasiprima.sch.id</p>
+      <p><i class="fas fa-phone-alt text-white/80 mr-3"></i> +62 851-9592-8886</p>
+    </div>
 
-        <div class="pt-6">
-          <h4 class="text-lg font-semibold mb-3">Ikuti Kami</h4>
-          <div class="flex space-x-5 text-2xl">
-            <a href="#" class="hover:text-orange-400 transition"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="hover:text-orange-400 transition"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="hover:text-orange-400 transition"><i class="fab fa-tiktok"></i></a>
-            <a href="#" class="hover:text-orange-400 transition"><i class="fab fa-youtube"></i></a>
-          </div>
-        </div>
+    {{-- Social Media --}}
+    <div class="pt-6">
+      <h4 class="text-lg font-semibold mb-3">Ikuti Kami</h4>
+      <div class="flex items-center gap-4">
+        <a href="https://www.facebook.com/p/SMK-Prestasi-PRIMA-100035392916117/"
+           class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
+           <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/smkprestasiprima/"
+           class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
+           <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.youtube.com/@SEKOLAHPRESTASIPRIMA"
+           class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
+           <i class="fab fa-youtube"></i>
+        </a>
       </div>
     </div>
+
+    {{-- Info tambahan opsional --}}
+    <div class="mt-6 bg-white/20 p-4 rounded-xl text-white/90 text-sm">
+      <p><strong>Jam Operasional:</strong> Senin - Jumat, 08:00 - 16:00</p>
+      <p><strong>Website:</strong> <a href="https://smk.prestasiprima.sch.id" class="underline hover:text-white">smk.prestasiprima.sch.id</a></p>
+    </div>
+  </div>
+</div>
+
   </div>
 
   {{-- === MAP === --}}

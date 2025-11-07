@@ -100,11 +100,23 @@
 </section>
 
 {{-- ========== PROSPEK KARIR ========== --}}
-<section class="py-24 bg-gradient-to-r from-orange-500 to-orange-400 relative overflow-hidden">
-  <div class="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml,%3Csvg width=\'24\' height=\'24\' ... %3E')]"></div>
+<section class="py-24 relative overflow-hidden bg-gradient-to-r from-orange-500 to-orange-400">
+  {{-- === Latar Ornament === --}}
+  <div class="absolute inset-0">
+    <img src="{{ asset('assets/images/ornamentbg.png') }}" 
+         alt="Ornament Background"
+         class="w-full h-full object-cover opacity-20 mix-blend-overlay">
+  </div>
 
+  {{-- === Overlay tambahan halus === --}}
+  <div class="absolute inset-0 bg-gradient-to-br from-orange-600/30 via-orange-400/10 to-transparent"></div>
+
+  {{-- === Konten utama === --}}
   <div class="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
-    <h3 class="text-3xl font-bold text-white text-center mb-14">Prospek Karir</h3>
+    <h3 class="text-3xl md:text-4xl font-extrabold text-white text-center mb-14 tracking-tight">
+      Prospek Karir
+    </h3>
+
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
       @foreach([
         ['globe', 'Front-End Developer', '6–12 jt/bulan'],
@@ -114,9 +126,9 @@
         ['layout', 'UI/UX Designer', '6–12 jt/bulan'],
         ['gamepad', 'Game Developer', '8–11 jt/bulan'],
       ] as [$icon, $title, $salary])
-        <div class="bg-white/15 backdrop-blur-lg border border-white/20 rounded-2xl p-6 text-white hover:-translate-y-1 hover:shadow-lg transition">
+        <div class="group bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl p-6 text-white hover:-translate-y-2 hover:shadow-2xl hover:bg-white/25 transition-all duration-500">
           <div class="flex items-start gap-4">
-            <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/20">
+            <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/20 group-hover:bg-white/30 transition">
               <i data-lucide="{{ $icon }}" class="w-6 h-6"></i>
             </div>
             <div>
@@ -129,6 +141,7 @@
     </div>
   </div>
 </section>
+
 
 {{-- ========== TOOLS & EQUIPMENT ========== --}}
 <section class="py-24 bg-white text-center overflow-hidden">
