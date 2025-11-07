@@ -125,7 +125,7 @@
       Jadilah bagian dari sekolah yang mendukung potensi dan kreativitas Anda. 
       Kami siap menyambut langkah pertama Anda menuju masa depan yang gemilang.
     </p>
-    <a href="/presma/pendaftaran" 
+    <a href="/pendaftaran" 
        class="bg-orange-500 hover:bg-orange-600 shadow-lg hover:shadow-xl text-white font-semibold px-12 py-4 rounded-full transition duration-300">
       Daftar Sekarang
     </a>
