@@ -2,6 +2,30 @@
 @section('title', 'Berita Prestasi Prima')
 
 @section('content')
+
+@php
+  $resolveLocalThumbnail = function (?string $videoId, ?string $fallback = null) {
+    $candidates = [];
+
+    if ($videoId) {
+      $candidates[] = "assets/images/video-thumbnails/{$videoId}.webp";
+      $candidates[] = "assets/images/video-thumbnails/{$videoId}.jpg";
+      $candidates[] = "assets/images/video-thumbnails/{$videoId}.png";
+    }
+
+    if ($fallback && !\Illuminate\Support\Str::startsWith($fallback, ['http://', 'https://'])) {
+      $candidates[] = ltrim($fallback, '/');
+    }
+
+    foreach ($candidates as $candidate) {
+      if (file_exists(public_path($candidate))) {
+        return $candidate;
+      }
+    }
+
+    return null;
+  };
+@endphp
 <section class="bg-gray-50 relative z-10 pt-28 md:pt-36 pb-20">
   <div class="max-w-7xl mx-auto px-4 md:px-8">
 
@@ -124,16 +148,37 @@
                   elseif(Str::contains($url,'youtu.be/')) $videoId = Str::after($url,'youtu.be/');
                   else $videoId = $url;
                   $videoId = Str::before($videoId,'&');
-                  $embedUrl = "https://www.youtube.com/embed/{$videoId}";
+                  $thumbnailPath = $resolveLocalThumbnail($videoId, $video->thumbnail ?? null);
+                  $videoGradients = [
+                    'from-orange-500 via-orange-400 to-orange-600',
+                    'from-sky-500 via-blue-500 to-indigo-600',
+                    'from-emerald-500 via-teal-500 to-sky-500',
+                    'from-rose-500 via-pink-500 to-purple-600',
+                  ];
+                  $gradient = $videoGradients[$loop->index % count($videoGradients)];
                 @endphp
                 <div class="rounded-xl overflow-hidden shadow-md bg-white hover:shadow-lg transition" data-aos="fade-up">
-                  <iframe src="{{ $embedUrl }}" title="{{ $video->title }}" class="w-full h-56" allowfullscreen loading="lazy"></iframe>
+                  @if(!empty($videoId))
+                    @include('components.youtube-lite', [
+                        'videoId' => $videoId,
+                        'title' => $video->title,
+                        'gradient' => $gradient,
+                        'thumbnailPath' => $thumbnailPath,
+                        'wrapperClass' => 'w-full',
+                        'behavior' => 'inline'
+                    ])
+                  @else
+                    <div class="w-full h-56 flex items-center justify-center bg-gray-100 text-gray-500">
+                      {{ $video->title }}
+                    </div>
+                  @endif
                   <div class="p-4">
                     <h3 class="font-semibold text-gray-900 text-sm line-clamp-2">{{ $video->title }}</h3>
                   </div>
                 </div>
               @endforeach
             </div>
+            @include('components.youtube-lite-script')
           </div>
         @endif
 

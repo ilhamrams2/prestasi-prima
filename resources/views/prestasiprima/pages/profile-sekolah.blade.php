@@ -5,6 +5,30 @@
 
 @section('content')
 
+@php
+    $resolveLocalThumbnail = function (?string $videoId, ?string $fallback = null) {
+        $candidates = [];
+
+        if ($videoId) {
+            $candidates[] = "assets/images/video-thumbnails/{$videoId}.webp";
+            $candidates[] = "assets/images/video-thumbnails/{$videoId}.jpg";
+            $candidates[] = "assets/images/video-thumbnails/{$videoId}.png";
+        }
+
+        if ($fallback && !\Illuminate\Support\Str::startsWith($fallback, ['http://', 'https://'])) {
+            $candidates[] = ltrim($fallback, '/');
+        }
+
+        foreach ($candidates as $candidate) {
+            if (file_exists(public_path($candidate))) {
+                return $candidate;
+            }
+        }
+
+        return null;
+    };
+@endphp
+
 <!-- ====================== HERO SECTION ====================== -->
 <section class="relative bg-gradient-to-br from-orange-500 via-orange-400 to-yellow-300 text-white pt-36 pb-28 overflow-hidden">
     <!-- Background Image -->
@@ -145,7 +169,7 @@
         {{-- Kepala Sekolah --}}
         <div data-aos="fade-right" data-aos-duration="900" class="flex justify-center">
             <div class="relative group">
-                <img src="{{ asset('assets/images/section/tentang/kepala-sekolah.png') }}" 
+                <img src="{{ asset('assets/images/section/tentang/kepala-sekolah.png') }}"
                      alt="Kepala Sekolah SMK Prestasi Prima"
                      class="rounded-3xl shadow-2xl w-80 md:w-96 h-auto object-cover transform transition duration-700 ease-out group-hover:scale-105 group-hover:shadow-orange-300/50">
             </div>
@@ -158,8 +182,8 @@
             </h2>
             <p class="text-orange-50 leading-relaxed mb-6 text-justify">
                 <span class="block mb-3">Assalamu’alaikum Warahmatullahi Wabarakatuh.</span>
-                Dengan penuh rasa syukur, SMK Prestasi Prima terus berkomitmen menjadi lembaga pendidikan 
-                yang tidak hanya menyiapkan peserta didik untuk dunia kerja, tetapi juga membentuk karakter unggul, 
+                Dengan penuh rasa syukur, SMK Prestasi Prima terus berkomitmen menjadi lembaga pendidikan
+                yang tidak hanya menyiapkan peserta didik untuk dunia kerja, tetapi juga membentuk karakter unggul,
                 kreatif, dan berdaya saing global di era modern ini.
             </p>
 
@@ -202,17 +226,25 @@ document.addEventListener("DOMContentLoaded", function() {
             Saksikan sekilas perjalanan dan suasana belajar di SMK Prestasi Prima melalui video berikut.
         </p>
 
-        <div class="relative w-full max-w-4xl mx-auto pb-[56.25%] overflow-hidden rounded-2xl shadow-xl group">
-            <iframe class="absolute top-0 left-0 w-full h-full rounded-2xl transform transition duration-700 ease-in-out group-hover:scale-105 group-hover:shadow-2xl"
-                    src="https://www.youtube.com/embed/EYzn0caf0_k?si=rCs4oPLk_iowbcV8"
-                    title="Video Profil SMK Prestasi Prima"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen></iframe>
+        @php
+            $profileVideoId = 'EYzn0caf0_k';
+            $profileGradient = 'from-orange-500 via-orange-400 to-yellow-300';
+            $profileThumbnail = $resolveLocalThumbnail($profileVideoId);
+        @endphp
+        <div class="relative w-full max-w-4xl mx-auto overflow-hidden rounded-2xl shadow-xl group">
+            @include('components.youtube-lite', [
+                'videoId' => $profileVideoId,
+                'title' => 'Video Profil SMK Prestasi Prima',
+                'gradient' => $profileGradient,
+                'thumbnailPath' => $profileThumbnail,
+                'wrapperClass' => 'w-full',
+                'behavior' => 'inline'
+            ])
         </div>
     </div>
 </section>
+
+@include('components.youtube-lite-script')
 
 <!-- ====================== TESTIMONI LINK SECTION ====================== -->
 <section class="py-24 bg-white text-center text-gray-800 relative z-10 overflow-hidden">
@@ -240,9 +272,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 Lokasi <span class="bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">Sekolah</span>
             </h2>
             <p class="text-gray-600 text-lg mb-14 max-w-3xl mx-auto leading-relaxed">
-                Temukan <span class="text-orange-600 font-semibold">SMK Prestasi Prima</span> — pusat pendidikan unggulan 
-                yang membina generasi profesional masa depan. 
-                Terletak strategis di kawasan yang mudah dijangkau, 
+                Temukan <span class="text-orange-600 font-semibold">SMK Prestasi Prima</span> — pusat pendidikan unggulan
+                yang membina generasi profesional masa depan.
+                Terletak strategis di kawasan yang mudah dijangkau,
                 sekolah kami menghadirkan lingkungan belajar modern dan inspiratif.
             </p>
         </div>
@@ -263,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <h3 class="text-2xl font-bold mb-3 text-orange-600">Alamat Lengkap</h3>
             <p class="text-gray-700 leading-relaxed">
                 <strong>SMK Prestasi Prima</strong><br>
-                Jl. Hankam Raya No.89, RT.4/RW.5, Cilangkap, Kec. Cipayung, 
+                Jl. Hankam Raya No.89, RT.4/RW.5, Cilangkap, Kec. Cipayung,
                 Kota Jakarta Timur, DKI Jakarta 13870<br>
                 <span class="italic text-orange-500">Dekat dengan Markas Besar TNI Angkatan Laut Cilangkap</span>
             </p>

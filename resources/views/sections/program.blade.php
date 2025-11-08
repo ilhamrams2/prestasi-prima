@@ -114,41 +114,45 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 relative z-10">
-          <div class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 hover:shadow-xl transition group cursor-pointer"
-            role="button" tabindex="0"
-            onclick="openVideoModal('https://www.youtube.com/embed/Asi93VHxRgs')"
-            onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); openVideoModal('https://www.youtube.com/embed/Asi93VHxRgs'); }">
-            <div class="relative">
-              <img src="https://img.youtube.com/vi/Asi93VHxRgs/hqdefault.jpg" alt="Study & Career Expo"
-                class="w-full h-36 sm:h-40 object-cover group-hover:scale-105 transition">
-              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                <i class="ph ph-play-circle text-white text-5xl sm:text-6xl"></i>
-              </div>
-            </div>
-            <div class="p-3 text-center">
-              <h4 class="font-semibold text-gray-800 text-sm">Study & Career Expo 2025</h4>
-              <p class="text-xs text-gray-500">Pameran karya dan inovasi siswa dari berbagai jurusan.</p>
-            </div>
-          </div>
+        @php
+          $programVideoCards = [
+            [
+              'id' => 'Asi93VHxRgs',
+              'title' => 'Study & Career Expo 2025',
+              'description' => 'Pameran karya dan inovasi siswa dari berbagai jurusan.',
+              'gradient' => 'from-orange-500 via-orange-400 to-orange-600',
+              'thumbnail' => 'assets/images/video-thumbnails/Asi93VHxRgs.webp',
+            ],
+            [
+              'id' => 'zQYlLdHDCOI',
+              'title' => 'Saintek Semua Jurusan',
+              'description' => 'Kolaborasi siswa lintas jurusan dalam ajang lomba teknologi.',
+              'gradient' => 'from-sky-500 via-blue-500 to-indigo-600',
+              'thumbnail' => 'assets/images/video-thumbnails/zQYlLdHDCOI.webp',
+            ],
+          ];
+        @endphp
 
-          <div class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 hover:shadow-xl transition group cursor-pointer"
-            role="button" tabindex="0"
-            onclick="openVideoModal('https://www.youtube.com/embed/zQYlLdHDCOI')"
-            onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); openVideoModal('https://www.youtube.com/embed/zQYlLdHDCOI'); }">
-            <div class="relative">
-              <img src="https://img.youtube.com/vi/zQYlLdHDCOI/hqdefault.jpg" alt="Saintek Semua Jurusan"
-                class="w-full h-36 sm:h-40 object-cover group-hover:scale-105 transition">
-              <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                <i class="ph ph-play-circle text-white text-5xl sm:text-6xl"></i>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 relative z-10">
+          @foreach ($programVideoCards as $video)
+            <div class="bg-white rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition focus-within:ring-2 focus-within:ring-orange-300">
+              @include('components.youtube-lite', [
+                  'videoId' => $video['id'],
+                  'title' => $video['title'],
+                  'gradient' => $video['gradient'],
+                  'thumbnailPath' => $video['thumbnail'],
+                  'wrapperClass' => 'cursor-pointer',
+                  'behavior' => 'modal'
+              ])
+              <div class="p-3 text-center">
+                <h4 class="font-semibold text-gray-800 text-sm">{{ $video['title'] }}</h4>
+                <p class="text-xs text-gray-500">{{ $video['description'] }}</p>
               </div>
             </div>
-            <div class="p-3 text-center">
-              <h4 class="font-semibold text-gray-800 text-sm">Saintek Semua Jurusan</h4>
-              <p class="text-xs text-gray-500">Kolaborasi siswa lintas jurusan dalam ajang lomba teknologi.</p>
-            </div>
-          </div>
+          @endforeach
         </div>
+
+        @include('components.youtube-lite-script')
 
         <div class="relative text-center mt-5 sm:mt-6">
           <a href="#galeri-video"
@@ -168,7 +172,9 @@
         class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition">
         <i class="ph ph-x text-xl"></i>
       </button>
-  <iframe id="videoFrame" title="Video Jurusan" class="w-full aspect-video" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe id="videoFrame" title="Video Jurusan" class="w-full aspect-video" src=""
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </div>
   </div>
 </section>
@@ -421,31 +427,44 @@
         });
 
         // Support keyboard ESC untuk menutup detail bila terbuka
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") {
-                if (!wrapper.classList.contains("hidden")) hideDetail();
-                // juga tutup video modal jika terbuka
-                closeVideoModal();
-            }
-        });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        if (!wrapper.classList.contains("hidden")) hideDetail();
+        // juga tutup video modal jika terbuka
+        window.closeVideoModal();
+      }
+    });
     });
 
-    // Modal Video (simple)
-    function openVideoModal(url) {
-        const modal = document.getElementById("videoModal");
-        const iframe = document.getElementById("videoFrame");
-        iframe.src = url;
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
+  // Modal Video (lite trigger)
+  window.openVideoModal = function(videoId, title = 'Video Jurusan') {
+    const modal = document.getElementById("videoModal");
+    const iframe = document.getElementById("videoFrame");
+    if (!modal || !iframe || !videoId) {
+      return;
     }
 
-    function closeVideoModal() {
-        const modal = document.getElementById("videoModal");
-        const iframe = document.getElementById("videoFrame");
-        if (iframe) iframe.src = "";
-        if (modal) {
-            modal.classList.add("hidden");
-            modal.classList.remove("flex");
-        }
+    const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0`;
+    iframe.src = embedUrl;
+    iframe.dataset.videoId = videoId;
+    iframe.setAttribute('title', title || 'Video Jurusan');
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    if (typeof iframe.focus === 'function') {
+      iframe.focus();
     }
+  };
+
+  window.closeVideoModal = function() {
+    const modal = document.getElementById("videoModal");
+    const iframe = document.getElementById("videoFrame");
+    if (iframe) {
+      iframe.removeAttribute('data-video-id');
+      iframe.src = "";
+    }
+    if (modal) {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+  };
 </script>

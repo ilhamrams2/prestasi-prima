@@ -17,6 +17,30 @@
     }"
 >
 
+    @php
+        $resolveLocalThumbnail = function (?string $videoId, ?string $fallback = null) {
+            $candidates = [];
+
+            if ($videoId) {
+                $candidates[] = "assets/images/video-thumbnails/{$videoId}.webp";
+                $candidates[] = "assets/images/video-thumbnails/{$videoId}.jpg";
+                $candidates[] = "assets/images/video-thumbnails/{$videoId}.png";
+            }
+
+            if ($fallback && !\Illuminate\Support\Str::startsWith($fallback, ['http://', 'https://'])) {
+                $candidates[] = ltrim($fallback, '/');
+            }
+
+            foreach ($candidates as $candidate) {
+                if (file_exists(public_path($candidate))) {
+                    return $candidate;
+                }
+            }
+
+            return null;
+        };
+    @endphp
+
     {{-- ====================== JUDUL UTAMA ====================== --}}
     <div class="text-center mb-12">
         <h1 class="text-3xl md:text-4xl font-extrabold text-blue-900 dark:text-white mb-3 tracking-tight animate-fade-down">
@@ -34,22 +58,22 @@
                 @php
                     preg_match("/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|live\/))([\w\-]+)/", $galleries->first()->video_url, $matches);
                     $videoId = $matches[1] ?? null;
+                    $heroThumbnail = $resolveLocalThumbnail($videoId, $galleries->first()->thumbnail_url ?? null);
                 @endphp
                 @if($videoId)
-                    <iframe 
-                        class="w-full aspect-video rounded-2xl"
-                        src="https://www.youtube.com/embed/{{ $videoId }}"
-                        title="{{ $galleries->first()->title }}"
-                        frameborder="0"
-                        allowfullscreen
-                        loading="lazy">
-                    </iframe>
+                    @include('components.youtube-lite', [
+                        'videoId' => $videoId,
+                        'title' => $galleries->first()->title,
+                        'gradient' => 'from-orange-500 via-orange-400 to-orange-600',
+                        'thumbnailPath' => $heroThumbnail,
+                        'wrapperClass' => 'w-full h-full',
+                        'behavior' => 'inline'
+                    ])
+                    @include('components.youtube-lite-script')
                 @else
-                    <img 
-                        src="{{ $galleries->first()->thumbnail_url ?? asset('images/no-thumbnail.jpg') }}"
-                        alt="{{ $galleries->first()->title }}"
-                        class="w-full aspect-video object-cover rounded-2xl"
-                    >
+                    <div class="w-full aspect-video flex items-center justify-center bg-gray-100 text-gray-500 rounded-2xl">
+                        Tidak ada video tersedia
+                    </div>
                 @endif
             @else
                 <div class="w-full aspect-video flex items-center justify-center bg-gray-100 text-gray-500 rounded-2xl">
@@ -76,8 +100,8 @@
 
         <button
             @click="category='all'; visible=3"
-            :class="category==='all' 
-                ? 'bg-gradient-to-r from-orange-600 to-orange-500 text-white shadow-lg scale-105' 
+            :class="category==='all'
+                ? 'bg-gradient-to-r from-orange-600 to-orange-500 text-white shadow-lg scale-105'
                 : 'bg-white/60 dark:bg-gray-800/60 text-gray-700 dark:text-gray-200 hover:bg-orange-500 hover:text-white'"
             class="flex items-center gap-2 px-5 py-2.5 text-sm rounded-full font-medium transition-all duration-300 transform hover:scale-105 backdrop-blur-md border border-gray-200 dark:border-gray-700"
         >
@@ -89,8 +113,8 @@
             @php $icon = $icons[$cat] ?? 'ri-image-line'; @endphp
             <button
                 @click="category='{{ $cat }}'; visible=3"
-                :class="category==='{{ $cat }}' 
-                    ? 'bg-gradient-to-r from-orange-600 to-orange-500 text-white shadow-lg scale-105' 
+                :class="category==='{{ $cat }}'
+                    ? 'bg-gradient-to-r from-orange-600 to-orange-500 text-white shadow-lg scale-105'
                     : 'bg-white/60 dark:bg-gray-800/60 text-gray-700 dark:text-gray-200 hover:bg-orange-500 hover:text-white'"
                 class="flex items-center gap-2 px-5 py-2.5 text-sm rounded-full font-medium transition-all duration-300 transform hover:scale-105 backdrop-blur-md border border-gray-200 dark:border-gray-700"
             >
@@ -114,29 +138,33 @@
                         @php
                             preg_match("/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|live\/))([\w\-]+)/", $item->video_url, $matches);
                             $videoId = $matches[1] ?? null;
+                            $cardThumbnail = $resolveLocalThumbnail($videoId, $item->thumbnail_url ?? null);
+                            $gradients = [
+                                'from-orange-500 via-orange-400 to-orange-600',
+                                'from-sky-500 via-blue-500 to-indigo-600',
+                                'from-emerald-500 via-teal-500 to-sky-500',
+                                'from-amber-500 via-orange-600 to-rose-500',
+                            ];
+                            $gradient = $gradients[$loop->index % count($gradients)];
                         @endphp
                         @if($videoId)
-                            <iframe 
-                                class="w-full aspect-video rounded-t-2xl transition-transform duration-300 hover:scale-[1.03]"
-                                src="https://www.youtube.com/embed/{{ $videoId }}"
-                                title="{{ $item->title }}"
-                                frameborder="0"
-                                allowfullscreen
-                                loading="lazy">
-                            </iframe>
+                            @include('components.youtube-lite', [
+                                'videoId' => $videoId,
+                                'title' => $item->title,
+                                'gradient' => $gradient,
+                                'thumbnailPath' => $cardThumbnail,
+                                'wrapperClass' => 'w-full',
+                                'behavior' => 'inline'
+                            ])
                         @else
-                            <img 
-                                src="{{ $item->thumbnail_url ?? asset('images/no-thumbnail.jpg') }}"
-                                alt="{{ $item->title }}"
-                                class="w-full aspect-video object-cover rounded-t-2xl transition-transform duration-300 hover:scale-[1.05]"
-                            >
+                            <div class="w-full aspect-video flex items-center justify-center bg-gray-100 text-gray-500 rounded-t-2xl">
+                                {{ $item->title }}
+                            </div>
                         @endif
                     @else
-                        <img 
-                            src="{{ $item->thumbnail_url ?? asset('images/no-thumbnail.jpg') }}"
-                            alt="{{ $item->title }}"
-                            class="w-full aspect-video object-cover rounded-t-2xl transition-transform duration-300 hover:scale-[1.05]"
-                        >
+                        <div class="w-full aspect-video flex items-center justify-center bg-gray-100 text-gray-500 rounded-t-2xl">
+                            {{ $item->title }}
+                        </div>
                     @endif
 
                     <div class="p-5 text-center">
