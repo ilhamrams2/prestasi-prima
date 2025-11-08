@@ -121,14 +121,14 @@
               'title' => 'Study & Career Expo 2025',
               'description' => 'Pameran karya dan inovasi siswa dari berbagai jurusan.',
               'gradient' => 'from-orange-500 via-orange-400 to-orange-600',
-              'thumbnail' => 'assets/images/video-thumbnails/Asi93VHxRgs.webp',
+              'thumbnail' => 'assets/images/video-thumbnails/study.webp',
             ],
             [
               'id' => 'zQYlLdHDCOI',
               'title' => 'Saintek Semua Jurusan',
               'description' => 'Kolaborasi siswa lintas jurusan dalam ajang lomba teknologi.',
               'gradient' => 'from-sky-500 via-blue-500 to-indigo-600',
-              'thumbnail' => 'assets/images/video-thumbnails/zQYlLdHDCOI.webp',
+              'thumbnail' => 'assets/images/video-thumbnails/saintek.webp',
             ],
           ];
         @endphp

@@ -19,7 +19,7 @@
   <div id="skipBtnContainer" 
        class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30 w-full flex justify-center">
     <button id="skipBtn"
-            class="bg-orange-500 hover:bg-orange-700 text-white px-4 py-2 rounded-md shadow-md text-sm font-medium transition w-full max-w-[120px] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-orange-200 focus-visible:ring-offset-orange-900/60">
+            class="bg-orange-500 hover:bg-orange-700 text-white px-4 py-2 rounded-md shadow-md text-sm font-medium transition w-full max-w-[120px] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-orange-200 focus-visible:ring-offset-orange-500">
       <span class="sr-only">Lewati video intro</span>
       <span aria-hidden="true">Lewati →</span>
     </button>
@@ -73,7 +73,7 @@
   <div class="absolute top-28 right-0 md:top-32 flex flex-col items-end z-20 space-y-3">
     <!-- Toggle Button -->
     <button id="toggleSocial" aria-label="Buka panel sosial"
-    class="bg-orange-800 hover:bg-orange-900 text-white w-12 h-12 md:w-14 md:h-14 rounded-l-2xl shadow-lg flex items-center justify-center transition opacity-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-200 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-900/70">
+    class="bg-orange-500 hover:bg-orange-700 text-white w-12 h-12 md:w-14 md:h-14 rounded-l-2xl shadow-lg flex items-center justify-center transition opacity-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-200 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-500">
   <i class="ri-share-forward-line text-xl"></i>
     </button>
 

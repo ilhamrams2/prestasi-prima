@@ -25,7 +25,7 @@
     {{-- Tombol CTA --}}
     <div class="flex flex-col items-center">
     <a href="{{ route('virtual-tour') }}"
-  class="inline-block bg-orange-800 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl hover:bg-orange-900 transition transform hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-200 focus-visible:ring-offset-2"
+  class="inline-block bg-orange-500 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl hover:bg-orange-700 transition transform hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-200 focus-visible:ring-offset-2"
          data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="250">
          Mulai Virtual Tour
       </a>
@@ -42,7 +42,7 @@
            onclick="window.location='{{ route('virtual-tour') }}'">
         
         {{-- Badge 360° --}}
-  <span class="absolute top-4 left-4 bg-orange-900/80 text-white text-xs font-bold px-2 py-1 rounded-full">
+  <span class="absolute top-4 left-4 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">
           360° Virtual Tour
         </span>
 
@@ -56,7 +56,7 @@
           </h3>
         </div>
 
-  <div class="absolute top-4 right-4 bg-orange-900/80 p-3 rounded-full shadow-lg animate-bounce icon-vr">
+  <div class="absolute top-4 right-4 bg-orange-500 p-3 rounded-full shadow-lg animate-bounce icon-vr">
           <i class="fa-solid fa-vr-cardboard text-white text-lg md:text-xl"></i>
         </div>
       </div>
