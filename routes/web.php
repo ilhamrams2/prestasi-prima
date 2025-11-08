@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\GoogleController;
+use Illuminate\Support\Facades\Response;
 // ============================================================
 // ===================== IMPORT CONTROLLERS ===================
 // ============================================================
@@ -85,6 +86,7 @@ Route::get('/test-google', function () {
         ? 'Class found'
         : 'Class NOT found';
 });
+
 
 // ============================================================
 // ===================== PRESTASIPRIMA ========================
