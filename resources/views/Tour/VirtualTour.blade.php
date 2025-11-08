@@ -407,15 +407,15 @@
         ======================================= */
         const scenes = [
             { name: 'Field', file: "{{ asset('assets/360View/v360-1.jpg') }}" },
-            { name: 'Cooperative', file: "{{ asset('assets/360View/v360-2.jpg') }}" },
+            { name: 'Hallway', file: "{{ asset('assets/360View/v360-2.jpg') }}" },
+            { name: 'Regular Class', file: "{{ asset('assets/360View/v360-8.jpg') }}" },
             { name: 'Cafeteria', file: "{{ asset('assets/360View/v360-3.jpg') }}" },
-            { name: 'Corridor', file: "{{ asset('assets/360View/v360-4.jpg') }}" },
-            { name: 'Executive', file: "{{ asset('assets/360View/v360-5.jpg') }}" },
+            { name: 'Cafetaria Hallway', file: "{{ asset('assets/360View/v360-4.jpg') }}" },
             { name: 'Executive Class', file: "{{ asset('assets/360View/v360-6.jpg') }}" },
             { name: 'PPLG Laboratory', file: "{{ asset('assets/360View/v360-7.jpg') }}" },
-            { name: 'BC Laboratory', file: "{{ asset('assets/360View/v360-8.jpg') }}" },
-            { name: 'Regular Class', file: "{{ asset('assets/360View/v360-9.jpg') }}" },
-            { name: 'Pathway', file: "{{ asset('assets/360View/v360-10.jpg') }}" },
+            { name: 'BC Laboratory', file: "{{ asset('assets/360View/v360-8(2).jpg') }}" },
+            { name: 'C Building 3rd floor', file: "{{ asset('assets/360View/v360-9.jpg') }}" },
+            { name: 'Executive Corridor', file: "{{ asset('assets/360View/v360-10.jpg') }}" },
             { name: 'Library', file: "{{ asset('assets/360View/v360-11.jpg') }}" }
         ];
 
