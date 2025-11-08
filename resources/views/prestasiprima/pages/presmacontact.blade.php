@@ -23,11 +23,19 @@
   </div>
 
   {{-- === MAIN CONTENT === --}}
-  <div class="relative z-10 container mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-start">
+<div class="relative z-10 container mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-stretch">
 
-    {{-- === FORM === --}}
-    <div class="bg-white/80 backdrop-blur-md border border-gray-200 shadow-xl rounded-3xl p-6 sm:p-8 hover:shadow-2xl transition-all duration-500 animate-fade-up">
+  {{-- === FORM KONTAK === --}}
+  <div class="bg-white/80 backdrop-blur-md border border-gray-200 shadow-xl rounded-3xl p-6 sm:p-8 h-full flex flex-col justify-between hover:shadow-2xl transition-all duration-500 animate-fade-up">
+    <div>
       <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-gray-300">Kirim Pesan</h3>
+
+      {{-- === SUCCESS MESSAGE === --}}
+      @if(session('success'))
+        <div class="p-3 mb-5 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+          {{ session('success') }}
+        </div>
+      @endif
 
       <form method="POST" action="{{ route('presmacontact.send') }}" class="space-y-5">
         @csrf
@@ -44,53 +52,110 @@
         </div>
 
         <div>
+          <label class="block font-semibold text-gray-700 mb-2 text-sm sm:text-base">Nomor Telepon</label>
+          <input type="tel" name="telepon" placeholder="Masukkan nomor telepon aktif"
+            class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition text-sm sm:text-base">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-gray-700 mb-2 text-sm sm:text-base">Kategori Pesan</label>
+          <select name="kategori"
+            class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition text-sm sm:text-base">
+            <option value="">-- Pilih kategori --</option>
+            <option value="pertanyaan">Pertanyaan</option>
+            <option value="kerjasama">Kerja Sama</option>
+            <option value="pengaduan">Pengaduan</option>
+            <option value="lainnya">Lainnya</option>
+          </select>
+        </div>
+
+        <div>
           <label class="block font-semibold text-gray-700 mb-2 text-sm sm:text-base">Pesan</label>
           <textarea name="pesan" rows="5" placeholder="Tuliskan pesan atau pertanyaan anda"
             class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition text-sm sm:text-base"></textarea>
         </div>
 
-        <button type="submit"
-          class="w-full py-3 bg-orange-600 hover:bg-orange-700 text-white text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <i class="fas fa-paper-plane mr-2"></i> Kirim Sekarang
-        </button>
+        <div class="flex gap-3">
+          <button type="submit"
+            class="w-full py-3 bg-orange-600 hover:bg-orange-700 text-white text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <i class="fas fa-paper-plane mr-2"></i> Kirim Sekarang
+          </button>
+          <button type="reset"
+            class="w-1/3 py-3 border border-gray-400 text-gray-700 hover:bg-gray-100 rounded-xl font-semibold transition-all duration-300">
+            Reset
+          </button>
+        </div>
       </form>
     </div>
+  </div>
 
-    {{-- === CONTACT INFO CARD === --}}
-    <div class="bg-gradient-to-br from-orange-500 to-orange-400 text-white rounded-3xl shadow-2xl p-8 sm:p-10 relative overflow-hidden animate-fade-up delay-300">
-      {{-- Overlay dekoratif --}}
-      <div class="absolute inset-0 bg-gradient-to-tr from-orange-600/40 to-orange-200/20 rounded-3xl pointer-events-none"></div>
-      
-      <div class="relative z-10 space-y-6">
-        <h3 class="text-2xl sm:text-3xl font-extrabold text-white mb-6">Hubungi Kami</h3>
+  {{-- === CONTACT INFO CARD (PADAT & INFORMATIF) === --}}
+  <div class="bg-gradient-to-br from-orange-500 to-orange-400 text-white rounded-3xl shadow-2xl p-8 sm:p-10 h-full flex flex-col justify-between relative overflow-hidden animate-fade-up delay-300">
+    <div class="absolute inset-0 bg-gradient-to-tr from-orange-600/40 to-orange-200/20 rounded-3xl pointer-events-none"></div>
 
-    {{-- Informasi Kontak --}}
-    <div class="space-y-4 text-white/90">
-  <p><i class="ri-map-pin-line text-white/80 mr-3"></i> Jl. Hankam Raya No. 89, Cilangkap, Cipayung, Jakarta Timur, DKI Jakarta</p>
-  <p><i class="ri-mail-line text-white/80 mr-3"></i> smk.prestasiprima.sch.id</p>
-  <p><i class="ri-phone-line text-white/80 mr-3"></i> +62 851-9592-8886</p>
-    </div>
+    <div class="relative z-10 space-y-7">
+      {{-- Judul dan Deskripsi --}}
+      <div>
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">Hubungi Kami</h3>
+        <p class="text-white/90 text-sm sm:text-base leading-relaxed">
+          Kami siap membantu Anda untuk informasi lebih lanjut mengenai sekolah dan kegiatan di SMK Prestasi Prima.
+        </p>
+      </div>
 
-    {{-- Social Media --}}
-    <div class="pt-6">
-      <h4 class="text-lg font-semibold mb-3">Ikuti Kami</h4>
-      <div class="flex items-center gap-4">
-        <a href="https://www.facebook.com/p/SMK-Prestasi-PRIMA-100035392916117/"
-           class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
-           <i class="ri-facebook-fill"></i>
-        </a>
-        <a href="https://www.instagram.com/smkprestasiprima/"
-           class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
-           <i class="ri-instagram-line"></i>
-        </a>
-        <a href="https://www.youtube.com/@SEKOLAHPRESTASIPRIMA"
-           class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
-           <i class="ri-youtube-line"></i>
+      {{-- Informasi Kontak --}}
+      <div class="space-y-4 text-white/90 text-sm sm:text-base">
+        <p class="flex items-start"><i class="ri-map-pin-line text-white mr-3 text-lg"></i> Jl. Hankam Raya No. 89, Cilangkap, Cipayung, Jakarta Timur, DKI Jakarta</p>
+        <p class="flex items-center"><i class="ri-mail-line text-white mr-3 text-lg"></i> smk.prestasiprima.sch.id</p>
+        <p class="flex items-center"><i class="ri-phone-line text-white mr-3 text-lg"></i> +62 851-9592-8886</p>
+      </div>
+
+      {{-- Jam Operasional --}}
+      <div class="bg-white/15 p-4 rounded-2xl text-white/90">
+        <h4 class="text-lg font-semibold mb-2 flex items-center"><i class="ri-time-line mr-2"></i>Jam Operasional</h4>
+        <p class="text-sm">Senin - Jumat : 07.00 - 17.00 WIB</p>
+        <p class="text-sm">Sabtu : 07.00 - 16.00 WIB</p>
+        <p class="text-sm">Minggu : 07.00 - 15.00</p>
+      </div>
+
+      {{-- Peta Lokasi --}}
+      <div class="rounded-2xl overflow-hidden shadow-lg border border-white/20">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.0301712568135!2d106.89720587499186!3d-6.259022793724494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed7ed2b62b13%3A0x3e109bcbffb80b3f!2sSMK%20Prestasi%20Prima!5e0!3m2!1sid!2sid!4v1695110704374!5m2!1sid!2sid"
+          width="100%" height="180" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      {{-- Social Media --}}
+      <div class="pt-3">
+        <h4 class="text-lg font-semibold mb-3">Ikuti Kami</h4>
+        <div class="flex items-center gap-4">
+          <a href="https://www.facebook.com/p/SMK-Prestasi-PRIMA-100035392916117/"
+             class="bg-white/20 hover:bg-white/30 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
+             <i class="ri-facebook-fill text-white text-xl"></i>
+          </a>
+          <a href="https://www.instagram.com/smkprestasiprima/"
+             class="bg-white/20 hover:bg-white/30 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
+             <i class="ri-instagram-line text-white text-xl"></i>
+          </a>
+          <a href="https://www.youtube.com/@SEKOLAHPRESTASIPRIMA"
+             class="bg-white/20 hover:bg-white/30 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md">
+             <i class="ri-youtube-line text-white text-xl"></i>
+          </a>
+        </div>
+      </div>
+
+      {{-- Tombol WhatsApp --}}
+      <div class="pt-6">
+        <a href="https://wa.me/6285195928886"
+           class="block w-full text-center bg-white text-orange-600 font-semibold py-3 rounded-xl shadow-md hover:bg-orange-100 transition-all duration-300">
+           <i class="ri-whatsapp-line mr-2 text-lg"></i> Hubungi via WhatsApp
         </a>
       </div>
     </div>
-
   </div>
+</div>
+
 
   {{-- === MAP === --}}
   <div class="container mx-auto mt-20 px-6 animate-fade-up delay-500">

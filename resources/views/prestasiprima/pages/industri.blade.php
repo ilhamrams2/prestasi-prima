@@ -3,7 +3,7 @@
 @section('title', 'Mitra Industri')
 
 @section('content')
-<section id="industri" class="relative z-10 overflow-hidden pt-28 md:pt-36 pb-24 bg-white">
+<section id="industri" class="relative z-10 overflow-hidden pt-32 md:pt-40 pb-24 bg-white">
   <div class="max-w-7xl mx-auto px-4 md:px-8 text-center relative">
 
     {{-- ===== HEADER & TEKS SATU BLOK ===== --}}

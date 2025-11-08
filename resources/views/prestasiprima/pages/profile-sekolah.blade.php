@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <strong>SMK Prestasi Prima</strong><br>
                 Jl. Hankam Raya No.89, RT.4/RW.5, Cilangkap, Kec. Cipayung, 
                 Kota Jakarta Timur, DKI Jakarta 13870<br>
-                📍 <span class="italic text-orange-500">Dekat dengan Markas Besar TNI Angkatan Laut Cilangkap</span>
+                <span class="italic text-orange-500">Dekat dengan Markas Besar TNI Angkatan Laut Cilangkap</span>
             </p>
 
             {{-- Tombol Aksi --}}
