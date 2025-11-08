@@ -27,7 +27,7 @@
 
       <!-- Dekorasi di bawah gambar -->
       <div
-        class="absolute inset-x-0 bottom-0 translate-y-1/2 h-16 md:h-20 bg-[url('https://i.imgur.com/9qKQmKl.png')] bg-repeat-x bg-center opacity-80"
+        class="absolute inset-x-0 bottom-0 translate-y-1/2 h-16 md:h-20 opacity-80 bg-[radial-gradient(circle_at_center,_rgba(255,138,76,0.45)_0%,_rgba(255,138,76,0.15)_45%,_transparent_70%)] bg-repeat-x bg-[length:120px_100%]"
       ></div>
     </div>
   </div>

@@ -43,7 +43,7 @@
     <!-- Konten -->
     <div class="absolute inset-0 flex flex-col justify-end text-center p-5 sm:p-6 md:p-8 z-10">
       <img src="{{ asset('assets/images/section/program/icons/' . $key . '.png') }}" alt="icon"
-        class="mx-auto w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3">
+        class="mx-auto w-10 sm:w-12 aspect-square mb-2 sm:mb-3 object-contain">
       <h3 class="text-white font-bold text-lg sm:text-xl leading-snug">
         {{
           $label === 'PPLG' ? 'Pengembangan Perangkat Lunak dan Gim' :

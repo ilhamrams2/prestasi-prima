@@ -116,6 +116,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("toggleSocial");
   const panel = document.getElementById("socialPanel");
 
+  if (!videoSection || !video || !skipBtn || !skipBtnContainer || !contentSection || !toggleBtn || !panel) {
+    return;
+  }
+
   let isOpen = false;
 
   // Tampilkan video setelah siap (smooth)
