@@ -7,10 +7,9 @@
   <div class="absolute inset-0 bg-black/40 z-10"></div>
 
   <!-- Hero Video -->
-  <video id="heroVideo" preload="none" autoplay muted playsinline 
-         poster="{{ asset('assets/images/section/hero/herobg2.webp') }}"
-         class="absolute inset-0 w-full h-full object-cover z-20 opacity-0 transition-opacity duration-700 will-change-transform"
-         loading="lazy">
+  <video id="heroVideo" preload="auto" autoplay muted playsinline 
+    poster="{{ asset('assets/images/section/hero/herobg2.webp') }}"
+    class="absolute inset-0 w-full h-full object-cover z-20 opacity-0 transition-opacity duration-700 will-change-transform">
     <source src="{{ asset('assets/videos/videos.mp4') }}" type="video/mp4">
     Browsermu tidak mendukung video.
   </video>
@@ -107,66 +106,174 @@
 
 <!-- ================= SCRIPT ================= -->
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const videoSection = document.getElementById("heroVideoSection");
-  const video = document.getElementById("heroVideo");
-  const skipBtn = document.getElementById("skipBtn");
-  const skipBtnContainer = document.getElementById("skipBtnContainer");
-  const contentSection = document.getElementById("heroContentSection");
-  const toggleBtn = document.getElementById("toggleSocial");
-  const panel = document.getElementById("socialPanel");
+(() => {
+  const initHeroVideo = () => {
+    const videoSection = document.getElementById("heroVideoSection");
+    const video = document.getElementById("heroVideo");
+    const skipBtn = document.getElementById("skipBtn");
+    const skipBtnContainer = document.getElementById("skipBtnContainer");
+    const contentSection = document.getElementById("heroContentSection");
+    const toggleBtn = document.getElementById("toggleSocial");
+    const panel = document.getElementById("socialPanel");
 
-  if (!videoSection || !video || !skipBtn || !skipBtnContainer || !contentSection || !toggleBtn || !panel) {
-    return;
-  }
-
-  let isOpen = false;
-
-  // Tampilkan video setelah siap (smooth)
-  video.addEventListener("loadeddata", () => {
-    video.classList.add("opacity-100");
-  });
-
-  // Tampilkan konten setelah video selesai / dilewati
-  function showContent() {
-    videoSection.style.transition = "opacity 0.5s";
-    videoSection.style.opacity = 0;
-
-    setTimeout(() => {
-      videoSection.style.display = "none";
-      skipBtnContainer.style.display = "none";
-      contentSection.classList.remove("hidden");
-  contentSection.classList.add("flex");
-      contentSection.style.opacity = 1;
-
-      // Hero animation
-      document.querySelectorAll(".hero-animate").forEach((el, idx) => {
-        el.style.animationDelay = `${idx * 0.12}s`;
-        el.classList.add("animate-hero-fast");
-      });
-
-      // Floating Button animasi
-      toggleBtn.classList.add("animate-floating");
-    }, 500);
-  }
-
-  video.addEventListener("ended", showContent);
-  skipBtn.addEventListener("click", showContent);
-
-  // Toggle Floating Social
-  toggleBtn.addEventListener("click", () => {
-    if (isOpen) {
-      panel.classList.remove("open");
-      panel.classList.add("close");
-  toggleBtn.innerHTML = '<i class="ri-share-forward-line text-xl"></i>';
-    } else {
-      panel.classList.remove("close");
-      panel.classList.add("open");
-  toggleBtn.innerHTML = '<i class="ri-close-line text-xl"></i>';
+    if (!videoSection || !video || !skipBtn || !skipBtnContainer || !contentSection || !toggleBtn || !panel) {
+      return;
     }
-    isOpen = !isOpen;
-  });
-});
+
+    const resetState = () => {
+      videoSection.style.display = "";
+      videoSection.style.opacity = "";
+      skipBtnContainer.style.display = "";
+      contentSection.classList.add("hidden");
+      contentSection.classList.remove("flex");
+      contentSection.style.opacity = 0;
+      toggleBtn.classList.remove("animate-floating");
+      panel.classList.remove("open", "close");
+      toggleBtn.innerHTML = '<i class="ri-share-forward-line text-xl"></i>';
+      delete video.dataset.heroContentShown;
+    };
+
+    resetState();
+
+    const ensureVideoVisible = () => {
+      video.classList.add("opacity-100");
+      video.classList.remove("opacity-0");
+      videoSection.style.opacity = 1;
+    };
+
+    const showContent = () => {
+      if (video.dataset.heroContentShown === "1") {
+        return;
+      }
+
+      video.dataset.heroContentShown = "1";
+      window.clearTimeout(video._heroFallbackTimer);
+      videoSection.style.transition = "opacity 0.5s";
+      videoSection.style.opacity = 0;
+
+      setTimeout(() => {
+        video.pause();
+        video.currentTime = 0;
+        videoSection.style.display = "none";
+        skipBtnContainer.style.display = "none";
+        contentSection.classList.remove("hidden");
+        contentSection.classList.add("flex");
+        contentSection.style.opacity = 1;
+
+        document.querySelectorAll(".hero-animate").forEach((el, idx) => {
+          el.style.animationDelay = `${idx * 0.12}s`;
+          el.classList.add("animate-hero-fast");
+        });
+
+        toggleBtn.classList.add("animate-floating");
+      }, 500);
+    };
+
+    const handleToggle = () => {
+      const isOpen = panel.classList.contains("open");
+      if (isOpen) {
+        panel.classList.remove("open");
+        panel.classList.add("close");
+        toggleBtn.innerHTML = '<i class="ri-share-forward-line text-xl"></i>';
+      } else {
+        panel.classList.remove("close");
+        panel.classList.add("open");
+        toggleBtn.innerHTML = '<i class="ri-close-line text-xl"></i>';
+      }
+    };
+
+    const bindUnique = (element, event, handler, key) => {
+      if (!element) return;
+      const storeKey = `_hero_${key}`;
+      if (element[storeKey]) {
+        element.removeEventListener(event, element[storeKey]);
+      }
+      element.addEventListener(event, handler);
+      element[storeKey] = handler;
+    };
+
+    const visibilityEvents = ["loadeddata", "canplay", "canplaythrough", "playing"];
+    visibilityEvents.forEach(event => {
+      bindUnique(video, event, ensureVideoVisible, `visible_${event}`);
+    });
+    bindUnique(video, "error", ensureVideoVisible, "visible_error");
+
+    bindUnique(video, "ended", showContent, "ended");
+    bindUnique(skipBtn, "click", showContent, "skip");
+    bindUnique(toggleBtn, "click", handleToggle, "toggle");
+
+    if (video.readyState >= 2) {
+      ensureVideoVisible();
+    }
+
+    video.muted = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.preload = "auto";
+    video.load();
+
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => {
+        ensureVideoVisible();
+      });
+    }
+
+    window.clearTimeout(video._heroFallbackTimer);
+    video._heroFallbackTimer = window.setTimeout(() => {
+      ensureVideoVisible();
+    }, 1800);
+  };
+
+  const cleanupHeroVideo = () => {
+    const video = document.getElementById("heroVideo");
+    const videoSection = document.getElementById("heroVideoSection");
+    const skipBtnContainer = document.getElementById("skipBtnContainer");
+    const contentSection = document.getElementById("heroContentSection");
+    const toggleBtn = document.getElementById("toggleSocial");
+    const panel = document.getElementById("socialPanel");
+
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+      video.classList.remove("opacity-100");
+      video.classList.add("opacity-0");
+      delete video.dataset.heroContentShown;
+      window.clearTimeout(video._heroFallbackTimer);
+    }
+
+    if (videoSection) {
+      videoSection.removeAttribute("style");
+    }
+
+    if (skipBtnContainer) {
+      skipBtnContainer.removeAttribute("style");
+    }
+
+    if (contentSection) {
+      contentSection.classList.add("hidden");
+      contentSection.classList.remove("flex");
+      contentSection.style.opacity = 0;
+    }
+
+    if (toggleBtn) {
+      toggleBtn.classList.remove("animate-floating");
+      toggleBtn.innerHTML = '<i class="ri-share-forward-line text-xl"></i>';
+    }
+
+    if (panel) {
+      panel.classList.remove("open", "close");
+    }
+  };
+
+  if (document.readyState !== "loading") {
+    initHeroVideo();
+  } else {
+    document.addEventListener("DOMContentLoaded", initHeroVideo, { once: true });
+  }
+  document.addEventListener("turbo:load", initHeroVideo);
+  document.addEventListener("turbo:before-cache", cleanupHeroVideo);
+})();
 </script>
 
 <!-- ================= STYLE ================= -->
