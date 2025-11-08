@@ -12,11 +12,16 @@
   </div>
 
   <!-- Timeline Image -->
+  @php
+    $historyImageSize = @getimagesize(public_path('assets/images/section/sejarah/sejarah2.png')) ?: [1600, 900];
+  @endphp
   <div class="relative flex justify-center">
     <div class="relative w-full max-w-6xl mx-auto">
       <img
         src="{{ asset('assets/images/section/sejarah/sejarah2.png') }}"
         alt="Sejarah"
+        width="{{ $historyImageSize[0] }}"
+        height="{{ $historyImageSize[1] }}"
         class="relative z-10 w-full -mb-10 md:-mb-20 drop-shadow-2xl"
       />
 

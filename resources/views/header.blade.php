@@ -1,4 +1,7 @@
 <!-- ========== HEADER ========== -->
+@php
+  $headerLogoSize = @getimagesize(public_path('assets/images/logo-smk.png')) ?: [256, 256];
+@endphp
 <header id="header" 
   class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-transparent">
 
@@ -34,8 +37,8 @@
     <div class="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-8 py-3">
 
       <!-- Logo -->
-      <a href="/" class="flex items-center space-x-2">
-        <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo" class="h-12">
+    <a href="/" class="flex items-center space-x-2">
+  <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo" width="{{ $headerLogoSize[0] }}" height="{{ $headerLogoSize[1] }}" class="h-12 w-auto object-contain">
         <span class="font-bold text-lg header-logo text-white">SMK Prestasi Prima</span>
       </a>
 
@@ -117,7 +120,6 @@
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
             <a href="/presmaboard" class="dropdown-item">Presmaboard</a>
             <a href="/presmalance" class="dropdown-item">Presmalance</a>
-            <a href="https://absensmk.prestasiprima.sch.id/absensi/16" class="dropdown-item">Presmakad</a>
             <a href="/pendaftaran" class="dropdown-item">Presmastart</a>
             <a href="/virtual-tour" class="dropdown-item">Presmatour</a>
             <a href="/presmacontact" class="dropdown-item">Presmacontact</a>

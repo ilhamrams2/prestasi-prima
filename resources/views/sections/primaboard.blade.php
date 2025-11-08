@@ -48,14 +48,27 @@
     <div class="w-28 md:w-36 bg-orange-500"></div>
   </div>
 
+  @php
+    $primaboardLogos = [
+      'primary' => 'assets/images/section/primaboard/logo.webp',
+      'foundation' => 'assets/images/section/primaboard/yayasan.png',
+      'network' => 'assets/images/section/primaboard/jaringan.png',
+    ];
+    $primaboardSizes = [];
+    foreach ($primaboardLogos as $key => $path) {
+      $size = @getimagesize(public_path($path)) ?: [320, 200];
+      $primaboardSizes[$key] = ['width' => $size[0], 'height' => $size[1]];
+    }
+  @endphp
+
   <!-- Konten Utama -->
   <div class="flex-1 text-white z-10">
     <div class="max-w-7xl mx-auto px-4 md:px-8 text-center md:text-left space-y-4 sm:space-y-5">
       
       <!-- Logo -->
       <div class="flex justify-center md:justify-start gap-3 items-center mb-3" data-aos="zoom-in">
-        <img src="assets/images/section/primaboard/logo.webp" alt="Logo 1" class="h-10 sm:h-12">
-        <img src="assets/images/section/primaboard/yayasan.png" alt="Logo 2" class="h-10 sm:h-12">
+  <img src="{{ asset($primaboardLogos['primary']) }}" alt="Logo 1" width="{{ $primaboardSizes['primary']['width'] }}" height="{{ $primaboardSizes['primary']['height'] }}" class="h-10 w-auto sm:h-12 sm:w-auto max-w-full object-contain">
+  <img src="{{ asset($primaboardLogos['foundation']) }}" alt="Logo 2" width="{{ $primaboardSizes['foundation']['width'] }}" height="{{ $primaboardSizes['foundation']['height'] }}" class="h-10 w-auto sm:h-12 sm:w-auto max-w-full object-contain">
       </div>
 
       <!-- Deskripsi -->
@@ -76,7 +89,9 @@
   </div>
 
   <!-- Gambar Kanan Bawah -->
-  <img src="assets/images/section/primaboard/jaringan.png" alt="Primaboard"
+  <img src="{{ asset($primaboardLogos['network']) }}" alt="Primaboard"
+    width="{{ $primaboardSizes['network']['width'] }}"
+    height="{{ $primaboardSizes['network']['height'] }}"
        class="absolute bottom-0 right-0 w-36 sm:w-44 md:w-52 lg:w-56 h-auto object-contain z-10"
        data-aos="zoom-in-up" data-aos-delay="200">
 

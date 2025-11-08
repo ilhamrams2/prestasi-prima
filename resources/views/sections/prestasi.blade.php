@@ -1,11 +1,25 @@
 <!-- ================= SECTION PRESTASI ================= -->
 <section id="prestasi" class="py-20 bg-white relative overflow-hidden">
+  @php
+    $prestasiLogoPath = 'assets/images/logo-smk.png';
+    $prestasiLogoSize = @getimagesize(public_path($prestasiLogoPath)) ?: [256, 256];
+    $prestasiSlideFiles = ['satu.webp', 'dua.webp', 'tiga.webp', 'empat.webp', 'lima.webp', 'enam.webp'];
+    $prestasiSlideSizes = [];
+    foreach ($prestasiSlideFiles as $file) {
+      $size = @getimagesize(public_path('assets/images/section/prestasi/' . $file)) ?: [1280, 720];
+      $prestasiSlideSizes[$file] = ['width' => $size[0], 'height' => $size[1]];
+    }
+    $prestasiDecorLeft = @getimagesize(public_path('assets/images/section/prestasi/netowrk.svg')) ?: [560, 560];
+    $prestasiDecorRight = @getimagesize(public_path('assets/images/section/tentang/race.svg')) ?: [600, 600];
+  @endphp
   <div class="max-w-7xl mx-auto px-4 md:px-8 text-center">
 
     <!-- ===== Header ===== -->
     <div class="mb-12 text-center relative">
-      <img src="assets/images/logo-smk.png" alt="Logo Sekolah" 
-           class="mx-auto h-14 mb-4" 
+   <img src="{{ asset($prestasiLogoPath) }}" alt="Logo Sekolah" 
+     width="{{ $prestasiLogoSize[0] }}"
+     height="{{ $prestasiLogoSize[1] }}"
+     class="mx-auto h-14 w-auto max-w-full object-contain mb-4"
            data-aos="zoom-in" data-aos-duration="1000">
       <h3 class="text-lg font-bold text-gray-800 mb-1" 
           data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
@@ -28,32 +42,32 @@
         <!-- Slides -->
         <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl transition transform duration-500 glow-slide">
-            <img src="assets/images/section/prestasi/satu.webp" alt="Juara Dua" class="w-full object-cover">
+            <img src="{{ asset('assets/images/section/prestasi/satu.webp') }}" alt="Juara Dua" width="{{ $prestasiSlideSizes['satu.webp']['width'] }}" height="{{ $prestasiSlideSizes['satu.webp']['height'] }}" class="w-full object-cover">
           </div>
         </div>
         <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl transition transform duration-500 glow-slide">
-            <img src="assets/images/section/prestasi/dua.webp" alt="Juara Tiga" class="w-full object-cover">
+            <img src="{{ asset('assets/images/section/prestasi/dua.webp') }}" alt="Juara Tiga" width="{{ $prestasiSlideSizes['dua.webp']['width'] }}" height="{{ $prestasiSlideSizes['dua.webp']['height'] }}" class="w-full object-cover">
           </div>
         </div>
         <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl transition transform duration-500 glow-slide">
-            <img src="assets/images/section/prestasi/tiga.webp" alt="Juara Tiga" class="w-full object-cover">
+            <img src="{{ asset('assets/images/section/prestasi/tiga.webp') }}" alt="Juara Tiga" width="{{ $prestasiSlideSizes['tiga.webp']['width'] }}" height="{{ $prestasiSlideSizes['tiga.webp']['height'] }}" class="w-full object-cover">
           </div>
         </div>
         <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl transition transform duration-500 glow-slide">
-            <img src="assets/images/section/prestasi/empat.webp" alt="Juara Empat" class="w-full object-cover">
+            <img src="{{ asset('assets/images/section/prestasi/empat.webp') }}" alt="Juara Empat" width="{{ $prestasiSlideSizes['empat.webp']['width'] }}" height="{{ $prestasiSlideSizes['empat.webp']['height'] }}" class="w-full object-cover">
           </div>
         </div>
         <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl transition transform duration-500 glow-slide">
-            <img src="assets/images/section/prestasi/lima.webp" alt="Juara Lima" class="w-full object-cover">
+            <img src="{{ asset('assets/images/section/prestasi/lima.webp') }}" alt="Juara Lima" width="{{ $prestasiSlideSizes['lima.webp']['width'] }}" height="{{ $prestasiSlideSizes['lima.webp']['height'] }}" class="w-full object-cover">
           </div>
         </div>
         <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
           <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl transition transform duration-500 glow-slide">
-            <img src="assets/images/section/prestasi/enam.webp" alt="Juara Enam" class="w-full object-cover">
+            <img src="{{ asset('assets/images/section/prestasi/enam.webp') }}" alt="Juara Enam" width="{{ $prestasiSlideSizes['enam.webp']['width'] }}" height="{{ $prestasiSlideSizes['enam.webp']['height'] }}" class="w-full object-cover">
           </div>
         </div>
       </div>
@@ -68,14 +82,17 @@
   </div>
 
   <!-- Background Dekoratif -->
-  <img src="assets/images/section/prestasi/netowrk.svg" 
-       alt="Network" 
+  <img src="{{ asset('assets/images/section/prestasi/netowrk.svg') }}" 
+    alt="Network" 
+    width="{{ $prestasiDecorLeft[0] }}"
+    height="{{ $prestasiDecorLeft[1] }}"
        class="bg-deco-left absolute -bottom-16 -left-48 w-[460px] md:w-[560px] opacity-0 select-none pointer-events-none" 
        data-aos="fade-right" data-aos-duration="1200" data-aos-delay="500">
 
-  <img src="assets/images/section/tentang/race.svg" 
-  
-       alt="Race" 
+  <img src="{{ asset('assets/images/section/tentang/race.svg') }}" 
+    alt="Race" 
+    width="{{ $prestasiDecorRight[0] }}"
+    height="{{ $prestasiDecorRight[1] }}"
        class="bg-deco-right absolute -bottom-80 -right-24 w-[480px] md:w-[600px] opacity-0 select-none pointer-events-none" 
        data-aos="fade-left" data-aos-duration="1200" data-aos-delay="600">
 </section>

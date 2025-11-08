@@ -1,3 +1,9 @@
+@php
+  $footerLogoPath = 'assets/images/logo-smk.png';
+  $footerLogoSize = @getimagesize(public_path($footerLogoPath)) ?: [256, 256];
+  $footerNetworkPath = 'assets/images/section/primaboard/jaringan.png';
+  $footerNetworkSize = @getimagesize(public_path($footerNetworkPath)) ?: [320, 200];
+@endphp
 <!-- ====================== MOTTO BERJALAN ====================== -->
 <section class="relative flex items-center justify-between bg-gradient-to-r from-orange-900 via-orange-800 to-orange-700 overflow-hidden">
   <!-- Pola kotak kiri (disembunyikan di mobile) -->
@@ -40,10 +46,16 @@
 
   <!-- Logo + network -->
   <div class="relative flex items-center gap-3 md:gap-4 pr-4 md:pr-10 z-20">
-    <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo Sekolah"
-      class="w-10 h-10 md:w-16 md:h-16 rounded-full border-4 border-white shadow-lg relative z-10">
-    <img src="{{ asset('assets/images/section/primaboard/jaringan.png') }}" alt="Icon Network"
-      class="w-16 md:w-28 opacity-90 relative right-0">
+    <div class="relative z-10 flex items-center justify-center w-10 h-10 md:w-16 md:h-16 rounded-full border-4 border-white shadow-lg bg-white">
+      <img src="{{ asset($footerLogoPath) }}" alt="Logo Sekolah"
+        width="{{ $footerLogoSize[0] }}"
+        height="{{ $footerLogoSize[1] }}"
+        class="max-h-full max-w-full object-contain">
+    </div>
+    <img src="{{ asset($footerNetworkPath) }}" alt="Icon Network"
+      width="{{ $footerNetworkSize[0] }}"
+      height="{{ $footerNetworkSize[1] }}"
+      class="h-10 md:h-16 w-auto opacity-90 relative right-0 object-contain">
   </div>
 </section>
 
@@ -85,8 +97,12 @@
     class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 lg:px-16 pt-14 pb-10 flex flex-col lg:flex-row items-center justify-between gap-10 border-b border-white/10">
     <!-- Logo dan Motto -->
     <div class="flex flex-col lg:flex-row items-center lg:items-start text-center lg:text-left gap-6">
-      <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo"
-        class="w-20 h-20 rounded-full border-2 border-orange-500 shadow-xl">
+      <div class="flex items-center justify-center w-20 h-20 rounded-full border-2 border-orange-500 shadow-xl bg-white">
+        <img src="{{ asset($footerLogoPath) }}" alt="Logo"
+          width="{{ $footerLogoSize[0] }}"
+          height="{{ $footerLogoSize[1] }}"
+          class="max-h-full max-w-full object-contain">
+      </div>
       <div>
         <h2 class="text-2xl font-bold text-white tracking-wide">SMK Prestasi Prima</h2>
         <p class="text-sm text-gray-400 mt-2 max-w-md">
@@ -242,15 +258,27 @@
       </div>
 
       @php
-        $supportLogos = [
-            ['src' => asset('assets/images/support/logo.png'), 'alt' => 'Support Logo'],
+        $supportLogoPaths = [
+            ['path' => 'assets/images/support/logo.png', 'alt' => 'Support Logo'],
         ];
+        $supportLogos = [];
+        foreach ($supportLogoPaths as $item) {
+          $size = @getimagesize(public_path($item['path'])) ?: [400, 160];
+          $supportLogos[] = [
+            'src' => asset($item['path']),
+            'alt' => $item['alt'],
+            'width' => $size[0],
+            'height' => $size[1],
+          ];
+        }
       @endphp
       <div class="mt-6">
         <p class="text-gray-400 text-sm mb-3 text-center">Support by:</p>
         @foreach ($supportLogos as $logo)
           <div class="w-full bg-white/95 rounded-3xl shadow-lg shadow-black/20 ring-1 ring-white/60 px-6 py-4 md:px-8 md:py-5 transition-transform duration-200 hover:scale-[1.01]">
             <img src="{{ $logo['src'] }}" alt="{{ $logo['alt'] }}"
+              width="{{ $logo['width'] }}"
+              height="{{ $logo['height'] }}"
               class="w-full max-w-full object-contain mx-auto">
           </div>
         @endforeach

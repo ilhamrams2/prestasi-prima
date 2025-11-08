@@ -1,14 +1,33 @@
 <!-- ================= HERO BANNER ================= -->
 <section role="banner" class="relative bg-orange-500 overflow-hidden">
 
+  @php
+    $presmalancerImageFiles = [
+      'networkTop' => 'assets/images/section/presmalancer/jaringan.png',
+      'networkBottom' => 'assets/images/section/presmalancer/jaringan2.png',
+      'logoPrimary' => 'assets/images/section/presmalancer/logo.webp',
+      'logoFoundation' => 'assets/images/section/presmalancer/yayasan.png',
+      'student' => 'assets/images/section/presmalancer/siswa1.png',
+    ];
+    $presmalancerSizes = [];
+    foreach ($presmalancerImageFiles as $key => $relativePath) {
+      $size = @getimagesize(public_path($relativePath)) ?: [400, 400];
+      $presmalancerSizes[$key] = ['width' => $size[0], 'height' => $size[1]];
+    }
+  @endphp
+
   <!-- ===== Dekorasi Jaringan ===== -->
-  <img src="assets/images/section/presmalancer/jaringan.png" 
+  <img src="{{ asset($presmalancerImageFiles['networkTop']) }}"
        alt="Network Top Right"
+       width="{{ $presmalancerSizes['networkTop']['width'] }}"
+       height="{{ $presmalancerSizes['networkTop']['height'] }}"
        class="absolute top-0 right-0 w-64 sm:w-80 md:w-96 object-cover opacity-90 brightness-125 aos-init aos-animate" 
        data-aos="fade-down-right" data-aos-duration="1200" data-aos-once="true">
        
-  <img src="assets/images/section/presmalancer/jaringan2.png" 
+  <img src="{{ asset($presmalancerImageFiles['networkBottom']) }}"
        alt="Network Bottom Left"
+       width="{{ $presmalancerSizes['networkBottom']['width'] }}"
+       height="{{ $presmalancerSizes['networkBottom']['height'] }}"
        class="absolute bottom-0 left-0 w-24 sm:w-32 md:w-40 object-cover opacity-70 aos-init aos-animate" 
        data-aos="fade-up-left" data-aos-duration="1200" data-aos-once="true">
 
@@ -21,8 +40,8 @@
       
       <!-- Logo (Desktop) -->
       <div class="flex justify-center md:justify-start gap-3 sm:gap-4 mb-2 hidden md:flex aos-init aos-animate" data-aos="fade-down" data-aos-duration="800">
-        <img src="assets/images/section/presmalancer/logo.webp" alt="Logo 1" class="h-10 sm:h-12 drop-shadow-md">
-        <img src="assets/images/section/presmalancer/yayasan.png" alt="Logo 2" class="h-10 sm:h-12 drop-shadow-md">
+  <img src="{{ asset($presmalancerImageFiles['logoPrimary']) }}" alt="Logo 1" width="{{ $presmalancerSizes['logoPrimary']['width'] }}" height="{{ $presmalancerSizes['logoPrimary']['height'] }}" class="h-10 w-auto sm:h-12 sm:w-auto max-w-full object-contain drop-shadow-md">
+  <img src="{{ asset($presmalancerImageFiles['logoFoundation']) }}" alt="Logo 2" width="{{ $presmalancerSizes['logoFoundation']['width'] }}" height="{{ $presmalancerSizes['logoFoundation']['height'] }}" class="h-10 w-auto sm:h-12 sm:w-auto max-w-full object-contain drop-shadow-md">
       </div>
 
       <!-- Deskripsi -->
@@ -52,8 +71,10 @@
 
         <!-- ===== Gambar Siswa + Efek Blur ===== -->
         <div class="relative flex items-center justify-center">
-          <img src="assets/images/section/presmalancer/siswa1.png"
-               alt="Siswa"
+    <img src="{{ asset($presmalancerImageFiles['student']) }}"
+      alt="Siswa"
+      width="{{ $presmalancerSizes['student']['width'] }}"
+      height="{{ $presmalancerSizes['student']['height'] }}"
                class="relative z-20 max-h-[420px] sm:max-h-[440px] object-contain drop-shadow-2xl select-none">
 
           <!-- ===== Efek Blur Menyatu (Natural Fade) ===== -->
@@ -83,16 +104,18 @@
   </div>
 
   <!-- ===== Logo Sekolah (Desktop Only) ===== -->
-  <img src="assets/images/section/presmalancer/logo.webp" 
-       alt="Logo Sekolah" 
+  <img src="{{ asset($presmalancerImageFiles['logoPrimary']) }}" 
+    alt="Logo Sekolah" 
+    width="{{ $presmalancerSizes['logoPrimary']['width'] }}"
+    height="{{ $presmalancerSizes['logoPrimary']['height'] }}"
        class="absolute bottom-0 -right-16 sm:-right-20 md:-right-24 
               w-36 sm:w-40 md:w-48 opacity-50 pointer-events-none hidden md:block aos-init aos-animate"
        data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
 
   <!-- ===== Logo (Mobile Only, pojok kiri atas) ===== -->
   <div class="absolute top-4 left-4 flex gap-2 md:hidden z-30 aos-init aos-animate" data-aos="fade-down" data-aos-duration="800">
-    <img src="assets/images/section/presmalancer/logo.webp" alt="Logo Mobile 1" class="h-8 sm:h-9 drop-shadow-md">
-    <img src="assets/images/section/presmalancer/yayasan.png" alt="Logo Mobile 2" class="h-8 sm:h-9 drop-shadow-md">
+  <img src="{{ asset($presmalancerImageFiles['logoPrimary']) }}" alt="Logo Mobile 1" width="{{ $presmalancerSizes['logoPrimary']['width'] }}" height="{{ $presmalancerSizes['logoPrimary']['height'] }}" class="h-8 w-auto sm:h-9 sm:w-auto max-w-full object-contain drop-shadow-md">
+  <img src="{{ asset($presmalancerImageFiles['logoFoundation']) }}" alt="Logo Mobile 2" width="{{ $presmalancerSizes['logoFoundation']['width'] }}" height="{{ $presmalancerSizes['logoFoundation']['height'] }}" class="h-8 w-auto sm:h-9 sm:w-auto max-w-full object-contain drop-shadow-md">
   </div>
 
 </section>
