@@ -74,59 +74,67 @@
   </div>
 
   {{-- === TABS STAFF === --}}
-  <div class="max-w-7xl mx-auto px-6 mb-20">
-    <div class="flex justify-center mb-10">
-      <div class="inline-flex bg-gradient-to-r from-orange-500 to-yellow-400 rounded-xl p-1 shadow-lg">
-        <button class="tab-btn active-tab rounded-lg px-8 py-2 font-semibold text-white transition-all duration-300" data-target="kaprog">Kaprog</button>
-        <button class="tab-btn rounded-lg px-8 py-2 font-semibold text-white transition-all duration-300" data-target="kesiswaan">Kesiswaan</button>
-      </div>
-    </div>
-
-    {{-- Kaprog --}}
-    <div id="kaprog" class="tab-content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-12 show">
-      @foreach (\DB::table('prestasiprima_staff')->where('kategori', 'kaprog')->get() as $staff)
-        <div class="staff-card">
-          <img src="{{ asset('storage/staff/' . $staff->foto) }}" alt="{{ $staff->nama }}">
-        </div>
-      @endforeach
-    </div>
-
-    {{-- Kesiswaan --}}
-    <div id="kesiswaan" class="tab-content hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-12">
-      @foreach (\DB::table('prestasiprima_staff')->where('kategori', 'kesiswaan')->get() as $staff)
-        <div class="staff-card">
-          <img src="{{ asset('storage/staff/' . $staff->foto) }}" alt="{{ $staff->nama }}">
-        </div>
-      @endforeach
+<div class="max-w-7xl mx-auto px-6 mb-20">
+  <div class="flex justify-center mb-10">
+    <div class="inline-flex bg-gradient-to-r from-orange-500 to-yellow-400 rounded-xl p-1 shadow-lg">
+      <button class="tab-btn active-tab rounded-lg px-8 py-2 font-semibold text-white transition-all duration-300" data-target="kaprog">Kaprog</button>
+      <button class="tab-btn rounded-lg px-8 py-2 font-semibold text-white transition-all duration-300" data-target="kesiswaan">Kesiswaan</button>
     </div>
   </div>
+
+  {{-- Kaprog --}}
+  <div id="kaprog" class="tab-content grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-12 show">
+    @foreach (\DB::table('prestasiprima_staff')->where('kategori', 'kaprog')->get() as $staff)
+      <div class="staff-card">
+        <img src="{{ asset('storage/staff/' . $staff->foto) }}" alt="{{ $staff->nama }}">
+      </div>
+    @endforeach
+  </div>
+
+  {{-- Kesiswaan --}}
+  <div id="kesiswaan" class="tab-content hidden grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-12">
+    @foreach (\DB::table('prestasiprima_staff')->where('kategori', 'kesiswaan')->get() as $staff)
+      <div class="staff-card">
+        <img src="{{ asset('storage/staff/' . $staff->foto) }}" alt="{{ $staff->nama }}">
+      </div>
+    @endforeach
+  </div>
+</div>
 
   {{-- === GURU MAPEL === --}}
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-orange-500">Guru Mapel</h2>
-    </div>
-
-    <div class="relative flex justify-center items-center">
-      <button id="prevBtn" class="absolute -left-16 md:-left-20 z-10 bg-orange-500 text-white p-4 rounded-full shadow-xl hover:bg-orange-600 hover:scale-110 transition-all duration-300">
-        <i class="ri-arrow-left-s-line text-2xl"></i>
-      </button>
-
-      <div id="guruMapelWrapper" class="overflow-hidden w-full max-w-6xl">
-        <div id="guruMapelCarousel" class="flex gap-6 transition-transform duration-700 ease-out">
-          @foreach (\DB::table('prestasiprima_staff')->where('kategori', 'guru_mapel')->get() as $staff)
-            <div class="flex-shrink-0 w-48 h-[280px] rounded-xl overflow-hidden shadow-lg bg-white transform hover:scale-105 transition">
-              <img src="{{ asset('storage/staff/' . $staff->foto) }}" alt="{{ $staff->nama }}" class="w-full h-full object-cover">
-            </div>
-          @endforeach
-        </div>
-      </div>
-
-      <button id="nextBtn" class="absolute -right-16 md:-right-20 z-10 bg-orange-500 text-white p-4 rounded-full shadow-xl hover:bg-orange-600 hover:scale-110 transition-all duration-300">
-        <i class="ri-arrow-right-s-line text-2xl"></i>
-      </button>
-    </div>
+<div class="max-w-7xl mx-auto px-6">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-bold text-orange-500">Guru Mapel</h2>
   </div>
+
+  <div class="relative flex justify-center items-center">
+    <!-- === Tombol Kiri (Hanya Desktop) === -->
+    <button id="prevBtn"
+      class="hidden md:flex absolute left-[-2.5rem] lg:left-[-3rem] top-1/2 -translate-y-1/2 z-20 bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-full shadow-lg transition">
+      <i data-lucide="chevron-left" class="w-5 h-5"></i>
+    </button>
+
+    <!-- === Carousel === -->
+    <div id="guruMapelWrapper" class="overflow-hidden w-full max-w-6xl">
+      <div id="guruMapelCarousel" class="flex gap-6 transition-transform duration-700 ease-out">
+        @foreach (\DB::table('prestasiprima_staff')->where('kategori', 'guru_mapel')->get() as $staff)
+          <div
+            class="flex-shrink-0 w-48 h-[280px] rounded-xl overflow-hidden shadow-lg bg-white transform hover:scale-105 transition">
+            <img src="{{ asset('storage/staff/' . $staff->foto) }}" alt="{{ $staff->nama }}"
+              class="w-full h-full object-cover">
+          </div>
+        @endforeach
+      </div>
+    </div>
+
+    <!-- === Tombol Kanan (Hanya Desktop) === -->
+    <button id="nextBtn"
+      class="hidden md:flex absolute right-[-2.5rem] lg:right-[-3rem] top-1/2 -translate-y-1/2 z-20 bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-full shadow-lg transition">
+      <i data-lucide="chevron-right" class="w-5 h-5"></i>
+    </button>
+  </div>
+</div>
+
 
 </section>
 
@@ -141,12 +149,12 @@
   .animate-pulse-glow { animation:pulse-glow 2.5s ease-in-out infinite; }
 </style>
 
-{{-- === SCRIPT INTERAKTIF === --}}
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const tabs = document.querySelectorAll('.tab-btn');
   const contents = document.querySelectorAll('.tab-content');
 
+  // === TABS SWITCHING ===
   tabs.forEach(btn => {
     btn.addEventListener('click', () => {
       tabs.forEach(b => b.classList.remove('active-tab'));
@@ -158,27 +166,100 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Carousel Guru Mapel
+  // === GURU MAPEL INFINITE CAROUSEL + SWIPE ===
   const carousel = document.getElementById("guruMapelCarousel");
-  const cards = carousel.children;
-  const cardWidth = 200 + 24;
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  const cards = Array.from(carousel.children);
+  const cardWidth = 200 + 24; // lebar kartu + jarak antar kartu
   let currentIndex = 0;
-  carousel.innerHTML += carousel.innerHTML;
+
+  // Clone awal dan akhir agar loop mulus
+  const totalCards = cards.length;
+  cards.forEach(card => carousel.appendChild(card.cloneNode(true)));
+  cards.forEach(card => carousel.insertBefore(card.cloneNode(true), carousel.firstChild));
+  const offset = totalCards * cardWidth;
+
+  carousel.style.transform = `translateX(-${offset}px)`;
 
   function updatePosition() {
-    carousel.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-    if(currentIndex >= cards.length){
+    carousel.style.transition = "transform 0.6s ease";
+    carousel.style.transform = `translateX(-${offset + currentIndex * cardWidth}px)`;
+  }
+
+  function checkLoop() {
+    if (currentIndex >= totalCards) {
       carousel.style.transition = "none";
       currentIndex = 0;
-      carousel.style.transform = `translateX(0)`;
-      setTimeout(()=>carousel.style.transition="transform 0.7s ease-out",20);
+      carousel.style.transform = `translateX(-${offset}px)`;
+    } else if (currentIndex < -totalCards) {
+      carousel.style.transition = "none";
+      currentIndex = 0;
+      carousel.style.transform = `translateX(-${offset}px)`;
     }
   }
 
-  document.getElementById("nextBtn").addEventListener("click", ()=>{currentIndex++;updatePosition();});
-  document.getElementById("prevBtn").addEventListener("click", ()=>{currentIndex=(currentIndex-1+cards.length)%cards.length;updatePosition();});
-  setInterval(()=>{currentIndex++;updatePosition();},2500);
+  nextBtn.addEventListener("click", () => {
+    currentIndex++;
+    updatePosition();
+    setTimeout(checkLoop, 650);
+  });
+
+  prevBtn.addEventListener("click", () => {
+    currentIndex--;
+    updatePosition();
+    setTimeout(checkLoop, 650);
+  });
+
+  // === AUTO SCROLL ===
+  let autoScroll = setInterval(() => {
+    currentIndex++;
+    updatePosition();
+    setTimeout(checkLoop, 650);
+  }, 3000);
+
+  // === SWIPE GESTURE (TOUCH) ===
+  let startX = 0;
+  let moveX = 0;
+  let isSwiping = false;
+
+  carousel.addEventListener("touchstart", (e) => {
+    clearInterval(autoScroll); // pause auto scroll saat disentuh
+    startX = e.touches[0].clientX;
+    isSwiping = true;
+  });
+
+  carousel.addEventListener("touchmove", (e) => {
+    if (!isSwiping) return;
+    moveX = e.touches[0].clientX - startX;
+  });
+
+  carousel.addEventListener("touchend", () => {
+    if (!isSwiping) return;
+    isSwiping = false;
+
+    // Gerakan geser signifikan → ubah slide
+    if (Math.abs(moveX) > 50) {
+      if (moveX < 0) {
+        currentIndex++;
+      } else {
+        currentIndex--;
+      }
+      updatePosition();
+      setTimeout(checkLoop, 650);
+    }
+
+    // Reset nilai
+    moveX = 0;
+    // Lanjut auto scroll setelah beberapa detik
+    autoScroll = setInterval(() => {
+      currentIndex++;
+      updatePosition();
+      setTimeout(checkLoop, 650);
+    }, 3000);
+  });
 });
 </script>
+
 
 @endsection

@@ -5,20 +5,20 @@
 
     {{-- Judul --}}
     <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2 tracking-tight"
-        data-aos="fade-up" data-aos-duration="1000">
+        data-aos="fade-up" data-aos-duration="600" data-aos-easing="ease-out-cubic">
       Jelajahi SMK Prestasi Prima 
       <span class="text-orange-500">Secara Virtual</span>
     </h2>
 
     {{-- Subtitle --}}
     <p class="text-sm md:text-base text-gray-500 mb-8"
-       data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
+       data-aos="fade-up" data-aos-duration="600" data-aos-delay="100" data-aos-easing="ease-out-cubic">
       Jelajahi ruang kelas, laboratorium, dan fasilitas unggulan kami dari mana saja!
     </p>
 
     {{-- Deskripsi --}}
     <p class="text-lg md:text-xl text-gray-700 mb-12"
-       data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+       data-aos="fade-up" data-aos-duration="700" data-aos-delay="150" data-aos-easing="ease-out-cubic">
       Rasakan pengalaman menjelajahi sekolah kami melalui tur virtual 360°, lihat fasilitas unggulan, ruang belajar, laboratorium, dan lingkungan sekolah secara interaktif.
     </p>
 
@@ -26,7 +26,7 @@
     <div class="flex flex-col items-center">
       <a href="{{ route('virtual-tour') }}"
          class="inline-block bg-orange-500 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl hover:bg-orange-600 transition transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-orange-400"
-         data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="250">
+         data-aos="zoom-in" data-aos-duration="600" data-aos-delay="200" data-aos-easing="ease-out-back">
          Mulai Virtual Tour
       </a>
 
@@ -38,7 +38,7 @@
 
     {{-- Preview Card --}}
     <div class="mt-16 flex justify-center"
-         data-aos="fade-up" data-aos-duration="1000" data-aos-delay="350">
+         data-aos="fade-up" data-aos-duration="700" data-aos-delay="250" data-aos-easing="ease-out-cubic">
       <div class="preview-card relative w-full md:w-4/5 lg:w-2/3 rounded-xl overflow-hidden bg-white/20 backdrop-blur-md border border-white/30 shadow-lg transition-transform hover:scale-110 hover:shadow-2xl cursor-pointer"
            onclick="window.location='{{ route('virtual-tour') }}'">
         
@@ -84,7 +84,7 @@
   /* Hover card effects */
   .preview-card:hover .icon-vr {
     transform: rotate(15deg);
-    transition: transform 0.5s ease;
+    transition: transform 0.4s ease;
   }
 
   /* Responsive scaling untuk mobile */
@@ -96,12 +96,9 @@
 
 {{-- AOS --}}
 <script>
-  const configVirtualTour = { once: true };
-  if (window.initAOS) {
-    window.initAOS(configVirtualTour).catch((error) => console.error('Failed to initialize AOS on Virtual Tour section', error));
-  } else if (typeof window.ensureAOS === 'function') {
-    window.ensureAOS().then((AOS) => AOS.init(configVirtualTour)).catch((error) => console.error('Failed to initialize AOS on Virtual Tour section', error));
-  } else if (window.AOS) {
-    window.AOS.init(configVirtualTour);
-  }
+  AOS.init({
+    once: true,
+    duration: 700, // durasi default lebih cepat
+    easing: 'ease-out-cubic'
+  });
 </script>
