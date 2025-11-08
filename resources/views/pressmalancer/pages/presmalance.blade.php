@@ -7,10 +7,10 @@
     <title>@yield('title', 'SMK Prestasi Prima')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{-- === Favicon === --}}
-  <link rel="icon" type="image" href="{{ asset('assets/images/logo-smk.webp') }}">
-  <link rel="apple-touch-icon" href="{{ asset('assets/images/logo-smk.webp') }}">
+    <link rel="icon" type="image" href="{{ asset('assets/images/logo-smk.webp') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/logo-smk.webp') }}">
 
-        @stack('styles')
+    @stack('styles')
 
 </head>
 
@@ -178,4 +178,3 @@
 </body>
 
 </html>
-

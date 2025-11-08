@@ -21,13 +21,13 @@
         <form action="{{ route('login.post') }}" method="POST" class="space-y-4">
             @csrf
             <input type="email" name="email" placeholder="Email address" required
-                class="w-full px-4 py-2 border border-gray-700 rounded-md focus:outline-none 
-        focus:border-orange-500 focus:ring-2 focus:ring-orange-400 
+                class="w-full px-4 py-2 border border-gray-700 rounded-md focus:outline-none
+        focus:border-orange-500 focus:ring-2 focus:ring-orange-400
         focus:ring-opacity-50 transition-all duration-300 ease-in-out">
 
             <input type="password" name="password" placeholder="Password" required
-                class="w-full px-4 py-2 border border-gray-700 rounded-md focus:outline-none 
-        focus:border-orange-500 focus:ring-2 focus:ring-orange-400 
+                class="w-full px-4 py-2 border border-gray-700 rounded-md focus:outline-none
+        focus:border-orange-500 focus:ring-2 focus:ring-orange-400
         focus:ring-opacity-50 transition-all duration-300 ease-in-out">
 
             <button type="submit"

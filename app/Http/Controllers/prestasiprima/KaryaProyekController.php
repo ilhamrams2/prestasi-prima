@@ -25,7 +25,7 @@ class KaryaProyekController extends Controller
                 'title' => 'Website Absensi Siswa',
                 'category' => 'Web Development',
                 'description' => 'Proyek digital absensi modern berbasis Laravel dan Tailwind yang dikembangkan untuk kebutuhan sekolah.',
-                'image' => asset('assets/images/karya-proyek/absensi.jpg'),
+                'image' => asset('assets/images/karya-proyek/absensi.png'),
                 'tags' => ['Laravel', 'Tailwind', 'WebApp'],
                 'link' => '#', // nanti bisa diganti ke link Github / demo
             ],
@@ -33,7 +33,7 @@ class KaryaProyekController extends Controller
                 'title' => 'Desain Poster Digital',
                 'category' => 'Desain Kreatif',
                 'description' => 'Karya visual siswa DKV dengan tema motivasi dan semangat belajar, menggunakan Adobe Illustrator.',
-                'image' => asset('assets/images/karya-proyek/poster.jpg'),
+                'image' => asset('assets/images/karya-proyek/poster.jpeg'),
                 'tags' => ['DKV', 'Adobe', 'Poster'],
                 'link' => '#', // link bisa diarahkan ke hasil desain
             ],
