@@ -3,66 +3,66 @@
 @section('title', 'PresmaContact - SMK Prestasi Prima')
 
 @section('content')
-<section class="relative min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-200 pt-36 pb-24 overflow-hidden">
+<section class="relative min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-200 pt-32 pb-20 overflow-hidden">
 
   {{-- === BACKGROUND EFFECT === --}}
   <div class="absolute inset-0 overflow-hidden pointer-events-none">
-    <div class="absolute w-96 h-96 bg-orange-500/10 blur-[120px] top-[-50px] left-[-100px] rounded-full"></div>
-    <div class="absolute w-96 h-96 bg-gray-900/10 blur-[120px] bottom-[-50px] right-[-100px] rounded-full"></div>
+    <div class="absolute w-80 h-80 md:w-96 md:h-96 bg-orange-500/10 blur-[100px] top-[-60px] left-[-80px] rounded-full"></div>
+    <div class="absolute w-80 h-80 md:w-96 md:h-96 bg-gray-900/10 blur-[100px] bottom-[-60px] right-[-80px] rounded-full"></div>
   </div>
 
   {{-- === HEADER === --}}
-  <div class="text-center mb-20 relative z-10 animate-fade-down">
-    <h2 class="text-5xl md:text-6xl font-extrabold text-gray-800 tracking-tight">
+  <div class="text-center mb-14 md:mb-20 relative z-10 animate-fade-down px-4">
+    <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-800 tracking-tight leading-tight">
       <span class="text-orange-600">Presma</span>Contact
     </h2>
-    <p class="mt-4 text-gray-600 text-lg max-w-2xl mx-auto">
-      Mari terhubung dengan <span class="font-semibold text-orange-600">SMK Prestasi Prima</span>
-      kami siap mendengarkan aspirasi dan kolaborasi untuk masa depan yang lebih gemilang.
+    <p class="mt-4 text-gray-600 text-base sm:text-lg max-w-xl sm:max-w-2xl mx-auto leading-relaxed">
+      Mari terhubung dengan <span class="font-semibold text-orange-600">SMK Prestasi Prima</span>.
+      Kami siap mendengarkan aspirasi dan kolaborasi untuk masa depan yang lebih gemilang.
     </p>
   </div>
 
   {{-- === MAIN CONTENT === --}}
-  <div class="relative z-10 container mx-auto px-6 grid md:grid-cols-2 gap-12 items-start">
+  <div class="relative z-10 container mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-start">
 
     {{-- === FORM === --}}
-    <div class="bg-white/80 backdrop-blur-md border border-gray-200 shadow-xl rounded-3xl p-8 hover:shadow-2xl transition-all duration-500 animate-fade-up">
-      <h3 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-gray-300">Kirim Pesan</h3>
+    <div class="bg-white/80 backdrop-blur-md border border-gray-200 shadow-xl rounded-3xl p-6 sm:p-8 hover:shadow-2xl transition-all duration-500 animate-fade-up">
+      <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-6 border-b pb-3 border-gray-300">Kirim Pesan</h3>
 
       <form method="POST" action="{{ route('presmacontact.send') }}" class="space-y-5">
         @csrf
         <div>
-          <label for="contact_nama" class="block font-semibold text-gray-700 mb-2">Nama Lengkap</label>
-          <input id="contact_nama" type="text" name="nama" placeholder="Masukkan nama anda"
-            class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition">
+          <label class="block font-semibold text-gray-700 mb-2 text-sm sm:text-base">Nama Lengkap</label>
+          <input type="text" name="nama" placeholder="Masukkan nama anda"
+            class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition text-sm sm:text-base">
         </div>
 
         <div>
-          <label for="contact_email" class="block font-semibold text-gray-700 mb-2">Email</label>
-          <input id="contact_email" type="email" name="email" placeholder="Masukkan email aktif"
-            class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition">
+          <label class="block font-semibold text-gray-700 mb-2 text-sm sm:text-base">Email</label>
+          <input type="email" name="email" placeholder="Masukkan email aktif"
+            class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition text-sm sm:text-base">
         </div>
 
         <div>
-          <label for="contact_message" class="block font-semibold text-gray-700 mb-2">Pesan</label>
-          <textarea id="contact_message" name="pesan" rows="5" placeholder="Tuliskan pesan atau pertanyaan anda"
-            class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition"></textarea>
+          <label class="block font-semibold text-gray-700 mb-2 text-sm sm:text-base">Pesan</label>
+          <textarea name="pesan" rows="5" placeholder="Tuliskan pesan atau pertanyaan anda"
+            class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none transition text-sm sm:text-base"></textarea>
         </div>
 
         <button type="submit"
-          class="w-full py-3 bg-orange-600 hover:bg-orange-700 text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <i class="ri-send-plane-line mr-2"></i> Kirim Sekarang
+          class="w-full py-3 bg-orange-600 hover:bg-orange-700 text-white text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          <i class="fas fa-paper-plane mr-2"></i> Kirim Sekarang
         </button>
       </form>
     </div>
 
     {{-- === CONTACT INFO CARD === --}}
-<div class="bg-gradient-to-br from-orange-500 to-orange-400 text-white rounded-3xl shadow-2xl p-10 relative overflow-hidden animate-fade-up delay-300">
-  {{-- Overlay dekoratif --}}
-  <div class="absolute inset-0 bg-gradient-to-tr from-orange-600/40 to-orange-200/20 rounded-3xl pointer-events-none"></div>
-  
-  <div class="relative z-10 space-y-6">
-    <h3 class="text-3xl font-extrabold text-white mb-6">Hubungi Kami</h3>
+    <div class="bg-gradient-to-br from-orange-500 to-orange-400 text-white rounded-3xl shadow-2xl p-8 sm:p-10 relative overflow-hidden animate-fade-up delay-300">
+      {{-- Overlay dekoratif --}}
+      <div class="absolute inset-0 bg-gradient-to-tr from-orange-600/40 to-orange-200/20 rounded-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 space-y-6">
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-white mb-6">Hubungi Kami</h3>
 
     {{-- Informasi Kontak --}}
     <div class="space-y-4 text-white/90">
@@ -90,14 +90,6 @@
       </div>
     </div>
 
-    {{-- Info tambahan opsional --}}
-    <div class="mt-6 bg-white/20 p-4 rounded-xl text-white/90 text-sm">
-      <p><strong>Jam Operasional:</strong> Senin - Jumat, 08:00 - 16:00</p>
-      <p><strong>Website:</strong> <a href="https://smk.prestasiprima.sch.id" class="underline hover:text-white">smk.prestasiprima.sch.id</a></p>
-    </div>
-  </div>
-</div>
-
   </div>
 
   {{-- === MAP === --}}
@@ -124,5 +116,13 @@
   .animate-fade-up { animation: fadeUp 1s ease forwards; }
   .delay-300 { animation-delay: .3s; }
   .delay-500 { animation-delay: .5s; }
+
+  /* ===== RESPONSIVE ADJUSTMENTS ===== */
+  @media (max-width: 768px) {
+    section {
+      padding-top: 7rem;
+      padding-bottom: 4rem;
+    }
+  }
 </style>
 @endsection

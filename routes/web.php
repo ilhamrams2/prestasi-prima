@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\GoogleController;
+use Illuminate\Support\Facades\Response;
 // ============================================================
 // ===================== IMPORT CONTROLLERS ===================
 // ============================================================
@@ -40,7 +41,8 @@ use App\Http\Controllers\prestasiprima\{
     PrestasiController,
     TrafficController,
     FasilitasController,
-    LulusanPtnController
+    HomepageController,
+    LulusanPtnController,
 };
 
 use App\Http\Controllers\prestasiprima\Admin\{
@@ -69,7 +71,9 @@ use App\Http\Controllers\Presmaboard\{
 // ======================= HALAMAN UTAMA ======================
 // ============================================================
 
-Route::view('/', 'prestasiprima.pages.landing')->name('landing');
+
+Route::get('/', [HomepageController::class, 'index'])->name('landing');
+
 Route::view('/welcome', 'welcome')->name('welcome');
 Route::view('/virtual-tour', 'Tour.VirtualTour')->name('virtual-tour');
 
@@ -82,6 +86,7 @@ Route::get('/test-google', function () {
         ? 'Class found'
         : 'Class NOT found';
 });
+
 
 // ============================================================
 // ===================== PRESTASIPRIMA ========================
