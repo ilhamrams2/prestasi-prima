@@ -138,7 +138,9 @@
     let startX = 0;
     let currentX = 0;
 
-    const whatsappLink = "https://wa.me/6281234567890"; // ganti nomor WA admin
+    const whatsappLink = "https://wa.me/6281234567890";
+
+    
 
     function getMaxX() {
       const sliderRect = slider.getBoundingClientRect();

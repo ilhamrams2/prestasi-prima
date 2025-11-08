@@ -72,7 +72,6 @@
           </a>
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
             <a href="/siswa/prestasi" class="dropdown-item">Prestasi</a>
-            <a href="https://www.instagram.com/osis_smkpp" class="dropdown-item">OSIS & MPK</a>
             <a href="/siswa/ekstrakurikuler" class="dropdown-item">Ekstrakurikuler</a>
             <a href="/siswa/karya-proyek" class="dropdown-item">Karya & Proyek</a>
           </div>
