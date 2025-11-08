@@ -45,7 +45,7 @@ use App\Http\Controllers\prestasiprima\{
     LulusanPtnController,
 };
 
-use App\Http\Controllers\prestasiprima\Admin\{
+use App\Http\Controllers\prestasiprima\admin\{
     AdminGalleryController,
     AdminNewsController,
     AdminPrestasiController,
