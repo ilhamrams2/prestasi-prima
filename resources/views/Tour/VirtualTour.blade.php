@@ -412,7 +412,6 @@
             { name: 'Cafeteria', file: "{{ asset('assets/360View/v360-3.jpg') }}" },
             { name: 'Cafetaria Hallway', file: "{{ asset('assets/360View/v360-4.jpg') }}" },
             { name: 'Executive Class', file: "{{ asset('assets/360View/v360-6.jpg') }}" },
-            { name: 'PPLG Laboratory', file: "{{ asset('assets/360View/v360-7.jpg') }}" },
             { name: 'BC Laboratory', file: "{{ asset('assets/360View/v360-8(2).jpg') }}" },
             { name: 'C Building 3rd floor', file: "{{ asset('assets/360View/v360-9.jpg') }}" },
             { name: 'Executive Corridor', file: "{{ asset('assets/360View/v360-10.jpg') }}" },
