@@ -1,2 +1,5 @@
 User-agent: *
-Disallow:
+Disallow: /downloads/
+
+User-agent: MagicSearchBot
+Disallow: /uploads/

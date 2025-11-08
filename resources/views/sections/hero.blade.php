@@ -71,8 +71,8 @@
   <div class="absolute top-28 right-0 md:top-32 flex flex-col items-end z-20 space-y-3">
     <!-- Toggle Button -->
     <button id="toggleSocial" aria-label="Buka panel sosial"
-            class="bg-orange-500 text-white w-12 h-12 md:w-14 md:h-14 rounded-l-2xl shadow-lg flex items-center justify-center transition opacity-0">
-      <i class="fas fa-share-alt"></i>
+    class="bg-orange-500 text-white w-12 h-12 md:w-14 md:h-14 rounded-l-2xl shadow-lg flex items-center justify-center transition opacity-0">
+  <i class="ri-share-forward-line text-xl"></i>
     </button>
 
     <!-- Panel -->
@@ -85,19 +85,19 @@
       </a>
       <a href="https://wa.me/6289599439033" target="_blank" aria-label="WhatsApp"
          class="text-orange-500 hover:text-orange-600">
-        <i class="fab fa-whatsapp text-lg md:text-xl"></i>
+        <i class="ri-whatsapp-line text-lg md:text-xl"></i>
       </a>
       <a href="https://instagram.com" target="_blank" aria-label="Instagram"
          class="text-orange-500 hover:text-orange-600">
-        <i class="fab fa-instagram text-lg md:text-xl"></i>
+        <i class="ri-instagram-line text-lg md:text-xl"></i>
       </a>
       <a href="https://youtube.com" target="_blank" aria-label="YouTube"
          class="text-orange-500 hover:text-orange-600">
-        <i class="fab fa-youtube text-lg md:text-xl"></i>
+        <i class="ri-youtube-line text-lg md:text-xl"></i>
       </a>
       <a href="https://tiktok.com" target="_blank" aria-label="TikTok"
          class="text-orange-500 hover:text-orange-600">
-        <i class="fab fa-tiktok text-lg md:text-xl"></i>
+        <i class="ri-tiktok-fill text-lg md:text-xl"></i>
       </a>
     </div>
   </div>
@@ -151,11 +151,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isOpen) {
       panel.classList.remove("open");
       panel.classList.add("close");
-      toggleBtn.innerHTML = '<i class="fas fa-share-alt"></i>';
+  toggleBtn.innerHTML = '<i class="ri-share-forward-line text-xl"></i>';
     } else {
       panel.classList.remove("close");
       panel.classList.add("open");
-      toggleBtn.innerHTML = '<i class="fas fa-times"></i>';
+  toggleBtn.innerHTML = '<i class="ri-close-line text-xl"></i>';
     }
     isOpen = !isOpen;
   });

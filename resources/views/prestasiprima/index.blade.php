@@ -5,11 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title', 'SMK Prestasi Prima')</title>
-
-  {{-- === Fonts & Icons === --}}
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  @php
+    $defaultDescription = 'SMK Prestasi Prima menghadirkan pendidikan kejuruan berkualitas dengan jurusan unggulan, fasilitas modern, dan dukungan karier untuk siswa berprestasi.';
+  @endphp
+  @if (trim($__env->yieldContent('meta_description')) !== '')
+    <meta name="description" content="@yield('meta_description')">
+  @else
+    <meta name="description" content="{{ $defaultDescription }}">
+  @endif
+  @if (trim($__env->yieldContent('meta_keywords')) !== '')
+    <meta name="keywords" content="@yield('meta_keywords')">
+  @endif
+  @if (trim($__env->yieldContent('meta_robots')) !== '')
+    <meta name="robots" content="@yield('meta_robots')">
+  @endif
+  <meta property="og:title" content="@yield('title', 'SMK Prestasi Prima')">
+  <meta property="og:description" content="@yield('meta_description', $defaultDescription)">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ url()->current() }}">
+  <meta property="og:image" content="{{ asset('assets/images/logo-smk.png') }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="@yield('title', 'SMK Prestasi Prima')">
+  <meta name="twitter:description" content="@yield('meta_description', $defaultDescription)">
 
   {{-- === Favicon === --}}
   <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-smk.png') }}">
@@ -46,13 +63,17 @@
 
   {{-- ==================== SCRIPTS ==================== --}}
   <script src="https://unpkg.com/lucide@latest" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
   // === INIT AOS ===
-  AOS.init({ once: false, offset: 100, duration: 800, easing: 'ease-in-out' });
+  if (window.initAOS) {
+    window.initAOS({ once: false, offset: 100, duration: 800, easing: 'ease-in-out' }).catch((error) => {
+      console.error('Failed to initialize AOS', error);
+    });
+  } else if (window.AOS) {
+    window.AOS.init({ once: false, offset: 100, duration: 800, easing: 'ease-in-out' });
+  }
 
   // === AKTIFKAN ICON LUCIDE ===
   if (window.lucide) lucide.createIcons();

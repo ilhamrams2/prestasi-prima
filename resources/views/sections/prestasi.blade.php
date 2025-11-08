@@ -81,8 +81,9 @@
 </section>
 
 <!-- ===== Styles & Scripts ===== -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@3.0.0-beta.6/dist/aos.css" />
+<noscript>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</noscript>
 
 <style>
   /* Swiper Navigation */
@@ -130,40 +131,66 @@
   .bg-deco-right.floating { animation: float-right 7s ease-in-out infinite; }
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@3.0.0-beta.6/dist/aos.js"></script>
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // Swiper
-  new Swiper(".prestasiSwiper", {
-    slidesPerView: 1,
-    spaceBetween: 20,
-    loop: true,
-    autoplay: { delay: 3000, disableOnInteraction: false },
-    pagination: { el: ".swiper-pagination", clickable: true },
-    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-    breakpoints: { 640:{slidesPerView:2,spaceBetween:20}, 768:{slidesPerView:3,spaceBetween:24},1024:{slidesPerView:4,spaceBetween:28} }
-  });
+  const ensureSwiperInstance = () => {
+    if (typeof window.ensureSwiper === 'function') {
+      return window.ensureSwiper();
+    }
+    if (window.Swiper) {
+      return Promise.resolve(window.Swiper);
+    }
+    return Promise.reject(new Error('Swiper loader is not available.'));
+  };
 
-  // Initialize AOS
-  AOS.init({ once: true, mirror: false });
+  const ensureAOSInstance = () => {
+    if (typeof window.ensureAOS === 'function') {
+      return window.ensureAOS();
+    }
+    if (window.AOS) {
+      return Promise.resolve(window.AOS);
+    }
+    return Promise.reject(new Error('AOS loader is not available.'));
+  };
 
-  // Background floating + muncul dengan animasi
-  const decoLeft = document.querySelector(".bg-deco-left");
-  const decoRight = document.querySelector(".bg-deco-right");
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add("floating");
-        entry.target.classList.add("aos-animate"); // trigger animasi awal AOS
-        observer.unobserve(entry.target);
+  ensureSwiperInstance().then((Swiper) => {
+    new Swiper('.prestasiSwiper', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      autoplay: { delay: 3000, disableOnInteraction: false },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      breakpoints: {
+        640: { slidesPerView: 2, spaceBetween: 20 },
+        768: { slidesPerView: 3, spaceBetween: 24 },
+        1024: { slidesPerView: 4, spaceBetween: 28 }
       }
     });
-  }, { threshold: 0.5 });
 
-  observer.observe(decoLeft);
-  observer.observe(decoRight);
+    return ensureAOSInstance();
+  }).then((AOS) => {
+    if (AOS) {
+      AOS.init({ once: true, mirror: false });
+    }
+
+    const decoLeft = document.querySelector('.bg-deco-left');
+    const decoRight = document.querySelector('.bg-deco-right');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('floating');
+          entry.target.classList.add('aos-animate');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    if (decoLeft) observer.observe(decoLeft);
+    if (decoRight) observer.observe(decoRight);
+  }).catch((err) => {
+    console.error('Failed to bootstrap prestasi Swiper/AOS', err);
+  });
 });
 </script>

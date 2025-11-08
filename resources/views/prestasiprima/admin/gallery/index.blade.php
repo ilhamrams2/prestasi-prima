@@ -9,9 +9,9 @@
   <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
     <h1 class="text-3xl font-semibold text-gray-800 tracking-tight">Manajemen Galeri</h1>
 
-    <a href="{{ route('prestasiprima.admin.gallery.create') }}" 
+    <a href="{{ route('prestasiprima.admin.gallery.create') }}"
        class="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg font-medium transition duration-200">
-      <i class="fa-solid fa-plus text-sm"></i>
+      <i class="ri-add-line text-lg"></i>
       Tambah Galeri
     </a>
   </div>
@@ -19,7 +19,7 @@
   {{-- ================= FLASH MESSAGE ================= --}}
   @if (session('success'))
     <div class="mb-5 p-4 bg-gray-50 border border-gray-200 rounded-lg flex items-center text-gray-700">
-      <i class="fa-solid fa-circle-check text-green-500 mr-2"></i>
+      <i class="ri-checkbox-circle-line text-green-500 text-xl mr-2"></i>
       {{ session('success') }}
     </div>
   @endif
@@ -75,7 +75,7 @@
             <div class="mt-auto flex items-center justify-between pt-3 border-t border-gray-100">
               <a href="{{ route('prestasiprima.admin.gallery.edit', $gallery->id) }}" 
                  class="inline-flex items-center gap-1 text-gray-700 hover:text-gray-900 text-sm font-medium transition">
-                <i class="fa-solid fa-pen-to-square text-sm"></i> Edit
+                <i class="ri-edit-box-line text-lg"></i> Edit
               </a>
 
               <form action="{{ route('prestasiprima.admin.gallery.destroy', $gallery->id) }}" method="POST" 
@@ -84,7 +84,7 @@
                 @method('DELETE')
                 <button type="submit" 
                         class="inline-flex items-center gap-1 text-gray-500 hover:text-red-600 text-sm font-medium transition">
-                  <i class="fa-solid fa-trash text-sm"></i> Hapus
+                  <i class="ri-delete-bin-line text-lg"></i> Hapus
                 </button>
               </form>
             </div>
@@ -99,7 +99,7 @@
     </div>
   @else
     <div class="text-center py-16 text-gray-400 italic">
-      <i class="fa-solid fa-image text-4xl mb-3"></i>
+      <i class="ri-image-2-line text-4xl mb-3"></i>
       <p>Belum ada data galeri.</p>
     </div>
   @endif

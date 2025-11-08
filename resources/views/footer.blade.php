@@ -99,14 +99,14 @@
     <!-- Sosial Media -->
     <div class="flex items-center gap-4">
       <a href="https://www.facebook.com/p/SMK-Prestasi-PRIMA-100035392916117/"
-        class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i
-          class="fab fa-facebook-f"></i></a>
+        class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"
+        aria-label="Facebook SMK Prestasi Prima"><i class="ri-facebook-fill text-lg"></i></a>
       <a href="https://www.instagram.com/smkprestasiprima/"
-        class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i
-          class="fab fa-instagram"></i></a>
+        class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"
+        aria-label="Instagram SMK Prestasi Prima"><i class="ri-instagram-line text-lg"></i></a>
       <a href="https://www.youtube.com/@SEKOLAHPRESTASIPRIMA"
-        class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"><i
-          class="fab fa-youtube"></i></a>
+        class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"
+        aria-label="YouTube SMK Prestasi Prima"><i class="ri-youtube-fill text-lg"></i></a>
     </div>
   </div>
 
@@ -121,10 +121,10 @@
             class="absolute left-0 -bottom-1 w-10 h-[2px] bg-gradient-to-r from-orange-500 to-orange-300 rounded-full"></span>
         </h3>
         <ul class="text-sm text-gray-400 space-y-3 mt-4">
-          <li class="flex items-center gap-3"><i class="fa-solid fa-phone text-orange-400 text-base"></i><span>+62 851-9592-8886</span></li>
-          <li class="flex items-center gap-3"><i class="fa-solid fa-envelope text-orange-400 text-base"></i><span>smk.prestasiprima.sch.id</span></li>
-          <li class="flex items-center gap-3"><i class="fa-solid fa-school text-orange-400 text-base"></i><span>Jl. Hankam Raya No. 89, Cilangkap, Cipayung,Jakarta Timur, DKI Jakarta.</span></li>
-          <li class="flex items-center gap-3"><i class="fa-regular fa-clock text-orange-400 text-base"></i><span>Senin –
+      <li class="flex items-center gap-3"><i class="ri-phone-line text-orange-400 text-base"></i><span>+62 851-9592-8886</span></li>
+      <li class="flex items-center gap-3"><i class="ri-mail-line text-orange-400 text-base"></i><span>smk.prestasiprima.sch.id</span></li>
+      <li class="flex items-center gap-3"><i class="ri-building-4-line text-orange-400 text-base"></i><span>Jl. Hankam Raya No. 89, Cilangkap, Cipayung,Jakarta Timur, DKI Jakarta.</span></li>
+      <li class="flex items-center gap-3"><i class="ri-time-line text-orange-400 text-base"></i><span>Senin –
               Jumat: 06.00 - 17.00</span></li>
         </ul>
       </div>
@@ -210,7 +210,7 @@
         class="rounded-2xl overflow-hidden shadow-lg border border-white/10 h-[230px] sm:h-[260px] md:h-[280px] lg:h-[300px]">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4748268020353!2d106.8972187!3d-6.332476499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed2681bc7c67%3A0x777152b1d3f74a62!2sSMK%20Prestasi%20Prima!5e0!3m2!1sid!2sid!4v1756647265168!5m2!1sid!2sid"
-          width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy">
+          width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy" title="Lokasi SMK Prestasi Prima">
         </iframe>
       </div>
     </div>
@@ -225,11 +225,14 @@
             class="absolute left-0 -bottom-1 w-10 h-[2px] bg-gradient-to-r from-orange-500 to-orange-300 rounded-full"></span>
         </h2>
         <form class="space-y-3">  
-          <input type="text" placeholder="Nama Anda"
+          <label for="footer-contact-name" class="sr-only">Nama Anda</label>
+          <input id="footer-contact-name" type="text" placeholder="Nama Anda"
             class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-200 focus:ring-2 focus:ring-orange-400 focus:outline-none">
-          <input type="email" placeholder="Email"
+          <label for="footer-contact-email" class="sr-only">Email</label>
+          <input id="footer-contact-email" type="email" placeholder="Email"
             class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-200 focus:ring-2 focus:ring-orange-400 focus:outline-none">
-          <textarea rows="3" placeholder="Pesan Anda"
+          <label for="footer-contact-message" class="sr-only">Pesan Anda</label>
+          <textarea id="footer-contact-message" rows="3" placeholder="Pesan Anda"
             class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-200 focus:ring-2 focus:ring-orange-400 focus:outline-none"></textarea>
           <button type="submit"
             class="bg-orange-500 hover:bg-orange-600 w-full py-2 rounded-lg text-sm font-medium text-white transition">

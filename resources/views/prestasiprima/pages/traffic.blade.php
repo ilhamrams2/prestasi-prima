@@ -28,7 +28,7 @@
         {{-- === ALAMAT INPUT === --}}
         <div class="space-y-3">
           <label for="alamat_rumah" class="block text-gray-800 font-semibold text-lg flex items-center gap-2">
-            <i class="fa-solid fa-house text-orange-600"></i> Alamat Rumah
+            <i class="ri-home-5-line text-orange-600"></i> Alamat Rumah
           </label>
           <input type="text" id="alamat_rumah" name="alamat_rumah"
             class="w-full border border-gray-300 rounded-xl p-3 text-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-orange-500 focus:outline-none"
@@ -37,14 +37,14 @@
           <button type="button" onclick="gunakanLokasiSaya()"
             class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 
             text-white py-3 rounded-xl font-semibold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2">
-            <i class="fa-solid fa-location-crosshairs"></i> Gunakan Lokasi Saat Ini
+            <i class="ri-focus-3-line"></i> Gunakan Lokasi Saat Ini
           </button>
         </div>
 
         {{-- === MODE TRANSPORTASI === --}}
         <div class="space-y-3">
           <label class="block text-gray-800 font-semibold text-lg flex items-center gap-2">
-            <i class="fa-solid fa-car-side text-orange-600"></i> Pilih Mode Transportasi
+            <i class="ri-car-line text-orange-600"></i> Pilih Mode Transportasi
           </label>
           <select id="mode_transportasi"
             class="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-orange-500 focus:outline-none text-gray-700">
@@ -57,7 +57,7 @@
           <button type="button" onclick="hitungJarakManual()"
             class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 
             text-white py-3 rounded-xl font-semibold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2">
-            <i class="fa-solid fa-magnifying-glass-location"></i> Hitung Jarak
+            <i class="ri-map-pin-search-line"></i> Hitung Jarak
           </button>
         </div>
 
@@ -67,7 +67,7 @@
     {{-- === HASIL PERHITUNGAN === --}}
     <div id="hasil" class="hidden mt-14 bg-white shadow-xl rounded-2xl p-8 text-center border border-gray-100 transition duration-300">
       <h3 class="text-2xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2">
-        <i class="fa-solid fa-chart-line text-orange-600"></i> Hasil Perhitungan
+  <i class="ri-line-chart-line text-orange-600"></i> Hasil Perhitungan
       </h3>
       <p class="text-gray-600 mb-2" id="alamatOutput"></p>
       <p class="text-gray-800 text-lg mb-1">Jarak: <strong class="text-orange-600" id="jarakOutput"></strong></p>
@@ -78,9 +78,6 @@
     <div id="map" class="mt-10 w-full h-96 rounded-2xl shadow-lg hidden"></div>
   </div>
 </section>
-
-{{-- === Font Awesome CDN === --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 {{-- === Google Maps API === --}}
 <script async defer

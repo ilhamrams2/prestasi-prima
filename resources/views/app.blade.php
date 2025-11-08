@@ -18,9 +18,6 @@
     <!-- Tailwind CSS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
     @stack('styles')
 </head>
 <body class="antialiased @hasSection('hideSidebar') no-sidebar @endif overflow-x-hidden" x-data="{ sidebarCollapsed: false }">

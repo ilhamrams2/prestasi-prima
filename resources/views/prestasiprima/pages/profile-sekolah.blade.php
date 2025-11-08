@@ -250,9 +250,9 @@ document.addEventListener("DOMContentLoaded", function() {
         {{-- Peta --}}
         <div class="relative group" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
             <div class="rounded-3xl overflow-hidden shadow-2xl border border-orange-200 bg-white transition-transform duration-500 ease-in-out group-hover:scale-[1.02] group-hover:shadow-orange-200/50">
-                <iframe class="w-full h-[450px] grayscale-[20%] hover:grayscale-0 transition-all duration-700 ease-in-out"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4748268020353!2d106.8972187!3d-6.332476499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed2681bc7c67%3A0x777152b1d3f74a62!2sSMK%20Prestasi%20Prima!5e0!3m2!1sid!2sid!4v1756647265168!5m2!1sid!2sid"
-                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        <iframe class="w-full h-[450px] grayscale-[20%] hover:grayscale-0 transition-all duration-700 ease-in-out"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4748268020353!2d106.8972187!3d-6.332476499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed2681bc7c67%3A0x777152b1d3f74a62!2sSMK%20Prestasi%20Prima!5e0!3m2!1sid!2sid!4v1756647265168!5m2!1sid!2sid"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lokasi SMK Prestasi Prima">
                 </iframe>
             </div>
         </div>
@@ -272,11 +272,11 @@ document.addEventListener("DOMContentLoaded", function() {
             <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
                 <a href="https://goo.gl/maps/k3PUPcTZhQKxW1t69" target="_blank"
                    class="px-8 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300">
-                   <i class="fa-solid fa-location-dot mr-2"></i> Buka di Google Maps
+                   <i class="ri-map-pin-line mr-2"></i> Buka di Google Maps
                 </a>
                 <a href="/contact"
                    class="px-8 py-3 rounded-xl border border-orange-400 text-orange-500 hover:bg-orange-500 hover:text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300">
-                   <i class="fa-solid fa-envelope mr-2"></i> Hubungi Kami
+                   <i class="ri-mail-send-line mr-2"></i> Hubungi Kami
                 </a>
             </div>
         </div>

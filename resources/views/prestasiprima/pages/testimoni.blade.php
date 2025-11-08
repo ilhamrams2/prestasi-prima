@@ -57,35 +57,73 @@
   </div>
 </section>
 
-<!-- SWIPER JS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-<!-- AOS (ANIMATION ON SCROLL) -->
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<!-- SWIPER (fallback styles for no-JS browsers) -->
+<noscript>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</noscript>
 
 <script>
-  AOS.init({
-    duration: 1000,
-    once: true,
-  });
+  const initAOSTestimonial = () => {
+    const config = { duration: 1000, once: true };
+    if (window.initAOS) {
+      return window.initAOS(config);
+    }
+    if (typeof window.ensureAOS === 'function') {
+      return window.ensureAOS().then((AOS) => {
+        AOS.init(config);
+        return AOS;
+      });
+    }
+    if (window.AOS) {
+      window.AOS.init(config);
+      return Promise.resolve(window.AOS);
+    }
+    return Promise.reject(new Error('AOS loader is not available.'));
+  };
 
-  const swiper = new Swiper('.mySwiper', {
-    loop: true,
-    centeredSlides: true,
-    slidesPerView: 1,
-    spaceBetween: 30,
-    autoplay: {
-      delay: 2500,
-      disableOnInteraction: false,
-    },
-    speed: 1000,
-    breakpoints: {
-      640: { slidesPerView: 2 },
-      1024: { slidesPerView: 3 },
-    },
-  });
+  const initSwiperTestimoni = () => {
+    const loadSwiper = () => {
+      if (typeof window.ensureSwiper === 'function') {
+        return window.ensureSwiper();
+      }
+      if (window.Swiper) {
+        return Promise.resolve(window.Swiper);
+      }
+      return Promise.reject(new Error('Swiper loader is not available.'));
+    };
+
+    return loadSwiper().then((Swiper) => new Swiper('.mySwiper', {
+      loop: true,
+      centeredSlides: true,
+      slidesPerView: 1,
+      spaceBetween: 30,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      speed: 1000,
+      breakpoints: {
+        640: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+      },
+    }));
+  };
+
+  const bootstrapTestimoni = () => {
+    initAOSTestimonial().catch((error) => {
+      console.error('Failed to initialize AOS on Testimoni page', error);
+    });
+
+    initSwiperTestimoni().catch((error) => {
+      console.error('Failed to initialize Swiper on Testimoni page', error);
+    });
+  };
+
+  if (document.readyState !== 'loading') {
+    bootstrapTestimoni();
+  } else {
+    document.addEventListener('DOMContentLoaded', bootstrapTestimoni, { once: true });
+  }
 </script>
 
 <!-- Animasi tambahan -->

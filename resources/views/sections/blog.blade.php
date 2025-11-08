@@ -108,8 +108,9 @@
 
 <!-- ====== Swiper & AOS ====== -->
 @push('styles')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<noscript>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</noscript>
 <style>
 .blogSwiper article {
   border-radius: 1.25rem;
@@ -138,26 +139,50 @@
 @endpush
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-  AOS.init({
-    once: true,
-    duration: 1000,
-    offset: 120,
-    easing: 'ease-out-cubic'
-  });
+  document.addEventListener('DOMContentLoaded', () => {
+    const ensureSwiperInstance = () => {
+      if (typeof window.ensureSwiper === 'function') {
+        return window.ensureSwiper();
+      }
+      if (window.Swiper) {
+        return Promise.resolve(window.Swiper);
+      }
+      return Promise.reject(new Error('Swiper loader is not available.'));
+    };
 
-  const blogSwiper = new Swiper(".blogSwiper", {
-    slidesPerView: 1,
-    spaceBetween: 20,
-    loop: true,
-    pagination: { el: ".swiper-pagination", clickable: true },
-    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-    breakpoints: {
-      640: { slidesPerView: 2, spaceBetween: 24 },
-      1024: { slidesPerView: 3, spaceBetween: 30 },
-    },
+    const ensureAOSInstance = () => {
+      if (typeof window.ensureAOS === 'function') {
+        return window.ensureAOS();
+      }
+      if (window.AOS) {
+        return Promise.resolve(window.AOS);
+      }
+      return Promise.reject(new Error('AOS loader is not available.'));
+    };
+
+    ensureSwiperInstance().then(() => ensureAOSInstance()).then((AOS) => {
+      if (AOS) {
+        AOS.init({
+          once: true,
+          duration: 1000,
+          offset: 120,
+          easing: 'ease-out-cubic'
+        });
+      }
+
+      new Swiper('.blogSwiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        breakpoints: {
+          640: { slidesPerView: 2, spaceBetween: 24 },
+          1024: { slidesPerView: 3, spaceBetween: 30 },
+        },
+      });
+    }).catch((err) => console.error('Failed to bootstrap blog Swiper/AOS', err));
   });
 </script>
 @endpush

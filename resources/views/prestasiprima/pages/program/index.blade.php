@@ -22,7 +22,7 @@
         bersaing di era teknologi dan menjadi bukti nyata dari visi kami dalam menghasilkan SDM IT profesional.
       </p>
       <a href="#programs" class="inline-flex items-center bg-orange-600 text-white px-5 py-3 rounded-lg font-medium hover:bg-orange-700 transition scroll-link">
-        Selengkapnya <i class="ms-2 fas fa-arrow-down"></i>
+        Selengkapnya <i class="ms-2 ri-arrow-down-line"></i>
       </a>
     </div>
   </div>
@@ -42,7 +42,7 @@
           serta mengembangkan permainan digital (<em>game development</em>). Lulusan dipersiapkan menjadi programmer dan developer profesional.
         </p>
         <a href="{{ route('program.pplg') }}" class="inline-flex items-center bg-orange-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-orange-700 transition">
-          Selengkapnya <i class="ms-2 fas fa-arrow-right"></i>
+          Selengkapnya <i class="ms-2 ri-arrow-right-line"></i>
         </a>
       </div>
     </div>
@@ -60,7 +60,7 @@
           Lulusan siap bekerja sebagai desainer grafis, ilustrator, atau <em>content creator</em>.
         </p>
         <a href="{{ route('program.dkv') }}" class="inline-flex items-center bg-orange-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-orange-700 transition">
-          Selengkapnya <i class="ms-2 fas fa-arrow-right"></i>
+          Selengkapnya <i class="ms-2 ri-arrow-right-line"></i>
         </a>
       </div>
     </div>
@@ -77,7 +77,7 @@
           Lulusan dapat menjadi teknisi jaringan, administrator server, atau spesialis keamanan siber.
         </p>
         <a href="{{ route('program.tjkt') }}" class="inline-flex items-center bg-orange-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-orange-700 transition">
-          Selengkapnya <i class="ms-2 fas fa-arrow-right"></i>
+          Selengkapnya <i class="ms-2 ri-arrow-right-line"></i>
         </a>
       </div>
     </div>
@@ -95,7 +95,7 @@
           Lulusan siap berkarier sebagai <em>filmmaker</em> atau editor profesional.
         </p>
         <a href="{{ route('program.bcf') }}" class="inline-flex items-center bg-orange-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-orange-700 transition">
-          Selengkapnya <i class="ms-2 fas fa-arrow-right"></i>
+          Selengkapnya <i class="ms-2 ri-arrow-right-line"></i>
         </a>
       </div>
     </div>
@@ -107,11 +107,27 @@
 
 @section('scripts')
 {{-- AOS Animation & Smooth Scroll --}}
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  AOS.init({
-    duration: 1000,
-    once: true,
+  const initAOSProgram = () => {
+    const config = { duration: 1000, once: true };
+    if (window.initAOS) {
+      return window.initAOS(config);
+    }
+    if (typeof window.ensureAOS === 'function') {
+      return window.ensureAOS().then((AOS) => {
+        AOS.init(config);
+        return AOS;
+      });
+    }
+    if (window.AOS) {
+      window.AOS.init(config);
+      return Promise.resolve(window.AOS);
+    }
+    return Promise.reject(new Error('AOS loader is not available.'));
+  };
+
+  initAOSProgram().catch((error) => {
+    console.error('Failed to initialize AOS on Program page', error);
   });
 
   // Smooth scroll
@@ -125,8 +141,4 @@
     });
   });
 </script>
-@endsection
-
-@section('styles')
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 @endsection

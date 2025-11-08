@@ -5,14 +5,14 @@
 @section('content')
 <div class="min-h-screen bg-gray-50 flex" x-data="sidebarState()">
    
-    <div class="min-h-screen bg-gray-50 flex justify-center items-start py-8">
-    <div class="w-full max-w-6xl px-4 sm:px-6 lg:px-8" x-data="jobListApp()">
+    <div class="min-h-screen bg-gray-50 flex-1 flex items-start py-8">
+    <div class="w-full max-w-none px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-10" x-data="jobListApp()">
 
 
         
         <!-- Search Header - Sticky -->
-        <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
+    <div class="w-full px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-16 py-6">
             <!-- Main Search Form -->
             <form action="{{ route('jobs.index') }}" method="GET" class="space-y-4">
                 <div class="flex flex-col lg:flex-row gap-4 mb-4">
@@ -148,7 +148,7 @@
 
     @if($jobs->count() == 0 && !request()->hasAny(['search', 'location', 'job_type']))
         <!-- Empty State - No Jobs in Database -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="w-full px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-16 py-16">
             <div class="text-center">
                 <div class="flex justify-center mb-8">
                     <div class="relative">
@@ -180,10 +180,10 @@
         </div>
     @else
         <!-- Main Content -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="w-full px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-10 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-10 2xl:gap-12">
                 <!-- Job List - Left Side (Scrollable) -->
-                <div class="lg:col-span-2">
+                <div class="lg:col-span-7 xl:col-span-7 2xl:col-span-7">
                     <!-- Results Header -->
                     <div class="flex items-center justify-between mb-6 results-header">
                         <h2 class="text-xl font-semibold text-gray-900">
@@ -195,7 +195,7 @@
                     </div>
 
                     <!-- Job Cards Container -->
-                    <div class="space-y-4 job-cards-container max-h-[calc(100vh-280px)] pr-2 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                    <div class="space-y-4 job-cards-container max-h-[calc(100vh-280px)] pr-2 lg:pr-3 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                         @forelse($jobs as $job)
                             <div 
                                 @click="selectJob({{ $job->id }})"
@@ -302,7 +302,7 @@
                 </div>
 
                 <!-- Job Detail Sidebar - Right Side -->
-                <div class="lg:col-span-1 ">
+                <div class="lg:col-span-5 xl:col-span-5 2xl:col-span-5">
                     <div class="company-sidebar sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                         <!-- Empty State -->
                         <div x-show="!selectedJobData" class="bg-white rounded-lg shadow-sm p-8 text-center">
@@ -619,12 +619,10 @@ header {
 
 .company-sidebar {
     animation: fadeInRight 0.8s ease-out 0.7s both;
-     margin: 0 auto;
 }
 
 .job-cards-container {
-    margin: 0 auto;
-    max-width: 800px;
+    width: 100%;
 }
 
 .no-results {
@@ -719,5 +717,4 @@ function jobListApp() {
 }
 </script>
 
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endsection

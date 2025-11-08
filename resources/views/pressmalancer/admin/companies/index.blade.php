@@ -12,7 +12,6 @@
 @vite('resources/css/app.css')
 @section('title', 'Admin - Kelola Perusahaan')
 @section('content')
-<script src="//unpkg.com/alpinejs" defer></script>
 <div class="min-h-screen bg-gray-50">
     <!-- Admin Header (full-bleed, fixed) -->
     <header class="fixed top-0 left-0 w-full bg-gradient-to-r from-purple-600 to-purple-700 shadow-lg z-40">

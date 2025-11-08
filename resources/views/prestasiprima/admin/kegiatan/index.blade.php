@@ -11,7 +11,7 @@
 
     <a href="{{ route('prestasiprima.admin.kegiatan.create') }}" 
        class="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg font-medium transition duration-200">
-      <i class="fa-solid fa-plus text-sm"></i>
+      <i class="ri-add-line text-lg"></i>
       Tambah Kegiatan
     </a>
   </div>
@@ -19,7 +19,7 @@
   {{-- ================= FLASH MESSAGE ================= --}}
   @if (session('success'))
     <div class="mb-5 p-4 bg-gray-50 border border-gray-200 rounded-lg flex items-center text-gray-700">
-      <i class="fa-solid fa-circle-check text-green-500 mr-2"></i>
+      <i class="ri-checkbox-circle-line text-green-500 text-xl mr-2"></i>
       {{ session('success') }}
     </div>
   @endif
@@ -64,7 +64,7 @@
             <td class="px-5 py-3 text-right space-x-3">
               <a href="{{ route('prestasiprima.admin.kegiatan.edit', $item->id) }}" 
                  class="inline-flex items-center gap-1 text-gray-700 hover:text-gray-900 transition">
-                <i class="fa-solid fa-pen-to-square text-sm"></i> Edit
+                <i class="ri-edit-box-line text-lg"></i> Edit
               </a>
 
               <form action="{{ route('prestasiprima.admin.kegiatan.destroy', $item->id) }}" 
@@ -74,7 +74,7 @@
                 <button type="submit" 
                         onclick="return confirm('Yakin ingin menghapus kegiatan ini?')"
                         class="inline-flex items-center gap-1 text-gray-500 hover:text-red-600 transition">
-                  <i class="fa-solid fa-trash text-sm"></i> Hapus
+                  <i class="ri-delete-bin-line text-lg"></i> Hapus
                 </button>
               </form>
             </td>

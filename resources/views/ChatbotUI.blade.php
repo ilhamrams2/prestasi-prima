@@ -1,10 +1,5 @@
 {{-- Chatbot Floating Button & Window --}}
 
-@once
-    @push('styles')
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-    @endpush
-@endonce
 
 {{-- Pastikan ada CSRF meta tag di parent page --}}
 @if (!isset($__csrfTokenSet))
@@ -80,13 +75,13 @@
             <!-- Tombol Send di kanan dalam -->
             <button id="sendBtn" type="submit"
                 class="absolute right-2 flex items-center justify-center w-8 h-8 rounded-full bg-orange-500 text-white hover:bg-white hover:text-orange-500 border border-orange-500 transition-all duration-300 shadow-md">
-                <i class="fas fa-paper-plane text-sm"></i>
+                <i class="ri-send-plane-2-line text-sm"></i>
             </button>
         </div>
 
         <!-- Pesan error -->
         <div id="chatbot-error" class="text-red-500 text-xs mt-1 ml-3 flex items-center" style="display:none;">
-            <i class="fas fa-times-circle mr-1"></i>
+            <i class="ri-error-warning-line mr-1"></i>
             <span id="error-text"></span>
         </div>
     </form>
@@ -514,7 +509,7 @@
                 isSending = true;
                 sendBtn.disabled = true;
                 userInput.disabled = true;
-                sendBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin text-xl"></i>';
+                sendBtn.innerHTML = '<i class="ri-loader-4-line animate-spin text-xl"></i>';
                 const loadingBubble = createMessageElement('', false, 'loading');
                 errorDiv.style.display = 'none';
 
@@ -624,7 +619,7 @@
                 } finally {
                     isSending = false;
                     userInput.disabled = false;
-                    sendBtn.innerHTML = '<i class="fas fa-paper-plane text-xl"></i>';
+                    sendBtn.innerHTML = '<i class="ri-send-plane-2-line text-xl"></i>';
                     scrollToBottom();
                     adjustTextareaHeight(userInput);
                     userInput.focus();

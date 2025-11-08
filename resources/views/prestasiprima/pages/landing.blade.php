@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head></head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-    <title>@yield('title')</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-  </head>
 @extends('prestasiprima.index')
-@section('title','Beranda - SMK Prestasi Prima')
+
+@section('title', 'Beranda - SMK Prestasi Prima')
+
+@section('meta_description', 'SMK Prestasi Prima menghadirkan pendidikan kejuruan berstandar industri dengan program unggulan, fasilitas modern, serta dukungan karier dan prestasi siswa yang inspiratif.')
+
+@section('meta_keywords', 'SMK Prestasi Prima, sekolah kejuruan Jakarta, pendidikan vokasi, prestasi siswa, pendaftaran SMK, program keahlian')
 
 @section('content')
   @include('sections.hero')
@@ -23,4 +19,3 @@
   @include('sections.industri')
   @include('sections.blog')
 @endsection
-</html>

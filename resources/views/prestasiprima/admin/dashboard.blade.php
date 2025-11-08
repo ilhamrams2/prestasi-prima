@@ -14,7 +14,7 @@
       <p class="text-3xl font-bold text-gray-800 mt-1">{{ $totalBerita }}</p>
     </div>
     <div class="bg-blue-100 text-blue-600 p-3 rounded-xl">
-      <i class="fa-solid fa-newspaper text-2xl"></i>
+      <i class="ri-newspaper-line text-2xl"></i>
     </div>
   </div>
 
@@ -25,7 +25,7 @@
       <p class="text-3xl font-bold text-gray-800 mt-1">{{ $totalPrestasi ?? 0 }}</p>
     </div>
     <div class="bg-yellow-100 text-yellow-600 p-3 rounded-xl">
-      <i class="fa-solid fa-trophy text-2xl"></i>
+      <i class="ri-trophy-line text-2xl"></i>
     </div>
   </div>
 
@@ -36,7 +36,7 @@
       <p class="text-3xl font-bold text-gray-800 mt-1">{{ $totalKegiatan ?? 0 }}</p>
     </div>
     <div class="bg-green-100 text-green-600 p-3 rounded-xl">
-      <i class="fa-solid fa-calendar-days text-2xl"></i>
+      <i class="ri-calendar-event-line text-2xl"></i>
     </div>
   </div>
 
@@ -47,7 +47,7 @@
       <p class="text-3xl font-bold text-gray-800 mt-1">{{ $totalStaff ?? 0 }}</p>
     </div>
     <div class="bg-purple-100 text-purple-600 p-3 rounded-xl">
-      <i class="fa-solid fa-user-tie text-2xl"></i>
+      <i class="ri-user-settings-line text-2xl"></i>
     </div>
   </div>
 
@@ -59,7 +59,7 @@
   {{-- === DAFTAR BERITA TERBARU === --}}
   <div class="bg-white rounded-2xl shadow p-6">
     <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-      <i class="fa-solid fa-clock text-gray-600"></i> Berita Terbaru
+      <i class="ri-time-line text-gray-600 text-xl"></i> Berita Terbaru
     </h3>
 
     @if($latestNews->isNotEmpty())
@@ -85,7 +85,7 @@
   {{-- === DAFTAR PRESTASI TERBARU === --}}
   <div class="bg-white rounded-2xl shadow p-6">
     <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-      <i class="fa-solid fa-trophy text-gray-600"></i> Prestasi Terbaru
+      <i class="ri-trophy-line text-gray-600 text-xl"></i> Prestasi Terbaru
     </h3>
 
     @if($latestPrestasi->isNotEmpty())

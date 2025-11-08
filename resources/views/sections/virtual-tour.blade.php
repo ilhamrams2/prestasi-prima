@@ -32,7 +32,7 @@
 
       {{-- Arrow animasi --}}
       <div class="mt-4 animate-bounce text-orange-500">
-        <i class="fa-solid fa-arrow-down"></i>
+        <i class="ri-arrow-down-line text-xl"></i>
       </div>
     </div>
 
@@ -58,7 +58,7 @@
         </div>
 
         <div class="absolute top-4 right-4 bg-orange-500/80 p-3 rounded-full shadow-lg animate-bounce icon-vr">
-          <i class="fa-solid fa-vr-cardboard text-white text-lg md:text-xl"></i>
+          <i class="ri-vr-line text-white text-lg md:text-xl"></i>
         </div>
       </div>
     </div>
@@ -95,8 +95,6 @@
 </style>
 
 {{-- AOS --}}
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
   AOS.init({
     once: true,

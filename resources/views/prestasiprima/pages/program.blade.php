@@ -41,78 +41,75 @@
     </div>
   </div>
 
-  {{-- ==================== DAFTAR JURUSAN ==================== --}}
-  <div id="daftar-jurusan" class="mt-24 space-y-24">
+  {{-- ==================== JURUSAN 1 ==================== --}}
+  <div class="max-w-6xl mx-auto px-6 md:px-10 mt-24 flex flex-col md:flex-row items-center gap-10">
+    <div class="md:w-1/2">
+      <img src="{{ asset('assets/images/program/pplg.png') }}" alt="Pengembangan Perangkat Lunak dan Gim" class="rounded-2xl w-full object-cover">
+    </div>
+    <div class="md:w-1/2">
+      <h3 class="text-2xl md:text-3xl font-bold text-orange-600 mb-3">Pengembangan Perangkat Lunak dan Gim</h3>
+      <p class="text-gray-700 mb-6 text-justify">
+        Jurusan ini mengajarkan siswa cara merancang, membuat, dan menguji aplikasi perangkat lunak (desktop, web, maupun mobile)
+        serta mengembangkan permainan digital (<em>game development</em>). Lulusan dipersiapkan menjadi programmer dan developer profesional.
+      </p>
+      <a href="#" class="inline-flex items-center bg-orange-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-orange-700 transition">
+        Selengkapnya <i class="ms-2 ri-arrow-right-line"></i>
+      </a>
+    </div>
+  </div>
 
-    {{-- ========== JURUSAN 1: PPLG ========== --}}
-    <article class="max-w-6xl mx-auto px-6 md:px-10 flex flex-col md:flex-row items-center gap-10 scroll-mt-20">
-      <figure class="md:w-1/2">
-        <img 
-          src="{{ asset('assets/images/program/pplg.png') }}" 
-          alt="Jurusan PPLG - Pengembangan Perangkat Lunak dan Gim" 
-          loading="lazy"
-          decoding="async"
-          class="rounded-2xl w-full h-auto object-cover shadow-lg"
-        >
-      </figure>
-      <div class="md:w-1/2">
-        <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-3">Pengembangan Perangkat Lunak dan Gim (PPLG)</h2>
-        <p class="text-gray-700 mb-6 text-justify">
-          Jurusan ini mengajarkan siswa cara merancang, membuat, dan menguji aplikasi perangkat lunak (desktop, web, maupun mobile),
-          serta mengembangkan permainan digital (<em>game development</em>). Lulusan dipersiapkan menjadi <strong>programmer</strong> dan <strong>developer profesional</strong>.
-        </p>
-        <a href="{{ route('program.pplg') }}" class="inline-flex items-center bg-orange-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-orange-700 transition-all duration-300 focus:ring-2 focus:ring-orange-400">
-          Selengkapnya <i class="ms-2 fas fa-arrow-right"></i>
-        </a>
-      </div>
-    </article>
+  {{-- ==================== JURUSAN 2 ==================== --}}
+  <div class="max-w-6xl mx-auto px-6 md:px-10 mt-24 flex flex-col md:flex-row-reverse items-center gap-10">
+    <div class="md:w-1/2">
+      <img src="{{ asset('assets/images/program/dkv.png') }}" alt="Desain Komunikasi Visual" class="rounded-2xl w-full object-cover">
+    </div>
+    <div class="md:w-1/2">
+      <h3 class="text-2xl md:text-3xl font-bold text-orange-600 mb-3">Desain Komunikasi Visual</h3>
+      <p class="text-gray-700 mb-6 text-justify">
+        Jurusan ini melatih siswa menyampaikan pesan atau informasi melalui media visual yang kreatif dan efektif. 
+        Mereka belajar desain grafis, fotografi, ilustrasi, serta <em>UI/UX Design</em>. 
+        Lulusan siap bekerja sebagai desainer grafis, ilustrator, atau <em>content creator</em>.
+      </p>
+      <a href="#" class="inline-flex items-center bg-orange-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-orange-700 transition">
+        Selengkapnya <i class="ms-2 ri-arrow-right-line"></i>
+      </a>
+    </div>
+  </div>
 
-    {{-- ========== JURUSAN 2: DKV ========== --}}
-    <article class="max-w-6xl mx-auto px-6 md:px-10 flex flex-col md:flex-row-reverse items-center gap-10 scroll-mt-20">
-      <figure class="md:w-1/2">
-        <img 
-          src="{{ asset('assets/images/program/dkv.png') }}" 
-          alt="Jurusan DKV - Desain Komunikasi Visual" 
-          loading="lazy"
-          decoding="async"
-          class="rounded-2xl w-full h-auto object-cover shadow-lg"
-        >
-      </figure>
-      <div class="md:w-1/2">
-        <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-3">Desain Komunikasi Visual (DKV)</h2>
-        <p class="text-gray-700 mb-6 text-justify">
-          Jurusan ini melatih siswa menyampaikan pesan atau informasi melalui media visual yang kreatif dan efektif.
-          Mereka belajar <strong>desain grafis</strong>, <strong>fotografi</strong>, <strong>ilustrasi</strong>, serta <em>UI/UX Design</em>.
-          Lulusan siap bekerja sebagai <strong>desainer grafis</strong>, <strong>ilustrator</strong>, atau <em>content creator</em>.
-        </p>
-        <a href="{{ route('program.dkv') }}" class="inline-flex items-center bg-orange-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-orange-700 transition-all duration-300 focus:ring-2 focus:ring-orange-400">
-          Selengkapnya <i class="ms-2 fas fa-arrow-right"></i>
-        </a>
-      </div>
-    </article>
+  {{-- ==================== JURUSAN 3 ==================== --}}
+  <div class="max-w-6xl mx-auto px-6 md:px-10 mt-24 flex flex-col md:flex-row items-center gap-10">
+    <div class="md:w-1/2">
+      <img src="{{ asset('assets/images/program/tjkt.png') }}" alt="Teknik Jaringan Komputer dan Telekomunikasi" class="rounded-2xl w-full object-cover">
+    </div>
+    <div class="md:w-1/2">
+      <h3 class="text-2xl md:text-3xl font-bold text-orange-600 mb-3">Teknik Jaringan Komputer dan Telekomunikasi</h3>
+      <p class="text-gray-700 mb-6 text-justify">
+        Fokus utama jurusan ini adalah membangun, mengonfigurasi, dan merawat infrastruktur jaringan komputer dan sistem telekomunikasi. 
+        Lulusan dapat menjadi teknisi jaringan, administrator server, atau spesialis keamanan siber.
+      </p>
+      <a href="#" class="inline-flex items-center bg-orange-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-orange-700 transition">
+        Selengkapnya <i class="ms-2 ri-arrow-right-line"></i>
+      </a>
+    </div>
+  </div>
 
-    {{-- ========== JURUSAN 3: TJKT ========== --}}
-    <article class="max-w-6xl mx-auto px-6 md:px-10 flex flex-col md:flex-row items-center gap-10 scroll-mt-20">
-      <figure class="md:w-1/2">
-        <img 
-          src="{{ asset('assets/images/program/tjkt.png') }}" 
-          alt="Jurusan TJKT - Teknik Jaringan Komputer dan Telekomunikasi" 
-          loading="lazy"
-          decoding="async"
-          class="rounded-2xl w-full h-auto object-cover shadow-lg"
-        >
-      </figure>
-      <div class="md:w-1/2">
-        <h2 class="text-2xl md:text-3xl font-bold text-orange-600 mb-3">Teknik Jaringan Komputer dan Telekomunikasi (TJKT)</h2>
-        <p class="text-gray-700 mb-6 text-justify">
-          Fokus utama jurusan ini adalah membangun, mengonfigurasi, dan merawat infrastruktur jaringan komputer serta sistem telekomunikasi.
-          Lulusan dapat menjadi <strong>teknisi jaringan</strong>, <strong>administrator server</strong>, atau <strong>spesialis keamanan siber</strong>.
-        </p>
-        <a href="{{ route('program.tjkt') }}" class="inline-flex items-center bg-orange-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-orange-700 transition-all duration-300 focus:ring-2 focus:ring-orange-400">
-          Selengkapnya <i class="ms-2 fas fa-arrow-right"></i>
-        </a>
-      </div>
-    </article>
+  {{-- ==================== JURUSAN 4 ==================== --}}
+  <div class="max-w-6xl mx-auto px-6 md:px-10 mt-24 flex flex-col md:flex-row-reverse items-center gap-10">
+    <div class="md:w-1/2">
+      <img src="{{ asset('assets/images/program/bcf.png') }}" alt="Broadcasting dan Film" class="rounded-2xl w-full object-cover">
+    </div>
+    <div class="md:w-1/2">
+      <h3 class="text-2xl md:text-3xl font-bold text-orange-600 mb-3">Broadcasting dan Film</h3>
+      <p class="text-gray-700 mb-6 text-justify">
+        Jurusan ini berfokus pada produksi konten audiovisual seperti penyiaran (televisi, radio) dan film. 
+        Siswa belajar penyutradaraan, sinematografi, penulisan skenario, hingga editing video. 
+        Lulusan siap berkarier sebagai <em>filmmaker</em> atau editor profesional.
+      </p>
+      <a href="#" class="inline-flex items-center bg-orange-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-orange-700 transition">
+        Selengkapnya <i class="ms-2 ri-arrow-right-line"></i>
+      </a>
+    </div>
+  </div>
 
     {{-- ========== JURUSAN 4: BCF ========== --}}
     <article class="max-w-6xl mx-auto px-6 md:px-10 flex flex-col md:flex-row-reverse items-center gap-10 scroll-mt-20">

@@ -7,7 +7,7 @@
   <h3 class="text-lg font-semibold text-gray-800">Daftar Prestasi Siswa</h3>
   <a href="{{ route('prestasiprima.admin.prestasi.create') }}"
      class="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-lg transition">
-    <i class="fa-solid fa-plus"></i> Tambah Prestasi
+    <i class="ri-add-line text-lg"></i> Tambah Prestasi
   </a>
 </div>
 
@@ -40,14 +40,14 @@
           <td class="px-6 py-4 text-center space-x-2">
             <a href="{{ route('prestasiprima.admin.prestasi.edit', $prestasi->id) }}"
                class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 transition">
-              <i class="fa-solid fa-pen"></i>
+              <i class="ri-pencil-line text-lg"></i>
             </a>
             <form action="{{ route('prestasiprima.admin.prestasi.destroy', $prestasi->id) }}" method="POST" class="inline">
               @csrf
               @method('DELETE')
               <button type="submit" onclick="return confirm('Yakin ingin menghapus prestasi ini?')"
                       class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition">
-                <i class="fa-solid fa-trash"></i>
+                <i class="ri-delete-bin-line text-lg"></i>
               </button>
             </form>
           </td>
