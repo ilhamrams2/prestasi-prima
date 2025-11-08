@@ -35,14 +35,14 @@
 
     <div class="mt-10 sm:mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-8 md:gap-10 items-center justify-center">
       @foreach ([ 
-        ['unj.png', 'Universitas Negeri Jakarta'],
-        ['ipb.png', 'Institut Pertanian Bogor'],
-        ['unpad.png', 'Universitas Padjadjaran'],
-        ['trisakti.png', 'Universitas Trisakti'],
-        ['uin2.png', 'UIN Syarif Hidayatullah Jakarta'],
-        ['isi2.png', 'Institut Seni Indonesia Surakarta'],
-        ['politeknik.png', 'Politeknik Prestasi Prima'],
-        ['ui3.png', 'Universitas Indonesia'],
+        ['unj.webp', 'Universitas Negeri Jakarta'],
+        ['ipb.webp', 'Institut Pertanian Bogor'],
+        ['unpad.webp', 'Universitas Padjadjaran'],
+        ['trisakti.webp', 'Universitas Trisakti'],
+        ['uin2.webp', 'UIN Syarif Hidayatullah Jakarta'],
+        ['isi2.webp', 'Institut Seni Indonesia Surakarta'],
+        ['politeknik.webp', 'Politeknik Prestasi Prima'],
+        ['ui3.webp', 'Universitas Indonesia'],
       ] as $index => [$src, $alt])
         <div class="flex justify-center"
              data-aos="fade-up"

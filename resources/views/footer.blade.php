@@ -1,5 +1,5 @@
 <!-- ====================== MOTTO BERJALAN ====================== -->
-<section class="relative flex items-center justify-between bg-orange-500 overflow-hidden">
+<section class="relative flex items-center justify-between bg-gradient-to-r from-orange-900 via-orange-800 to-orange-700 overflow-hidden">
   <!-- Pola kotak kiri (disembunyikan di mobile) -->
   <div class="absolute left-0 top-0 h-full hidden md:flex flex-col opacity-80">
     <div class="flex">
@@ -235,7 +235,7 @@
           <textarea id="footer-contact-message" rows="3" placeholder="Pesan Anda"
             class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-200 focus:ring-2 focus:ring-orange-400 focus:outline-none"></textarea>
           <button type="submit"
-            class="bg-orange-500 hover:bg-orange-600 w-full py-2 rounded-lg text-sm font-medium text-white transition">
+            class="bg-orange-800 hover:bg-orange-900 w-full py-2 rounded-lg text-sm font-medium text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-200 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">
             Kirim Pesan
           </button>
         </form>

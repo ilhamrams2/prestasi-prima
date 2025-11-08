@@ -7,8 +7,8 @@
     <title>@yield('title', 'SMK Prestasi Prima')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{-- === Favicon === --}}
-  <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-smk.png') }}">
-  <link rel="apple-touch-icon" href="{{ asset('assets/images/logo-smk.png') }}">
+  <link rel="icon" type="image" href="{{ asset('assets/images/logo-smk.webp') }}">
+  <link rel="apple-touch-icon" href="{{ asset('assets/images/logo-smk.webp') }}">
 
         @stack('styles')
 
@@ -19,10 +19,10 @@
     @include('header')
 
     {{-- Dekorasi Lingkaran PNG --}}
-    <img src="../assets/images/section/presmalancer/oren rock2.png" alt="Lingkaran Kiri Atas"
+    <img src="../assets/images/section/presmalancer/oren rock2.webp" alt="Lingkaran Kiri Atas"
         class="absolute top-0 -left-20 w-56 opacity-70 -z-10">
 
-    <img src="../assets/images/section/presmalancer/oren rock.png" alt="Lingkaran Kanan Bawah"
+    <img src="../assets/images/section/presmalancer/oren rock.webp" alt="Lingkaran Kanan Bawah"
         class="absolute bottom-0 -right-20 w-72 opacity-70 -z-10">
 
     {{-- Section Hero --}}
@@ -62,10 +62,10 @@
 
             {{-- Gambar siswa --}}
             <div class="flex flex-col items-center relative">
-                <img src="../assets/images/section/presmalancer/rock behind girl.png" alt="Lingkaran Belakang"
+                <img src="../assets/images/section/presmalancer/rock behind girl.webp" alt="Lingkaran Belakang"
                     class="absolute w-96 -z-10 top-1/2 -translate-y-1/2">
 
-                <img src="../assets/images/section/presmalancer/siswa1.png" alt="Anak SMK" class="w-80 relative z-10">
+                <img src="../assets/images/section/presmalancer/siswa1.webp" alt="Anak SMK" class="w-80 relative z-10">
 
                 <span
                     class="margin-top: 0.125rem translate-x-3 bg-orange-500 text-white px-10 py-3 rounded-full shadow-md text-sm font-semibold transition hover:shadow-lg">
@@ -91,10 +91,10 @@
                 <div id="carouselTrack" class="flex gap-6 transition-transform duration-500 ease-in-out">
                     @php
                         $companies = [
-                            ['logo' => '../assets/images/section/industri/komatsu.png', 'lowongan' => '7'],
-                            ['logo' => '../assets/images/section/industri/jatelindo.png', 'lowongan' => '13'],
-                            ['logo' => '../assets/images/section/industri/antam.png', 'lowongan' => '3'],
-                            ['logo' => '../assets/images/section/industri/wika.png', 'lowongan' => '9'],
+                            ['logo' => '../assets/images/section/industri/komatsu.webp', 'lowongan' => '7'],
+                            ['logo' => '../assets/images/section/industri/jatelindo.webp', 'lowongan' => '13'],
+                            ['logo' => '../assets/images/section/industri/antam.webp', 'lowongan' => '3'],
+                            ['logo' => '../assets/images/section/industri/wika.webp', 'lowongan' => '9'],
                         ];
                         $loopedCompanies = array_merge(
                             $companies,

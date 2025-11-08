@@ -74,8 +74,8 @@
 
     <!-- Tombol CTA -->
     <div data-aos="fade-up" data-aos-delay="400" data-aos-duration="900">
-      <a href="#" 
-         class="inline-block mt-14 px-8 py-3 bg-orange-500 text-white font-semibold rounded-xl shadow-md hover:bg-orange-600 hover:shadow-lg transition-all duration-300">
+    <a href="#"
+      class="inline-block mt-14 px-8 py-3 bg-orange-800 text-white font-semibold rounded-xl shadow-md hover:bg-orange-900 hover:shadow-lg transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-200 focus-visible:ring-offset-2">
          Lihat Selengkapnya
       </a>
     </div>

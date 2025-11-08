@@ -2,7 +2,7 @@
 <section id="program" class="relative bg-gray-50 py-20 overflow-hidden" data-aos="fade-up">
 
   <!-- ======= LOGO LATAR BELAKANG (stay di section) ======= -->
-  <img src="{{ asset('assets/images/logo-smk.png') }}" 
+  <img src="{{ asset('assets/images/logo-smk.webp') }}"
        alt="Logo SMK Prestasi Prima" 
        class="absolute inset-0 m-auto w-[600px] opacity-5 object-contain pointer-events-none select-none">
 
@@ -40,11 +40,11 @@
       <!-- Card: PPLG -->
       <div class="relative group rounded-xl overflow-hidden shadow-lg"
            data-aos="zoom-in-up" data-aos-delay="100">
-        <img src="{{ asset('assets/images/section/program/pplg.png') }}" alt="PPLG"
+        <img src="{{ asset('assets/images/section/program/pplg.webp') }}" alt="PPLG"
              class="w-full h-96 object-cover">
         <div class="absolute inset-0 bg-black/40 transition duration-700"></div>
         <div class="absolute inset-0 flex flex-col justify-end text-center p-8 z-10">
-          <img src="{{ asset('assets/images/section/program/icons/pplg.png') }}" 
+          <img src="{{ asset('assets/images/section/program/icons/pplg.png') }}"
                alt="icon" class="mx-auto w-12 h-12 mb-3" data-aos="fade-up" data-aos-delay="200">
           <h3 class="text-white font-bold text-xl" data-aos="fade-up" data-aos-delay="250">
             Pengembangan Perangkat Lunak dan Gim
@@ -60,7 +60,7 @@
       <!-- Card: TKJ -->
       <div class="relative group rounded-xl overflow-hidden shadow-lg"
            data-aos="zoom-in-up" data-aos-delay="200">
-        <img src="{{ asset('assets/images/section/program/tkj.png') }}" alt="TKJ"
+        <img src="{{ asset('assets/images/section/program/tkj.webp') }}" alt="TKJ"
              class="w-full h-96 object-cover">
         <div class="absolute inset-0 bg-black/40 transition duration-700"></div>
         <div class="absolute inset-0 flex flex-col justify-end text-center p-8 z-10">

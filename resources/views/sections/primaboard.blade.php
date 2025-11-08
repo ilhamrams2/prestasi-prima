@@ -1,6 +1,6 @@
 <!-- ================= SECTION PRIMABOARD ================= -->
-<section id="primaboard" 
-  class="relative flex flex-col md:flex-row items-center justify-between 
+<section id="primaboard"
+  class="relative flex flex-col md:flex-row items-center justify-between
          bg-orange-500 px-4 md:px-8 py-6 overflow-hidden min-h-[220px]">
 
   <!-- Pola Kotak Catur Kiri -->
@@ -60,14 +60,14 @@
 
       <!-- Deskripsi -->
       <h2 class="text-lg sm:text-xl md:text-2xl font-bold leading-snug drop-shadow" data-aos="fade-up" data-aos-delay="150">
-        Lihat dan temukan siswa berprestasi yang siap bersinar di masa depan, 
+  Lihat dan temukan siswa berprestasi yang siap bersinar di masa depan,
         <span class="font-semibold">hanya di sini!</span>
       </h2>
 
       <!-- Tombol -->
       <a href="/presmaboard"
-         class="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 mt-3 font-semibold rounded-lg shadow
-                bg-white text-orange-600 hover:bg-gray-100 hover:scale-105 transition-all w-max mx-auto md:mx-0"
+    class="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 mt-3 font-semibold rounded-lg shadow
+      bg-white text-orange-800 hover:text-orange-900 hover:bg-gray-100 hover:scale-105 transition-all w-max mx-auto md:mx-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2"
          data-aos="flip-up" data-aos-delay="300">
         Primaboard <span class="ml-2">→</span>
       </a>

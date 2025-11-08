@@ -7,17 +7,18 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endif
 
-<button id="openChatButton"
-    class="fixed bottom-4 right-4 md:bottom-5 md:right-5 bg-orange-500 text-white p-3 md:p-4 rounded-full shadow-lg hover:bg-orange-600 transition-all z-50 transform">
+<button id="openChatButton" type="button" aria-label="Buka chatbot virtual" aria-controls="chatWindow" aria-expanded="false"
+    class="fixed bottom-4 right-4 md:bottom-5 md:right-5 bg-orange-500 text-white p-3 md:p-4 rounded-full shadow-lg hover:bg-orange-600 transition-all z-50 transform focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-orange-500">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6 transition-transform duration-300" fill="none"
         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round"
             d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
     </svg>
+    <span class="sr-only">Buka chatbot virtual</span>
 </button>
 
-<div id="chatWindow"
-    class="fixed bottom-16 right-4 md:bottom-20 md:right-5 w-[88vw] max-w-[420px] h-[65vh] md:w-[420px] md:h-[550px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 transition-all duration-300 ease-in-out transform scale-0 origin-bottom-right opacity-0 hidden">
+<div id="chatWindow" role="dialog" aria-modal="true" aria-labelledby="chatbotTitle" aria-hidden="true"
+    class="fixed bottom-16 right-4 md:bottom-20 md:right-5 w-[88vw] max-w-[420px] h-[65vh] md:w-[420px] md:h-[550px] bg-white rounded-2xl shadow-2xl flex-col z-50 transition-all duration-300 ease-in-out transform scale-0 origin-bottom-right opacity-0 pointer-events-none hidden">
 
 
     <div class="flex items-center justify-between px-3 py-2 md:px-4 md:py-3 bg-orange-500 rounded-t-2xl shadow-sm">
@@ -27,7 +28,7 @@
             </div>
 
             <div class="flex flex-col leading-tight">
-                <span class="text-white font-semibold text-sm md:text-base">Assistant AI</span>
+                <span id="chatbotTitle" class="text-white font-semibold text-sm md:text-base">Assistant AI</span>
 
                 <span class="text-white text-xs opacity-90 flex items-center gap-1">
                     Online
@@ -41,11 +42,12 @@
             </div>
         </div>
 
-        <button id="closeChatButton" class="text-white hover:scale-110 transition-transform">
+        <button id="closeChatButton" type="button" aria-label="Tutup chatbot" class="text-white hover:scale-110 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-500 rounded-full">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
+            <span class="sr-only">Tutup chatbot</span>
         </button>
     </div>
 
@@ -75,7 +77,8 @@
             <!-- Tombol Send di kanan dalam -->
             <button id="sendBtn" type="submit"
                 class="absolute right-2 flex items-center justify-center w-8 h-8 rounded-full bg-orange-500 text-white hover:bg-white hover:text-orange-500 border border-orange-500 transition-all duration-300 shadow-md">
-                <i class="ri-send-plane-2-line text-sm"></i>
+                <i class="ri-send-plane-2-line text-sm" aria-hidden="true"></i>
+                <span class="sr-only">Kirim pesan</span>
             </button>
         </div>
 
@@ -631,7 +634,11 @@
                 const chatIcon = openChatButton.querySelector('svg');
 
                 if (isHidden) {
-                    chatWindow.classList.remove('hidden');
+                    chatWindow.classList.remove('hidden', 'pointer-events-none');
+                    chatWindow.classList.add('flex');
+                    openChatButton.setAttribute('aria-expanded', 'true');
+                    openChatButton.setAttribute('aria-label', 'Sembunyikan chatbot virtual');
+                    chatWindow.setAttribute('aria-hidden', 'false');
                     setTimeout(() => {
                         chatWindow.classList.remove('scale-0', 'opacity-0');
                         chatIcon.classList.add('rotate-[360deg]');
@@ -642,7 +649,11 @@
                     chatWindow.classList.add('scale-0', 'opacity-0');
                     chatIcon.classList.remove('rotate-[360deg]');
                     setTimeout(() => {
-                        chatWindow.classList.add('hidden');
+                        chatWindow.classList.add('hidden', 'pointer-events-none');
+                        chatWindow.classList.remove('flex');
+                        openChatButton.setAttribute('aria-expanded', 'false');
+                        openChatButton.setAttribute('aria-label', 'Buka chatbot virtual');
+                        chatWindow.setAttribute('aria-hidden', 'true');
                         errorDiv.style.display = 'none';
                     }, 300);
                 }

@@ -3,7 +3,7 @@
   class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-transparent">
 
   <!-- TOPBAR -->
-  <div class="hidden md:flex bg-orange-600 text-white text-sm">
+  <div class="hidden md:flex bg-orange-900 text-white text-sm">
     <div class="max-w-7xl mx-auto w-full flex justify-end">
       <div class="flex items-center divide-x divide-white px-4 py-2 rounded-bl-lg">
 
@@ -13,7 +13,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 5a2 2 0 012-2h3.3l1.3 3.9-1.9 2a11 11 0 005 5l2-2 3.9 1.3V19a2 2 0 01-2 2h-1C10.6 21 3 13.4 3 4V5z"/>
           </svg>
-          <a href="tel:089599439033">+62 851-9592-8886</a>
+          <a href="tel:089599439033" class="text-white font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/80 focus-visible:ring-offset-orange-900">+62 851-9592-8886</a>
         </div>
 
         <!-- Email -->
@@ -22,7 +22,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 8l7.9 5.3a2 2 0 002.2 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
           </svg>
-          <a href="mailto:halo@smkprestasiprima.ac.id">smk.prestasiprima.sch.id</a>
+          <a href="mailto:halo@smkprestasiprima.ac.id" class="text-white font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/80 focus-visible:ring-offset-orange-900">smk.prestasiprima.sch.id</a>
         </div>
 
       </div>

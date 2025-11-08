@@ -1,14 +1,14 @@
 <!-- ================= HERO SECTION (VIDEO) ================= -->
 <section id="heroVideoSection" 
          class="relative h-screen w-full overflow-hidden bg-cover bg-center"
-         style="background-image: url('{{ asset('assets/images/section/hero/herobg.png') }}');">
+         style="background-image: url('{{ asset('assets/images/section/hero/herobg2.webp') }}');">
 
   <!-- Overlay -->
   <div class="absolute inset-0 bg-black/40 z-10"></div>
 
   <!-- Hero Video -->
   <video id="heroVideo" preload="none" autoplay muted playsinline 
-         poster="{{ asset('assets/images/section/hero/herobg.png') }}"
+         poster="{{ asset('assets/images/section/hero/herobg2.webp') }}"
          class="absolute inset-0 w-full h-full object-cover z-20 opacity-0 transition-opacity duration-700 will-change-transform"
          loading="lazy">
     <source src="{{ asset('assets/videos/videos.mp4') }}" type="video/mp4">
@@ -18,20 +18,21 @@
   <!-- Tombol Lewati -->
   <div id="skipBtnContainer" 
        class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30 w-full flex justify-center">
-    <button id="skipBtn" aria-label="Lewati video intro"
-            class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md shadow-md text-sm font-medium transition w-full max-w-[120px]">
-      Lewati →
+    <button id="skipBtn"
+            class="bg-orange-800 hover:bg-orange-900 text-white px-4 py-2 rounded-md shadow-md text-sm font-medium transition w-full max-w-[120px] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-orange-200 focus-visible:ring-offset-orange-900/60">
+      <span class="sr-only">Lewati video intro</span>
+      <span aria-hidden="true">Lewati →</span>
     </button>
   </div>
 </section>
 
 <!-- ================= HERO CONTENT ================= -->
 <section id="heroContentSection"
-         class="relative w-full min-h-screen md:h-[90vh] flex items-center text-white pt-8 overflow-hidden hidden">
+         class="relative w-full min-h-screen md:h-[90vh] items-center text-white pt-8 overflow-hidden hidden">
 
   <!-- Background -->
   <div class="absolute inset-0">
-    <img src="{{ asset('assets/images/section/hero/herobg.png') }}" alt="Hero Background" 
+    <img src="{{ asset('assets/images/section/hero/herobg2.webp') }}" alt="Hero Background"
          class="w-full h-full object-cover" loading="lazy">
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
   </div>
@@ -41,7 +42,7 @@
     
     <!-- Logo + Nama (Mobile) -->
     <div class="flex items-center space-x-2 mb-6 md:hidden hero-animate">
-      <img src="{{ asset('assets/images/logo-icon.svg') }}" alt="Logo SMK Prestasi Prima" 
+  <img src="{{ asset('assets/images/logo-icon.svg') }}" alt="Logo SMK Prestasi Prima"
            class="w-8 h-8 object-contain" loading="lazy">
       <span class="font-semibold text-white text-lg">SMK Prestasi Prima</span>
     </div>
@@ -56,14 +57,15 @@
     </h1>
 
     <p class="text-sm md:text-lg mb-6 max-w-xl hero-animate">
-      Kami berkomitmen menyelenggarakan pendidikan berkualitas tinggi yang membentuk generasi unggul, berkarakter, 
+  Kami berkomitmen menyelenggarakan pendidikan berkualitas tinggi yang membentuk generasi unggul, berkarakter,
       dan siap menghadapi tantangan masa depan.
     </p>
 
     <!-- Button -->
-    <a href="/pendaftaran" aria-label="Baca selengkapnya tentang Prestasi Prima"
-       class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transform hover:scale-105 hero-animate">
-      Daftar Sekarang →
+    <a href="/pendaftaran"
+       class="inline-block bg-orange-800 hover:bg-orange-900 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-200 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40 hero-animate">
+      <span class="sr-only">Buka halaman pendaftaran</span>
+      <span aria-hidden="true">Daftar Sekarang →</span>
     </a>
   </div>
 
@@ -71,7 +73,7 @@
   <div class="absolute top-28 right-0 md:top-32 flex flex-col items-end z-20 space-y-3">
     <!-- Toggle Button -->
     <button id="toggleSocial" aria-label="Buka panel sosial"
-    class="bg-orange-500 text-white w-12 h-12 md:w-14 md:h-14 rounded-l-2xl shadow-lg flex items-center justify-center transition opacity-0">
+    class="bg-orange-800 hover:bg-orange-900 text-white w-12 h-12 md:w-14 md:h-14 rounded-l-2xl shadow-lg flex items-center justify-center transition opacity-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-200 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-900/70">
   <i class="ri-share-forward-line text-xl"></i>
     </button>
 
@@ -80,7 +82,7 @@
          class="social-panel bg-white bg-opacity-95 rounded-l-2xl shadow-lg flex flex-col items-center py-3 space-y-3 w-0 overflow-hidden">
       <a href="{{ url('/') }}" aria-label="Kembali ke halaman utama"
          class="bg-white rounded-2xl shadow-lg p-2 flex items-center justify-center w-10 h-10 md:w-12 md:h-12">
-        <img src="{{ asset('assets/images/logo-icon.svg') }}" alt="Logo kecil SMK Prestasi Prima" 
+  <img src="{{ asset('assets/images/logo-icon.svg') }}" alt="Logo kecil SMK Prestasi Prima"
              class="w-6 h-6 md:w-8 md:h-8 object-contain" loading="lazy">
       </a>
       <a href="https://wa.me/6289599439033" target="_blank" aria-label="WhatsApp"
@@ -130,6 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
       videoSection.style.display = "none";
       skipBtnContainer.style.display = "none";
       contentSection.classList.remove("hidden");
+  contentSection.classList.add("flex");
       contentSection.style.opacity = 1;
 
       // Hero animation
