@@ -27,7 +27,7 @@ class KaryaProyekController extends Controller
                 'description' => 'Proyek digital absensi modern berbasis Laravel dan Tailwind yang dikembangkan untuk kebutuhan sekolah.',
                 'image' => asset('assets/images/karya-proyek/absensi.png'),
                 'tags' => ['Laravel', 'Tailwind', 'WebApp'],
-                'link' => '#', // nanti bisa diganti ke link Github / demo
+                'link' => 'https://github.com/JongBatak/spmb',
             ],
             [
                 'title' => 'Desain Poster Digital',

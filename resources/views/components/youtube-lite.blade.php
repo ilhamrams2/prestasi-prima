@@ -5,16 +5,22 @@
   $thumbnailPath = $thumbnailPath ?? null;
   $behavior = $behavior ?? 'inline';
   $wrapperClass = trim(($wrapperClass ?? '') . ' youtube-lite relative group');
-  $thumbnailExists = $thumbnailPath && file_exists(public_path($thumbnailPath));
-  $thumbnailSize = $thumbnailExists ? (@getimagesize(public_path($thumbnailPath)) ?: null) : null;
+  $thumbnailIsRemote = $thumbnailPath && \Illuminate\Support\Str::startsWith($thumbnailPath, ['http://', 'https://']);
+  $thumbnailExists = $thumbnailIsRemote || ($thumbnailPath && file_exists(public_path($thumbnailPath)));
+  $thumbnailSize = (!$thumbnailIsRemote && $thumbnailExists)
+    ? (@getimagesize(public_path($thumbnailPath)) ?: null)
+    : null;
+  $thumbnailUrl = $thumbnailExists
+    ? ($thumbnailIsRemote ? $thumbnailPath : asset($thumbnailPath))
+    : null;
 @endphp
 
 <div class="{{ $wrapperClass }}"
      data-youtube-id="{{ $videoId }}"
      data-title="{{ $title }}"
      data-behavior="{{ $behavior }}">
-  @if($thumbnailExists)
-    <img src="{{ asset($thumbnailPath) }}"
+  @if($thumbnailUrl)
+    <img src="{{ $thumbnailUrl }}"
          alt="{{ $title }}"
          @if($thumbnailSize) width="{{ $thumbnailSize[0] }}" height="{{ $thumbnailSize[1] }}" @endif
          loading="lazy"

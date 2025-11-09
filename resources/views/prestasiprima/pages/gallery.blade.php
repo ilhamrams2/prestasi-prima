@@ -19,25 +19,29 @@
 
     @php
         $resolveLocalThumbnail = function (?string $videoId, ?string $fallback = null) {
-            $candidates = [];
+            $localCandidates = [];
 
             if ($videoId) {
-                $candidates[] = "assets/images/video-thumbnails/{$videoId}.webp";
-                $candidates[] = "assets/images/video-thumbnails/{$videoId}.jpg";
-                $candidates[] = "assets/images/video-thumbnails/{$videoId}.png";
+                $localCandidates[] = "assets/images/video-thumbnails/{$videoId}.webp";
+                $localCandidates[] = "assets/images/video-thumbnails/{$videoId}.jpg";
+                $localCandidates[] = "assets/images/video-thumbnails/{$videoId}.png";
             }
 
-            if ($fallback && !\Illuminate\Support\Str::startsWith($fallback, ['http://', 'https://'])) {
-                $candidates[] = ltrim($fallback, '/');
+            if ($fallback) {
+                if (\Illuminate\Support\Str::startsWith($fallback, ['http://', 'https://'])) {
+                    return $fallback;
+                }
+
+                $localCandidates[] = ltrim($fallback, '/');
             }
 
-            foreach ($candidates as $candidate) {
+            foreach ($localCandidates as $candidate) {
                 if (file_exists(public_path($candidate))) {
                     return $candidate;
                 }
             }
 
-            return null;
+            return $videoId ? "https://i.ytimg.com/vi/{$videoId}/hqdefault.jpg" : null;
         };
     @endphp
 
@@ -69,7 +73,6 @@
                         'wrapperClass' => 'w-full h-full',
                         'behavior' => 'inline'
                     ])
-                    @include('components.youtube-lite-script')
                 @else
                     <div class="w-full aspect-video flex items-center justify-center bg-gray-100 text-gray-500 rounded-2xl">
                         Tidak ada video tersedia
@@ -201,5 +204,7 @@
 .animate-fade-up { animation: fadeUp 0.8s ease-out forwards; }
 .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
 </style>
+
+@include('components.youtube-lite-script')
 
 @endsection

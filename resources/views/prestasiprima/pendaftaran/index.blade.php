@@ -1,6 +1,5 @@
 @extends('prestasiprima.index')
 @section('title','Pendaftaran - SMK Prestasi Prima')
-
 @section('content')
   <!-- ================= Section Pendaftaran ================= -->
 <section class="bg-slate-900 text-white pt-20 pb-0 relative overflow-hidden">
@@ -118,7 +117,7 @@
       </div>
     </div>
   </section>
-  @include('ChatbotUI')
+
 
   <!-- ================= Styles ================= -->
   <style>
@@ -139,7 +138,9 @@
     let startX = 0;
     let currentX = 0;
 
-    const whatsappLink = "https://wa.me/6281234567890"; // ganti nomor WA admin
+    const whatsappLink = "https://wa.me/6281234567890";
+
+    
 
     function getMaxX() {
       const sliderRect = slider.getBoundingClientRect();
@@ -201,5 +202,4 @@
   <script>
     lucide.createIcons();
   </script>
-
 @endsection
