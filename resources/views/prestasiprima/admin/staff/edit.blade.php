@@ -3,49 +3,97 @@
 @section('title', 'Edit Staff')
 
 @section('content')
-<div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6">
-    <h2 class="text-xl font-semibold text-gray-800 mb-4">Edit Staff</h2>
-
-    <form action="{{ route('prestasiprima.admin.staff.update', $staff->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2">Nama</label>
-            <input type="text" name="nama" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="{{ $staff->nama }}" required>
+<div class="max-w-4xl mx-auto">
+    {{-- ================= HEADER ================= --}}
+    <div class="flex items-center gap-4 mb-8">
+        <a href="{{ route('prestasiprima.admin.staff.index') }}" 
+           class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">
+            <i class="ri-arrow-left-line text-lg"></i>
+        </a>
+        <div>
+            <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight">Perbarui Profil Staff</h1>
+            <p class="text-sm text-slate-500 font-medium">Lakukan perubahan pada data tenaga pendidik atau kependidikan.</p>
         </div>
+    </div>
 
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2">Jabatan</label>
-            <input type="text" name="jabatan" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="{{ $staff->jabatan }}" required>
-        </div>
+    {{-- ================= FORM CARD ================= --}}
+    <div class="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">
+        <form action="{{ route('prestasiprima.admin.staff.update', $staff->id) }}" method="POST" enctype="multipart/form-data" class="divide-y divide-slate-50">
+            @csrf
+            @method('PUT')
 
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2">Kategori</label>
-            <select name="kategori" class="w-full border border-gray-300 rounded-lg px-3 py-2" required>
-                <option value="kepala" {{ $staff->kategori == 'kepala' ? 'selected' : '' }}>Kepala Sekolah</option>
-                <option value="kaprog" {{ $staff->kategori == 'kaprog' ? 'selected' : '' }}>Kaprog</option>
-                <option value="kesiswaan" {{ $staff->kategori == 'kesiswaan' ? 'selected' : '' }}>Kesiswaan</option>
-                <option value="guru_mapel" {{ $staff->kategori == 'guru_mapel' ? 'selected' : '' }}>Guru Mapel</option>
-            </select>
-        </div>
+            <div class="p-8 space-y-8">
+                {{-- Nama & Jabatan Grid --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 tracking-tight">Nama Lengkap</label>
+                        <input type="text" name="nama" value="{{ old('nama', $staff->nama) }}"
+                               placeholder="Contoh: Budi Santoso, S.Pd."
+                               class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800" required>
+                    </div>
 
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2">Foto Saat Ini</label>
-            <img src="{{ asset('storage/staff/' . $staff->foto) }}" alt="{{ $staff->nama }}" class="w-24 h-28 object-cover rounded mb-2">
-            <input type="file" name="foto" class="w-full">
-            <small class="text-gray-500">Kosongkan jika tidak ingin mengganti foto</small>
-        </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 tracking-tight">Jabatan / Peran</label>
+                        <input type="text" name="jabatan" value="{{ old('jabatan', $staff->jabatan) }}"
+                               placeholder="Contoh: Wakasek Kesiswaan"
+                               class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800" required>
+                    </div>
+                </div>
 
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2">Kutipan (Opsional)</label>
-            <textarea name="kutipan" class="w-full border border-gray-300 rounded-lg px-3 py-2" rows="3">{{ $staff->kutipan }}</textarea>
-        </div>
+                {{-- Kategori --}}
+                <div class="space-y-2">
+                    <label class="block text-sm font-bold text-slate-700 tracking-tight">Kategori Staff</label>
+                    <div class="relative">
+                        <select name="kategori" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800 appearance-none" required>
+                            <option value="kepala" {{ old('kategori', $staff->kategori) == 'kepala' ? 'selected' : '' }}>Kepala Sekolah</option>
+                            <option value="kaprog" {{ old('kategori', $staff->kategori) == 'kaprog' ? 'selected' : '' }}>Kaprog (Kepala Program)</option>
+                            <option value="kesiswaan" {{ old('kategori', $staff->kategori) == 'kesiswaan' ? 'selected' : '' }}>Kesiswaan</option>
+                            <option value="guru_mapel" {{ old('kategori', $staff->kategori) == 'guru_mapel' ? 'selected' : '' }}>Guru Mata Pelajaran</option>
+                            <option value="tendik" {{ old('kategori', $staff->kategori) == 'tendik' ? 'selected' : '' }}>Tenaga Kependidikan</option>
+                        </select>
+                        <i class="ri-arrow-down-s-line absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xl"></i>
+                    </div>
+                </div>
 
-        <div class="flex justify-end gap-2">
-            <a href="{{ route('prestasiprima.admin.staff.index') }}" class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400">Batal</a>
-            <button type="submit" class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">Update</button>
-        </div>
-    </form>
+                {{-- Portrait Upload --}}
+                <div class="space-y-4">
+                    <label class="block text-sm font-bold text-slate-700 tracking-tight">Potret Profil</label>
+                    <div class="flex flex-col md:flex-row items-center gap-6 p-6 bg-slate-50 border-2 border-dashed border-slate-200 rounded-[2rem] hover:border-orange-400 transition-colors group">
+                        <div class="w-24 h-32 bg-white rounded-2xl flex-shrink-0 flex items-center justify-center shadow-sm overflow-hidden border border-slate-100 flex-col gap-1 relative">
+                            @if($staff->foto)
+                                <img src="{{ asset('storage/staff/' . $staff->foto) }}" alt="{{ $staff->nama }}" class="w-full h-full object-cover">
+                            @else
+                                {{-- Icon Removed --}}
+                            @endif
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h4 class="text-sm font-bold text-slate-800 mb-1">Ganti Pas Foto</h4>
+                            <p class="text-xs text-slate-500 font-medium mb-4 leading-relaxed">Biarkan kosong jika tidak ingin mengubah foto.<br>Format: JPG, PNG, WEBP (Maks. 1MB).</p>
+                            <input type="file" name="foto" 
+                                   class="block w-full text-[11px] text-slate-500 file:mr-4 file:py-2.5 file:px-6 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#FF6B00] file:text-white hover:file:bg-[#e66000] transition-all cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Kutipan --}}
+                <div class="space-y-2">
+                    <label class="block text-sm font-bold text-slate-700 tracking-tight">Kutipan / Motto (Opsional)</label>
+                    <textarea name="kutipan" rows="3" 
+                              placeholder="Tuliskan kata mutiara atau motto dari staff..."
+                              class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800">{{ old('kutipan', $staff->kutipan) }}</textarea>
+                </div>
+            </div>
+
+            {{-- Form Actions --}}
+            <div class="p-8 bg-slate-50/50 flex flex-col md:flex-row justify-end gap-3">
+                <a href="{{ route('prestasiprima.admin.staff.index') }}" 
+                   class="px-8 py-3.5 rounded-2xl bg-white border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition-all text-center">Batal</a>
+                <button type="submit" 
+                        class="px-8 py-3.5 rounded-2xl bg-[#FF6B00] border border-orange-600 text-white font-bold text-sm hover:bg-[#e66000] transition-all shadow-lg shadow-orange-500/20 active:scale-95">
+                    Update Data Staff
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection

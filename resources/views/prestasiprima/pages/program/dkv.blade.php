@@ -2,154 +2,334 @@
 
 @section('title', 'DKV — Desain Komunikasi Visual')
 
+@push('styles')
+<style>
+  :root {
+    --action-orange: #FF6B00;
+    --deep-navy: #0e162e;
+    --charcoal: #333333;
+  }
+
+  .font-outfit { font-family: 'Outfit', sans-serif; }
+  .font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+  .text-mask-hero {
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-weight: 950;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, var(--deep-navy) 0%, #1a2a4e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+  }
+
+  .text-ghost {
+    position: absolute;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(8rem, 25vw, 25rem);
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(14, 22, 46, 0.02);
+    -webkit-text-stroke: 1px rgba(14, 22, 46, 0.05);
+    white-space: nowrap;
+    z-index: 0;
+    pointer-events: none;
+    text-transform: uppercase;
+    animation: drift 20s linear infinite alternate;
+  }
+
+  @keyframes drift {
+    from { transform: translateX(-50px) translateY(0); }
+    to { transform: translateX(50px) translateY(-30px); }
+  }
+
+  .highlight-orange {
+    background: linear-gradient(135deg, #FF6B00 0%, #FF8533 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .dev-window {
+    background: #0f172a;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+
+  .dev-header {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-red { background: #ff5f56; }
+  .dot-yellow { background: #ffbd2e; }
+  .dot-green { background: #27c93f; }
+
+  .career-card {
+    background: white;
+    border: 1px solid rgba(14, 22, 46, 0.05);
+    border-radius: 32px;
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .career-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 60px -12px rgba(14, 22, 46, 0.1);
+    border-color: var(--action-orange);
+  }
+
+  .grid-bg {
+    background-image: radial-gradient(rgba(14, 22, 46, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+</style>
+@endpush
+
 @section('content')
-
-{{-- ========== HERO SECTION ========== --}}
-<section class="relative pt-32 pb-20 bg-white overflow-hidden">
-  <img src="{{ asset('assets/images/program/grid_line.png') }}" 
-       alt="Grid Background" 
-       class="absolute inset-0 w-full h-full object-cover opacity-25">
-
-  <div class="relative max-w-7xl mx-auto px-6 md:px-10 flex flex-col lg:flex-row items-center gap-12">
-    {{-- Text --}}
-    <div class="w-full lg:w-1/2">
-      <h1 class="text-4xl lg:text-5xl font-extrabold text-orange-500 leading-tight">Desain</h1>
-      <h2 class="text-3xl lg:text-4xl font-semibold mt-2 text-gray-800">Komunikasi Visual</h2>
-      <p class="mt-6 text-gray-600 leading-relaxed text-justify">
-        Jurusan DKV mengasah kreativitas dan kemampuan berpikir visual untuk menyampaikan pesan secara efektif. 
-        Siswa akan mempelajari desain grafis, ilustrasi, fotografi, branding, hingga multimedia interaktif.
-      </p>
-      <a href="#about" 
-         class="inline-block mt-8 bg-orange-500 text-white px-6 py-3 rounded-xl shadow-md hover:bg-orange-600 transition-all">
-        Pelajari Lebih Lanjut
-      </a>
-    </div>
-
-    {{-- Image --}}
-    <div class="w-full lg:w-1/2">
-      <img src="{{ asset('assets/images/program/dkv-hero.png') }}" 
-           alt="DKV" 
-           class="w-full h-auto object-contain">
-    </div>
-  </div>
-</section>
-
-{{-- ========== ABOUT SECTION ========== --}}
-<section id="about" class="relative py-24 bg-white overflow-hidden">
-  <img src="{{ asset('assets/images/program/grid_line.png') }}" 
-       alt="Grid" 
-       class="absolute inset-0 w-full h-full object-cover opacity-20">
-
-  <div class="relative max-w-7xl mx-auto px-6 md:px-10 text-center">
-    <div>
-      <span class="bg-orange-500 text-white text-sm font-semibold px-4 py-1.5 rounded-full mb-3 inline-block">Tentang Jurusan</span>
-      <h3 class="text-orange-600 font-medium text-lg">Mengenal Desain Komunikasi Visual</h3>
-      <div class="flex justify-center items-center mt-3 space-x-1">
-        <span class="w-8 h-1 bg-orange-400 rounded-full"></span>
-        <span class="w-1.5 h-1 bg-orange-600 rounded-full"></span>
-        <span class="w-8 h-1 bg-orange-400 rounded-full"></span>
-      </div>
-    </div>
-
-    <div class="mt-12 bg-white rounded-2xl shadow-xl border border-orange-100 p-8 max-w-5xl mx-auto text-left">
-      <div class="flex items-center space-x-2 mb-6">
-        @foreach(['red','yellow','green'] as $color)
-          <span class="w-3 h-3 bg-{{ $color }}-400 rounded-full"></span>
-        @endforeach
-        <p class="text-sm text-orange-400 ml-4">~/about/visual-design</p>
-      </div>
-
-      <div class="flex items-center mb-4">
-        <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mr-3">
-          <i data-lucide="palette" class="w-6 h-6 text-orange-500"></i>
+<div class="bg-white overflow-hidden relative">
+  
+  {{-- ========== HERO SECTION ========== --}}
+  <section class="pt-48 pb-20 px-6 bg-white relative grid-bg">
+    <!-- Ghost Background Text -->
+    <div class="text-ghost top-24 -left-20">DESIGN</div>
+    
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="flex flex-col items-start gap-6 mb-12" data-aos="fade-up">
+        <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-orange-50 border border-orange-100">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+          </span>
+          <span class="font-outfit text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF6B00]">DKV SPECIALIZATION</span>
         </div>
-        <h4 class="text-orange-500 font-semibold text-lg">Deskripsi Program</h4>
       </div>
 
-      <p class="text-gray-700 text-justify leading-relaxed">
-        DKV memadukan seni, teknologi, dan komunikasi untuk menciptakan karya visual yang bermakna.
-        Siswa dilatih memahami prinsip desain, tipografi, warna, layout, dan konsep branding profesional.
-      </p>
-
-      <div class="mt-6 bg-slate-900 text-white text-sm p-4 rounded-xl font-mono leading-relaxed">
-        <p class="opacity-80">
-          <span class="text-orange-400">&gt;</span> creativity.launch() <br>
-          <span class="text-green-400">✔</span> Design for impact and innovation
-        </p>
-      </div>
-    </div>
-
-    {{-- Kepala Program --}}
-    <div class="mt-20 flex flex-col lg:flex-row items-center justify-center gap-10">
-      <img src="{{ asset('assets/images/staff/kapro1.jpg') }}" 
-           alt="Kepala Program DKV" 
-           class="w-64 h-80 object-cover rounded-2xl border border-orange-200 shadow-lg">
-      <div class="max-w-md text-left">
-        <span class="bg-orange-400 text-white px-4 py-1 rounded-full text-sm inline-flex items-center gap-1">
-          <i data-lucide="user" class="w-4 h-4"></i> Kepala Program
-        </span>
-        <h3 class="text-2xl font-bold text-gray-900 mt-3">Cahyako Tri Harsatmo S.Ds</h3>
-        <blockquote class="mt-4 bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-lg shadow-sm italic text-gray-700 relative">
-          <span class="absolute -top-3 left-4 text-orange-400 text-3xl font-serif">“</span>
-          Kami membentuk desainer muda yang kreatif, komunikatif, dan siap bersaing di industri kreatif global.
-        </blockquote>
-      </div>
-    </div>
-  </div>
-</section>
-
-{{-- ========== PROSPEK KARIR ========== --}}
-<section class="py-24 bg-gradient-to-r from-orange-500 to-orange-400 relative overflow-hidden">
-  <div class="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
-    <h3 class="text-3xl font-bold text-white text-center mb-14">Prospek Karir</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-      @foreach([
-        ['pen-tool', 'Desainer Grafis', '6–12 jt/bulan'],
-        ['camera', 'Fotografer / Videografer', '5–10 jt/bulan'],
-        ['layout', 'Art Director', '8–15 jt/bulan'],
-        ['palette', 'Ilustrator Profesional', '7–12 jt/bulan'],
-        ['film', 'Motion Graphic Designer', '7–14 jt/bulan'],
-        ['brush', 'Branding Specialist', '8–16 jt/bulan'],
-      ] as [$icon, $title, $salary])
-        <div class="bg-white/15 backdrop-blur-lg border border-white/20 rounded-2xl p-6 text-white hover:-translate-y-1 hover:shadow-lg transition">
-          <div class="flex items-start gap-4">
-            <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-white/20">
-              <i data-lucide="{{ $icon }}" class="w-6 h-6"></i>
-            </div>
-            <div>
-              <div class="font-semibold text-lg">{{ $title }}</div>
-              <div class="text-sm opacity-80 mt-1">{{ $salary }}</div>
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div data-aos="fade-right" data-aos-delay="100">
+          <h1 class="font-outfit text-mask-hero">
+            Komunikasi <br>
+            <span class="highlight-orange">Visual.</span>
+          </h1>
+          <p class="mt-8 font-jakarta text-gray-500 text-lg md:text-xl leading-relaxed max-w-xl">
+            Mengubah ide menjadi karya visual yang bermakna. Kami membentuk desainer kreatif yang mahir dalam desain grafis, ilustrasi, fotografi, branding, dan multimedia interaktif.
+          </p>
+          <div class="mt-10 flex flex-wrap gap-4">
+            <a href="#about" class="px-8 py-4 bg-[#0e162e] text-white font-outfit font-bold rounded-2xl hover:bg-orange-600 transition-all transform hover:scale-105">
+                Mulai Eksplorasi
+            </a>
+            <div class="flex items-center gap-3 px-6 py-4 rounded-2xl border border-gray-100 bg-gray-50/50">
+               <iconify-icon icon="lucide:palette" class="text-2xl text-orange-600"></iconify-icon>
+               <span class="font-jakarta font-bold text-[#0e162e] text-sm tracking-tight text-nowrap">Creative Excellence</span>
             </div>
           </div>
+        </div>
+        
+        <div class="relative" data-aos="fade-left" data-aos-delay="200">
+            <div class="relative rounded-[3rem] overflow-hidden shadow-2xl">
+                <img src="{{ asset('assets/images/program/dkv.png') }}" alt="DKV Hero" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0e162e]/40 to-transparent"></div>
+            </div>
+            <!-- Floating Badge -->
+            <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-[2rem] shadow-2xl border border-gray-50 flex items-center gap-4 animate-bounce-slow">
+                <div class="w-12 h-12 bg-orange-100 rounded-2xl flex items-center justify-center">
+                    <iconify-icon icon="lucide:pen-tool" class="text-2xl text-orange-600"></iconify-icon>
+                </div>
+                <div>
+                    <div class="font-outfit font-black text-[#0e162e] text-lg">100% Creative</div>
+                    <div class="font-jakarta text-xs text-gray-400 font-bold">Design Thinking</div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{-- ========== ABOUT & DEV WINDOW ========== --}}
+  <section id="about" class="py-32 px-6 bg-[#fcfcfd] border-y border-gray-50 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-20 items-center">
+        <div data-aos="fade-up">
+            <span class="font-outfit text-xs font-black text-orange-600 uppercase tracking-[0.3em] mb-4 block">Deep Dive</span>
+            <h2 class="font-outfit text-4xl md:text-6xl font-black text-[#0e162e] tracking-tight leading-none mb-8">
+                Menciptakan Karya <br><span class="highlight-orange">Yang Menginspirasi.</span>
+            </h2>
+            <p class="font-jakarta text-gray-500 text-lg leading-relaxed mb-8">
+                Program Keahlian Desain Komunikasi Visual (DKV) memadukan seni, teknologi, dan komunikasi untuk menciptakan karya visual yang bermakna. Siswa dilatih memahami prinsip desain, tipografi, warna, layout, dan konsep branding profesional.
+            </p>
+            
+            <div class="space-y-4">
+                @foreach(['Professional Graphic Design', 'Brand Identity Development', 'Digital Illustration & Photography'] as $item)
+                <div class="flex items-center gap-4 group">
+                    <div class="w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center group-hover:bg-orange-600 group-hover:border-orange-600 transition-all">
+                        <iconify-icon icon="lucide:check" class="text-orange-600 group-hover:text-white transition-colors"></iconify-icon>
+                    </div>
+                    <span class="font-jakarta font-bold text-[#0e162e] text-sm uppercase tracking-widest">{{ $item }}</span>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="dev-window" data-aos="zoom-in" data-aos-delay="200">
+            <div class="dev-header">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+                <span class="text-xs font-mono text-gray-400 ml-4">~/prestasiprima/dkv/design.js</span>
+            </div>
+            <div class="p-8 font-mono text-sm leading-loose">
+                <div class="text-gray-500">// Initialize the next generation of designers</div>
+                <div class="text-white"><span class="text-pink-500">const</span> <span class="text-blue-400">DKV</span> = {</div>
+                <div class="pl-6 text-white">skills: [<span class="text-green-400">'Graphic Design'</span>, <span class="text-green-400">'Branding'</span>, <span class="text-green-400">'Illustration'</span>],</div>
+                <div class="pl-6 text-white">industry_ready: <span class="text-orange-400">true</span>,</div>
+                <div class="pl-6 text-white">creativity: <span class="text-orange-400">Infinity</span>,</div>
+                <div class="pl-6 text-white">createArt: () => {</div>
+                <div class="pl-12 text-blue-300">return <span class="text-yellow-400">"Masterpiece"</span>;</div>
+                <div class="pl-6 text-white">}</div>
+                <div class="text-white">};</div>
+                <div class="mt-6 text-orange-400 shadow-orange-500/20 shadow-xl inline-block bg-orange-500/10 px-4 py-2 rounded-lg">&gt; DKV.createArt()</div>
+                <div class="mt-2 text-green-400">"Masterpiece"</div>
+            </div>
+        </div>
+      </div>
+
+      {{-- Kapro Card --}}
+      <div class="mt-32 flex flex-col md:flex-row items-center gap-12 bg-white p-12 rounded-[3.5rem] shadow-xl border border-gray-50" data-aos="fade-up">
+        <img src="{{ asset('assets/images/staff/kapro1.jpg') }}" alt="Kapro DKV" class="w-48 h-64 object-cover rounded-[2.5rem] shadow-2xl">
+        <div>
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 text-orange-600 font-outfit font-black text-[10px] uppercase tracking-widest mb-4">
+                <iconify-icon icon="lucide:user"></iconify-icon> Kepala Program
+            </div>
+            <h3 class="font-outfit text-3xl font-black text-[#0e162e] mb-4">Cahyako Tri Harsatmo S.Ds</h3>
+            <p class="font-jakarta text-gray-500 text-lg italic leading-relaxed max-w-2xl">
+                "Kami membentuk desainer muda yang kreatif, komunikatif, dan siap bersaing di industri kreatif global dengan portofolio yang kuat dan mindset profesional."
+            </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{-- ========== PROSPEK KARIR ========== --}}
+  <section class="py-32 px-6 bg-[#0e162e] relative overflow-hidden">
+    {{-- Decorative Background --}}
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-600 blur-[150px] rounded-full"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600 blur-[150px] rounded-full"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10 text-center mb-20">
+        <span class="font-outfit text-xs font-black text-white/50 uppercase tracking-[0.3em] mb-4 block">Future Careers</span>
+        <h2 class="font-outfit text-4xl md:text-6xl font-black text-white tracking-tight leading-none">
+            Jejak Langkah <span class="highlight-orange">Profesional.</span>
+        </h2>
+    </div>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
+      @foreach([
+        ['lucide:pen-tool', 'Desainer Grafis', 'Menciptakan visual komunikasi yang efektif dan estetis untuk berbagai media.'],
+        ['lucide:camera', 'Fotografer / Videografer', 'Mengabadikan momen dan cerita melalui lensa dengan teknik profesional.'],
+        ['lucide:layout', 'Art Director', 'Memimpin konsep visual dan arah kreatif dalam proyek desain.'],
+        ['lucide:palette', 'Ilustrator Profesional', 'Menghasilkan karya ilustrasi digital dan manual berkualitas tinggi.'],
+        ['lucide:film', 'Motion Graphic Designer', 'Membuat animasi dan visual bergerak untuk media digital.'],
+        ['lucide:brush', 'Branding Specialist', 'Mengembangkan identitas visual dan strategi brand yang kuat.'],
+      ] as [$icon, $title, $desc])
+        <div class="bg-white/5 backdrop-blur-md border border-white/10 p-10 rounded-[2.5rem] hover:bg-white/10 transition-all group overflow-hidden" data-aos="fade-up">
+            <div class="w-14 h-14 bg-orange-600 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                <iconify-icon icon="{{ $icon }}" class="text-3xl text-white"></iconify-icon>
+            </div>
+            <h4 class="font-outfit text-xl font-black text-white mb-4">{{ $title }}</h4>
+            <p class="font-jakarta text-white/60 text-sm leading-relaxed">{{ $desc }}</p>
+            <div class="mt-8 flex items-center gap-3 text-orange-400 font-outfit font-black text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0">
+  
+            </div>
         </div>
       @endforeach
     </div>
-  </div>
-</section>
+  </section>
 
-{{-- ========== TOOLS & EQUIPMENT ========== --}}
-<section class="py-24 bg-white text-center overflow-hidden">
-  <div class="max-w-7xl mx-auto px-6 md:px-10">
-    <h3 class="text-xl font-semibold text-orange-500">Tools dan Equipment</h3>
-    <p class="text-gray-600 mt-2">Perangkat digital dan kreatif untuk desain, ilustrasi, serta multimedia</p>
-
-    <div class="relative mt-14 overflow-hidden">
-      <div class="flex gap-10 w-max animate-marquee">
-        @for ($i = 1; $i <= 20; $i++)
-          <div class="flex-shrink-0 w-40 h-24 flex items-center justify-center bg-white rounded-xl shadow border border-orange-100">
-            <img src="{{ asset('assets/images/program/dkv/logo (' . (($i - 1) % 8 + 1) . ').png') }}" 
-                 alt="logo {{ $i }}" 
-                 class="max-h-16 object-contain">
-          </div>
-        @endfor
-      </div>
+  {{-- ========== TOOLS EQUIPMENT ========== --}}
+  <section class="py-24 bg-white border-b border-gray-50 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 text-center mb-20">
+        <h3 class="font-outfit text-xl font-black text-[#0e162e] uppercase tracking-[0.3em]">Creative Design Tools</h3>
     </div>
+    
+    <div class="flex flex-col gap-4 md:gap-8">
+        {{-- Row 1: Tech Group A (1-4) --}}
+        <div class="relative overflow-hidden">
+          <div class="flex gap-6 md:gap-10 w-max animate-marquee py-4">
+            @for ($k = 0; $k < 4; $k++)
+              @for ($i = 1; $i <= 4; $i++)
+                <div class="flex-shrink-0 w-48 md:w-64 h-28 md:h-36 flex items-center justify-center bg-white rounded-[1.5rem] md:rounded-[2rem] shadow-sm border border-gray-100 hover:border-orange-200 transition-all hover:shadow-xl group">
+                  <img src="{{ asset('assets/images/program/dkv/logo (' . $i . ').png') }}" 
+                       alt="Tech {{ $i }}" 
+                       class="max-h-14 md:max-h-20 grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110">
+                </div>
+              @endfor
+            @endfor
+          </div>
+        </div>
+
+        {{-- Row 2: Tech Group B (5-8) --}}
+        <div class="relative overflow-hidden">
+          <div class="flex gap-6 md:gap-10 w-max animate-marquee-reverse py-4">
+            @for ($k = 0; $k < 4; $k++)
+              @for ($i = 5; $i <= 8; $i++)
+                <div class="flex-shrink-0 w-48 md:w-64 h-28 md:h-36 flex items-center justify-center bg-white rounded-[1.5rem] md:rounded-[2rem] shadow-sm border border-gray-100 hover:border-orange-200 transition-all hover:shadow-xl group">
+                  <img src="{{ asset('assets/images/program/dkv/logo (' . $i . ').png') }}" 
+                       alt="Tech {{ $i }}" 
+                       class="max-h-14 md:max-h-20 grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110">
+                </div>
+              @endfor
+            @endfor
+          </div>
+        </div>
+    </div>
+  </section>
+
+  {{-- ========== JOURNEY, TOUR, FAQ ========== --}}
+  <div class="bg-[#fcfcfd]">
+    @include('prestasiprima.pages.program.journey', ['program' => 'dkv'])
   </div>
-</section>
+  
+  <div class="bg-white">
+    @include('prestasiprima.pages.program.tour', ['program' => 'dkv'])
+  </div>
 
-@include('prestasiprima.pages.program.journey', ['program' => 'dkv'])
-@include('prestasiprima.pages.program.tour', ['program' => 'dkv'])
-@include('prestasiprima.pages.program.faq', ['jurusan' => 'dkv'])
+  <div class="bg-[#fcfcfd]">
+    @include('prestasiprima.pages.program.faq', ['jurusan' => 'dkv'])
+  </div>
 
-<script> document.addEventListener("DOMContentLoaded", () => lucide.createIcons()); </script>
+</div>
+
+<style>
+    @keyframes drift { from { transform: translateX(-50px) translateY(0); } to { transform: translateX(50px) translateY(-30px); } }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes marquee-reverse { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+    
+    .animate-marquee { animation: marquee 40s linear infinite; }
+    .animate-marquee-reverse { animation: marquee-reverse 40s linear infinite; }
+    
+    @media (max-width: 768px) {
+        .animate-marquee { animation: marquee 20s linear infinite; }
+        .animate-marquee-reverse { animation: marquee-reverse 20s linear infinite; }
+    }
+
+    .animate-bounce-slow { animation: bounce 3s infinite; }
+    @keyframes bounce { 0%, 100% { transform: translateY(-5%); animation-timing-function: cubic-bezier(0.8,0,1,1); } 50% { transform: none; animation-timing-function: cubic-bezier(0,0,0.2,1); } }
+</style>
+
+@push('scripts')
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.initAOS) {
+      window.initAOS({ duration: 1000, once: true }).catch(e => console.error(e));
+    }
+  });
+</script>
+@endpush
 @endsection

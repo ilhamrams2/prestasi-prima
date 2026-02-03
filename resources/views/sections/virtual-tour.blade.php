@@ -1,84 +1,95 @@
 {{-- ================= SECTION VIRTUAL TOUR ================= --}}
-<section id="virtual-tour" class="relative py-24 bg-gradient-to-r from-orange-50 via-white to-orange-50 overflow-hidden">
+<section id="virtual-tour" class="relative py-32 bg-white overflow-hidden">
+  
+  <!-- Subtle Background Pattern -->
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(234,88,12,0.03),transparent)] pointer-events-none"></div>
 
-  <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+  <div class="max-w-6xl mx-auto px-6 text-center relative z-10">
 
-    {{-- Judul --}}
-    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2 tracking-tight"
-        data-aos="fade-up" data-aos-duration="1000">
-      Jelajahi SMK Prestasi Prima 
-      <span class="text-orange-500">Secara Virtual</span>
+    <div class="inline-block px-4 py-1.5 rounded-full bg-orange-100 text-orange-700 text-[10px] font-black uppercase tracking-widest mb-6" data-aos="fade-up">
+      Interactive Experience
+    </div>
+
+    <h2 class="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight leading-tight" data-aos="fade-up" data-aos-delay="100">
+      Jelajahi Kampus <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-orange-400">Secara Virtual</span>
     </h2>
 
-    {{-- Subtitle / Microcopy --}}
-    <p class="text-sm md:text-base text-gray-500 mb-8"
-       data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
-      Jelajahi ruang kelas, laboratorium, dan fasilitas unggulan kami dari mana saja!
+    <p class="text-lg md:text-xl text-gray-500 max-w-3xl mx-auto mb-12 font-medium leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+      Melihat belum pernah semudah ini. Nikmati pengalaman tur interaktif 360° untuk melihat setiap sudut fasilitas unggulan kami langsung dari perangkat Anda.
     </p>
 
-    {{-- Tagline --}}
-    <p class="text-lg md:text-xl text-gray-700 mb-12"
-       data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-      Rasakan pengalaman menjelajahi sekolah kami melalui tur virtual 360°, lihat fasilitas unggulan, ruang belajar, laboratorium, dan lingkungan sekolah secara interaktif.
-    </p>
+    <!-- Preview Interaction Card -->
+    <div class="relative group max-w-4xl mx-auto" data-aos="zoom-in" data-aos-delay="300">
+      <!-- Glow Effect -->
+      <div class="absolute -inset-1 bg-gradient-to-r from-orange-600 to-orange-400 rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+      
+      <div class="relative bg-white rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-100 cursor-pointer" 
+           onclick="window.location='{{ route('virtual-tour') }}'">
+        
+        <div class="relative aspect-video">
+           <img src="{{ asset('assets/360View/v360-1.jpg') }}" 
+                alt="Preview Virtual Tour" 
+                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+           
+           <!-- Overlay Overlay -->
+           <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-700"></div>
 
-    {{-- Tombol CTA --}}
-    <div class="flex flex-col items-center">
-    <a href="{{ route('virtual-tour') }}"
-  class="inline-block bg-orange-500 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl hover:bg-orange-700 transition transform hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-200 focus-visible:ring-offset-2"
-         data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="250">
-         Mulai Virtual Tour
-      </a>
-      {{-- Arrow animasi --}}
-      <div class="mt-4 animate-bounce text-orange-500">
-        <i class="fa-solid fa-arrow-down"></i>
+           <!-- Central Play Indicator -->
+           <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-20 h-20 md:w-28 md:h-28 bg-white/20 backdrop-blur-xl rounded-full flex items-center justify-center border border-white/40 shadow-2xl group-hover:scale-110 transition-transform duration-500">
+                 <div class="w-14 h-14 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center shadow-lg">
+                    <iconify-icon icon="solar:play-bold" class="text-3xl md:text-5xl text-orange-600 ml-1.5 md:ml-2"></iconify-icon>
+                 </div>
+              </div>
+           </div>
+
+           <!-- Info Badges -->
+           <div class="absolute top-6 left-6 px-4 py-2 bg-black/60 backdrop-blur-md rounded-xl text-white text-[10px] font-black uppercase tracking-[0.2em] border border-white/20">
+              360° Immersive
+           </div>
+           
+           <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between text-white">
+              <div class="text-left">
+                 <p class="text-[10px] font-black uppercase tracking-widest opacity-80 mb-1">Lokasi Utama</p>
+                 <h4 class="text-xl md:text-2xl font-black">Main Atrium & Lobby</h4>
+              </div>
+              <div class="hidden md:flex gap-2">
+                 <span class="w-2 h-2 rounded-full bg-white opacity-40"></span>
+                 <span class="w-2 h-2 rounded-full bg-white opacity-40"></span>
+                 <span class="w-2 h-2 rounded-full bg-white"></span>
+              </div>
+           </div>
+        </div>
       </div>
     </div>
 
-    {{-- Preview Card --}}
-    <div class="mt-16 flex justify-center"
-         data-aos="fade-up" data-aos-duration="1000" data-aos-delay="350">
-      <div class="preview-card relative w-full md:w-4/5 lg:w-2/3 rounded-xl overflow-hidden bg-white/20 backdrop-blur-md border border-white/30 shadow-lg transition-transform hover:scale-110 hover:shadow-2xl cursor-pointer"
-           onclick="window.location='{{ route('virtual-tour') }}'">
-        
-        {{-- Badge 360° --}}
-  <span class="absolute top-4 left-4 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-          360° Virtual Tour
-        </span>
-
-        <img src="{{ asset('assets/360View/v360-1.jpg') }}" 
-             alt="Preview Virtual Tour" 
-             class="w-full object-cover aspect-video">
-
-        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent flex items-end p-6">
-          <h3 class="text-xl md:text-2xl font-bold text-white drop-shadow-lg">
-            Klik untuk Memulai Virtual Tour
-          </h3>
+    <!-- Features Row -->
+    <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+      <div class="flex flex-col items-center gap-3" data-aos="fade-up" data-aos-delay="400">
+        <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-600">
+          <iconify-icon icon="lucide:glasses" class="text-2xl"></iconify-icon>
         </div>
-
-  <div class="absolute top-4 right-4 bg-orange-500 p-3 rounded-full shadow-lg animate-bounce icon-vr">
-          <i class="fa-solid fa-vr-cardboard text-white text-lg md:text-xl"></i>
+        <p class="text-xs font-black uppercase tracking-widest text-gray-900">Virtual Reality</p>
+      </div>
+      <div class="flex flex-col items-center gap-3" data-aos="fade-up" data-aos-delay="500">
+        <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-600">
+          <iconify-icon icon="lucide:maximize" class="text-2xl"></iconify-icon>
         </div>
+        <p class="text-xs font-black uppercase tracking-widest text-gray-900">High Definition</p>
+      </div>
+      <div class="flex flex-col items-center gap-3" data-aos="fade-up" data-aos-delay="600">
+        <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-600">
+          <iconify-icon icon="lucide:mouse-pointer" class="text-2xl"></iconify-icon>
+        </div>
+        <p class="text-xs font-black uppercase tracking-widest text-gray-900">Interaktif</p>
       </div>
     </div>
 
   </div>
 
-  {{-- Decorative shapes --}}
-  <div class="absolute top-0 left-0 w-64 h-64 bg-orange-200/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-float-slow"></div>
-  <div class="absolute bottom-0 right-0 w-72 h-72 bg-orange-300/20 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 animate-float-slow"></div>
-
-  {{-- Icons dekoratif lebih besar --}}
-  <img src="{{ asset('assets/images/section/virtual-tour/icon1.svg') }}" 
-       alt="Icon Dekorasi Kiri" 
-       class="absolute top-1/4 left-0 w-80 h-80 opacity-0 glow-icon sway-left"
-       data-aos="fade-up-right" data-aos-duration="1200" data-aos-delay="400">
-
-  <img src="{{ asset('assets/images/section/virtual-tour/icon2.svg') }}" 
-       alt="Icon Dekorasi Kanan" 
-       class="absolute bottom-1/4 right-0 w-80 h-80 opacity-0 glow-icon sway-right"
-       data-aos="fade-up-left" data-aos-duration="1200" data-aos-delay="400">
-
+  <!-- Subtle Decorations -->
+  <div class="absolute top-1/4 -left-20 w-80 h-80 bg-orange-50 rounded-full blur-[100px] pointer-events-none"></div>
+  <div class="absolute bottom-0 right-0 w-96 h-96 bg-gray-50 rounded-full blur-[100px] pointer-events-none"></div>
 </section>
 
 {{-- CSS untuk floating, hover & efek hidup --}}
@@ -90,49 +101,4 @@
   .animate-float-slow {
     animation: floatSlow 6s ease-in-out infinite;
   }
-
-  /* Hover card effects */
-  .preview-card:hover .icon-vr {
-    transform: rotate(15deg);
-    transition: transform 0.5s ease;
-  }
-
-  /* Glow effect saat muncul */
-  .glow-icon {
-    filter: drop-shadow(0 0 30px rgba(255, 165, 0, 1));
-    transition: filter 0.5s ease, opacity 0.5s ease;
-  }
-  .glow-icon[data-aos].aos-animate {
-    opacity: 1;
-  }
-
-  /* Sway animation */
-  @keyframes sway-left {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(30px); }
-  }
-  @keyframes sway-right {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(-30px); }
-  }
-  .sway-left.aos-animate {
-    animation: sway-left 4s ease-in-out infinite alternate;
-  }
-  .sway-right.aos-animate {
-    animation: sway-right 4s ease-in-out infinite alternate;
-  }
-
-  /* Responsive scaling untuk mobile */
-  @media (max-width: 768px) {
-    .w-80.h-80 { display: none !important; } /* Hilangkan ikon di mobile */
-    .md\:w-4\/5 { width: 90% !important; }
-    .lg\:w-2\/3 { width: 95% !important; }
-  }
 </style>
-
-{{-- AOS --}}
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script>
-  AOS.init({ once: true });
-</script>

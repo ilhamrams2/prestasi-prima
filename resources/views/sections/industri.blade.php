@@ -68,30 +68,30 @@
     <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="900" class="relative w-full overflow-hidden group">
       <div class="flex animate-scroll-horizontal space-x-14 sm:space-x-20 items-center will-change-transform">
 
-   @foreach ($industryLogoKeys as $logo)
-        <div class="logo-item flex items-center justify-center bg-white/80 backdrop-blur-md rounded-2xl shadow-md p-4 transition-all duration-700 hover:shadow-xl hover:scale-105 hover:-translate-y-1">
-    <img src="{{ asset('assets/images/section/industri/' . $logo . '.webp') }}"
-      alt="{{ ucfirst($logo) }}"
-     width="{{ $industryLogos[$logo]['width'] }}"
-     height="{{ $industryLogos[$logo]['height'] }}"
-     loading="lazy"
-     decoding="async"
-               class="w-auto h-16 sm:h-20 md:h-24 object-contain transition-all duration-700 hover:drop-shadow-[0_0_16px_rgba(234,88,12,0.4)]">
-        </div>
-        @endforeach
+    @foreach ($industryLogoKeys as $logo)
+         <div class="logo-item flex items-center justify-center bg-white/80 backdrop-blur-md rounded-2xl shadow-md p-6 transition-all duration-700 hover:shadow-xl hover:scale-105 hover:-translate-y-1 w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 mx-4 sm:mx-6 md:mx-8">
+     <img src="{{ asset('assets/images/section/industri/' . $logo . '.webp') }}"
+       alt="{{ ucfirst($logo) }}"
+      width="{{ $industryLogos[$logo]['width'] }}"
+      height="{{ $industryLogos[$logo]['height'] }}"
+      loading="lazy"
+      decoding="async"
+                class="w-full h-full object-contain transition-all duration-700 hover:drop-shadow-[0_0_16px_rgba(234,88,12,0.4)]">
+         </div>
+         @endforeach
 
-        <!-- Duplicate for infinite scroll -->
-   @foreach ($industryLogoKeys as $logo)
-        <div class="logo-item flex items-center justify-center bg-white/80 backdrop-blur-md rounded-2xl shadow-md p-4 transition-all duration-700 hover:shadow-xl hover:scale-105 hover:-translate-y-1">
-    <img src="{{ asset('assets/images/section/industri/' . $logo . '.webp') }}"
-      alt="{{ ucfirst($logo) }}"
-     width="{{ $industryLogos[$logo]['width'] }}"
-     height="{{ $industryLogos[$logo]['height'] }}"
-     loading="lazy"
-     decoding="async"
-               class="w-auto h-16 sm:h-20 md:h-24 object-contain transition-all duration-700 hover:drop-shadow-[0_0_16px_rgba(234,88,12,0.4)]">
-        </div>
-        @endforeach
+         <!-- Duplicate for infinite scroll -->
+    @foreach ($industryLogoKeys as $logo)
+         <div class="logo-item flex items-center justify-center bg-white/80 backdrop-blur-md rounded-2xl shadow-md p-6 transition-all duration-700 hover:shadow-xl hover:scale-105 hover:-translate-y-1 w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 mx-4 sm:mx-6 md:mx-8">
+     <img src="{{ asset('assets/images/section/industri/' . $logo . '.webp') }}"
+       alt="{{ ucfirst($logo) }}"
+      width="{{ $industryLogos[$logo]['width'] }}"
+      height="{{ $industryLogos[$logo]['height'] }}"
+      loading="lazy"
+      decoding="async"
+                class="w-full h-full object-contain transition-all duration-700 hover:drop-shadow-[0_0_16px_rgba(234,88,12,0.4)]">
+         </div>
+         @endforeach
       </div>
     </div>
 

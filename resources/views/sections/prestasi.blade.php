@@ -36,48 +36,54 @@
       </h2>
     </div>
 
-    <!-- ===== Swiper Container ===== -->
-    <div class="swiper prestasiSwiper relative">
-      <div class="swiper-wrapper">
-        <!-- Slides -->
-        <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl transition transform duration-500 glow-slide">
-            <img src="{{ asset('assets/images/section/prestasi/satu.webp') }}" alt="Juara Dua" width="{{ $prestasiSlideSizes['satu.webp']['width'] }}" height="{{ $prestasiSlideSizes['satu.webp']['height'] }}" class="w-full object-cover">
+    <!-- ===== Swiper Wrapper ===== -->
+    <div class="relative mt-8 px-4 sm:px-14" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+      <div class="swiper prestasiSwiper !p-10 !-m-10">
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+          <div class="swiper-slide">
+            <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+              <img src="{{ asset('assets/images/section/prestasi/satu.webp') }}" alt="Juara Dua" width="{{ $prestasiSlideSizes['satu.webp']['width'] }}" height="{{ $prestasiSlideSizes['satu.webp']['height'] }}" class="w-full object-cover">
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+              <img src="{{ asset('assets/images/section/prestasi/dua.webp') }}" alt="Juara Tiga" width="{{ $prestasiSlideSizes['dua.webp']['width'] }}" height="{{ $prestasiSlideSizes['dua.webp']['height'] }}" class="w-full object-cover">
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+              <img src="{{ asset('assets/images/section/prestasi/tiga.webp') }}" alt="Juara Tiga" width="{{ $prestasiSlideSizes['tiga.webp']['width'] }}" height="{{ $prestasiSlideSizes['tiga.webp']['height'] }}" class="w-full object-cover">
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+              <img src="{{ asset('assets/images/section/prestasi/empat.webp') }}" alt="Juara Empat" width="{{ $prestasiSlideSizes['empat.webp']['width'] }}" height="{{ $prestasiSlideSizes['empat.webp']['height'] }}" class="w-full object-cover">
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+              <img src="{{ asset('assets/images/section/prestasi/lima.webp') }}" alt="Juara Lima" width="{{ $prestasiSlideSizes['lima.webp']['width'] }}" height="{{ $prestasiSlideSizes['lima.webp']['height'] }}" class="w-full object-cover">
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+              <img src="{{ asset('assets/images/section/prestasi/enam.webp') }}" alt="Juara Enam" width="{{ $prestasiSlideSizes['enam.webp']['width'] }}" height="{{ $prestasiSlideSizes['enam.webp']['height'] }}" class="w-full object-cover">
+            </div>
           </div>
         </div>
-        <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl transition transform duration-500 glow-slide">
-            <img src="{{ asset('assets/images/section/prestasi/dua.webp') }}" alt="Juara Tiga" width="{{ $prestasiSlideSizes['dua.webp']['width'] }}" height="{{ $prestasiSlideSizes['dua.webp']['height'] }}" class="w-full object-cover">
-          </div>
-        </div>
-        <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl transition transform duration-500 glow-slide">
-            <img src="{{ asset('assets/images/section/prestasi/tiga.webp') }}" alt="Juara Tiga" width="{{ $prestasiSlideSizes['tiga.webp']['width'] }}" height="{{ $prestasiSlideSizes['tiga.webp']['height'] }}" class="w-full object-cover">
-          </div>
-        </div>
-        <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl transition transform duration-500 glow-slide">
-            <img src="{{ asset('assets/images/section/prestasi/empat.webp') }}" alt="Juara Empat" width="{{ $prestasiSlideSizes['empat.webp']['width'] }}" height="{{ $prestasiSlideSizes['empat.webp']['height'] }}" class="w-full object-cover">
-          </div>
-        </div>
-        <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl transition transform duration-500 glow-slide">
-            <img src="{{ asset('assets/images/section/prestasi/lima.webp') }}" alt="Juara Lima" width="{{ $prestasiSlideSizes['lima.webp']['width'] }}" height="{{ $prestasiSlideSizes['lima.webp']['height'] }}" class="w-full object-cover">
-          </div>
-        </div>
-        <div class="swiper-slide" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600">
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 hover:shadow-2xl transition transform duration-500 glow-slide">
-            <img src="{{ asset('assets/images/section/prestasi/enam.webp') }}" alt="Juara Enam" width="{{ $prestasiSlideSizes['enam.webp']['width'] }}" height="{{ $prestasiSlideSizes['enam.webp']['height'] }}" class="w-full object-cover">
-          </div>
-        </div>
+
+        <!-- Pagination -->
+        <div class="swiper-pagination !-bottom-1"></div>
       </div>
 
-      <!-- Pagination -->
-      <div class="swiper-pagination mt-6"></div>
-
-      <!-- Navigation Buttons -->
-      <div class="swiper-button-prev custom-nav"></div>
-      <div class="swiper-button-next custom-nav"></div>
+      <!-- Navigation Buttons - Custom classes to avoid Swiper default styles -->
+      <button class="prestasi-nav-prev custom-nav-v3 -left-4 sm:-left-8">
+        <iconify-icon icon="lucide:chevron-left"></iconify-icon>
+      </button>
+      <button class="prestasi-nav-next custom-nav-v3 -right-4 sm:-right-8">
+        <iconify-icon icon="lucide:chevron-right"></iconify-icon>
+      </button>
     </div>
   </div>
 
@@ -101,37 +107,80 @@
 <noscript>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </noscript>
+<script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 
 <style>
-  /* Swiper Navigation */
-  .custom-nav {
-    width: 28px !important;
-    height: 28px !important;
-    background-color: rgba(255,255,255,0.9);
+  /* Swiper Navigation V3 - Premium Glass Look */
+  .custom-nav-v3 {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    width: 42px !important;
+    height: 42px !important;
+    background-color: white !important;
     border-radius: 9999px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    color: #ea580c;
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    color: #ea580c !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: -30px !important;
+    border: 1px solid rgba(234, 88, 12, 0.1);
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
   }
-  .custom-nav::after { font-size: 14px !important; font-weight: bold; }
-  .custom-nav:hover { background-color: #ea580c; color: white; transform: scale(1.05); }
-  .swiper-button-prev { left: 4px !important; }
-  .swiper-button-next { right: 4px !important; }
-  @media (max-width: 640px){
-    .custom-nav { width: 24px !important; height: 24px !important; }
-    .custom-nav::after { font-size: 12px !important; }
-    .swiper-button-prev { left: 2px !important; }
-    .swiper-button-next { right: 2px !important; }
+  .custom-nav-v3 iconify-icon { font-size: 18px; color: currentColor; }
+  
+  /* Hover Effect: Pulse & Glow */
+  .custom-nav-v3:hover { 
+    background-color: #ea580c !important; 
+    color: white !important; 
+    transform: scale(1.15); 
+    box-shadow: 0 8px 25px rgba(234, 88, 12, 0.4);
+    border-color: transparent;
   }
 
-  /* Slide Glow */
-  .glow-slide:hover {
-    box-shadow: 0 0 30px rgba(255,165,0,0.6), 0 10px 20px rgba(0,0,0,0.2);
-    transform: scale(1.08);
+  /* Responsive Adjustments */
+  @media (max-width: 639px) {
+    .custom-nav-v3 {
+      width: 40px !important;
+      height: 40px !important;
+      background-color: rgba(255, 255, 255, 0.95) !important;
+    }
+    .custom-nav-v3::after { font-size: 14px !important; }
+  }
+
+  /* Prestasi Card Hover */
+  .prestasi-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+    border: 1px solid #f3f4f6;
+  }
+  .prestasi-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    z-index: 20;
+    position: relative;
+    border-color: #ffedd5;
+  }
+
+  /* Swiper Pagination Dot Custom */
+  .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: #d1d5db;
+    opacity: 1;
+    transition: all 0.3s ease;
+  }
+  .swiper-pagination-bullet-active {
+    background: #ea580c;
+    width: 24px;
+    border-radius: 5px;
   }
 
   /* Glow Text Header */
-  .glow-text { text-shadow: 0 0 8px rgba(255,165,0,0.7), 0 0 15px rgba(255,165,0,0.4); }
+  .glow-text { text-shadow: 0 0 8px rgba(255,165,0,0.5); }
 
   /* Floating Background */
   @keyframes float-left {
@@ -177,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
       loop: true,
       autoplay: { delay: 3000, disableOnInteraction: false },
       pagination: { el: '.swiper-pagination', clickable: true },
-      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      navigation: { nextEl: '.prestasi-nav-next', prevEl: '.prestasi-nav-prev' },
       breakpoints: {
         640: { slidesPerView: 2, spaceBetween: 20 },
         768: { slidesPerView: 3, spaceBetween: 24 },

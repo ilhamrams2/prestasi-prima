@@ -5,6 +5,7 @@ namespace App\Models\prestasiprima;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\prestasiprima\Category;
+use App\Models\prestasiprima\PPuser;
 
 class News extends Model
 {
@@ -24,7 +25,7 @@ class News extends Model
     // Relasi ke penulis
     public function author()
     {
-        return $this->belongsTo(\App\Models\User::class, 'author_id');
+        return $this->belongsTo(PPuser::class, 'author_id');
     }
 }
 

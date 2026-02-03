@@ -2,15 +2,88 @@
 
 @section('title', 'Struktur Staff & Manajemen - SMK Prestasi Prima')
 
+@push('styles')
+<style>
+  :root {
+    --action-orange: #FF6B00;
+    --deep-navy: #0e162e;
+    --charcoal: #333333;
+  }
+  .font-outfit { font-family: 'Outfit', sans-serif; }
+  .font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
+  
+  .text-mask-hero {
+    font-size: clamp(2rem, 5vw, 5.5rem);
+    font-weight: 950;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--deep-navy) 0%, #1a2a4e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+  }
+
+  .text-ghost {
+    position: absolute;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(6rem, 25vw, 25rem);
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(14, 22, 46, 0.03);
+    -webkit-text-stroke: 1px rgba(14, 22, 46, 0.05);
+    white-space: nowrap;
+    z-index: 0;
+    pointer-events: none;
+    text-transform: uppercase;
+  }
+
+  .highlight-orange {
+    background: linear-gradient(135deg, #FF6B00 0%, #FF8533 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
+@endpush
+
 @section('content')
 
-{{-- === SECTION STRUKTUR STAFF, KEPEMIMPINAN & GURU MAPEL === --}}
-<section class="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white py-24 relative overflow-hidden">
+{{-- ========== HERO SECTION ========== --}}
+<section class="pt-32 md:pt-48 pb-12 md:pb-20 px-4 md:px-6 bg-white relative overflow-hidden">
+    <div class="text-ghost top-32 md:top-24 -left-2 md:-left-20">LEADERS</div>
+    
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="flex flex-col items-start gap-6 mb-16" data-aos="fade-up">
+        <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-orange-50 border border-orange-100">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+          </span>
+          <span class="font-outfit text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF6B00]">Professional Team</span>
+        </div>
+      </div>
 
-  {{-- === ORNAMEN BINTANG BERDENYUT === --}}
-  <div class="flex justify-center mt-24 mb-24">
+      <div class="grid lg:grid-cols-12 gap-12 items-end mb-16">
+        <div class="lg:col-span-12" data-aos="fade-up" data-aos-delay="100">
+          <h1 class="font-outfit text-mask-hero">
+            Pendidik Inspiratif, <br>
+            <span class="highlight-orange">Generasi Berprestasi.</span>
+          </h1>
+        </div>
+      </div>
+      
+      <div class="lg:col-span-10" data-aos="fade-up" data-aos-delay="200">
+        <p class="font-jakarta text-gray-400 text-xl md:text-3xl font-medium leading-[1.4] max-w-5xl tracking-tight">
+          SMK Prestasi Prima didukung oleh <span class="text-charcoal font-black border-b-4 border-orange-500/20">tenaga pendidik profesional</span> yang berdedikasi tinggi dalam membentuk karakter dan kompetensi siswa.
+        </p>
+      </div>
+    </div>
+</section>
+
+{{-- === SECTION STRUKTUR STAFF, KEPEMIMPINAN & GURU MAPEL === --}}
+<section class="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white pb-24 relative overflow-hidden">
+    <div class="flex justify-center mb-24">
     <div class="relative">
-      <div class="flex items-center gap-6">
+      <div class="flex items-center gap-6 mt-12">
         <div class="w-20 h-[3px] bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full"></div>
         <div class="relative w-16 h-16 flex items-center justify-center rounded-full bg-gradient-to-br from-orange-50 to-yellow-50 shadow-md animate-pulse-glow">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-orange-500 drop-shadow-[0_0_8px_rgba(255,165,0,0.7)]" fill="currentColor" viewBox="0 0 24 24">
@@ -77,8 +150,8 @@
 <div class="max-w-7xl mx-auto px-6 mb-20">
   <div class="flex justify-center mb-10">
     <div class="inline-flex bg-gradient-to-r from-orange-500 to-yellow-400 rounded-xl p-1 shadow-lg">
-      <button class="tab-btn active-tab rounded-lg px-8 py-2 font-semibold text-white transition-all duration-300" data-target="kaprog">Kaprog</button>
-      <button class="tab-btn rounded-lg px-8 py-2 font-semibold text-white transition-all duration-300" data-target="kesiswaan">Kesiswaan</button>
+      <button class="tab-btn active-tab rounded-lg px-8 py-2 font-semibold text-white transition-all duration-300" data-target="kaprog">Kaprodi</button>
+      <button class="tab-btn rounded-lg px-8 py-2 font-semibold text-white transition-all duration-300" data-target="kesiswaan">Wakasek</button>
     </div>
   </div>
 

@@ -3,83 +3,175 @@
 @section('title', isset($news) ? 'Edit Berita' : 'Tambah Berita')
 
 @section('content')
-<div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 max-w-3xl mx-auto">
-
-  <h1 class="text-3xl font-semibold text-gray-800 mb-8">
-    {{ isset($news) ? 'Edit Berita' : 'Tambah Berita' }}
-  </h1>
-
-  {{-- Flash message / Error --}}
-  @if ($errors->any())
-    <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
-      <ul class="list-disc pl-5 space-y-1">
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-  @endif
-
-  <form action="{{ isset($news) ? route('prestasiprima.admin.berita.update', $news->id) : route('prestasiprima.admin.berita.store') }}" 
-        method="POST" enctype="multipart/form-data" class="space-y-6">
-    @csrf
-    @if(isset($news))
-        @method('PUT')
-    @endif
-
-    {{-- Judul --}}
-    <div>
-      <label class="block text-gray-700 font-medium mb-2">Judul</label>
-      <input type="text" name="title" 
-             value="{{ old('title', $news->title ?? '') }}" 
-             class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-gray-300 focus:outline-none transition" required>
-    </div>
-
-    {{-- Kategori --}}
-    <div>
-      <label class="block text-gray-700 font-medium mb-2">Kategori</label>
-      <select name="category_id" class="w-full border rounded-lg px-3 py-2" required>
-        <option value="">-- Pilih Kategori --</option>
-        @foreach ($categories as $category)
-          <option value="{{ $category->id }}" 
-                  @if(old('category_id', $news->category_id ?? '') == $category->id) selected @endif>
-            {{ $category->name }}
-          </option>
-        @endforeach
-      </select>
-    </div>
-
-    {{-- Thumbnail --}}
-    <div>
-      <label class="block text-gray-700 font-medium mb-2">Thumbnail</label>
-      @if (!empty($news->thumbnail))
-        <div class="mb-2">
-          <img src="{{ asset($news->thumbnail) }}" alt="Thumbnail" class="w-32 h-20 object-cover rounded-lg">
+<div class="max-w-4xl mx-auto">
+    {{-- ================= HEADER ================= --}}
+    <div class="flex items-center gap-4 mb-8">
+        <a href="{{ route('prestasiprima.admin.berita.index') }}" 
+           class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">
+            <i class="ri-arrow-left-line"></i>
+        </a>
+        <div>
+            <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight">
+                {{ isset($news) ? 'Perbarui Berita' : 'Tulis Berita Baru' }}
+            </h1>
+            <p class="text-sm text-slate-500 font-medium">Lengkapi informasi di bawah ini untuk mempublikasikan berita.</p>
         </div>
-      @endif
-      <input type="file" name="thumbnail" accept="image/*" 
-             class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none">
-      <p class="text-sm text-gray-500 mt-1">Biarkan kosong jika tidak ingin mengubah thumbnail</p>
     </div>
 
-    {{-- Konten --}}
-    <div>
-      <label class="block text-gray-700 font-medium mb-2">Konten</label>
-      <textarea name="content" rows="8" 
-                class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-gray-300 focus:outline-none transition" 
-                required>{{ old('content', $news->content ?? '') }}</textarea>
-    </div>
+    {{-- ================= FORM CARD ================= --}}
+    <div class="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">
+        <form action="{{ isset($news) ? route('prestasiprima.admin.berita.update', $news->id) : route('prestasiprima.admin.berita.store') }}" 
+              method="POST" enctype="multipart/form-data" class="divide-y divide-slate-50">
+            @csrf
+            @if(isset($news))
+                @method('PUT')
+            @endif
 
-    {{-- Tombol --}}
-    <div class="flex justify-end gap-3">
-      <a href="{{ route('prestasiprima.admin.berita.index') }}" 
-         class="px-5 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium transition">Batal</a>
-      <button type="submit" 
-              class="px-5 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-white font-medium transition">
-        {{ isset($news) ? 'Simpan Perubahan' : 'Simpan' }}
-      </button>
-    </div>
+            {{-- Flash message / Error --}}
+            @if ($errors->any())
+                <div class="p-6 bg-red-50/50">
+                    <div class="p-4 bg-white border-l-4 border-red-500 rounded-r-xl shadow-sm">
+                        <p class="text-sm font-bold text-red-600 mb-1">Terjadi kesalahan:</p>
+                        <ul class="list-disc pl-5 space-y-0.5">
+                            @foreach ($errors->all() as $error)
+                                <li class="text-xs text-red-500 font-medium">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
 
-  </form>
+            <div class="p-8 space-y-8">
+                {{-- Judul --}}
+                <div class="space-y-2">
+                    <label class="block text-sm font-bold text-slate-700 tracking-tight">Judul Berita</label>
+                    <input type="text" name="title" 
+                           value="{{ old('title', $news->title ?? '') }}" 
+                           placeholder="Masukkan judul berita yang menarik..."
+                           class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800" required>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {{-- Kategori --}}
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 tracking-tight">Kategori</label>
+                        <div class="relative">
+                            <select name="category_id" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800 appearance-none" required>
+                                <option value="">-- Pilih Kategori --</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" 
+                                            @if(old('category_id', $news->category_id ?? '') == $category->id) selected @endif>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <i class="ri-arrow-down-s-line absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xl"></i>
+                        </div>
+                    </div>
+
+                    {{-- Published At / Date --}}
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700 tracking-tight">Tanggal Publikasi</label>
+                        <input type="date" name="published_at" 
+                               value="{{ old('published_at', isset($news) ? \Carbon\Carbon::parse($news->published_at)->format('Y-m-d') : date('Y-m-d')) }}"
+                               class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800">
+                    </div>
+                </div>
+
+                {{-- Thumbnail --}}
+                <div class="space-y-4">
+                    <label class="block text-sm font-bold text-slate-700 tracking-tight">Thumbnail Visual</label>
+                    <div class="flex flex-col md:flex-row items-center gap-6 p-6 bg-slate-50 border-2 border-dashed border-slate-200 rounded-[2rem] hover:border-orange-400 transition-colors group">
+                        <div class="w-40 h-28 bg-white rounded-2xl flex-shrink-0 flex items-center justify-center shadow-sm overflow-hidden border border-slate-100 flex-col gap-1 relative">
+                            @if (!empty($news->thumbnail))
+                                <img src="{{ asset('storage/' . $news->thumbnail) }}" alt="Thumbnail" class="w-full h-full object-cover">
+                            @else
+                                {{-- Icon Removed --}}
+                            @endif
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h4 class="text-sm font-bold text-slate-800 mb-1">Unggah Cover Baru</h4>
+                            <p class="text-xs text-slate-500 font-medium mb-4 leading-relaxed">Pilih gambar berkualitas tinggi (JPG, PNG, WEBP). Maksimal ukuran file adalah 2MB.</p>
+                            <input type="file" name="thumbnail" accept="image/*" 
+                                   class="block w-full text-xs text-slate-500 file:mr-4 file:py-2.5 file:px-6 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#FF6B00] file:text-white hover:file:bg-[#e66000] transition-all cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Deskripsi Ringkas --}}
+                <div class="space-y-2">
+                    <label class="block text-sm font-bold text-slate-700 tracking-tight">Deskripsi Singkat</label>
+                    <textarea name="description" rows="3" 
+                              placeholder="Berikan ringkasan singkat mengenai berita ini..."
+                              class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800">{{ old('description', $news->description ?? '') }}</textarea>
+                </div>
+
+                {{-- Konten --}}
+                <div class="space-y-2">
+                    <label class="block text-sm font-bold text-slate-700 tracking-tight">Konten Berita Utama</label>
+                    <div class="prose max-w-none">
+                        <textarea name="content" id="editor"
+                                  placeholder="Tuliskan isi berita secara lengkap di sini..."
+                                  class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 font-medium text-slate-800">{{ old('content', $news->content ?? '') }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Form Actions --}}
+            <div class="p-8 bg-slate-50/50 flex flex-col md:flex-row justify-end gap-3">
+                <a href="{{ route('prestasiprima.admin.berita.index') }}" 
+                   class="px-8 py-3.5 rounded-2xl bg-white border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition-all text-center">Batal</a>
+                <button type="submit" 
+                        class="px-8 py-3.5 rounded-2xl bg-[#FF6B00] border border-orange-600 text-white font-bold text-sm hover:bg-[#e66000] transition-all shadow-lg shadow-orange-500/20 active:scale-95">
+                    {{ isset($news) ? 'Simpan Perubahan' : 'Terbitkan Sekarang' }}
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
+
+{{-- CKEditor Styles --}}
+<style>
+    .ck-editor__editable_inline {
+        min-height: 400px;
+        border-bottom-left-radius: 1rem !important;
+        border-bottom-right-radius: 1rem !important;
+        padding: 1.5rem !important;
+        background-color: #F8FAFC !important; /* bg-slate-50 */
+        border-color: #E2E8F0 !important; /* border-slate-200 */
+    }
+    .ck-toolbar {
+        border-top-left-radius: 1rem !important;
+        border-top-right-radius: 1rem !important;
+        background-color: #FFFFFF !important;
+        border-color: #E2E8F0 !important;
+    }
+    .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+        border-color: #E2E8F0 !important;
+    }
+    .ck.ck-editor__main>.ck-editor__editable.ck-focused {
+        border-color: #F97316 !important; /* orange-500 */
+        box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1) !important;
+    }
+</style>
+
+{{-- CKEditor Script --}}
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|', 'undo', 'redo'],
+            placeholder: 'Mulai menulis berita anda di sini...',
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                    { model: 'heading2', view: 'h2', title: 'Heading 1', class: 'ck-heading_heading2' },
+                    { model: 'heading3', view: 'h3', title: 'Heading 2', class: 'ck-heading_heading3' }
+                ]
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 @endsection

@@ -19,6 +19,8 @@ class PresmaboardStudent extends Model
         'email',
         'nis',
         'is_active',
+        'tanggal_lahir',
+        'umur',
     ];
 
 

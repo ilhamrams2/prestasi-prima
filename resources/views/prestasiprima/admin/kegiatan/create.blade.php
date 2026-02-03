@@ -3,90 +3,82 @@
 @section('title', 'Tambah Kegiatan')
 
 @section('content')
-<div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 max-w-4xl mx-auto">
-
-  {{-- ================= HEADER ================= --}}
-  <div class="flex items-center justify-between mb-8">
-    <h1 class="text-3xl font-semibold text-gray-800 tracking-tight">Tambah Kegiatan</h1>
-
-  <a href="{{ route('prestasiprima.admin.kegiatan.index') }}"
-       class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition text-sm font-medium">
-      <i class="ri-arrow-left-line text-lg"></i>
-      Kembali
-    </a>
-  </div>
-
-  {{-- ================= FORM TAMBAH KEGIATAN ================= --}}
-  <form action="{{ route('prestasiprima.admin.kegiatan.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
-    @csrf
-
-    {{-- JUDUL --}}
-    <div>
-      <label for="judul" class="block text-gray-700 font-medium mb-2">Judul Kegiatan</label>
-  <input type="text" id="judul" name="judul"
-             class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-gray-600 focus:border-gray-600 transition"
-             placeholder="Masukkan judul kegiatan" required>
-      @error('judul')
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-      @enderror
+<div class="max-w-4xl mx-auto">
+    {{-- ================= HEADER ================= --}}
+    <div class="flex items-center gap-4 mb-8">
+        <a href="{{ route('prestasiprima.admin.kegiatan.index') }}" 
+           class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">
+            <i class="ri-arrow-left-line text-lg"></i>
+        </a>
+        <div>
+            <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight">Buat Agenda Baru</h1>
+            <p class="text-sm text-slate-500 font-medium">Susun jadwal kegiatan sekolah agar terorganisir dengan baik.</p>
+        </div>
     </div>
 
-    {{-- TANGGAL --}}
-    <div>
-      <label for="tanggal" class="block text-gray-700 font-medium mb-2">Tanggal</label>
-  <input type="date" id="tanggal" name="tanggal"
-             class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-gray-600 focus:border-gray-600 transition"
-             required>
-      @error('tanggal')
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-      @enderror
-    </div>
+    {{-- ================= FORM CARD ================= --}}
+    <div class="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">
+        <form action="{{ route('prestasiprima.admin.kegiatan.store') }}" method="POST" enctype="multipart/form-data" class="divide-y divide-slate-50">
+            @csrf
 
-    {{-- JAM --}}
-    <div>
-      <label for="jam" class="block text-gray-700 font-medium mb-2">Jam</label>
-  <input type="time" id="jam" name="jam"
-             class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-gray-600 focus:border-gray-600 transition"
-             required>
-      @error('jam')
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-      @enderror
-    </div>
+            <div class="p-8 space-y-8">
+                {{-- Judul --}}
+                <div class="space-y-2">
+                    <label class="block text-sm font-bold text-slate-700 tracking-tight">Judul Agenda Kegiatan</label>
+                    <input type="text" name="judul" value="{{ old('judul') }}" 
+                           placeholder="Contoh: Rapat Orientasi Siswa Baru 2024"
+                           class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800" required>
+                    @error('judul') <span class="text-xs text-red-500 font-bold ml-1">{{ $message }}</span> @enderror
+                </div>
 
-    {{-- TEMPAT --}}
-    <div>
-      <label for="tempat" class="block text-gray-700 font-medium mb-2">Tempat</label>
-  <input type="text" id="tempat" name="tempat"
-             class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-gray-600 focus:border-gray-600 transition"
-             placeholder="Masukkan tempat kegiatan" required>
-      @error('tempat')
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-      @enderror
-    </div>
+                {{-- Waktu & Lokasi Grid --}}
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {{-- Tanggal --}}
+                    <div class="space-y-2 md:col-span-1">
+                        <label class="block text-sm font-bold text-slate-700 tracking-tight">Tanggal</label>
+                        <input type="date" name="tanggal" value="{{ old('tanggal') }}"
+                               class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800" required>
+                        @error('tanggal') <span class="text-xs text-red-500 font-bold ml-1">{{ $message }}</span> @enderror
+                    </div>
 
-    {{-- DESKRIPSI --}}
-    <div>
-      <label for="deskripsi" class="block text-gray-700 font-medium mb-2">Deskripsi</label>
-      <textarea id="deskripsi" name="deskripsi" rows="5" 
-                class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-gray-600 focus:border-gray-600 transition"
-                placeholder="Tulis deskripsi kegiatan..." required></textarea>
-      @error('deskripsi')
-        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-      @enderror
-    </div>
+                    {{-- Jam --}}
+                    <div class="space-y-2 md:col-span-1">
+                        <label class="block text-sm font-bold text-slate-700 tracking-tight">Waktu / Jam</label>
+                        <input type="time" name="jam" value="{{ old('jam') }}"
+                               class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800" required>
+                        @error('jam') <span class="text-xs text-red-500 font-bold ml-1">{{ $message }}</span> @enderror
+                    </div>
 
-    {{-- TOMBOL SIMPAN --}}
-    <div class="pt-4 flex justify-end gap-3">
-  <a href="{{ route('prestasiprima.admin.kegiatan.index') }}"
-         class="px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition">
-        Batal
-      </a>
-  <button type="submit"
-              class="px-6 py-2.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-white font-medium transition">
-        Simpan Kegiatan
-      </button>
-    </div>
-  </form>
+                    {{-- Tempat --}}
+                    <div class="space-y-2 md:col-span-1">
+                        <label class="block text-sm font-bold text-slate-700 tracking-tight">Lokasi / Tempat</label>
+                        <input type="text" name="tempat" value="{{ old('tempat') }}"
+                               placeholder="Contoh: Aula Serbaguna"
+                               class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800" required>
+                        @error('tempat') <span class="text-xs text-red-500 font-bold ml-1">{{ $message }}</span> @enderror
+                    </div>
+                </div>
 
+                {{-- Deskripsi --}}
+                <div class="space-y-2">
+                    <label class="block text-sm font-bold text-slate-700 tracking-tight">Deskripsi Agenda</label>
+                    <textarea name="deskripsi" rows="5" 
+                              placeholder="Berikan rincian agenda atau instruksi tambahan untuk kegiatan ini..."
+                              class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800">{{ old('deskripsi') }}</textarea>
+                    @error('deskripsi') <span class="text-xs text-red-500 font-bold ml-1">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
+            {{-- Form Actions --}}
+            <div class="p-8 bg-slate-50/50 flex flex-col md:flex-row justify-end gap-3">
+                <a href="{{ route('prestasiprima.admin.kegiatan.index') }}" 
+                   class="px-8 py-3.5 rounded-2xl bg-white border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition-all text-center">Batal</a>
+                <button type="submit" 
+                        class="px-8 py-3.5 rounded-2xl bg-[#FF6B00] border border-orange-600 text-white font-bold text-sm hover:bg-[#e66000] transition-all shadow-lg shadow-orange-500/20 active:scale-95">
+                    Terbitkan Agenda
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection

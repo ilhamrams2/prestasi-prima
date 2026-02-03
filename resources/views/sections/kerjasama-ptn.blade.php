@@ -57,9 +57,9 @@
       LULUSAN PTN
     </h3>
 
-    <div class="mt-10 sm:mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-8 md:gap-10 items-center justify-center">
+    <div class="mt-10 sm:mt-14 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-6 sm:gap-8 md:gap-10 items-center justify-items-center px-4 sm:px-10">
       @foreach ($ptnLogos as $index => $logo)
-        <div class="flex justify-center"
+        <div class="flex items-center justify-center bg-white/60 backdrop-blur-md p-6 sm:p-8 rounded-2xl border border-orange-100/50 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 w-full aspect-square max-w-[160px] group"
              data-aos="fade-up"
              data-aos-delay="{{ 100 * ($index + 1) }}"
              data-aos-duration="800">
@@ -67,7 +67,7 @@
                alt="{{ $logo['label'] }}"
                width="{{ $ptnLogoSizes[$logo['file']]['width'] }}"
                height="{{ $ptnLogoSizes[$logo['file']]['height'] }}"
-               class="max-h-16 sm:max-h-20 md:max-h-24 object-contain transition-transform duration-500 hover:scale-110 hover:shadow-2xl hover:brightness-110 mix-blend-multiply select-none rounded-lg">
+               class="w-full h-full object-contain transition-all duration-700 group-hover:scale-110 select-none filter group-hover:drop-shadow-lg">
         </div>
       @endforeach
     </div>

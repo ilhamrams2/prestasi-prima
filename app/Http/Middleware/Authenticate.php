@@ -18,7 +18,7 @@ class Authenticate extends Middleware
                 return route('presmaboard.login');
             }
 
-            return route('login');
+            return route('landing');
         }
     }
 

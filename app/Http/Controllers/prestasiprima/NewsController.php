@@ -72,7 +72,17 @@ class NewsController extends Controller
                         ->take(4)
                         ->get(['id','title','slug','thumbnail','created_at']);
 
-        return view('prestasiprima.pages.berita.detail', compact('news', 'categories', 'hotNews', 'related'));
+        // ⬅️ Berita Sebelumnya
+        $previous = News::where('id', '<', $news->id)
+                        ->orderBy('id', 'desc')
+                        ->first();
+
+        // ➡️ Berita Selanjutnya
+        $next = News::where('id', '>', $news->id)
+                        ->orderBy('id', 'asc')
+                        ->first();
+
+        return view('prestasiprima.pages.berita.detail', compact('news', 'categories', 'hotNews', 'related', 'previous', 'next'));
     }
 
     /**

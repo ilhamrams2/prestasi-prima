@@ -293,7 +293,7 @@
       <p class="flex items-center gap-2 text-gray-400">
         <span>© {{ date('Y') }} SMK Prestasi Prima</span>
         <span class="mx-2 text-white/30">|</span>
-        <span>Oren Solution - <span class="font-medium text-white">Version 2.0</span></span>
+        <span>Oren Solution - <span class="font-medium text-white">Version 3.0</span></span>
       </p>
       <p class="text-gray-500 text-sm text-center md:text-right">
         Dibuat oleh: <span class="text-orange-400 font-medium">Zwingli, Gibran, Abimanyu, Ardy</span>

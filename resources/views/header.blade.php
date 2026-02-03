@@ -11,7 +11,7 @@
       <div class="flex items-center divide-x divide-white px-4 py-2 rounded-bl-lg">
 
         <!-- Telepon -->
-        <div class="flex items-center space-x-2 px-4">
+        <div class="flex items-center space-x-2 px-6">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 5a2 2 0 012-2h3.3l1.3 3.9-1.9 2a11 11 0 005 5l2-2 3.9 1.3V19a2 2 0 01-2 2h-1C10.6 21 3 13.4 3 4V5z"/>
@@ -20,7 +20,7 @@
         </div>
 
         <!-- Email -->
-        <div class="flex items-center space-x-2 px-4">
+        <div class="flex items-center space-x-2 px-6">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 8l7.9 5.3a2 2 0 002.2 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -34,39 +34,39 @@
 
   <!-- NAVBAR -->
   <div class="navbar transition-all duration-300">
-    <div class="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-8 py-3">
+    <div class="max-w-[1600px] mx-auto flex items-center justify-between px-6 md:px-12 py-5">
 
       <!-- Logo -->
-    <a href="/" class="flex items-center space-x-2">
-  <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo" width="{{ $headerLogoSize[0] }}" height="{{ $headerLogoSize[1] }}" class="h-12 w-auto object-contain">
-        <span class="font-bold text-lg header-logo text-white">SMK Prestasi Prima</span>
-      </a>
+    <a href="/" class="flex items-center space-x-3">
+      <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo" width="{{ $headerLogoSize[0] }}" height="{{ $headerLogoSize[1] }}" class="h-12 w-auto object-contain">
+      <span class="font-outfit font-black text-xl header-logo text-white whitespace-nowrap tracking-tight">SMK Prestasi Prima</span>
+    </a>
 
       <!-- Desktop Menu -->
-      <nav class="hidden md:flex space-x-6 font-medium">
-        <a href="/" class="nav-link text-white">Beranda</a>
+      <nav class="hidden xl:flex items-center space-x-8 lg:space-x-10 font-outfit font-bold text-sm tracking-[0.05em] uppercase">
+        <a href="/" class="nav-link text-white whitespace-nowrap">Beranda</a>
 
         <!-- Tentang -->
         <div class="dropdown relative group">
-          <a href="#" class="nav-link flex items-center text-white">
+          <a href="#" class="nav-link flex items-center text-white whitespace-nowrap">
             Tentang Kami
-            <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-4 h-4 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </a>
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-56 text-gray-800">
             <a href="/tentang/program" class="dropdown-item">Program</a>
             <a href="/tentang/profile-sekolah" class="dropdown-item">Profile Sekolah</a>
-            <a href="/tentang/fasilitas" class="dropdown-item">Fasilitas Sekolah</a>
+            <a href="/tentang/fasilitas" class="dropdown-item">Fasilitas</a>
             <a href="/tentang/staffmanagement" class="dropdown-item">Staff Management</a>
             <a href="/tentang/sambutan" class="dropdown-item">Sambutan Pembina Yayasan</a>
           </div>
         </div>
 
         <div class="dropdown relative group">
-          <a href="#" class="nav-link flex items-center text-white">
+          <a href="#" class="nav-link flex items-center text-white whitespace-nowrap">
             Kehidupan Siswa
-            <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-4 h-4 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </a>
@@ -78,9 +78,9 @@
         </div>
         
         <div class="dropdown relative group">
-          <a href="#" class="nav-link flex items-center text-white">
+          <a href="#" class="nav-link flex items-center text-white whitespace-nowrap">
             Informasi
-            <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-4 h-4 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </a>
@@ -95,9 +95,9 @@
 
         <!-- Dokumentasi -->
         <div class="dropdown relative group">
-          <a href="#" class="nav-link flex items-center text-white">
+          <a href="#" class="nav-link flex items-center text-white whitespace-nowrap">
             Dokumentasi
-            <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-4 h-4 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </a>
@@ -108,28 +108,31 @@
           </div>
         </div>
 
-        <!-- Dokumentasi -->
+        <!-- Presma Services -->
         <div class="dropdown relative group">
-          <a href="#" class="nav-link flex items-center text-white">
+          <a href="#" class="nav-link flex items-center text-white whitespace-nowrap">
             Presma
-            <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-4 h-4 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
           </a>
           <div class="dropdown-menu absolute left-0 hidden opacity-0 translate-y-3 bg-white shadow-lg border mt-2 rounded-lg w-40 text-gray-800">
-            <a href="/presmaboard" class="dropdown-item">Presmaboard</a>
-            <a href="/presmalance" class="dropdown-item">Presmalance</a>
             <a href="/pendaftaran" class="dropdown-item">Presmastart</a>
             <a href="/virtual-tour" class="dropdown-item">Presmatour</a>
             <a href="/presmacontact" class="dropdown-item">Presmacontact</a>
-
           </div>
         </div>
 
-          <a href="{{ asset('assets/files/brosur.pdf') }}" 
-            download 
-            class="nav-link text-white hover:text-orange-400 transition-colors duration-300">
-            Download Brosur
+
+          <a href="{{ route('mikrotik') }}" 
+            class="nav-link nav-mikrotik-special relative px-6 py-2 rounded-full transition-all duration-300 flex items-center gap-2.5 group overflow-hidden border-2 border-orange-500/20 hover:border-orange-500 shadow-sm hover:shadow-orange-200/50">
+            <div class="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <iconify-icon icon="lucide:network" class="relative z-10 text-lg group-hover:text-white transition-colors duration-300"></iconify-icon>
+            <span class="relative z-10 group-hover:text-white transition-colors duration-300 text-sm tracking-tight whitespace-nowrap">MikroTik Academy</span>
+            <span class="relative flex h-2 w-2 z-10">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500 group-hover:bg-white transition-colors"></span>
+            </span>
           </a>
       </nav>
 
@@ -163,7 +166,7 @@
       <div class="mobile-submenu">
         <a href="/tentang/program" class="mobile-subitem">Program</a>
         <a href="/tentang/profile-sekolah" class="mobile-subitem">Profile Sekolah</a>
-        <a href="/tentang/fasilas" class="mobile-subitem">Fasilitas Sekolah</a>
+        <a href="/tentang/fasilitas" class="mobile-subitem">Fasilitas</a>
         <a href="/tentang/staffmanagement" class="mobile-subitem">Staff Management</a>
         <a href="/tentang/sambutan" class="mobile-subitem">Sambutan Pembina Yayasan</a>
       </div>
@@ -199,13 +202,13 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
         </svg>
       </button>
+
       <div class="mobile-submenu">
         <a href="/informasi/faq" class="mobile-subitem">FAQ</a>
         <a href="/informasi/industri" class="mobile-subitem">Industri</a>
         <a href="/informasi/testimoni" class="mobile-subitem">Testimoni</a>
         <a href="/informasi/lulusan-ptn" class="mobile-subitem">Lulusan PTN</a>
         <a href="/informasi/penerimaan-siswa" class="mobile-subitem">Penerimaan Siswa</a>
-
       </div>
 
       <button class="mobile-dropdown-btn">
@@ -215,15 +218,14 @@
         </svg>
       </button>
       <div class="mobile-submenu">
-        <a href="/presmaboard" class="mobile-link">Presmaboard</a>
-        <a href="/presmalance" class="mobile-link">PresmaLance</a>
         <a href="https://absensmk.prestasiprima.sch.id/absensi/16" class="mobile-link">Presmakad</a>
         <a href="/pendaftaran" class="mobile-link">Presmastart</a>
         <a href="/virtual-tour" class="mobile-link">Presmatour</a>
         <a href="/presmacontact" class="mobile-link">Presmacontact</a>
       </div>
+
       
-      <a href="{{ asset('assets/files/brosur.pdf') }}" download class="mobile-link">Download Brosur</a>
+      <a href="{{ route('mikrotik') }}" class="mobile-link">MikroTik Academy</a>
     </div>
   </div>
 </header>
@@ -380,7 +382,58 @@ window.addEventListener("DOMContentLoaded", () => {
 #header.bg-white .nav-link::after {
   background: #C2410C;
 }
+/* MikroTik Academy - Premium Button Style */
+.nav-mikrotik-special {
+  text-decoration: none !important;
+  height: 42px; /* Fixed height to ensure it sits perfectly in line */
+}
 
+.nav-mikrotik-special::after {
+  display: none !important;
+}
+
+/* Saat Header Transparan (Home Atas) */
+#header:not(.bg-white) .nav-mikrotik-special {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+#header:not(.bg-white) .nav-mikrotik-special:hover {
+  border-color: #EA580C;
+  transform: translateY(-1px);
+}
+
+/* Saat Header Putih (Scrolled / Other Pages) */
+#header.bg-white .nav-mikrotik-special {
+  color: #EA580C !important;
+  background: rgba(234, 88, 12, 0.05);
+  border-color: rgba(234, 88, 12, 0.15);
+}
+
+#header.bg-white .nav-mikrotik-special:hover {
+  background: #EA580C;
+  border-color: #EA580C;
+  color: white !important;
+  transform: translateY(-1px);
+}
+
+.nav-mikrotik-special iconify-icon {
+  color: #EA580C;
+}
+
+#header:not(.bg-white) .nav-mikrotik-special iconify-icon {
+  color: white;
+}
+
+#header.bg-white .nav-mikrotik-special:hover iconify-icon {
+  color: white;
+}
+
+/* Base style for nav link color transition */
+.nav-link {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
 /* Dropdown items (desktop) */
 .dropdown-item {
   display: block;

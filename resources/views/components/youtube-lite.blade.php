@@ -32,8 +32,17 @@
   @endif
 
   <button type="button"
-          class="absolute inset-0 flex items-center justify-center text-white bg-black/10 hover:bg-black/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-orange-300 rounded-2xl transition"
+          class="absolute inset-0 flex items-center justify-center focus-visible:outline-none group z-10"
           aria-label="Putar video {{ $title }}">
-    <i class="ph ph-play-circle text-5xl sm:text-6xl drop-shadow-lg"></i>
+    <!-- Modern Play Button Container -->
+    <div class="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center">
+      <!-- Outer Pulsing Ring -->
+      <div class="absolute inset-0 bg-orange-500 rounded-full animate-ping opacity-20 group-hover:opacity-40 transition-opacity"></div>
+      
+      <!-- Button Body -->
+      <div class="relative w-full h-full bg-white/95 backdrop-blur-xl rounded-full flex items-center justify-center shadow-[0_20px_40px_-10px_rgba(234,88,12,0.4)] group-hover:scale-110 group-hover:bg-orange-600 transition-all duration-500 border border-white/20">
+        <iconify-icon icon="solar:play-bold" class="text-3xl md:text-4xl text-orange-600 group-hover:text-white transition-all duration-500"></iconify-icon>
+      </div>
+    </div>
   </button>
 </div>

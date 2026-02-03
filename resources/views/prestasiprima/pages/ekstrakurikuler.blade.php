@@ -2,86 +2,150 @@
 
 @section('title', 'Ekstrakurikuler SMK Prestasi Prima')
 
+@push('styles')
+<style>
+  :root {
+    --action-orange: #FF6B00;
+    --deep-navy: #0e162e;
+    --charcoal: #333333;
+  }
+
+  .font-outfit { font-family: 'Outfit', sans-serif; }
+  .font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+  .text-mask-hero {
+    font-size: clamp(3.2rem, 10vw, 8rem);
+    font-weight: 950;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, var(--deep-navy) 0%, #1a2a4e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+  }
+
+  .text-ghost {
+    position: absolute;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(8rem, 25vw, 25rem);
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(14, 22, 46, 0.02);
+    -webkit-text-stroke: 1px rgba(14, 22, 46, 0.05);
+    white-space: nowrap;
+    z-index: 0;
+    pointer-events: none;
+    text-transform: uppercase;
+  }
+
+  .highlight-orange {
+    background: linear-gradient(135deg, #FF6B00 0%, #FF8533 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
+@endpush
+
 @section('content')
-<section class="min-h-screen bg-gradient-to-b from-white via-orange-50/20 to-white pt-44 pb-28 relative overflow-hidden">
-  <!-- ======== Header ======== -->
-  <div class="text-center mb-16" data-aos="fade-down">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-[#0e162e] tracking-tight">
-      Ekstrakurikuler <span class="text-orange-500">Prestasi Prima</span>
-    </h1>
-    <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed">
-      Wadah pengembangan minat dan bakat siswa untuk membentuk karakter unggul, mandiri, dan kreatif.
-    </p>
-    <div class="w-24 h-[4px] bg-gradient-to-r from-orange-500 to-yellow-400 mx-auto mt-6 rounded-full shadow-lg shadow-orange-200/70"></div>
-  </div>
-
-  <!-- ======== Grid Ekstrakurikuler ======== -->
-  <div class="max-w-7xl mx-auto px-6 relative">
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8" data-aos="fade-up" data-aos-delay="200">
-
-      @php
-        $ekskul = [
-          ['nama' => 'Badminton', 'gambar' => 'badminton.jpg'],
-          ['nama' => 'Bola Basket', 'gambar' => 'basketball.jpg'],
-          ['nama' => 'Bola Voli', 'gambar' => 'volly.jpg'],
-          ['nama' => 'English Club', 'gambar' => 'english.jpg'],
-          ['nama' => 'Futsal', 'gambar' => 'futsall.jpg'],
-          ['nama' => 'Ganefo', 'gambar' => 'ganefo.jpg'],
-          ['nama' => 'ICT Club', 'gambar' => 'ict.jpg'],
-          ['nama' => 'KIR', 'gambar' => 'kir.jpg'],
-          ['nama' => 'Modern Dance', 'gambar' => 'moderndance.jpg'],
-          ['nama' => 'Orens Digital', 'gambar' => 'digital.jpg'],
-          ['nama' => 'Orens Network', 'gambar' => 'network.jpg'],
-          ['nama' => 'Orens Solution', 'gambar' => 'solution.jpg'],
-          ['nama' => 'Orens Studio', 'gambar' => 'studio.jpg'],
-          ['nama' => 'PMR', 'gambar' => 'pmr.jpg'],
-          ['nama' => 'PPOC', 'gambar' => 'ppoc.jpg'],
-          ['nama' => 'Pramuka', 'gambar' => 'pramuka.jpg'],
-          ['nama' => 'Rohis', 'gambar' => 'rohis.jpg'],
-          ['nama' => 'Rohkris', 'gambar' => 'rohkris.jpg'],
-          ['nama' => 'Silat', 'gambar' => 'silat.png'],
-          ['nama' => 'Tari Tradisional', 'gambar' => 'tari.jpg'],
-          ['nama' => 'Esport', 'gambar' => 'esport.jpg'],
-        ];
-      @endphp
-
-      @foreach ($ekskul as $index => $item)
-      <div
-        class="relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 group backdrop-blur-md"
-        data-aos="zoom-in" data-aos-delay="{{ $index * 50 }}"
-      >
-        <div 
-  class="absolute inset-0 bg-center bg-cover"
-  style="background-image: url('{{ asset('assets/images/gedung/gedungsiswa.avif') }}'); filter: blur(2px) brightness(1); transform: scale(1.02);"
-></div>
-
-
-        <!-- Overlay hitam transparan -->
-        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-500"></div>
-
-        <!-- Konten tengah (logo ekskul dan nama) -->
-        <div class="relative flex flex-col items-center justify-center py-6 z-10">
-          <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/80 backdrop-blur-md shadow-md flex items-center justify-center mb-3 border border-white/50">
-            <img src="{{ asset('assets/images/ekskul/' . $item['gambar']) }}" alt="{{ $item['nama'] }}" class="w-16 h-16 md:w-20 md:h-20 object-contain rounded-full" />
-          </div>
-        </div>
-
-        <!-- Nama ekskul -->
-        <div class="relative bg-orange-500 text-white text-center py-3 text-sm md:text-base font-semibold z-10">
-          {{ $item['nama'] }}
+<div class="bg-white overflow-hidden relative">
+  
+  {{-- ========== HERO SECTION ========== --}}
+  <section class="pt-48 pb-20 px-6 bg-white relative">
+    <div class="text-ghost top-24 -left-20">ACTIVITY</div>
+    
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="flex flex-col items-start gap-6 mb-16" data-aos="fade-up">
+        <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-orange-50 border border-orange-100">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+          </span>
+          <span class="font-outfit text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF6B00]">Talent Development</span>
         </div>
       </div>
-      @endforeach
 
+      <div class="grid lg:grid-cols-12 gap-12 items-end mb-16">
+        <div class="lg:col-span-12" data-aos="fade-up" data-aos-delay="100">
+          <h1 class="font-outfit text-mask-hero">
+            Eksplorasi Bakat, <br>
+            <span class="highlight-orange">Prestasi Tanpa Batas.</span>
+          </h1>
+        </div>
+      </div>
+      
+      <div class="lg:col-span-10" data-aos="fade-up" data-aos-delay="200">
+        <p class="font-jakarta text-gray-400 text-xl md:text-3xl font-medium leading-[1.4] max-w-5xl tracking-tight">
+          SMK Prestasi Prima menyediakan wadah bagi siswa untuk mengembangkan <span class="text-charcoal font-black border-b-4 border-orange-500/20">minat dan bakat</span> melalui berbagai kegiatan ekstrakurikuler yang inspiratif dan berprestasi.
+        </p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOTO GEDUNG (tidak bisa diklik) -->
+  {{-- ========== GRID EKSTRAKURIKULER ========== --}}
+  <section class="py-20 bg-gray-50/30 border-y border-gray-100 relative">
+    <div class="max-w-7xl mx-auto px-6 relative">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8" data-aos="fade-up" data-aos-delay="200">
+
+        @foreach ($ekskulList as $index => $item)
+        <div
+          class="group relative aspect-square rounded-[2rem] overflow-hidden bg-white shadow-lg hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 border border-gray-100"
+          data-aos="zoom-in" data-aos-delay="{{ $index * 30 }}"
+        >
+          <!-- Background Reveal Image (Subtle) -->
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-10 scale-110 group-hover:scale-100 transition-all duration-1000 bg-cover bg-center"
+               style="background-image: url('{{ asset('assets/images/gedung/gedungsiswa.avif') }}')"></div>
+          
+          <!-- Animated Aesthetic Gradient -->
+          <div class="absolute -inset-2 bg-gradient-to-br from-orange-500/0 via-orange-500/0 to-orange-500/0 group-hover:from-orange-500/10 group-hover:via-transparent group-hover:to-orange-500/5 transition-all duration-700"></div>
+
+          <!-- Main Content -->
+          <div class="relative h-full flex flex-col items-center justify-center p-6 z-10">
+            <!-- Logo Circle -->
+            <div class="w-20 h-20 md:w-28 md:h-28 rounded-full bg-gray-50 group-hover:bg-white overflow-hidden shadow-inner group-hover:shadow-2xl transition-all duration-500 flex items-center justify-center mb-6 border border-gray-100 group-hover:border-orange-100">
+              @if($item->gambar)
+                  <img src="{{ asset('storage/ekstrakurikuler/' . $item->gambar) }}" 
+                       alt="{{ $item->nama }}" 
+                       class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+              @else
+                  <i class="ri-group-line text-4xl text-slate-300"></i>
+              @endif
+            </div>
+            
+            <!-- Name Tracking -->
+            <h3 class="text-xs md:text-sm font-black text-gray-800 uppercase tracking-[0.2em] group-hover:text-orange-600 transition-colors text-center">
+              {{ $item->nama }}
+            </h3>
+
+            <!-- Decorative Line -->
+            <div class="w-0 group-hover:w-12 h-1 bg-orange-500 mt-4 rounded-full transition-all duration-500"></div>
+          </div>
+
+          <!-- Hover Pulse Glow -->
+          <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-orange-500/10 blur-[40px] rounded-full group-hover:scale-150 transition-transform duration-700"></div>
+        </div>
+        @endforeach
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOTO GEDUNG (tidak bisa diklik) -->
   <section class="relative w-full bg-white overflow-hidden select-none pointer-events-none">
     <img alt="Gedung SMK Prestasi Prima" 
          class="w-full h-[40vh] sm:h-[55vh] lg:h-screen object-cover object-center hover:scale-[1.02] transition-transform duration-700" 
          src="{{ asset('assets/images/gedung/gedung.avif') }}">
   </section>
+
+</div>
+
+@push('scripts')
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.initAOS) {
+      window.initAOS({ duration: 1000, once: true }).catch(e => console.error(e));
+    }
+  });
+</script>
+@endpush
 @endsection
 

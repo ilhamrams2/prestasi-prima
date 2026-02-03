@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\prestasiprima;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\prestasiprima\Testimoni;
 
 class TestimoniController extends Controller
 {
@@ -12,6 +12,7 @@ class TestimoniController extends Controller
      */
     public function index()
     {
-        return view('prestasiprima.pages.testimoni');
+        $testimonis = Testimoni::latest()->get();
+        return view('prestasiprima.pages.testimoni', compact('testimonis'));
     }
 }

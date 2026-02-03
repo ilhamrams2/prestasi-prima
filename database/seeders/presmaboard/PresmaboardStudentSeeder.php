@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
 use Carbon\Carbon;
 
+use App\Models\presmaboard\PresmaboardStudent;
+
 class PresmaboardStudentSeeder extends Seeder
 {
     public function run()
@@ -31,26 +33,25 @@ class PresmaboardStudentSeeder extends Seeder
             $nis = 'NIS' . str_pad($i, 4, '0', STR_PAD_LEFT);
             $angkatan = (string) Carbon::now()->year;
 
-            // insert first without foto so we can use the inserted id for a predictable filename
-            $sid = DB::table('presmaboard_students')->insertGetId([
-                'nama' => $nama,
-                'gender' => $gender,
-                'foto' => null,
-                'kelas' => $kelas,
-                'jurusan' => $jurusan,
-                'angkatan' => $angkatan,
-                'email' => $email,
-                'nis' => $nis,
-                'is_active' => true,
-                'tanggal_lahir' => $tanggal_lahir,
-                'umur' => $umur,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
+            // use updateOrCreate to avoid duplicate key errors on email
+            $student = PresmaboardStudent::updateOrCreate(
+                ['email' => $email],
+                [
+                    'nama' => $nama,
+                    'gender' => $gender,
+                    'kelas' => $kelas,
+                    'jurusan' => $jurusan,
+                    'angkatan' => $angkatan,
+                    'nis' => $nis,
+                    'is_active' => true,
+                    'tanggal_lahir' => $tanggal_lahir,
+                    'umur' => $umur,
+                ]
+            );
 
-            // update the record with a predictable uploads path that the downloader will create
-            DB::table('presmaboard_students')->where('id', $sid)->update([
-                'foto' => 'uploads/presmaboard/students/photo_' . $sid . '.jpg',
+            // update the record with a predictable uploads path
+            $student->update([
+                'foto' => 'uploads/presmaboard/students/photo_' . $student->id . '.jpg',
             ]);
         }
     }

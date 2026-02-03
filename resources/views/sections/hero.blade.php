@@ -14,91 +14,125 @@
     Browsermu tidak mendukung video.
   </video>
 
-  <!-- Tombol Lewati -->
+  <!-- Cinematic Visual Overlays -->
+  <div class="absolute inset-0 z-25 pointer-events-none">
+      {{-- Vignette & Depth --}}
+      <div class="absolute inset-0 bg-[radial-gradient(circle,transparent_50%,rgba(0,0,0,0.5)_120%)]"></div>
+      {{-- Soft Grain/Scanline for Texture --}}
+      <div class="absolute inset-0 opacity-[0.03] bg-[linear-gradient(rgba(255,255,255,0)_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_4px]"></div>
+  </div>
+
+  <!-- Digital HUD Elements (Static but Premium) -->
+  <div class="absolute top-32 left-8 md:left-12 z-30 pointer-events-none hero-video-element opacity-0 transition-opacity duration-1000">
+      <div class="flex items-center gap-4 text-white/40">
+          <div class="w-10 h-[1px] bg-orange-500"></div>
+          <p class="text-[9px] font-black uppercase tracking-[0.6em] whitespace-nowrap">Institutional Vision / 2025</p>
+      </div>
+  </div>
+
+  <div class="absolute bottom-32 right-8 md:right-12 z-30 pointer-events-none text-right hero-video-element opacity-0 transition-opacity duration-1000 delay-300">
+      <p class="text-[9px] font-black uppercase tracking-[0.4em] text-orange-500/60 mb-1">Status: Active</p>
+      <p class="text-[40px] font-black text-white/5 leading-none tracking-tighter uppercase">Mission / 01</p>
+  </div>
+
+  <!-- Tombol Lewati (Redesigned: High-End Glassmorphism) -->
   <div id="skipBtnContainer" 
-       class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30 w-full flex justify-center">
+       class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-40 w-full flex justify-center px-6">
     <button id="skipBtn"
-            class="bg-orange-500 hover:bg-orange-700 text-white px-4 py-2 rounded-md shadow-md text-sm font-medium transition w-full max-w-[120px] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-orange-200 focus-visible:ring-offset-orange-500">
-      <span class="sr-only">Lewati video intro</span>
-      <span aria-hidden="true">Lewati →</span>
+            class="group relative flex items-center gap-4 bg-white/10 backdrop-blur-md border border-white/20 px-8 py-3 rounded-2xl transition-all duration-500 hover:bg-orange-600 hover:border-orange-500 hover:-translate-y-1">
+      <div class="absolute -inset-1 bg-orange-500 rounded-2xl blur-lg opacity-0 group-hover:opacity-20 transition-opacity"></div>
+      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-white">Lewati Intro</span>
+      <iconify-icon icon="solar:round-arrow-right-bold" class="text-white text-xl group-hover:translate-x-1 transition-transform"></iconify-icon>
     </button>
   </div>
 </section>
 
 <!-- ================= HERO CONTENT ================= -->
 <section id="heroContentSection"
-         class="relative w-full min-h-screen md:h-[90vh] items-center text-white pt-8 overflow-hidden hidden">
+         class="relative w-full min-h-screen items-center justify-center text-white overflow-hidden hidden">
 
-  <!-- Background -->
-  <div class="absolute inset-0">
+  <!-- Background Layer -->
+  <div class="absolute inset-0 z-0">
     <img src="{{ asset('assets/images/section/hero/herobg2.webp') }}" alt="Hero Background"
-         class="w-full h-full object-cover" loading="lazy">
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+         class="w-full h-full object-cover scale-105" loading="lazy">
+    <!-- Sophisticated Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></div>
+  </div>
+
+  <!-- Decorative Abstract Elements -->
+  <div class="absolute inset-0 z-10 pointer-events-none opacity-30">
+    <div class="absolute top-20 left-10 w-64 h-64 bg-orange-600/20 blur-[100px] rounded-full animate-pulse-slow"></div>
+    <div class="absolute bottom-40 right-20 w-80 h-80 bg-orange-400/10 blur-[120px] rounded-full"></div>
   </div>
 
   <!-- Content Wrapper -->
-  <div class="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col items-center md:items-start text-center md:text-left">
+  <div class="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex flex-col items-center md:items-start text-center md:text-left pt-20">
     
-    <!-- Logo + Nama (Mobile) -->
-    <div class="flex items-center space-x-2 mb-6 md:hidden hero-animate">
-  <img src="{{ asset('assets/images/logo-icon.svg') }}" alt="Logo SMK Prestasi Prima"
-           class="w-8 h-8 object-contain" loading="lazy">
-      <span class="font-semibold text-white text-lg">SMK Prestasi Prima</span>
+    <!-- Ultra-Premium Tagline -->
+    <div class="hero-animate mb-6 inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
+      <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+      <span class="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-orange-50 underline-offset-4 decoration-orange-500">
+        "If better is possible, good is not enough"
+      </span>
     </div>
 
-    <!-- Hero Text -->
-    <p class="italic text-sm md:text-base mb-3 hero-animate">
-      "If better is possible, good is not enough"
-    </p>
-
-    <h1 class="text-3xl md:text-6xl font-extrabold leading-tight mb-4 hero-animate">
-      PRESTASI PRIMA
+    <!-- Cinematic Main Title -->
+    <h1 class="hero-animate text-5xl md:text-7xl lg:text-8xl font-black leading-[0.95] mb-8 tracking-tighter">
+      <span class="block text-white opacity-95">PRESTASI</span>
+      <span class="block text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-orange-400 to-yellow-500 filter drop-shadow-[0_0_30px_rgba(234,88,12,0.3)]">PRIMA</span>
     </h1>
 
-    <p class="text-sm md:text-lg mb-6 max-w-xl hero-animate">
-  Kami berkomitmen menyelenggarakan pendidikan berkualitas tinggi yang membentuk generasi unggul, berkarakter,
-      dan siap menghadapi tantangan masa depan.
+    <!-- Elegant Description -->
+    <p class="hero-animate text-base md:text-xl text-gray-200/90 max-w-2xl mb-12 font-medium leading-relaxed md:pr-10">
+      Mencetak generasi unggul yang tidak hanya kompeten secara teknis, namun juga memiliki integritas karakter untuk memimpin masa depan industri global.
     </p>
 
-    <!-- Button -->
-    <a href="/pendaftaran"
-       class="inline-block bg-orange-500 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-200 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40 hero-animate">
-      <span class="sr-only">Buka halaman pendaftaran</span>
-      <span aria-hidden="true">Daftar Sekarang →</span>
-    </a>
+    <!-- Premium Action Buttons -->
+    <div class="hero-animate flex flex-col sm:flex-row gap-5 items-center">
+      <a href="/pendaftaran"
+         class="group relative inline-flex items-center gap-3 bg-orange-600 px-10 py-5 rounded-2xl shadow-[0_20px_40px_-10px_rgba(234,88,12,0.4)] hover:shadow-[0_25px_50px_-12px_rgba(234,88,12,0.6)] transform hover:-translate-y-1 transition-all duration-500 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-700 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <span class="relative z-10 font-black text-sm uppercase tracking-widest text-white">Daftar Sekarang</span>
+        <iconify-icon icon="lucide:arrow-right" class="relative z-10 text-xl group-hover:translate-x-1 transition-transform"></iconify-icon>
+      </a>
+
+      <a href="/virtual-tour"
+         class="group inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 transition-all duration-500">
+        <iconify-icon icon="lucide:play-circle" class="text-2xl text-orange-400"></iconify-icon>
+        <span class="font-black text-sm uppercase tracking-widest text-white">Virtual Tour</span>
+      </a>
+    </div>
   </div>
 
-  <!-- Floating Social -->
-  <div class="absolute top-28 right-0 md:top-32 flex flex-col items-end z-20 space-y-3">
+  <!-- Modern Scroll Indicator -->
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-3 opacity-0 animate-fade-in delay-1000">
+    <span class="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">Scroll Explore</span>
+    <div class="w-[2px] h-12 bg-gradient-to-b from-orange-500 to-transparent"></div>
+  </div>
+
+  <!-- Floating Social Panel (Redesigned) -->
+  <div class="absolute top-1/2 -translate-y-1/2 right-0 flex flex-col items-end z-30 space-y-4 pr-0">
     <!-- Toggle Button -->
     <button id="toggleSocial" aria-label="Buka panel sosial"
-    class="bg-orange-500 hover:bg-orange-700 text-white w-12 h-12 md:w-14 md:h-14 rounded-l-2xl shadow-lg flex items-center justify-center transition opacity-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-200 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-500">
-  <i class="ri-share-forward-line text-xl"></i>
+            class="bg-white/10 backdrop-blur-2xl hover:bg-orange-600 text-white w-14 h-16 rounded-l-[2rem] shadow-2xl flex items-center justify-center transition-all duration-500 opacity-0 border-y border-l border-white/20 group focus:outline-none">
+      <iconify-icon icon="lucide:share-2" class="text-2xl group-hover:scale-110 transition-transform"></iconify-icon>
     </button>
 
     <!-- Panel -->
     <div id="socialPanel"
-         class="social-panel bg-white bg-opacity-95 rounded-l-2xl shadow-lg flex flex-col items-center py-3 space-y-3 w-0 overflow-hidden">
-      <a href="{{ url('/') }}" aria-label="Kembali ke halaman utama"
-         class="bg-white rounded-2xl shadow-lg p-2 flex items-center justify-center w-10 h-10 md:w-12 md:h-12">
-  <img src="{{ asset('assets/images/logo-icon.svg') }}" alt="Logo kecil SMK Prestasi Prima"
-             class="w-6 h-6 md:w-8 md:h-8 object-contain" loading="lazy">
+         class="social-panel bg-white/95 backdrop-blur-xl rounded-l-[2.5rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] flex flex-col items-center py-6 space-y-6 w-0 overflow-hidden border-y border-l border-orange-100">
+      <a href="{{ url('/') }}" class="w-12 h-12 flex items-center justify-center bg-orange-50 rounded-2xl hover:bg-orange-600 group transition-all duration-500 shadow-sm">
+        <img src="{{ asset('assets/images/logo-icon.svg') }}" alt="Logo" class="w-7 h-7 object-contain group-hover:brightness-0 group-hover:invert transition-all">
       </a>
-      <a href="https://wa.me/6289599439033" target="_blank" aria-label="WhatsApp"
-         class="text-orange-500 hover:text-orange-600">
-        <i class="ri-whatsapp-line text-lg md:text-xl"></i>
+      <a href="https://wa.me/6285195928886" target="_blank" class="text-gray-400 hover:text-green-500 transition-colors transform hover:scale-125 duration-300">
+        <iconify-icon icon="lucide:message-circle" class="text-2xl"></iconify-icon>
       </a>
-      <a href="https://instagram.com" target="_blank" aria-label="Instagram"
-         class="text-orange-500 hover:text-orange-600">
-        <i class="ri-instagram-line text-lg md:text-xl"></i>
+      <a href="https://instagram.com/smkprestasiprima" target="_blank" class="text-gray-400 hover:text-pink-500 transition-colors transform hover:scale-125 duration-300">
+        <iconify-icon icon="lucide:instagram" class="text-2xl"></iconify-icon>
       </a>
-      <a href="https://youtube.com" target="_blank" aria-label="YouTube"
-         class="text-orange-500 hover:text-orange-600">
-        <i class="ri-youtube-line text-lg md:text-xl"></i>
-      </a>
-      <a href="https://tiktok.com" target="_blank" aria-label="TikTok"
-         class="text-orange-500 hover:text-orange-600">
-        <i class="ri-tiktok-fill text-lg md:text-xl"></i>
+      <a href="https://youtube.com/@SEKOLAHPRESTASIPRIMA" target="_blank" class="text-gray-400 hover:text-red-500 transition-colors transform hover:scale-125 duration-300">
+        <iconify-icon icon="lucide:youtube" class="text-2xl"></iconify-icon>
       </a>
     </div>
   </div>
@@ -131,6 +165,9 @@
       panel.classList.remove("open", "close");
       toggleBtn.innerHTML = '<i class="ri-share-forward-line text-xl"></i>';
       delete video.dataset.heroContentShown;
+      
+      // Reset video elements
+      document.querySelectorAll(".hero-video-element").forEach(el => el.classList.remove("opacity-100"));
     };
 
     resetState();
@@ -139,6 +176,11 @@
       video.classList.add("opacity-100");
       video.classList.remove("opacity-0");
       videoSection.style.opacity = 1;
+
+      // Show HUD elements
+      setTimeout(() => {
+          document.querySelectorAll(".hero-video-element").forEach(el => el.classList.add("opacity-100"));
+      }, 800);
     };
 
     const showContent = () => {
@@ -174,11 +216,11 @@
       if (isOpen) {
         panel.classList.remove("open");
         panel.classList.add("close");
-        toggleBtn.innerHTML = '<i class="ri-share-forward-line text-xl"></i>';
+        toggleBtn.innerHTML = '<iconify-icon icon="lucide:share-2" class="text-2xl"></iconify-icon>';
       } else {
         panel.classList.remove("close");
         panel.classList.add("open");
-        toggleBtn.innerHTML = '<i class="ri-close-line text-xl"></i>';
+        toggleBtn.innerHTML = '<iconify-icon icon="lucide:x" class="text-2xl"></iconify-icon>';
       }
     };
 
@@ -279,23 +321,37 @@
 <!-- ================= STYLE ================= -->
 <style>
 /* Hero Smooth Animation - versi cepat */
-@keyframes heroSlideInFast {
-  0% { opacity: 0; transform: translateX(-80px) scale(0.95); filter: blur(4px); }
-  60% { opacity: 1; transform: translateX(10px) scale(1.02); filter: blur(0); }
-  80% { transform: translateX(-4px) scale(0.98); }
-  100% { opacity: 1; transform: translateX(0) scale(1); }
+@keyframes heroSlideIn {
+  0% { opacity: 0; transform: translateY(40px) scale(0.98); filter: blur(10px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
-.animate-hero-fast { animation: heroSlideInFast 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.animate-hero-fast { animation: heroSlideIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
 .hero-animate { opacity: 0; }
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translate(-50%, 20px); }
+  100% { opacity: 1; transform: translate(-50%, 0); }
+}
+.animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+.animate-pulse-slow { animation: pulseSlow 8s ease-in-out infinite; }
 
 /* Floating Social Panel */
 .social-panel {
-  transition: width 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.4s ease-out, 
+              transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
-  transform: translateX(50%) scale(0.8);
+  transform: translateX(100%);
 }
-.social-panel.open { width: 56px; opacity: 1; transform: translateX(0) scale(1); }
-.social-panel.close { width: 0; opacity: 0; transform: translateX(50%) scale(0.8); }
+.social-panel.open { width: 80px; opacity: 1; transform: translateX(0); }
+.social-panel.close { width: 0; opacity: 0; transform: translateX(100%); }
+
+.delay-1000 { animation-delay: 1.5s; }
 
 /* Floating Button muncul setelah video */
 @keyframes floatingIn {

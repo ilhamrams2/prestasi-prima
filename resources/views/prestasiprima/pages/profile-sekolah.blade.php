@@ -1,323 +1,542 @@
 {{-- resources/views/prestasiprima/pages/profile-sekolah.blade.php --}}
 @extends('prestasiprima.index')
 
-@section('title', 'Profil Sekolah')
+@section('title', 'Profil Sekolah - SMK Prestasi Prima')
+
+@push('styles')
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    :root {
+        --action-orange: #FF6B00;
+        --soft-gray: #F8F9FA;
+        --dark-text: #1A1A1A;
+        --body-text: #4A4A4A;
+    }
+
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #FFFFFF;
+    }
+
+    .profile-headline {
+        font-size: clamp(48px, 5vw, 64px);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+    }
+
+    .profile-body {
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--body-text);
+    }
+
+    .modern-card {
+        background: #FFFFFF;
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        border: none;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .modern-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px rgba(255, 107, 0, 0.1);
+    }
+
+    .pill-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 32px;
+        border-radius: 9999px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        background: var(--action-orange);
+        color: white;
+    }
+
+    .pill-button:hover {
+        transform: translateY(-3px);
+        background: linear-gradient(135deg, #FF6B00 0%, #FF8533 100%);
+        box-shadow: 0 10px 20px rgba(255, 107, 0, 0.3);
+    }
+
+    .section-padding {
+        padding-top: 120px;
+        padding-bottom: 120px;
+    }
+
+    .video-overlay {
+        background: linear-gradient(to bottom, rgba(255, 107, 0, 0.2), rgba(255, 107, 0, 0.6));
+    }
+
+    .play-pulse {
+        animation: pulse-orange 2s infinite;
+    }
+
+    @keyframes pulse-orange {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.7); }
+        70% { transform: scale(1.1); box-shadow: 0 0 0 20px rgba(255, 107, 0, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 0, 0); }
+    }
+
+    .artistic-map-frame {
+        border-radius: 35px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    .gradient-text {
+        background: linear-gradient(135deg, var(--action-orange) 0%, #FF8533 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .pioneer-headline {
+        font-size: clamp(56px, 8vw, 96px);
+        font-weight: 900;
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+        color: #1A1A1A;
+        z-index: 30;
+        position: relative;
+    }
+
+    .gradient-orange-white {
+        background: linear-gradient(135deg, #FF6B00 0%, #FFB07C 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .mesh-bg {
+        background-color: #ffffff;
+        background-image: radial-gradient(at 0% 0%, hsla(25,100%,96%,1) 0, transparent 50%), 
+                          radial-gradient(at 100% 0%, hsla(225,30%,94%,1) 0, transparent 50%),
+                          radial-gradient(at 100% 100%, hsla(25,100%,96%,1) 0, transparent 50%);
+    }
+
+    /* Refined Luxe Glassmorphic Floating Cards */
+    .pioneer-glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 107, 0, 0.12); /* Ultra-thin soft orange border */
+        padding: 10px 18px;
+        border-radius: 100px;
+        box-shadow: none;
+        position: absolute;
+        z-index: 40;
+        animation: float-y 6s ease-in-out infinite;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .pioneer-glass-card span {
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: #1A1A1A;
+    }
+
+    @keyframes float-y {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-12px); }
+    }
+
+    .depth-of-field {
+        filter: contrast(1.05) saturate(1.1);
+        mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    }
+
+    .photo-bg-blur {
+        position: absolute;
+        inset: 0;
+        filter: blur(4px);
+        transform: scale(1.1);
+        opacity: 0.6;
+    }
+
+    .main-img-frame {
+        position: relative;
+        z-index: 10;
+        border-radius: 40px; /* Uniform grounding */
+        overflow: hidden;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05); /* Soft premium shadow */
+        transition: all 0.6s ease;
+    }
+
+    /* Timeline Specific Styling */
+    .chronicle-card {
+        background: #FFFFFF;
+        border-radius: 32px;
+        position: relative;
+        overflow: hidden;
+        border: 1px dashed rgba(255, 107, 0, 0.2);
+        padding: 40px;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 10;
+    }
+
+    .chronicle-card:hover {
+        border-style: solid;
+        border-color: var(--action-orange);
+        transform: translateY(-12px);
+        box-shadow: 0 40px 80px rgba(255, 107, 0, 0.1);
+    }
+
+    .chronicle-watermark {
+        position: absolute;
+        top: 10px;
+        right: -10px;
+        font-size: 100px;
+        font-weight: 900;
+        color: rgba(255, 107, 0, 0.05);
+        line-height: 1;
+        z-index: 0;
+        pointer-events: none;
+        user-select: none;
+        letter-spacing: -0.05em;
+    }
+
+    .timeline-connector {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: repeating-linear-gradient(to right, #FF6B00 0, #FF6B00 10px, transparent 10px, transparent 20px);
+        z-index: 0;
+        opacity: 0.3;
+    }
+
+    .timeline-node {
+        width: 16px;
+        height: 16px;
+        background: var(--action-orange);
+        border: 4px solid #FFF;
+        border-radius: 50%;
+        position: absolute;
+        top: -7px;
+        left: -8px;
+        box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.2);
+    }
+</style>
+@endpush
 
 @section('content')
 
 @php
     $resolveLocalThumbnail = function (?string $videoId, ?string $fallback = null) {
         $candidates = [];
-
         if ($videoId) {
             $candidates[] = "assets/images/video-thumbnails/{$videoId}.webp";
             $candidates[] = "assets/images/video-thumbnails/{$videoId}.jpg";
             $candidates[] = "assets/images/video-thumbnails/{$videoId}.png";
         }
-
         if ($fallback && !\Illuminate\Support\Str::startsWith($fallback, ['http://', 'https://'])) {
             $candidates[] = ltrim($fallback, '/');
         }
-
         foreach ($candidates as $candidate) {
-            if (file_exists(public_path($candidate))) {
-                return $candidate;
-            }
+            if (file_exists(public_path($candidate))) return $candidate;
         }
-
         return null;
     };
 @endphp
 
-<!-- ====================== HERO SECTION ====================== -->
-<section class="relative bg-gradient-to-br from-orange-500 via-orange-400 to-yellow-300 text-white pt-36 pb-28 overflow-hidden">
-    <!-- Background Image -->
-    <div class="absolute inset-0">
-        <img src="{{ asset('assets/images/gedung/gedungsiswa.avif') }}" alt="SMK Prestasi Prima"
-             class="w-full h-full object-cover opacity-30" loading="lazy" decoding="async">
-        <!-- Overlay Orange -->
-        <div class="absolute inset-0 bg-orange-500/30 mix-blend-multiply"></div>
-    </div>
+<!-- ====================== INSTITUTIONAL HEADER: ASYMMETRIC PIONEER ====================== -->
+<section class="relative py-48 lg:py-60 overflow-hidden mesh-bg">
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="grid lg:grid-cols-[1.2fr_0.8fr] gap-16 items-center">
+            
+            {{-- Left Content: Headline & Vision --}}
+            <div class="relative z-30" data-aos="fade-right">
+                <h1 class="pioneer-headline mb-12 lg:-mr-40 relative">
+                    Mencetak Pionir <br>
+                    Era <span class="gradient-orange-white">Digital.</span>
+                </h1>
+                
+                <div class="max-w-[500px] border-l-4 border-[#FF6B00] pl-8">
+                    <p class="text-slate-900 text-2xl md:text-3xl font-black leading-tight mb-6">
+                        Integrasi teknologi dan <br> integritas karakter.
+                    </p>
+                    <p class="text-slate-500 text-lg leading-relaxed font-medium">
+                        Kami tidak hanya mengajar teknis, kami membentuk visi untuk mendominasi masa depan teknologi.
+                    </p>
+                </div>
+            </div>
 
-    <!-- Konten -->
-    <div class="relative z-10 text-center max-w-3xl mx-auto px-4" data-aos="fade-down" data-aos-duration="800">
-        <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo SMK Prestasi Prima"
-             class="w-24 h-24 mx-auto mb-5 animate-fade-in" loading="lazy">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-md">
-            SMK <span class="text-white">Prestasi Prima</span>
-        </h1>
-        <p class="text-white/90 text-lg leading-relaxed italic">
-            "If better is possible, good is not enough"
-        </p>
+            {{-- Right Content: Photo & Atmosphere --}}
+            <div class="relative mt-20 lg:mt-0" data-aos="zoom-out" data-aos-delay="200">
+                <div class="relative w-full max-w-[500px] mx-auto group">
+                    {{-- Main Photo Frame with Depth Effect --}}
+                    <div class="main-img-frame aspect-[4/5] rounded-[60px] shadow-[0_40px_100px_rgba(255,107,0,0.1)] overflow-hidden relative">
+                        {{-- Background Blur (Depth of Field Simulation) --}}
+                        <div class="absolute inset-0 bg-orange-50"></div>
+                        <img src="{{ asset('assets/images/gedung/gedungsiswa.avif') }}" 
+                             alt="Digital Pioneer Students" 
+                             class="w-full h-full object-cover depth-of-field transition-transform duration-700 group-hover:scale-110">
+                    </div>
+
+                    {{-- Strategic Glassmorphic Elements: Repositioned & Stylized --}}
+                    <div class="pioneer-glass-card -top-8 -left-20" style="animation-delay: 0s">
+                        <div class="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center">
+                            <iconify-icon icon="solar:cpu-bold-duotone" class="text-[#FF6B00] text-sm"></iconify-icon>
+                        </div>
+                        <span class="text-slate-800">AI Integrated</span>
+                    </div>
+
+                    <div class="pioneer-glass-card -bottom-4 -right-24" style="animation-delay: 2.5s">
+                        <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                            <iconify-icon icon="solar:shield-check-bold-duotone" class="text-green-500 text-sm"></iconify-icon>
+                        </div>
+                        <span class="text-slate-800">Industry-Standard Curriculum</span>
+                    </div>
+
+                    {{-- Dynamic Background Shape --}}
+                    <div class="absolute -z-10 -bottom-10 -right-10 w-64 h-64 bg-orange-100/40 rounded-full blur-3xl animate-pulse"></div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>
 
-
 <!-- ====================== SEJARAH SEKOLAH ====================== -->
-<section class="relative py-24 bg-gradient-to-b from-orange-50 via-white to-orange-100 text-gray-800 overflow-hidden">
-    {{-- Dekoratif --}}
-    <div class="absolute top-0 left-0 w-64 h-64 bg-orange-200/40 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="absolute bottom-0 right-0 w-72 h-72 bg-orange-300/30 rounded-full blur-3xl translate-x-1/3 translate-y-1/3"></div>
-
-    <div class="max-w-7xl mx-auto relative px-6">
-        {{-- Judul --}}
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900">
-                <span class="text-orange-600">Sejarah</span> Sekolah
+<section class="section-padding bg-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 relative">
+        <div class="text-center mb-20" data-aos="fade-up">
+            <h2 class="profile-headline text-slate-900 mb-6">
+                Perjalanan <span class="gradient-text">Sejarah</span>
             </h2>
-            <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-                Perjalanan panjang SMK Prestasi Prima dalam membangun pendidikan vokasi unggul yang adaptif terhadap perkembangan zaman.
+            <p class="profile-body max-w-2xl mx-auto">
+                Berdiri dengan visi mencetak talenta digital bermutu tinggi, SMK Prestasi Prima terus bertransformasi menjadi pusat keunggulan vokasi di Jakarta.
             </p>
         </div>
 
-        @php
-        $timeline = [
-            ['year' => '2011', 'title' => 'Pendirian Awal', 'desc' => 'SMK Prestasi Prima resmi didirikan di Cipayung, Jakarta Timur, dengan semangat mencetak lulusan unggul dan berkarakter.'],
-            ['year' => '2013', 'title' => 'Standarisasi Kurikulum', 'desc' => 'Peningkatan kurikulum berbasis industri mulai diterapkan untuk memenuhi kebutuhan dunia kerja modern.'],
-            ['year' => '2015', 'title' => 'Perluasan Fasilitas', 'desc' => 'Fasilitas pendukung pembelajaran seperti laboratorium, studio, dan perpustakaan mulai dikembangkan.'],
-            ['year' => '2018', 'title' => 'Digitalisasi Pembelajaran', 'desc' => 'Sekolah mulai memanfaatkan teknologi digital dan platform daring untuk kegiatan belajar mengajar.'],
-            ['year' => '2021', 'title' => 'Akreditasi A', 'desc' => 'Pencapaian akreditasi tertinggi (A) menjadi bukti kualitas dan konsistensi sekolah dalam memberikan pendidikan terbaik.'],
-            ['year' => '2025', 'title' => 'Transformasi Edukasi', 'desc' => 'Penerapan Kurikulum Merdeka dan transformasi digital di seluruh aspek pembelajaran.'],
-        ];
-        @endphp
+        <div class="relative">
+            {{-- Horizontal Timeline Line (Desktop Only) --}}
+            <div class="hidden lg:block absolute top-[110px] left-0 w-full h-[2px] bg-orange-100/50 z-0"></div>
 
-        {{-- Timeline --}}
-        <div class="relative border-l-4 border-orange-500 ml-6 space-y-16">
-            @foreach ($timeline as $i => $item)
-            <div class="relative pl-10" data-aos="fade-up" data-aos-delay="{{ $i * 100 }}">
-                {{-- Titik Tahun --}}
-                <div class="absolute -left-5 top-2 w-10 h-10 bg-gradient-to-tr from-orange-600 to-orange-400 rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-orange-300">
-                    <span>{{ substr($item['year'], -2) }}</span>
-                </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12 relative z-10">
+                @php
+                $timeline = [
+                    ['year' => '2011', 'icon' => 'solar:flag-2-bold-duotone', 'title' => 'Pendirian Awal', 'desc' => 'Didirikan dengan semangat mencetak lulusan unggul dan berkarakter.'],
+                    ['year' => '2013', 'icon' => 'solar:star-fall-bold-duotone', 'title' => 'Standarisasi', 'desc' => 'Peningkatan kurikulum berbasis industri untuk dunia kerja modern.'],
+                    ['year' => '2015', 'icon' => 'solar:buildings-bold-duotone', 'title' => 'Fasilitas', 'desc' => 'Pengembangan laboratorium, studio, dan perpustakaan modern.'],
+                    ['year' => '2018', 'icon' => 'solar:code-circle-bold-duotone', 'title' => 'Digitalisasi', 'desc' => 'Memanfaatkan teknologi digital dalam setiap proses belajar mengajar.'],
+                    ['year' => '2021', 'icon' => 'solar:medal-ribbon-bold-duotone', 'title' => 'Akreditasi A', 'desc' => 'Bukti kualitas dan konsistensi sekolah dalam pendidikan terbaik.'],
+                    ['year' => '2025', 'icon' => 'solar:rocket-bold-duotone', 'title' => 'Transformasi', 'desc' => 'Penerapan Kurikulum Merdeka dan transformasi digital penuh.'],
+                ];
+                @endphp
+                @foreach ($timeline as $i => $item)
+                <div class="chronicle-card group" data-aos="fade-up" data-aos-delay="{{ $i * 100 }}">
 
-                {{-- Card --}}
-                <div class="bg-white/90 backdrop-blur-md rounded-2xl p-6 md:p-7 shadow-md hover:shadow-orange-400/40 hover:scale-[1.03] transition-all duration-500 border border-orange-100">
-                    <h3 class="text-xl md:text-2xl font-semibold text-orange-600 mb-1">
-                        {{ $item['year'] }} — {{ $item['title'] }}
-                    </h3>
-                    <p class="text-gray-700 leading-relaxed">{{ $item['desc'] }}</p>
+
+                    {{-- Watermark Text (Certified Pro Style) --}}
+                    <div class="chronicle-watermark">{{ $item['year'] }}</div>
+
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center text-[#FF6B00] mb-8 group-hover:bg-[#FF6B00] group-hover:text-white transition-all duration-300 shadow-sm">
+                            <iconify-icon icon="{{ $item['icon'] }}" class="text-3xl"></iconify-icon>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4 group-hover:text-[#FF6B00] transition-colors">{{ $item['title'] }}</h3>
+                        <p class="profile-body text-gray-500 leading-relaxed">{{ $item['desc'] }}</p>
+                    </div>
+                    
+                
                 </div>
+                @endforeach
             </div>
-            @endforeach
         </div>
     </div>
 </section>
 
 <!-- ====================== VISI & MISI ====================== -->
-<section class="relative py-28 bg-gradient-to-tr from-orange-100 via-white to-orange-50 text-gray-800 overflow-hidden">
-    <div class="max-w-7xl mx-auto relative z-10 px-6 md:px-10 grid md:grid-cols-2 gap-14 items-center">
+<section class="section-padding bg-[#F8F9FA] relative">
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+        <div class="relative" data-aos="fade-right">
+            <div class="rounded-[40px] overflow-hidden shadow-2xl relative z-10">
+                <img src="{{ asset('assets/images/gedung/gedungtinggi.webp') }}" alt="Visi Misi Sekolah" class="w-full h-auto">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+            <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-orange-100 rounded-full blur-3xl opacity-60"></div>
+        </div>
 
-        {{-- Gambar --}}
-        <div data-aos="fade-right" data-aos-duration="900" class="flex justify-center">
-            <div class="relative group">
-                <img src="{{ asset('assets/images/gedung/gedungtinggi.webp') }}" alt="Visi Misi Sekolah"
-                     class="rounded-3xl shadow-2xl transform group-hover:scale-105 transition duration-700 ease-out">
-                <div class="absolute bottom-6 left-6">
-                    <p class="bg-orange-500/90 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg backdrop-blur-sm">
-                        SMK Prestasi Prima
-                    </p>
+        <div data-aos="fade-left">
+            <h2 class="profile-headline text-slate-900 mb-10">Visi & <span class="gradient-text">Misi.</span></h2>
+            
+            <div class="modern-card p-10 mb-10 border-l-8 border-[#FF6B00]">
+                <h3 class="text-xs font-black text-[#FF6B00] uppercase tracking-[0.2em] mb-4">Masa Depan Kami</h3>
+                <p class="text-xl font-bold text-slate-800 leading-relaxed italic">
+                    "Mewujudkan lulusan yang unggul dan terpercaya dalam bidang Teknologi Informasi, beriman, bertaqwa, dan berkarakter Pancasila."
+                </p>
+            </div>
+
+            <div class="space-y-6">
+                @foreach ([
+                    'Proses belajar berkualitas tinggi berstandar internasional.',
+                    'Siap berkompetisi di era Revolusi Industri 4.0.',
+                    'Pendidikan berbasis teknologi abad 21.',
+                    'Membentuk jati diri berkarakter dan budaya kerja profesional.'
+                ] as $point)
+                <div class="flex items-center gap-4 bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                    <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0 text-[#FF6B00]">
+                        <iconify-icon icon="solar:check-circle-bold" class="text-xl"></iconify-icon>
+                    </div>
+                    <p class="profile-body font-medium">{{ $point }}</p>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ====================== SAMBUTAN KEPALA SEKOLAH ====================== -->
+<section class="section-padding bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
+        <div data-aos="fade-right">
+            <h2 class="profile-headline text-slate-900 mb-8">Pesan <br> <span class="gradient-text">Kepala Sekolah.</span></h2>
+            <div class="space-y-6">
+                <p class="profile-body text-lg font-medium text-slate-700">Assalamu’alaikum Warahmatullahi Wabarakatuh.</p>
+                <p class="profile-body">
+                    Dengan penuh rasa syukur, SMK Prestasi Prima terus berkomitmen menjadi lembaga pendidikan yang tidak hanya menyiapkan peserta didik untuk dunia kerja, tetapi juga membentuk karakter unggul, kreatif, dan berdaya saing global.
+                </p>
+                <div class="py-6 border-y border-orange-100">
+                    <p id="typing-quote" class="text-2xl font-bold text-slate-900 italic leading-snug"></p>
+                </div>
+                <div class="pt-4">
+                    <p class="text-xl font-black text-slate-900 mb-1">Hendry Kurniawan, S.Kom., M.I.Kom.</p>
+                    <p class="text-[#FF6B00] font-bold uppercase tracking-widest text-xs">Kepala Sekolah SMK Prestasi Prima</p>
                 </div>
             </div>
         </div>
 
-        {{-- Teks --}}
-        <div data-aos="fade-left" data-aos-duration="900">
-            <h2 class="text-4xl font-extrabold mb-8 leading-tight text-gray-900">
-                Visi & <span class="text-orange-600">Misi</span> Sekolah
-            </h2>
-
-            {{-- Visi --}}
-            <div class="mb-8">
-                <h3 class="font-semibold text-xl mb-3 text-orange-600 tracking-wide">Visi</h3>
-                <p class="text-gray-800 leading-relaxed text-lg bg-orange-50 p-5 rounded-2xl shadow-md border border-orange-100">
-                    Mewujudkan lulusan yang <strong class="text-orange-600">unggul</strong> dan <strong class="text-orange-600">terpercaya</strong> dalam mengembangkan serta mempersiapkan tenaga terampil di bidang Teknologi Informasi dan Komunikasi yang beriman, bertaqwa, cerdas, percaya diri, berwawasan global, dan berkarakter Pancasila.
-                </p>
+        <div class="relative flex justify-center" data-aos="fade-left">
+            <div class="relative">
+                {{-- Orange Glow Backdrop --}}
+                <div class="absolute -inset-4 bg-orange-100 blur-2xl rounded-[50px] opacity-40 -z-10"></div>
+                <img src="{{ asset('assets/images/section/tentang/kepala-sekolah.png') }}" alt="Kepala Sekolah"
+                     class="w-[450px] relative z-20 rounded-[40px] shadow-2xl">
             </div>
-
-            {{-- Misi --}}
-            <div>
-                <h3 class="font-semibold text-xl mb-4 text-orange-600 tracking-wide">Misi</h3>
-                <ul class="space-y-4">
-                    @foreach ([
-                        'Menyelenggarakan proses belajar mengajar yang berkualitas dalam mencapai kompetensi peserta didik yang berstandar nasional dan internasional.',
-                        'Menyiapkan tamatan yang mampu berkompetisi pada era revolusi industri 4.0 dan globalisasi sesuai dengan kompetensi bidangnya.',
-                        'Memberikan pelayanan pendidikan berbasis pembelajaran abad 21 agar peserta didik memperoleh ilmu pengetahuan dan teknologi terkini.',
-                        'Mengembangkan sikap profesional yang menghargai etika dan keberagaman serta menerapkan budaya kerja yang membentuk jati diri berkarakter bangsa.'
-                    ] as $point)
-                        <li class="flex items-start gap-3 bg-white rounded-2xl p-4 border border-orange-100 shadow-sm hover:shadow-lg hover:border-orange-300 transition">
-                            <div class="w-3 h-3 mt-2 bg-orange-500 rounded-full flex-shrink-0 shadow-sm"></div>
-                            <p class="text-gray-700 leading-relaxed">{{ $point }}</p>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- ====================== PROFIL KEPALA SEKOLAH ====================== -->
-<section class="relative py-24 text-white overflow-hidden">
-    {{-- Background --}}
-    <div class="absolute inset-0">
-        <img src="{{ asset('assets/images/section/tentang/bg-sekolah.jpg') }}" alt="Background Sekolah"
-             class="w-full h-full object-cover opacity-30">
-        <div class="absolute inset-0 bg-gradient-to-br from-orange-600 via-orange-500 to-orange-400 mix-blend-multiply"></div>
-    </div>
-
-    <div class="relative max-w-6xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-16 items-center z-10">
-        {{-- Kepala Sekolah --}}
-        <div data-aos="fade-right" data-aos-duration="900" class="flex justify-center">
-            <div class="relative group">
-                <img src="{{ asset('assets/images/section/tentang/kepala-sekolah.png') }}"
-                     alt="Kepala Sekolah SMK Prestasi Prima"
-                     class="rounded-3xl shadow-2xl w-80 md:w-96 h-auto object-cover transform transition duration-700 ease-out group-hover:scale-105 group-hover:shadow-orange-300/50">
-            </div>
-        </div>
-
-        {{-- Sambutan --}}
-        <div data-aos="fade-left" data-aos-duration="900">
-            <h2 class="text-4xl font-extrabold mb-5 text-white">
-                Sambutan <span class="text-orange-100">Kepala Sekolah</span>
-            </h2>
-            <p class="text-orange-50 leading-relaxed mb-6 text-justify">
-                <span class="block mb-3">Assalamu’alaikum Warahmatullahi Wabarakatuh.</span>
-                Dengan penuh rasa syukur, SMK Prestasi Prima terus berkomitmen menjadi lembaga pendidikan
-                yang tidak hanya menyiapkan peserta didik untuk dunia kerja, tetapi juga membentuk karakter unggul,
-                kreatif, dan berdaya saing global di era modern ini.
-            </p>
-
-            <blockquote class="relative border-l-4 border-white/80 pl-5 italic text-orange-100 text-lg mb-8 overflow-hidden">
-                <span id="typing-quote" class="inline-block"></span>
-            </blockquote>
-
-            <p class="mt-6 text-white font-semibold text-lg">
-                — <span class="text-yellow-100">Hendry Kurniawan, S.Kom., M.I.Kom.</span><br>
-                Kepala Sekolah SMK Prestasi Prima
-            </p>
+            <div class="absolute -top-10 -right-10 w-64 h-64 bg-orange-100 rounded-full blur-3xl opacity-50 -z-10"></div>
         </div>
     </div>
 </section>
-
-<!-- ====================== TYPING QUOTE SCRIPT ====================== -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const text = "“Pendidikan bukan hanya tentang masa depan, tetapi tentang membangun masa kini dengan penuh makna dan tanggung jawab.”";
-    const typingElement = document.getElementById("typing-quote");
-    let index = 0;
-    function typeEffect() {
-        if (index < text.length) {
-            typingElement.textContent += text.charAt(index);
-            index++;
-            setTimeout(typeEffect, 50);
-        }
-    }
-    typeEffect();
-});
-</script>
 
 <!-- ====================== VIDEO PROFIL SEKOLAH ====================== -->
-<section class="py-24 bg-orange-50 text-gray-800 relative z-20 overflow-hidden">
-    <div class="max-w-5xl mx-auto text-center px-6" data-aos="fade-up" data-aos-duration="900">
-        <h2 class="text-4xl font-extrabold mb-6 text-gray-900">
-            Video <span class="text-orange-600">Profil Sekolah</span>
-        </h2>
-        <p class="text-gray-600 mb-10 max-w-2xl mx-auto">
-            Saksikan sekilas perjalanan dan suasana belajar di SMK Prestasi Prima melalui video berikut.
-        </p>
-
+<section class="section-padding bg-[#F8F9FA] relative">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <h2 class="profile-headline text-slate-900 mb-8" data-aos="fade-up">Tonton <span class="gradient-text">Eksplorasi.</span></h2>
+        
         @php
             $profileVideoId = 'EYzn0caf0_k';
-            $profileGradient = 'from-orange-500 via-orange-400 to-yellow-300';
-            $profileThumbnail = $resolveLocalThumbnail($profileVideoId);
+            $profileThumbnail = $resolveLocalThumbnail($profileVideoId, null);
         @endphp
-        <div class="relative w-full max-w-4xl mx-auto overflow-hidden rounded-2xl shadow-xl group">
+        
+        <div class="max-w-4xl mx-auto relative group rounded-[32px] overflow-hidden shadow-2xl" data-aos="zoom-in">
             @include('components.youtube-lite', [
                 'videoId' => $profileVideoId,
                 'title' => 'Video Profil SMK Prestasi Prima',
-                'gradient' => $profileGradient,
                 'thumbnailPath' => $profileThumbnail,
-                'wrapperClass' => 'w-full',
+                'wrapperClass' => 'w-full aspect-video',
                 'behavior' => 'inline'
             ])
         </div>
     </div>
 </section>
 
-@include('components.youtube-lite-script')
-
-<!-- ====================== TESTIMONI LINK SECTION ====================== -->
-<section class="py-24 bg-white text-center text-gray-800 relative z-10 overflow-hidden">
-    <div data-aos="fade-up" data-aos-duration="900">
-        <h2 class="text-4xl font-extrabold mb-6">
-            Suara dari <span class="text-orange-500">Alumni & Orang Tua</span>
-        </h2>
-        <p class="text-gray-600 max-w-2xl mx-auto mb-10">
-            Dengarkan pengalaman langsung dari mereka yang telah merasakan perjalanan bersama SMK Prestasi Prima.
+<!-- ====================== TESTIMONI CTA ====================== -->
+<section class="section-padding bg-white">
+    <div class="max-w-4xl mx-auto text-center px-6" data-aos="fade-up">
+        <h2 class="profile-headline text-slate-900 mb-8">Suara dari <span class="gradient-text">Hati.</span></h2>
+        <p class="profile-body mb-12">
+            Bergabunglah dengan komunitas kami. Ribuan alumni telah membuktikan bahwa Prestasi Prima adalah jembatan menuju mimpi mereka.
         </p>
-        <a href="{{ url('/testimoni') }}"
-           class="inline-block px-8 py-3 bg-orange-500 text-white font-semibold rounded-xl shadow-md hover:bg-orange-600 hover:shadow-lg transition-all duration-300">
-           Lihat Semua Testimoni →
+        <a href="{{ url('/testimoni') }}" class="pill-button group">
+            Lihat Testimoni Alumni
+            <iconify-icon icon="solar:arrow-right-bold" class="ml-2 group-hover:translate-x-2 transition-transform"></iconify-icon>
         </a>
     </div>
 </section>
 
 <!-- ====================== LOKASI SEKOLAH ====================== -->
-<section class="relative py-28 bg-gradient-to-br from-orange-100 via-white to-orange-50 overflow-hidden text-gray-800">
-    <div class="max-w-6xl mx-auto px-6 text-center relative z-10">
-
-        {{-- Judul --}}
-        <div data-aos="fade-up" data-aos-duration="1000">
-            <h2 class="text-5xl font-extrabold mb-5 tracking-tight text-gray-900">
-                Lokasi <span class="bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">Sekolah</span>
-            </h2>
-            <p class="text-gray-600 text-lg mb-14 max-w-3xl mx-auto leading-relaxed">
-                Temukan <span class="text-orange-600 font-semibold">SMK Prestasi Prima</span> — pusat pendidikan unggulan
-                yang membina generasi profesional masa depan.
-                Terletak strategis di kawasan yang mudah dijangkau,
-                sekolah kami menghadirkan lingkungan belajar modern dan inspiratif.
-            </p>
-        </div>
-
-        {{-- Peta --}}
-        <div class="relative group" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-            <div class="rounded-3xl overflow-hidden shadow-2xl border border-orange-200 bg-white transition-transform duration-500 ease-in-out group-hover:scale-[1.02] group-hover:shadow-orange-200/50">
-        <iframe class="w-full h-[450px] grayscale-[20%] hover:grayscale-0 transition-all duration-700 ease-in-out"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4748268020353!2d106.8972187!3d-6.332476499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed2681bc7c67%3A0x777152b1d3f74a62!2sSMK%20Prestasi%20Prima!5e0!3m2!1sid!2sid!4v1756647265168!5m2!1sid!2sid"
-            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lokasi SMK Prestasi Prima">
-                </iframe>
+<section class="section-padding bg-[#F8F9FA]">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-20 items-center">
+            <div class="artistic-map-frame" data-aos="fade-right">
+                <iframe class="w-full h-[600px] grayscale-[0.3] hover:grayscale-0 transition-all duration-700"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4748268020353!2d106.8972187!3d-6.332476499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed2681bc7c67%3A0x777152b1d3f74a62!2sSMK%20Prestasi%20Prima!5e0!3m2!1sid!2sid!4v1756647265168!5m2!1sid!2sid"
+                    allowfullscreen="" loading="lazy"></iframe>
             </div>
-        </div>
 
-        {{-- Alamat --}}
-        <div class="mt-16 mx-auto max-w-2xl bg-white/80 backdrop-blur-sm border border-orange-100 rounded-3xl p-8 shadow-lg"
-             data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-            <h3 class="text-2xl font-bold mb-3 text-orange-600">Alamat Lengkap</h3>
-            <p class="text-gray-700 leading-relaxed">
-                <strong>SMK Prestasi Prima</strong><br>
-                Jl. Hankam Raya No.89, RT.4/RW.5, Cilangkap, Kec. Cipayung,
-                Kota Jakarta Timur, DKI Jakarta 13870<br>
-                <span class="italic text-orange-500">Dekat dengan Markas Besar TNI Angkatan Laut Cilangkap</span>
-            </p>
+            <div data-aos="fade-left">
+                <h2 class="profile-headline text-slate-900 mb-6">Hubungi <span class="gradient-text">Kami.</span></h2>
+                <div class="space-y-10">
+                    <div class="flex gap-6">
+                        <div class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center flex-shrink-0 text-[#FF6B00]">
+                            <iconify-icon icon="solar:map-point-bold-duotone" class="text-3xl"></iconify-icon>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-slate-900 mb-2">Lokasi Utama</h4>
+                            <p class="profile-body">Jl. Hankam Raya No.89, Cipayung, Jakarta Timur 13870. <br> <span class="text-[#FF6B00] font-semibold text-sm">Dekat Markas Besar TNI AL Cilangkap.</span></p>
+                        </div>
+                    </div>
 
-            {{-- Tombol Aksi --}}
-            <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-                <a href="https://goo.gl/maps/k3PUPcTZhQKxW1t69" target="_blank"
-                   class="px-8 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300">
-                   <i class="ri-map-pin-line mr-2"></i> Buka di Google Maps
-                </a>
-                <a href="/contact"
-                   class="px-8 py-3 rounded-xl border border-orange-400 text-orange-500 hover:bg-orange-500 hover:text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300">
-                   <i class="ri-mail-send-line mr-2"></i> Hubungi Kami
-                </a>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="https://maps.app.goo.gl/B2M79S8N4VpS8B4S6" target="_blank" class="pill-button">
+                            Petunjuk Arah
+                        </a>
+                        <a href="/contact" class="pill-button bg-white !text-[#FF6B00] border-2 border-orange-100 hover:border-[#FF6B00]">
+                            Kirim Pesan
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    {{-- Dekoratif Background --}}
-    <div class="absolute top-0 left-0 w-96 h-96 bg-orange-200 rounded-full blur-3xl opacity-40 -z-10"></div>
-    <div class="absolute bottom-0 right-0 w-[28rem] h-[28rem] bg-yellow-100 rounded-full blur-3xl opacity-40 -z-10"></div>
 </section>
 
+@push('scripts')
+@include('components.youtube-lite-script')
+<script>
+(function() {
+    const initTypewriter = () => {
+        const el = document.getElementById("typing-quote");
+        if (!el || window.profileQuoteActive) return;
+        
+        window.profileQuoteActive = true;
+        const text = "“Pendidikan bukan hanya tentang masa depan, tetapi tentang membangun masa kini dengan penuh makna dan tanggung jawab.”";
+        let i = 0;
+        el.textContent = ""; 
+
+        function type() {
+            if (i < text.length) {
+                el.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, 30);
+            }
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                type();
+                observer.disconnect();
+            }
+        }, { threshold: 0.5 });
+
+        observer.observe(el);
+    };
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initTypewriter);
+    } else {
+        initTypewriter();
+    }
+})();
+</script>
+@endpush
 
 @endsection

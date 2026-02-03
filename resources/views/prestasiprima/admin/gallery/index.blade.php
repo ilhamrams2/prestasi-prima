@@ -3,105 +3,113 @@
 @section('title', 'Manajemen Galeri')
 
 @section('content')
-<div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-
-  {{-- ================= HEADER ================= --}}
-  <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-    <h1 class="text-3xl font-semibold text-gray-800 tracking-tight">Manajemen Galeri</h1>
-
-    <a href="{{ route('prestasiprima.admin.gallery.create') }}"
-       class="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg font-medium transition duration-200">
-      <i class="ri-add-line text-lg"></i>
-      Tambah Galeri
-    </a>
-  </div>
-
-  {{-- ================= FLASH MESSAGE ================= --}}
-  @if (session('success'))
-    <div class="mb-5 p-4 bg-gray-50 border border-gray-200 rounded-lg flex items-center text-gray-700">
-      <i class="ri-checkbox-circle-line text-green-500 text-xl mr-2"></i>
-      {{ session('success') }}
-    </div>
-  @endif
-
-  {{-- ================= GRID GALERI ================= --}}
-  @if ($galleries->count())
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      @foreach ($galleries as $gallery)
-        <div class="bg-gray-50 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col group">
-
-          {{-- Thumbnail --}}
-          <div class="relative h-48 overflow-hidden">
-            @if ($gallery->thumbnail)
-              <img src="{{ Str::startsWith($gallery->thumbnail, ['http://','https://']) ? $gallery->thumbnail : asset('storage/' . $gallery->thumbnail) }}" 
-     alt="Thumbnail" 
-     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-<img src="{{ Str::startsWith($gallery->thumbnail, ['http://','https://']) 
-             ? $gallery->thumbnail 
-             : asset('storage/' . $gallery->thumbnail) }}" 
-     alt="Thumbnail" 
-     onerror="this.src='{{ asset('images/no-thumbnail.jpg') }}'"
-     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-
-            @else
-              <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400 text-sm">
-                Tidak ada gambar
-              </div>
-            @endif
-
-            {{-- Badge Tipe --}}
-            <span class="absolute top-3 left-3 px-2 py-1 text-xs font-semibold rounded bg-gray-200 text-gray-700">
-              {{ $gallery->video_url ? 'Video' : 'Foto' }}
-            </span>
-          </div>
-
-          {{-- Konten --}}
-          <div class="flex flex-col flex-1 p-4">
-            <h3 class="font-medium text-gray-800 mb-1 line-clamp-2">
-              {{ $gallery->title }}
-            </h3>
-
-            {{-- Kategori --}}
-            <p class="text-sm text-orange-500 mb-1 font-medium">
-              {{ $gallery->category ?? 'Tanpa Kategori' }}
-            </p>
-
-            {{-- Deskripsi --}}
-            <p class="text-sm text-gray-500 mb-3 line-clamp-3">
-              {{ Str::limit($gallery->description, 100) }}
-            </p>
-
-            {{-- Tombol Aksi --}}
-            <div class="mt-auto flex items-center justify-between pt-3 border-t border-gray-100">
-              <a href="{{ route('prestasiprima.admin.gallery.edit', $gallery->id) }}" 
-                 class="inline-flex items-center gap-1 text-gray-700 hover:text-gray-900 text-sm font-medium transition">
-                <i class="ri-edit-box-line text-lg"></i> Edit
-              </a>
-
-              <form action="{{ route('prestasiprima.admin.gallery.destroy', $gallery->id) }}" method="POST" 
-                    onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                @csrf
-                @method('DELETE')
-                <button type="submit" 
-                        class="inline-flex items-center gap-1 text-gray-500 hover:text-red-600 text-sm font-medium transition">
-                  <i class="ri-delete-bin-line text-lg"></i> Hapus
-                </button>
-              </form>
-            </div>
-          </div>
+<div class="space-y-6">
+    {{-- ================= HEADER SECTION ================= --}}
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+            <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight">Koleksi Galeri</h1>
+            <p class="text-sm text-slate-500 font-medium">Kelola foto dan video dokumentasi sekolah di sini.</p>
         </div>
-      @endforeach
+
+        <a href="{{ route('prestasiprima.admin.gallery.create') }}"
+           class="inline-flex items-center gap-2 bg-[#FF6B00] hover:bg-[#e66000] text-white px-6 py-3 rounded-2xl font-bold transition-all duration-300 shadow-lg shadow-orange-500/20 active:scale-95">
+            <i class="ri-add-circle-line text-lg"></i>
+            Tambah Media Baru
+        </a>
     </div>
 
-    {{-- ================= PAGINATION ================= --}}
-    <div class="mt-8 flex justify-end">
-      {{ $galleries->links() }}
-    </div>
-  @else
-    <div class="text-center py-16 text-gray-400 italic">
-      <i class="ri-image-2-line text-4xl mb-3"></i>
-      <p>Belum ada data galeri.</p>
-    </div>
-  @endif
+    {{-- ================= FLASH MESSAGE ================= --}}
+    @if (session('success'))
+        <div class="p-4 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center gap-3 text-emerald-700">
+            <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white flex-shrink-0">
+                <i class="ri-check-line text-lg font-bold"></i>
+            </div>
+            <p class="text-sm font-bold">{{ session('success') }}</p>
+        </div>
+    @endif
+
+    {{-- ================= GRID GALERI ================= --}}
+    @if ($galleries->count())
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            @foreach ($galleries as $gallery)
+                <div class="bg-white rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col group">
+                    {{-- Thumbnail Container --}}
+                    <div class="relative h-56 overflow-hidden bg-slate-100">
+                        @php
+                            $imageUrl = Str::startsWith($gallery->thumbnail, ['http://','https://']) 
+                                ? $gallery->thumbnail 
+                                : ($gallery->thumbnail ? asset('storage/' . $gallery->thumbnail) : null);
+                        @endphp
+
+                        @if ($imageUrl)
+                            <img src="{{ $imageUrl }}" 
+                                 alt="{{ $gallery->title }}" 
+                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        @else
+                            <div class="w-full h-full flex flex-col items-center justify-center text-slate-300">
+                                <i class="ri-image-line text-4xl mb-2"></i>
+                                <span class="text-[10px] font-bold uppercase tracking-widest">No Image</span>
+                            </div>
+                        @endif
+
+                        {{-- Type Badge --}}
+                        <div class="absolute top-4 left-4">
+                            <span class="px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-widest rounded-full bg-white/90 backdrop-blur shadow-sm text-slate-700 border border-white/20">
+                                <i class="{{ $gallery->video_url ? 'ri-video-line' : 'ri-camera-3-line' }} mr-1 text-[#FF6B00]"></i>
+                                {{ $gallery->video_url ? 'Video' : 'Foto' }}
+                            </span>
+                        </div>
+
+                        {{-- Hover Actions (Overlay) --}}
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                            <a href="{{ route('prestasiprima.admin.gallery.edit', $gallery->id) }}" 
+                               class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white text-slate-800 hover:bg-[#FF6B00] hover:text-white transition-all duration-300 shadow-xl">
+                                <i class="ri-edit-2-line text-xl"></i>
+                            </a>
+                            <form action="{{ route('prestasiprima.admin.gallery.destroy', $gallery->id) }}" method="POST" 
+                                  onsubmit="return confirm('Yakin ingin menghapus media ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" 
+                                        class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-xl">
+                                    <i class="ri-delete-bin-6-line text-xl"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    {{-- Content Section --}}
+                    <div class="p-6 flex flex-col flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-[10px] font-bold text-[#FF6B00] bg-orange-50 px-2 py-0.5 rounded uppercase tracking-widest">
+                                {{ $gallery->category ?? 'General' }}
+                            </span>
+                        </div>
+                        <h3 class="font-bold text-slate-800 mb-2 line-clamp-2 leading-tight group-hover:text-[#FF6B00] transition-colors">
+                            {{ $gallery->title }}
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-4 line-clamp-2 font-medium leading-relaxed">
+                            {{ $gallery->description }}
+                        </p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        {{-- ================= PAGINATION ================= --}}
+        @if($galleries->hasPages())
+            <div class="mt-12 flex justify-center">
+                {{ $galleries->links() }}
+            </div>
+        @endif
+    @else
+        <div class="bg-white rounded-[2rem] border border-slate-100 p-20 text-center">
+            <div class="max-w-xs mx-auto opacity-30">
+                <i class="ri-image-2-line text-7xl mb-4 block text-slate-300"></i>
+                <h3 class="text-xl font-bold text-slate-800">Galeri Masih Kosong</h3>
+                <p class="text-sm font-medium mt-1">Belum ada media foto atau video yang diunggah ke portal ini.</p>
+            </div>
+        </div>
+    @endif
 </div>
 @endsection
