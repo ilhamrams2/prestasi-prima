@@ -39,6 +39,11 @@
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <style> 
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden !important;
+      position: relative;
+    }
     html { scroll-behavior: smooth; } 
     .sr-only {
       position: absolute;
@@ -77,7 +82,7 @@
     @include('header')
 
     {{-- ==================== MAIN ==================== --}}
-    <main id="main-content" tabindex="-1" class="outline-none">
+    <main id="main-content" tabindex="-1" class="outline-none overflow-x-hidden w-full relative">
       @yield('content')
     </main>
 

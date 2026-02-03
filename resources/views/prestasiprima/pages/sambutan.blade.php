@@ -10,6 +10,38 @@
     }
 
     .font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-outfit { font-family: 'Outfit', sans-serif; }
+
+    .text-mask-hero {
+        font-size: clamp(3.2rem, 10vw, 8rem);
+        font-weight: 950;
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+        background: linear-gradient(135deg, #0e162e 0%, #1a2a4e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+    }
+
+    .text-ghost {
+        position: absolute;
+        font-family: 'Outfit', sans-serif;
+        font-size: clamp(8rem, 25vw, 25rem);
+        font-weight: 900;
+        line-height: 1;
+        color: rgba(14, 22, 46, 0.02);
+        -webkit-text-stroke: 1px rgba(14, 22, 46, 0.05);
+        white-space: nowrap;
+        z-index: 0;
+        pointer-events: none;
+        text-transform: uppercase;
+    }
+
+    .highlight-orange {
+        background: linear-gradient(135deg, #FF6B00 0%, #FF8533 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 
     .hero-glow {
         background: radial-gradient(circle at top right, rgba(255, 107, 0, 0.05) 0%, transparent 40%);
@@ -68,17 +100,34 @@
 <div class="font-jakarta bg-white overflow-hidden">
     
     {{-- ================= HERO HEADER ================= --}}
-    <section class="relative pt-64 pb-20 bg-white hero-glow">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 text-[#FF6B00] mb-8 border border-orange-100/50" data-aos="fade-up">
-                <span class="text-[10px] font-black uppercase tracking-[0.2em]">Management Greetings</span>
+    <section class="relative pt-48 pb-20 px-6 bg-white hero-glow overflow-hidden">
+        <div class="text-ghost top-24 -left-20">MANAGEMENT</div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="flex flex-col items-start gap-6 mb-16" data-aos="fade-up">
+                <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-orange-50 border border-orange-100">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                    </span>
+                    <span class="font-outfit text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF6B00]">Management Greetings</span>
+                </div>
             </div>
-            <h1 class="text-5xl md:text-7xl font-black text-[#E65100] mb-6 tracking-tight" data-aos="fade-up" data-aos-delay="100">
-                Pesan dari <span class="text-[#FF6B00]">Pimpinan.</span>
-            </h1>
-            <p class="text-orange-900/60 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="200">
-                Membangun ekosistem pendidikan yang unggul, berkarakter, dan siap menghadapi tantangan masa depan melalui inovasi tanpa batas.
-            </p>
+
+            <div class="grid lg:grid-cols-12 gap-12 items-end mb-16">
+                <div class="lg:col-span-12" data-aos="fade-up" data-aos-delay="100">
+                    <h1 class="font-outfit text-mask-hero">
+                        Pesan Pimpinan, <br>
+                        <span class="highlight-orange">Inovasi Tanpa Batas.</span>
+                    </h1>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-10" data-aos="fade-up" data-aos-delay="200">
+                <p class="font-jakarta text-gray-400 text-xl md:text-3xl font-medium leading-[1.4] max-w-5xl tracking-tight">
+                    Membangun ekosistem pendidikan yang unggul, berkarakter, dan <span class="text-slate-800 font-black border-b-4 border-orange-500/20">siap menghadapi masa depan</span> melalui dedikasi dan visi kolektif.
+                </p>
+            </div>
         </div>
     </section>
 

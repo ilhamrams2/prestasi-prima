@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\prestasiprima\News;
 use App\Models\prestasiprima\Category;
+use App\Models\prestasiprima\ActivityLog;
 use Illuminate\Support\Str;
 
 class AdminNewsController extends Controller
@@ -45,7 +46,9 @@ class AdminNewsController extends Controller
             $data['thumbnail'] = 'uploads/thumbnails/' . $filename;
         }
 
-        News::create($data);
+        $news = News::create($data);
+
+        ActivityLog::log('create', "Menambahkan berita baru: {$news->title}", $news);
 
         return redirect()->route('prestasiprima.admin.berita.index')
                          ->with('success', 'Berita berhasil ditambahkan!');
@@ -87,6 +90,8 @@ class AdminNewsController extends Controller
 
         $news->update($data);
 
+        ActivityLog::log('update', "Memperbarui berita: {$news->title}", $news);
+
         return redirect()->route('prestasiprima.admin.berita.index')
                          ->with('success', 'Berita berhasil diperbarui!');
     }
@@ -101,6 +106,8 @@ class AdminNewsController extends Controller
         }
 
         $news->delete();
+
+        ActivityLog::log('delete', "Menghapus berita: {$news->title}");
 
         return back()->with('success', 'Berita berhasil dihapus!');
     }

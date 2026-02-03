@@ -49,6 +49,10 @@ use App\Http\Controllers\prestasiprima\admin\{
     AdminKaryaProyekController,
     AdminPasswordController,
     AdminContactController,
+    AdminLogController,
+    AdminNotificationController,
+    AdminSettingController,
+    AdminBackupController,
     AuthPPController
 };
 
@@ -276,6 +280,34 @@ Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprim
         Route::get('/{id}', 'show')->name('show');
         Route::post('/{id}/mark-read', 'markAsRead')->name('mark-read');
         Route::delete('/{id}', 'destroy')->name('destroy');
+    });
+
+    // === ACTIVITY LOGS ===
+    Route::prefix('logs')->name('logs.')->controller(AdminLogController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/clear', 'clear')->name('clear');
+    });
+
+    // === NOTIFICATIONS ===
+    Route::prefix('notifications')->name('notifications.')->controller(AdminNotificationController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/mark-all-read', 'markAllRead')->name('mark-all-read');
+        Route::post('/{id}/mark-read', 'markRead')->name('mark-read');
+    });
+
+    // === SETTINGS ===
+    Route::prefix('settings')->name('settings.')->controller(AdminSettingController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::patch('/update', 'update')->name('update');
+        Route::post('/init', 'init')->name('init');
+    });
+
+    // === BACKUP ===
+    Route::prefix('backup')->name('backup.')->controller(AdminBackupController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/create', 'create')->name('create');
+        Route::get('/download/{filename}', 'download')->name('download');
+        Route::delete('/{filename}', 'destroy')->name('destroy');
     });
 
 });

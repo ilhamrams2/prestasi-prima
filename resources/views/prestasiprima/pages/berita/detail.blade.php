@@ -6,7 +6,7 @@
   <!-- Progress Bar untuk Reading Depth -->
   <div id="readingProgress" class="fixed top-0 left-0 w-0 h-1 bg-orange-600 z-[100] transition-all duration-300"></div>
 
-  <section class="bg-[#fafafa] relative z-10 pt-28 md:pt-40 pb-20">
+  <section class="bg-[#fafafa] relative z-10 pt-28 md:pt-40 pb-20 overflow-x-hidden">
     <div class="max-w-7xl mx-auto px-4 md:px-8">
       
       <!-- ===== BREADCRUMBS ===== -->
@@ -43,7 +43,7 @@
               {{ $news->category->name ?? 'Umum' }}
             </div>
             
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-gray-900 leading-[1.15] mb-8 tracking-tight">
+            <h1 class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-gray-900 leading-[1.15] mb-8 tracking-tight">
                 {{ $news->title }}
             </h1>
 
@@ -132,7 +132,7 @@
         <aside class="lg:col-span-4 space-y-10 lg:sticky lg:top-32 h-fit">
           
           <!-- Tombol Share -->
-          <div class="bg-white rounded-[2rem] shadow-sm border border-orange-50 p-6" data-aos="fade-left">
+          <div class="bg-white rounded-[2rem] shadow-sm border border-orange-50 p-6" data-aos="fade-up">
             <h4 class="text-sm font-black text-gray-900 uppercase tracking-widest mb-5 flex items-center gap-2">
               <iconify-icon icon="lucide:share-2" class="text-orange-500"></iconify-icon> Bagikan Berita
             </h4>
@@ -165,7 +165,7 @@
 
           {{-- TRENDING / HOT NEWS --}}
           @if($hotNews->count() > 0)
-            <div class="bg-white rounded-[2rem] shadow-sm border border-gray-100 p-8" data-aos="fade-left" data-aos-delay="100">
+            <div class="bg-white rounded-[2rem] shadow-sm border border-gray-100 p-6 md:p-8" data-aos="fade-up">
               <h3 class="text-xl font-black text-gray-900 mb-8 flex items-center gap-3">
                 <iconify-icon icon="lucide:flame" class="text-orange-500 text-2xl"></iconify-icon>
                 Hot News
@@ -189,7 +189,7 @@
           @endif
 
           {{-- AKSES CEPAT / CATEGORIES --}}
-          <div class="bg-orange-600 rounded-[2rem] shadow-2xl p-8 text-white relative overflow-hidden group" data-aos="fade-left" data-aos-delay="200">
+          <div class="bg-orange-600 rounded-[2rem] shadow-2xl p-6 md:p-8 text-white relative overflow-hidden group" data-aos="fade-up">
             <!-- Dekorasi BG -->
             <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all duration-700"></div>
             
@@ -304,27 +304,42 @@
       .prose blockquote {
         border-left: none;
         background: #fff;
-        padding: 3rem;
-        border-radius: 2.5rem;
+        padding: 2rem;
+        border-radius: 2rem;
         font-style: italic;
         font-weight: 600;
-        font-size: 1.5rem;
+        font-size: 1.125rem;
         color: #111827;
-        margin: 3em 0;
+        margin: 2em 0;
         position: relative;
         box-shadow: 0 20px 40px rgba(0,0,0,0.03);
         border: 1px solid #f3f4f6;
       }
 
+      @media (min-width: 768px) {
+        .prose blockquote {
+          padding: 3rem;
+          font-size: 1.5rem;
+        }
+      }
+
       .prose blockquote::before {
         content: "“";
         position: absolute;
-        top: 20px;
-        left: 30px;
-        font-size: 8rem;
+        top: 10px;
+        left: 20px;
+        font-size: 5rem;
         color: #ea580c;
         opacity: 0.1;
         font-family: serif;
+      }
+
+      @media (min-width: 768px) {
+        .prose blockquote::before {
+          top: 20px;
+          left: 30px;
+          font-size: 8rem;
+        }
       }
 
       .prose img {

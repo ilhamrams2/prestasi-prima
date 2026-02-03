@@ -218,7 +218,6 @@
         </svg>
       </button>
       <div class="mobile-submenu">
-        <a href="https://absensmk.prestasiprima.sch.id/absensi/16" class="mobile-link">Presmakad</a>
         <a href="/pendaftaran" class="mobile-link">Presmastart</a>
         <a href="/virtual-tour" class="mobile-link">Presmatour</a>
         <a href="/presmacontact" class="mobile-link">Presmacontact</a>

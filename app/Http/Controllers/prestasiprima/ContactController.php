@@ -5,8 +5,11 @@ namespace App\Http\Controllers\prestasiprima;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\prestasiprima\ContactMessage;
+use App\Models\prestasiprima\PPuser;
 use App\Mail\NewContactMessageMail;
+use App\Notifications\prestasiprima\AdminAlert;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class ContactController extends Controller
 {
@@ -36,6 +39,19 @@ class ContactController extends Controller
             'pesan' => $validated['pesan'],
             'ip_address' => $request->ip(),
         ]);
+
+        // Kirim notifikasi ke sistem admin
+        try {
+            $admins = PPuser::all();
+            Notification::send($admins, new AdminAlert(
+                'Pesan Baru: ' . $message->nama,
+                substr($message->pesan, 0, 50) . '...',
+                'ri-mail-line',
+                route('prestasiprima.admin.contact.show', $message->id)
+            ));
+        } catch (\Exception $e) {
+            \Log::error('Failed to send admin notification: ' . $e->getMessage());
+        }
 
         // Kirim email notifikasi ke admin
         try {

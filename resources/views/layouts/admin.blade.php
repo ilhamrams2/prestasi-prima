@@ -59,25 +59,50 @@
             background: #cbd5e1;
             border-radius: 10px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+        /* Notification Responsive Fix */
+        @media (max-width: 640px) {
+            #notification-dropdown {
+                position: fixed !important;
+                left: 1rem !important;
+                right: 1rem !important;
+                top: 4.5rem !important;
+                width: auto !important;
+                max-width: none !important;
+                transform-origin: top !important;
+            }
         }
+
+        /* Hamburger Animation */
+        .hamburger-line {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .active .line-1 { transform: translateY(6px) rotate(45deg); }
+        .active .line-2 { opacity: 0; transform: translateX(-10px); }
+        .active .line-3 { transform: translateY(-6px) rotate(-45deg); }
     </style>
 </head>
 
-<body class="min-h-screen flex overflow-hidden">
+<body class="min-h-screen flex bg-slate-50">
+    {{-- Backdrop for mobile sidebar --}}
+    <div id="sidebar-backdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-20 invisible opacity-0 transition-opacity duration-300 lg:hidden"></div>
 
     {{-- ================= SIDEBAR ================= --}}
-    <aside class="w-72 bg-white border-r border-slate-100 flex flex-col fixed inset-y-0 left-0 z-30 transition-all duration-300">
+    <aside id="admin-sidebar" class="w-[280px] bg-white border-r border-slate-100 flex flex-col fixed inset-y-0 left-0 z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] shadow-2xl lg:shadow-none">
         {{-- Logo Section --}}
-        <div class="px-8 py-8 flex items-center gap-3">
-            <div class="w-10 h-10 bg-[#FF6B00] rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20">
-                <i class="ri-dashboard-fill text-white text-xl"></i>
+        <div class="px-8 py-8 flex items-center justify-between lg:justify-start gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20">
+                    <i class="ri-dashboard-fill text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-800 tracking-tight">Admin<span class="text-[#FF6B00]">PP</span></h1>
+                    <p class="text-[10px] text-slate-400 font-medium tracking-widest uppercase">Portal Management</p>
+                </div>
             </div>
-            <div>
-                <h1 class="text-xl font-bold text-slate-800 tracking-tight">Admin<span class="text-[#FF6B00]">PP</span></h1>
-                <p class="text-[10px] text-slate-400 font-medium tracking-widest uppercase">Portal Management</p>
-            </div>
+            {{-- Close Btn Mobile --}}
+            <button onclick="toggleMobileSidebar()" class="lg:hidden w-8 h-8 flex items-center justify-center text-slate-400 hover:text-red-500">
+                <i class="ri-close-line text-2xl"></i>
+            </button>
         </div>
 
         {{-- Navigation --}}
@@ -119,6 +144,15 @@
                         'items' => [
                             ['label' => 'Manajemen Staff', 'route' => 'prestasiprima.admin.staff.index', 'icon' => 'ri-user-settings-line', 'active' => str_contains($currentRoute, 'staff')],
                             ['label' => 'Kerjasama Industri', 'route' => 'prestasiprima.admin.industri.index', 'icon' => 'ri-building-2-line', 'active' => str_contains($currentRoute, 'industri')],
+                        ]
+                    ],
+                    [
+                        'category' => 'Sistem & Keamanan',
+                        'icon' => 'ri-settings-4-line',
+                        'items' => [
+                            ['label' => 'Log Aktivitas', 'route' => 'prestasiprima.admin.logs.index', 'icon' => 'ri-history-line', 'active' => str_contains($currentRoute, 'logs')],
+                            ['label' => 'Pengaturan Situs', 'route' => 'prestasiprima.admin.settings.index', 'icon' => 'ri-equalizer-line', 'active' => str_contains($currentRoute, 'settings')],
+                            ['label' => 'Backup & Database', 'route' => 'prestasiprima.admin.backup.index', 'icon' => 'ri-database-2-line', 'active' => str_contains($currentRoute, 'backup')],
                         ]
                     ],
                 ];
@@ -192,17 +226,56 @@
     </aside>
 
     {{-- ================= MAIN CONTENT ================= --}}
-    <main class="flex-1 ml-72 h-screen overflow-y-auto">
+    <main class="flex-1 lg:ml-72 min-h-screen">
         {{-- HEADER --}}
         <header class="glass-header sticky top-0 z-20 border-b border-slate-200/60 px-8 py-4">
             <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-xl font-bold text-slate-800">@yield('title')</h2>
-                    <p class="text-xs text-slate-500 mt-0.5 font-medium">Selamat datang kembali, Admin!</p>
+                <div class="flex items-center gap-4">
+                    {{-- Premium Hamburger --}}
+                    <button id="hamburger-trigger" onclick="toggleMobileSidebar()" class="lg:hidden w-11 h-11 bg-white border border-slate-200 rounded-2xl flex flex-col items-center justify-center gap-1.5 text-slate-500 shadow-sm hover:border-orange-500 hover:text-orange-500 transition-all active:scale-95">
+                        <span class="hamburger-line line-1 w-6 h-0.5 bg-current rounded-full"></span>
+                        <span class="hamburger-line line-2 w-4 h-0.5 bg-current rounded-full self-start ml-[7px]"></span>
+                        <span class="hamburger-line line-3 w-6 h-0.5 bg-current rounded-full"></span>
+                    </button>
+                    <div>
+                        <h2 class="text-lg md:text-xl font-bold text-slate-800 leading-tight">@yield('title')</h2>
+                        <p class="hidden sm:block text-xs text-slate-500 mt-0.5 font-medium">Selamat datang kembali, Admin!</p>
+                    </div>
                 </div>
                 
-                <div class="flex items-center gap-4">
-                    {{-- Notification Removed --}}
+                <div class="flex items-center gap-2 md:gap-4">
+                    {{-- Notification Bell --}}
+                    <div class="relative">
+                        <button onclick="toggleNotificationDropdown()" class="w-11 h-11 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-orange-500 hover:border-orange-500 transition-all relative group shadow-sm active:scale-95">
+                            <i class="ri-notification-3-line text-xl group-hover:animate-swing"></i>
+                            <span id="notification-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full border-2 border-white items-center justify-center hidden">
+                                0
+                            </span>
+                        </button>
+
+                        {{-- Notification Dropdown --}}
+                        <div id="notification-dropdown" class="absolute right-0 mt-4 w-80 md:w-96 bg-white rounded-[2rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] border border-slate-100 transform origin-top-right transition-all duration-300 opacity-0 scale-95 invisible z-[60] overflow-hidden">
+                            <div class="px-6 py-5 border-b border-slate-50 flex items-center justify-between bg-slate-50/30">
+                                <div>
+                                    <h3 class="text-sm font-bold text-slate-800">Notifikasi</h3>
+                                    <p class="text-[10px] text-slate-400 font-medium">Update terbaru dari sistem</p>
+                                </div>
+                                <button onclick="markAllNotificationsAsRead()" class="text-[10px] font-bold text-[#FF6B00] hover:text-[#E65100] transition-colors uppercase tracking-wider">Tandai Baca</button>
+                            </div>
+                            <div id="notification-list" class="max-h-96 overflow-y-auto divide-y divide-slate-50">
+                                {{-- Notifications will be loaded here via AJAX --}}
+                                <div class="p-8 text-center">
+                                    <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        <i class="ri-notification-off-line text-slate-300 text-xl"></i>
+                                    </div>
+                                    <p class="text-xs text-slate-400 font-medium italic">Tidak ada notifikasi baru</p>
+                                </div>
+                            </div>
+                            <div class="p-3 bg-slate-50/50 border-t border-slate-50 text-center">
+                                <a href="{{ route('prestasiprima.admin.logs.index') }}" class="text-[11px] font-bold text-slate-500 hover:text-[#FF6B00] transition-colors uppercase tracking-widest">Lihat Semua Aktivitas</a>
+                            </div>
+                        </div>
+                    </div>
                     
                     <div class="relative">
                         <div onclick="toggleProfileDropdown()" class="flex items-center gap-3 px-2 py-1.5 rounded-full hover:bg-slate-50 transition-colors cursor-pointer group select-none">
@@ -250,6 +323,29 @@
 
     {{-- Dropdown Toggle Script --}}
     <script>
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('admin-sidebar');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            const trigger = document.getElementById('hamburger-trigger');
+            const isHidden = sidebar.classList.contains('-translate-x-full');
+
+            if (isHidden) {
+                sidebar.classList.remove('-translate-x-full');
+                backdrop.classList.remove('invisible', 'opacity-0');
+                backdrop.classList.add('opacity-100');
+                trigger.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                backdrop.classList.add('opacity-0');
+                trigger.classList.remove('active');
+                setTimeout(() => {
+                    backdrop.classList.add('invisible');
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+        }
+
         function toggleDropdown(categoryId) {
             const dropdown = document.getElementById(categoryId);
             const arrow = document.getElementById('arrow-' + categoryId);
@@ -280,6 +376,8 @@
                 // Show
                 dropdown.classList.remove('invisible', 'opacity-0', 'scale-95');
                 arrow.classList.add('rotate-180');
+                // Hide other dropdowns if open
+                document.getElementById('notification-dropdown').classList.add('invisible', 'opacity-0', 'scale-95');
             } else {
                 // Hide
                 dropdown.classList.add('invisible', 'opacity-0', 'scale-95');
@@ -287,18 +385,138 @@
             }
         }
 
+        function toggleNotificationDropdown() {
+            const dropdown = document.getElementById('notification-dropdown');
+            
+            if (dropdown.classList.contains('invisible')) {
+                // Show
+                dropdown.classList.remove('invisible', 'opacity-0', 'scale-95');
+                // Hide other dropdowns if open
+                document.getElementById('profile-dropdown').classList.add('invisible', 'opacity-0', 'scale-95');
+                document.getElementById('profile-arrow').classList.remove('rotate-180');
+                
+                // Fetch notifications
+                fetchNotifications();
+            } else {
+                // Hide
+                dropdown.classList.add('invisible', 'opacity-0', 'scale-95');
+            }
+        }
+
+        async function fetchNotifications() {
+            try {
+                const response = await fetch('{{ route("prestasiprima.admin.notifications.index") }}');
+                const data = await response.json();
+                
+                const list = document.getElementById('notification-list');
+                const badge = document.getElementById('notification-badge');
+                
+                // Update badge
+                if (data.unreadCount > 0) {
+                    badge.textContent = data.unreadCount;
+                    badge.classList.remove('hidden');
+                    badge.classList.add('flex');
+                } else {
+                    badge.classList.add('hidden');
+                    badge.classList.remove('flex');
+                }
+
+                // Update list
+                if (data.notifications.length > 0) {
+                    let html = '';
+                    data.notifications.forEach(notif => {
+                        const date = new Date(notif.created_at).toLocaleString('id-ID', { hour: '2-digit', minute: '2-digit' });
+                        html += `
+                            <div class="px-6 py-4 hover:bg-slate-50 transition-colors group relative cursor-pointer" onclick="markNotificationRead('${notif.id}', '${notif.data.link || '#'}')">
+                                <div class="flex gap-4">
+                                    <div class="w-10 h-10 rounded-xl bg-orange-50 text-[#FF6B00] flex items-center justify-center flex-shrink-0 group-hover:bg-[#FF6B00] group-hover:text-white transition-all">
+                                        <i class="${notif.data.icon || 'ri-notification-3-line'} text-lg"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center justify-between mb-0.5">
+                                            <h4 class="text-xs font-bold text-slate-800 truncate pr-4">${notif.data.title}</h4>
+                                            <span class="text-[10px] text-slate-400 font-medium">${date}</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed">${notif.data.message}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    list.innerHTML = html;
+                } else {
+                    list.innerHTML = `
+                        <div class="p-8 text-center">
+                            <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="ri-notification-off-line text-slate-300 text-xl"></i>
+                            </div>
+                            <p class="text-xs text-slate-400 font-medium italic">Tidak ada notifikasi baru</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error fetching notifications:', error);
+            }
+        }
+
+        async function markNotificationRead(id, link) {
+            try {
+                await fetch(`{{ url('/prestasiprima/admin/notifications') }}/${id}/mark-read`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (link && link !== '#') {
+                    window.location.href = link;
+                } else {
+                    fetchNotifications();
+                }
+            } catch (error) {
+                console.error('Error marking as read:', error);
+            }
+        }
+
+        async function markAllNotificationsAsRead() {
+            try {
+                await fetch('{{ route("prestasiprima.admin.notifications.mark-all-read") }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                fetchNotifications();
+            } catch (error) {
+                console.error('Error marking all as read:', error);
+            }
+        }
+
+        // Initial fetch and set interval
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchNotifications();
+            setInterval(fetchNotifications, 60000); // 1 minute
+        });
+
         // Close dropdown when clicking outside
         document.addEventListener('click', function(event) {
-            const dropdown = document.getElementById('profile-dropdown');
-            const arrow = document.getElementById('profile-arrow');
-            const trigger = event.target.closest('[onclick="toggleProfileDropdown()"]');
+            const profileDropdown = document.getElementById('profile-dropdown');
+            const profileArrow = document.getElementById('profile-arrow');
+            const notificationDropdown = document.getElementById('notification-dropdown');
             
-            if (!trigger && !dropdown.contains(event.target) && !dropdown.classList.contains('invisible')) {
-                dropdown.classList.add('invisible', 'opacity-0', 'scale-95');
-                arrow.classList.remove('rotate-180');
+            const profileTrigger = event.target.closest('[onclick="toggleProfileDropdown()"]');
+            const notificationTrigger = event.target.closest('[onclick="toggleNotificationDropdown()"]');
+            
+            if (!profileTrigger && !profileDropdown.contains(event.target) && !profileDropdown.classList.contains('invisible')) {
+                profileDropdown.classList.add('invisible', 'opacity-0', 'scale-95');
+                profileArrow.classList.remove('rotate-180');
+            }
+
+            if (!notificationTrigger && !notificationDropdown.contains(event.target) && !notificationDropdown.classList.contains('invisible')) {
+                notificationDropdown.classList.add('invisible', 'opacity-0', 'scale-95');
             }
         });
     </script>
 </body>
-
 </html>

@@ -158,11 +158,23 @@
         opacity: 0.5;
     }
 
-    /* Bento Grid */
+    /* Bento Grid Responsive */
     .bento-grid {
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(1, 1fr);
         gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .bento-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .bento-grid {
+            grid-template-columns: repeat(6, 1fr);
+        }
     }
 
     .bento-item {
@@ -247,7 +259,7 @@
 
 @section('content')
 
-<div class="font-jakarta text-slate-900 bg-white">
+<div class="font-jakarta text-slate-900 bg-white overflow-x-hidden">
 
     <section class="relative min-h-[100vh] flex items-center pt-80 pb-20 overflow-hidden bg-white">
         <div class="absolute inset-0 dot-pattern opacity-[0.05] pointer-events-none"></div>
@@ -261,7 +273,7 @@
                         Admissions 2025
                     </div>
                     
-                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-[#E65100] leading-[1.1] mb-8 tracking-tight">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#E65100] leading-[1.1] mb-8 tracking-tight">
                         Wujudkan <br>
                         <span class="text-[#FF6B00]">Masa Depan</span> <br>
                         Digital Anda.
@@ -317,7 +329,7 @@
                     </div>
 
                     {{-- Simple Contact Trigger --}}
-                    <div class="absolute -top-6 -right-6 bg-white border border-orange-100 text-[#FF6B00] p-4 rounded-3xl shadow-xl flex items-center gap-3" data-aos="fade-down" data-aos-delay="700">
+                    <div class="absolute -top-6 -right-2 sm:-right-6 bg-white border border-orange-100 text-[#FF6B00] p-4 rounded-3xl shadow-xl flex items-center gap-3" data-aos="fade-down" data-aos-delay="700">
                         <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center">
                             <iconify-icon icon="solar:phone-bold" class="text-sm"></iconify-icon>
                         </div>
@@ -497,7 +509,7 @@
     {{-- ================= FINAL CTA ================= --}}
     <section class="py-40 bg-white relative text-center">
         <div class="max-w-4xl mx-auto px-6 relative z-10" data-aos="zoom-in">
-            <h2 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-8 leading-tight">
+            <h2 class="text-3xl sm:text-4xl md:text-6xl font-extrabold text-slate-900 mb-8 leading-tight">
                 Siap Menjadi Bagian dari <span class="text-[#FF6B00]">SMK Prestasi Prima?</span>
             </h2>
             <p class="text-gray-500 text-lg mb-12 max-w-2xl mx-auto">

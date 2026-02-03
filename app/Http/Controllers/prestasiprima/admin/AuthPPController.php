@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use App\Models\prestasiprima\ActivityLog;
+
 class AuthPPController extends Controller
 {
     public function showLoginForm()
@@ -29,6 +31,8 @@ class AuthPPController extends Controller
         if ($user && Hash::check($request->password, $user->password)) {
             Auth::guard('authPP')->login($user);
             $request->session()->regenerate();
+
+            ActivityLog::log('login', "Admin {$user->name} berhasil login");
 
             return redirect()->intended(route('prestasiprima.admin.dashboard'));
         }

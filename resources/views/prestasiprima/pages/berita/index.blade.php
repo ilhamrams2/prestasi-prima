@@ -21,13 +21,13 @@
   };
 @endphp
 
-<section class="bg-[#fafafa] relative z-10 pt-32 md:pt-40 pb-28 min-h-screen">
+<section class="bg-[#fafafa] relative z-10 pt-32 md:pt-40 pb-28 min-h-screen overflow-x-hidden">
   <div class="max-w-7xl mx-auto px-4 md:px-8">
 
     {{-- ================= HEADER & SEARCH ================= --}}
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16" data-aos="fade-down">
       <div class="max-w-2xl">
-        <h1 class="text-4xl md:text-6xl font-black text-gray-900 leading-tight tracking-tight">
+        <h1 class="text-3xl sm:text-4xl md:text-6xl font-black text-gray-900 leading-tight tracking-tight">
           Berita & <span class="text-orange-600">Update Terbaru</span>
         </h1>
         <p class="text-gray-500 mt-4 text-lg font-medium">
@@ -69,7 +69,7 @@
                     <span class="inline-block px-4 py-1.5 rounded-full bg-orange-600 text-white text-[10px] font-black uppercase tracking-widest mb-4 shadow-lg">
                         {{ $featured->category->name ?? 'Umum' }}
                     </span>
-                    <h2 class="text-2xl md:text-4xl lg:text-5xl font-black text-white leading-tight mb-4 group-hover:text-orange-50 transition-colors">
+                    <h2 class="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-black text-white leading-tight mb-4 group-hover:text-orange-50 transition-colors">
                         {{ $featured->title }}
                     </h2>
                     <div class="flex items-center gap-4 text-white/70 text-sm font-bold">
@@ -105,7 +105,7 @@
 
             {{-- VIDEO SECTION (Banner Style) --}}
             @if($videos->count() > 0)
-              <div class="bg-white border border-gray-100 rounded-[2.5rem] p-8 md:p-12 text-gray-900 relative overflow-hidden shadow-sm" data-aos="fade-up">
+              <div class="bg-white border border-gray-100 rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-12 text-gray-900 relative overflow-hidden shadow-sm" data-aos="fade-up">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-orange-100/50 blur-[100px] rounded-full"></div>
                 <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                   <div>
@@ -181,7 +181,7 @@
         
         {{-- TRENDING NEWS --}}
         @if($news->count() > 1)
-          <div class="bg-white rounded-[2.5rem] p-10 border border-gray-50 shadow-sm" data-aos="fade-left">
+          <div class="bg-white rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-10 border border-gray-50 shadow-sm" data-aos="fade-up">
             <h3 class="text-xl font-black text-gray-900 mb-8 flex items-center gap-3">
               <iconify-icon icon="lucide:trending-up" class="text-orange-600 text-2xl"></iconify-icon> Trending
             </h3>
@@ -204,7 +204,7 @@
         @endif
 
         {{-- CATEGORIES --}}
-        <div class="bg-white rounded-[2.5rem] p-10 border border-gray-50 shadow-sm relative overflow-hidden group" data-aos="fade-left">
+        <div class="bg-white rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-10 border border-gray-50 shadow-sm relative overflow-hidden group" data-aos="fade-up">
            <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-orange-50 blur-[80px] rounded-full group-hover:bg-orange-100 transition-all duration-700"></div>
            <h3 class="text-xl font-black text-gray-900 mb-8 flex items-center gap-3 relative z-10">
               <iconify-icon icon="lucide:grid" class="text-orange-500 text-2xl"></iconify-icon> Topik Hangat
@@ -220,7 +220,7 @@
         </div>
 
         {{-- NEWSLETTER / CTA --}}
-        <div class="bg-gradient-to-br from-orange-500 to-orange-400 rounded-[2.5rem] p-10 text-white shadow-2xl shadow-orange-200" data-aos="fade-left">
+        <div class="bg-gradient-to-br from-orange-500 to-orange-400 rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-10 text-white shadow-2xl shadow-orange-200" data-aos="fade-up">
            <iconify-icon icon="lucide:sparkles" class="text-5xl mb-6 opacity-30"></iconify-icon>
            <h3 class="text-2xl font-black mb-2 leading-tight">Jangan Lewatkan Cerita Menarik</h3>
            <p class="text-white/80 text-sm font-medium mb-8">Dapatkan update eksklusif dan berita terbaru langsung ke inbox Anda.</p>
