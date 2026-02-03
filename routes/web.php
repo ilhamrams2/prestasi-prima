@@ -48,6 +48,7 @@ use App\Http\Controllers\prestasiprima\admin\{
     AdminEkstrakurikulerController,
     AdminKaryaProyekController,
     AdminPasswordController,
+    AdminContactController,
     AuthPPController
 };
 
@@ -264,6 +265,16 @@ Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprim
         Route::post('/', 'store')->name('store');
         Route::get('/{id}/edit', 'edit')->name('edit');
         Route::put('/{id}', 'update')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
+    });
+
+    // === CONTACT / INBOX ===
+    Route::prefix('contact')->name('contact.')->controller(AdminContactController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/bulk-mark-read', 'bulkMarkAsRead')->name('bulk-mark-read');
+        Route::post('/bulk-delete', 'bulkDelete')->name('bulk-delete');
+        Route::get('/{id}', 'show')->name('show');
+        Route::post('/{id}/mark-read', 'markAsRead')->name('mark-read');
         Route::delete('/{id}', 'destroy')->name('destroy');
     });
 

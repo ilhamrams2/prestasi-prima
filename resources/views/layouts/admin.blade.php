@@ -99,6 +99,7 @@
                         'items' => [
                             ['label' => 'Manajemen Berita', 'route' => 'prestasiprima.admin.berita.index', 'icon' => 'ri-article-line', 'active' => str_contains($currentRoute, 'berita')],
                             ['label' => 'Manajemen Galeri', 'route' => 'prestasiprima.admin.gallery.index', 'icon' => 'ri-image-2-line', 'active' => str_contains($currentRoute, 'gallery')],
+                            ['label' => 'Inbox Pesan', 'route' => 'prestasiprima.admin.contact.index', 'icon' => 'ri-mail-line', 'active' => str_contains($currentRoute, 'contact')],
                             ['label' => 'Testimoni', 'route' => 'prestasiprima.admin.testimoni.index', 'icon' => 'ri-chat-voice-line', 'active' => str_contains($currentRoute, 'testimoni')],
                         ]
                     ],

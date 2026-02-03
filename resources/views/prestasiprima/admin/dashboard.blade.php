@@ -129,7 +129,7 @@
                                     <i class="ri-trophy-line text-[#FF6B00] text-lg"></i>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-bold text-slate-800 truncate">{{ $prestasi->title }}</p>
+                                    <p class="text-sm font-bold text-slate-800 truncate">{{ $prestasi->judul }}</p>
                                     <p class="text-[10px] text-slate-400 font-medium">{{ $prestasi->created_at->format('d M Y') }}</p>
                                 </div>
                             </div>
@@ -138,22 +138,50 @@
                 @else
                     <p class="text-slate-400 text-sm italic py-4 text-center">No data available</p>
                 @endif
-                <button class="w-full mt-6 py-3 px-4 bg-[#FF6B00] text-white rounded-2xl text-xs font-bold hover:bg-[#e66000] transition-all shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2">
+                <a href="{{ route('prestasiprima.admin.prestasi.index') }}" class="w-full mt-6 py-3 px-4 bg-[#FF6B00] text-white rounded-2xl text-xs font-bold hover:bg-[#e66000] transition-all shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2">
                     <i class="ri-bar-chart-line text-base"></i>
                     Lihat Semua Statistik
-                </button>
+                </a>
             </div>
         </div>
 
-        {{-- Help Card --}}
-        <div class="bg-gradient-to-br from-[#FF6B00] to-orange-700 rounded-[32px] p-8 text-white shadow-xl shadow-orange-500/10 relative overflow-hidden group">
-            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
-            <div class="relative z-10">
-                <i class="ri-question-line text-3xl mb-4 block"></i>
-                <h4 class="text-xl font-bold mb-2">Butuh Bantuan?</h4>
-                <p class="text-sm text-white/80 leading-relaxed mb-6">Jika anda mengalami kendala dalam penggunaan panel admin, silakan hubungi tim IT Support.</p>
-                <a href="#" class="inline-flex items-center gap-2 bg-white/20 hover:bg-white text-white hover:text-[#FF6B00] px-5 py-2.5 rounded-xl text-xs font-bold transition-all">
-                    Hubungi Support <i class="ri-arrow-right-line"></i>
+        {{-- Inbox Widget --}}
+        <div class="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">
+            <div class="px-8 py-6 border-b border-slate-50 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-slate-800 tracking-tight">Pesan Masuk</h3>
+                @if($unreadMessages > 0)
+                    <span class="bg-[#FF6B00] text-white text-xs font-bold px-2.5 py-1 rounded-full">{{ $unreadMessages }}</span>
+                @else
+                    <i class="ri-mail-line text-[#FF6B00] text-xl"></i>
+                @endif
+            </div>
+            <div class="p-6">
+                @if($latestMessages->isNotEmpty())
+                    <div class="space-y-4">
+                        @foreach($latestMessages as $message)
+                            <a href="{{ route('prestasiprima.admin.contact.show', $message->id) }}" class="flex items-start gap-3 p-3 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 {{ !$message->is_read ? 'bg-orange-50/50' : '' }}">
+                                <div class="w-10 h-10 bg-gradient-to-br from-[#FF6B00] to-orange-600 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold text-sm">
+                                    {{ strtoupper(substr($message->nama, 0, 1)) }}
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-0.5">
+                                        <p class="text-sm font-bold text-slate-800 truncate">{{ $message->nama }}</p>
+                                        @if(!$message->is_read)
+                                            <span class="w-2 h-2 bg-[#FF6B00] rounded-full"></span>
+                                        @endif
+                                    </div>
+                                    <p class="text-xs text-slate-600 line-clamp-1">{{ $message->pesan }}</p>
+                                    <p class="text-[10px] text-slate-400 font-medium mt-0.5">{{ $message->created_at->diffForHumans() }}</p>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
+                @else
+                    <p class="text-slate-400 text-sm italic py-4 text-center">Belum ada pesan</p>
+                @endif
+                <a href="{{ route('prestasiprima.admin.contact.index') }}" class="w-full mt-6 py-3 px-4 bg-[#FF6B00] text-white rounded-2xl text-xs font-bold hover:bg-[#e66000] transition-all shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2">
+                    <i class="ri-mail-line text-base"></i>
+                    Lihat Semua Pesan
                 </a>
             </div>
         </div>

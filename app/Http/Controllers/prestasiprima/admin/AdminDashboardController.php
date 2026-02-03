@@ -10,6 +10,7 @@ use App\Models\prestasiprima\News;
 use App\Models\prestasiprima\Kegiatan;
 use App\Models\prestasiprima\Prestasi; // <== perbaiki namespace
 use App\Models\prestasiprima\Staff;
+use App\Models\prestasiprima\ContactMessage;
 
 class AdminDashboardController extends Controller
 {
@@ -19,15 +20,22 @@ class AdminDashboardController extends Controller
         $totalKegiatan = Kegiatan::count();
         $totalPrestasi = Prestasi::count();
 
+        $totalStaff = Staff::count();
+        $unreadMessages = ContactMessage::unread()->count();
+
         $latestNews = News::latest()->take(5)->get();
         $latestPrestasi = Prestasi::latest()->take(5)->get();
+        $latestMessages = ContactMessage::latest()->take(3)->get();
 
         return view('prestasiprima.admin.dashboard', compact(
             'totalBerita',
             'totalKegiatan',
             'totalPrestasi',
+            'totalStaff',
+            'unreadMessages',
             'latestNews',
-            'latestPrestasi'
+            'latestPrestasi',
+            'latestMessages'
         ));
     }
 }
