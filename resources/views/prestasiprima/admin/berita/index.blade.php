@@ -51,7 +51,7 @@
                             <td class="px-5 py-5">
                                 <div class="relative w-16 h-16 group/img">
                                     @if ($item->thumbnail)
-                                        <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="thumbnail" 
+                                        <img src="{{ asset($item->thumbnail) }}" alt="thumbnail" 
                                              class="w-full h-full object-cover rounded-2xl shadow-sm border-2 border-white group-hover:scale-110 transition-transform duration-300">
                                     @else
                                         <div class="w-full h-full bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300 border-2 border-white">
@@ -95,7 +95,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" 
-                                                onclick="return confirm('Yakin ingin menghapus berita ini?')"
+                                                onclick="return confirmDelete(event)"
                                                 class="w-10 h-10 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-sm border border-red-100"
                                                 title="Hapus Berita">
                                             <i class="ri-delete-bin-6-line text-lg"></i>

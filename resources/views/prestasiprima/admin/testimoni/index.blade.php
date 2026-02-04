@@ -74,7 +74,7 @@
                                     <form action="{{ route('prestasiprima.admin.testimoni.destroy', $item->id) }}" method="POST" class="inline">
                                         @csrf @method('DELETE')
                                         <button type="submit" 
-                                                onclick="return confirm('Hapus testimoni ini?')"
+                                                onclick="return confirmDelete(event)"
                                                 class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-400 hover:bg-red-50 hover:text-red-600 transition-all shadow-sm"
                                                 title="Hapus">
                                             <i class="ri-delete-bin-line text-lg"></i>

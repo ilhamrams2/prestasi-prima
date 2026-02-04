@@ -13,7 +13,7 @@ class News extends Model
 
     protected $table = 'prestasiprima_news';
     protected $fillable = [
-        'title', 'slug', 'excerpt', 'content', 'thumbnail', 'category_id', 'author_id', 'views',
+        'title', 'slug', 'excerpt', 'content', 'thumbnail', 'category_id', 'status', 'author_id', 'views',
     ];
 
     // Relasi ke kategori

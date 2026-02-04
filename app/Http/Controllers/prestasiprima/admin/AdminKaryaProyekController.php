@@ -33,8 +33,10 @@ class AdminKaryaProyekController extends Controller
 
         $gambar = null;
         if ($request->hasFile('gambar')) {
-            $gambarPath = $request->file('gambar')->store('karya', 'public');
-            $gambar = basename($gambarPath);
+            $file = $request->file('gambar');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/images/karya-proyek'), $filename);
+            $gambar = $filename;
         }
 
         KaryaProyek::create([
@@ -68,11 +70,13 @@ class AdminKaryaProyekController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
-            if ($project->gambar && Storage::disk('public')->exists('karya/' . $project->gambar)) {
-                Storage::disk('public')->delete('karya/' . $project->gambar);
+            if ($project->gambar && file_exists(public_path('assets/images/karya-proyek/' . $project->gambar))) {
+                unlink(public_path('assets/images/karya-proyek/' . $project->gambar));
             }
-            $gambarPath = $request->file('gambar')->store('karya', 'public');
-            $project->gambar = basename($gambarPath);
+            $file = $request->file('gambar');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/images/karya-proyek'), $filename);
+            $project->gambar = $filename;
         }
 
         $project->update([
@@ -89,8 +93,8 @@ class AdminKaryaProyekController extends Controller
     public function destroy($id)
     {
         $project = KaryaProyek::findOrFail($id);
-        if ($project->gambar && Storage::disk('public')->exists('karya/' . $project->gambar)) {
-            Storage::disk('public')->delete('karya/' . $project->gambar);
+        if ($project->gambar && file_exists(public_path('assets/images/karya-proyek/' . $project->gambar))) {
+            unlink(public_path('assets/images/karya-proyek/' . $project->gambar));
         }
         $project->delete();
 

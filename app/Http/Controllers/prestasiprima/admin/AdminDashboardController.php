@@ -41,6 +41,22 @@ class AdminDashboardController extends Controller
         $latestPrestasi = Prestasi::latest()->take(5)->get();
         $latestMessages = ContactMessage::latest()->take(3)->get();
         $latestActivities = ActivityLog::latest()->take(6)->get();
+        
+        // Server Health (System Monitor)
+        $diskFree = disk_free_space("/") / (1024 * 1024 * 1024); // GB
+        $diskTotal = disk_total_space("/") / (1024 * 1024 * 1024); // GB
+        $diskUsedPercent = round((($diskTotal - $diskFree) / $diskTotal) * 100, 1);
+        
+        // RAM monitoring (Basic PHP check)
+        $memoryUsage = memory_get_usage(true) / (1024 * 1024); // MB
+        $memoryLimit = ini_get('memory_limit');
+        
+        $serverHealth = [
+            'disk_percent' => $diskUsedPercent,
+            'disk_free' => round($diskFree, 1),
+            'memory_usage' => round($memoryUsage, 1),
+            'php_version' => PHP_VERSION,
+        ];
 
         return view('prestasiprima.admin.dashboard', compact(
             'totalBerita',
@@ -55,7 +71,8 @@ class AdminDashboardController extends Controller
             'latestNews',
             'latestPrestasi',
             'latestMessages',
-            'latestActivities'
+            'latestActivities',
+            'serverHealth'
         ));
     }
 }

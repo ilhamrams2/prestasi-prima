@@ -17,7 +17,7 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
-        $newsQuery = News::with('category')->latest();
+        $newsQuery = News::with('category')->where('status', 'published')->latest();
 
         // 🔍 Pencarian
         if ($search = $request->get('search')) {
@@ -57,16 +57,18 @@ class NewsController extends Controller
      */
     public function detail(string $slug)
     {
-        $news = News::with('category')->where('slug', $slug)->firstOrFail();
+        $news = News::with('category')->where('slug', $slug)->where('status', 'published')->firstOrFail();
 
         $categories = Category::orderBy('name')->get();
 
         $hotNews = News::where('id', '!=', $news->id)
+                        ->where('status', 'published')
                         ->latest()
                         ->take(5)
                         ->get();
 
         $related = News::where('category_id', $news->category_id)
+                        ->where('status', 'published')
                         ->where('id', '!=', $news->id)
                         ->latest()
                         ->take(4)
@@ -74,11 +76,13 @@ class NewsController extends Controller
 
         // ⬅️ Berita Sebelumnya
         $previous = News::where('id', '<', $news->id)
+                        ->where('status', 'published')
                         ->orderBy('id', 'desc')
                         ->first();
 
         // ➡️ Berita Selanjutnya
         $next = News::where('id', '>', $news->id)
+                        ->where('status', 'published')
                         ->orderBy('id', 'asc')
                         ->first();
 

@@ -155,7 +155,7 @@
         @include('components.youtube-lite-script')
 
         <div class="relative text-center mt-5 sm:mt-6">
-          <a href="#galeri-video"
+          <a href="{{ url('/dokumentasi/gallery') }}"
             class="inline-block text-orange-600 font-semibold text-sm hover:text-orange-700">
             Lihat semua video →
           </a>

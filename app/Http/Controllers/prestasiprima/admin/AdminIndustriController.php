@@ -5,6 +5,7 @@ namespace App\Http\Controllers\prestasiprima\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\prestasiprima\Industri;
+use App\Services\prestasiprima\MediaService;
 
 class AdminIndustriController extends Controller
 {
@@ -27,7 +28,11 @@ class AdminIndustriController extends Controller
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048'
         ]);
 
-        $logoPath = $request->hasFile('logo') ? $request->file('logo')->store('industri', 'public') : null;
+        $logoPath = null;
+        if ($request->hasFile('logo')) {
+            $path = MediaService::upload($request->file('logo'), 'industri', 300);
+            $logoPath = $path; // Returns path relative to storage
+        }
 
         Industri::create([
             'nama' => $request->nama,
@@ -52,10 +57,10 @@ class AdminIndustriController extends Controller
         ]);
 
         if ($request->hasFile('logo')) {
-            if ($industri->logo && \Storage::disk('public')->exists($industri->logo)) {
-                \Storage::disk('public')->delete($industri->logo);
+            if ($industri->logo) {
+                MediaService::delete($industri->logo);
             }
-            $industri->logo = $request->file('logo')->store('industri', 'public');
+            $industri->logo = MediaService::upload($request->file('logo'), 'industri', 300);
         }
 
         $industri->nama = $request->nama;
@@ -67,8 +72,8 @@ class AdminIndustriController extends Controller
 
     public function destroy(Industri $industri)
     {
-        if ($industri->logo && \Storage::disk('public')->exists($industri->logo)) {
-            \Storage::disk('public')->delete($industri->logo);
+        if ($industri->logo) {
+            MediaService::delete($industri->logo);
         }
 
         $industri->delete();

@@ -103,7 +103,7 @@
             <!-- Logo Circle -->
             <div class="w-20 h-20 md:w-28 md:h-28 rounded-full bg-gray-50 group-hover:bg-white overflow-hidden shadow-inner group-hover:shadow-2xl transition-all duration-500 flex items-center justify-center mb-6 border border-gray-100 group-hover:border-orange-100">
               @if($item->gambar)
-                  <img src="{{ asset('storage/ekstrakurikuler/' . $item->gambar) }}" 
+                  <img src="{{ asset('assets/images/ekskul/' . $item->gambar) }}" 
                        alt="{{ $item->nama }}" 
                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               @else

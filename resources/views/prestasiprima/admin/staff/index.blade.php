@@ -90,7 +90,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" 
-                                                onclick="return confirm('Yakin ingin menghapus data staff ini?')"
+                                                onclick="return confirmDelete(event)"
                                                 class="w-10 h-10 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-sm border border-red-100"
                                                 title="Hapus">
                                             <i class="ri-delete-bin-6-line text-lg"></i>

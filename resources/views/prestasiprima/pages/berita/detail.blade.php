@@ -368,13 +368,27 @@
 
   @push('scripts')
     <script>
-      // Reading Progress Logic
-      window.onscroll = function() {
-        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        let scrolled = (winScroll / height) * 100;
-        document.getElementById("readingProgress").style.width = scrolled + "%";
-      };
+      // Reading Progress Logic (Optimized)
+      const progressBar = document.getElementById("readingProgress");
+      let ticking = false;
+
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          window.requestAnimationFrame(function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            
+            // Prevent division by zero
+            if (height > 0) {
+                let scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + "%";
+            }
+            
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
 
       const configBeritaDetail = { duration: 1000, once: true, offset: 50, easing: 'ease-out-expo' };
       if (window.initAOS) {

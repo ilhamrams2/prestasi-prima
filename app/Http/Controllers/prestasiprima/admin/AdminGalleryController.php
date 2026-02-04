@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\prestasiprima\PrestasiprimaGallery;
 use Illuminate\Support\Str;
+use App\Services\prestasiprima\MediaService;
+use Illuminate\Support\Facades\Storage;
 
 class AdminGalleryController extends Controller
 {
@@ -36,7 +38,8 @@ class AdminGalleryController extends Controller
 
         // Upload file image jika ada
         if ($request->hasFile('thumbnail') && $request->file('thumbnail')->isValid()) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('galleries', 'public');
+            $path = MediaService::upload($request->file('thumbnail'), 'galleries', 1200);
+            $data['thumbnail'] = 'storage/' . $path;
         }
 
         // Jika tipe video dan tidak ada thumbnail, ambil dari YouTube
@@ -71,7 +74,13 @@ class AdminGalleryController extends Controller
 
         // Upload file image jika ada
         if ($request->hasFile('thumbnail') && $request->file('thumbnail')->isValid()) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('galleries', 'public');
+            // Hapus yang lama jika ada
+            if ($gallery->thumbnail && str_starts_with($gallery->thumbnail, 'storage/')) {
+                $oldPath = str_replace('storage/', '', $gallery->thumbnail);
+                MediaService::delete($oldPath);
+            }
+            $path = MediaService::upload($request->file('thumbnail'), 'galleries', 1200);
+            $data['thumbnail'] = 'storage/' . $path;
         }
 
         // Jika tipe video dan tidak ada thumbnail, ambil dari YouTube
@@ -92,6 +101,13 @@ class AdminGalleryController extends Controller
     public function destroy($id)
     {
         $gallery = PrestasiprimaGallery::findOrFail($id);
+        
+        // Hapus thumbnail jika lokal
+        if ($gallery->thumbnail && str_starts_with($gallery->thumbnail, 'storage/')) {
+            $oldPath = str_replace('storage/', '', $gallery->thumbnail);
+            MediaService::delete($oldPath);
+        }
+
         $gallery->delete();
 
         return back()->with('success', 'Item galeri berhasil dihapus!');

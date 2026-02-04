@@ -29,6 +29,19 @@ class AuthPPController extends Controller
 
         // Cek user & password manual
         if ($user && Hash::check($request->password, $user->password)) {
+            // Cek status user
+            if ($user->status !== 'active') {
+                return back()->withErrors([
+                    'email' => 'Akun Anda dinonaktifkan. Silakan hubungi Super Admin.',
+                ])->onlyInput('email');
+            }
+
+            // Update login stats
+            $user->update([
+                'last_login_at' => now(),
+                'last_login_ip' => $request->ip(),
+            ]);
+
             Auth::guard('authPP')->login($user);
             $request->session()->regenerate();
 

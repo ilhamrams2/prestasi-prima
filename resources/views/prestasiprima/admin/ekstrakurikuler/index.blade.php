@@ -32,7 +32,7 @@
                 {{-- Visual --}}
                 <div class="relative h-48 overflow-hidden">
                     @if($item->gambar)
-                        <img src="{{ asset('storage/ekstrakurikuler/' . $item->gambar) }}" 
+                        <img src="{{ asset('assets/images/ekskul/' . $item->gambar) }}" 
                              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                     @else
                         <div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-300">

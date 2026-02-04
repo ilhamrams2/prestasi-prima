@@ -5,6 +5,7 @@ namespace App\Models\prestasiprima;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\prestasiprima\PPuser;
+use App\Events\ActivityLogged;
 
 class ActivityLog extends Model
 {
@@ -50,9 +51,9 @@ class ActivityLog extends Model
      */
     public static function log($action, $description = null, $model = null, $payload = null)
     {
-        $user = auth()->user();
+        $user = auth('authPP')->user();
         
-        return self::create([
+        $log = self::create([
             'user_id' => $user ? $user->id : null,
             'user_name' => $user ? $user->name : 'System',
             'action' => $action,
@@ -63,5 +64,9 @@ class ActivityLog extends Model
             'user_agent' => request()->userAgent(),
             'payload' => $payload,
         ]);
+
+        ActivityLogged::dispatch($log);
+
+        return $log;
     }
 }

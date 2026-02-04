@@ -455,7 +455,7 @@
         <p class="profile-body mb-12">
             Bergabunglah dengan komunitas kami. Ribuan alumni telah membuktikan bahwa Prestasi Prima adalah jembatan menuju mimpi mereka.
         </p>
-        <a href="{{ url('/testimoni') }}" class="pill-button group">
+        <a href="{{ url('/informasi/testimoni') }}" class="pill-button group">
             Lihat Testimoni Alumni
             <iconify-icon icon="solar:arrow-right-bold" class="ml-2 group-hover:translate-x-2 transition-transform"></iconify-icon>
         </a>

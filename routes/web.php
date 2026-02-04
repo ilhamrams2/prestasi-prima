@@ -53,6 +53,7 @@ use App\Http\Controllers\prestasiprima\admin\{
     AdminNotificationController,
     AdminSettingController,
     AdminBackupController,
+    AdminUserController,
     AuthPPController
 };
 
@@ -170,17 +171,15 @@ Route::prefix('authPP')->group(function () {
 
 Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprima.admin.')->group(function () {
 
-    // === DASHBOARD ===
-    Route::get('/dashboard', [AdminDashboardController::class, 'index'])
-        ->name('dashboard');
+    // === DASHBOARD (All Roles) ===
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-    // === PASSWORD ===
+    // === PASSWORD (All Roles) ===
     Route::get('/password/edit', [AdminPasswordController::class, 'edit'])->name('password.edit');
     Route::put('/password/update', [AdminPasswordController::class, 'update'])->name('password.update');
 
-
-    // === GALLERY ===
-    Route::prefix('gallery')->name('gallery.')->controller(AdminGalleryController::class)->group(function () {
+    // === USER MANAGEMENT (Super Admin Only) ===
+    Route::middleware(['role:super_admin'])->prefix('users')->name('users.')->controller(AdminUserController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
@@ -189,128 +188,159 @@ Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprim
         Route::delete('/{id}', 'destroy')->name('destroy');
     });
 
-    // === BERITA ===
-    Route::prefix('berita')->name('berita.')->controller(AdminNewsController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/', 'store')->name('store');
-        Route::get('/{id}/edit', 'edit')->name('edit');
-        Route::put('/{id}', 'update')->name('update');
-        Route::delete('/{id}', 'destroy')->name('destroy');
-        Route::get('/{id}', 'show')->name('show');
+    // === SETTINGS & BACKUP (Super Admin Only) ===
+    Route::middleware(['role:super_admin'])->group(function () {
+        // Settings
+        Route::prefix('settings')->name('settings.')->controller(AdminSettingController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::patch('/update', 'update')->name('update');
+            Route::post('/init', 'init')->name('init');
+        });
+
+        // Backup
+        Route::prefix('backup')->name('backup.')->controller(AdminBackupController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/create', 'create')->name('create');
+            Route::get('/download/{filename}', 'download')->name('download');
+            Route::delete('/{filename}', 'destroy')->name('destroy');
+        });
+
+        // Logs
+        Route::prefix('logs')->name('logs.')->controller(AdminLogController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/clear', 'clear')->name('clear');
+        });
     });
 
-    // === PRESTASI ===
-    Route::prefix('prestasi')->name('prestasi.')->controller(AdminPrestasiController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/', 'store')->name('store');
-        Route::get('/{id}', 'show')->name('show'); // route detail prestasi
-        Route::get('/{id}/edit', 'edit')->name('edit');
-        Route::put('/{id}', 'update')->name('update');
-        Route::delete('/{id}', 'destroy')->name('destroy');
+    // === CONTENT MANAGEMENT (Super Admin, Editor, Moderator, Viewer) ===
+    Route::middleware(['role:super_admin,editor,moderator,viewer'])->group(function () {
+        // Read-only access for most content sections
+        Route::get('/gallery', [AdminGalleryController::class, 'index'])->name('gallery.index');
+        Route::get('/berita', [AdminNewsController::class, 'index'])->name('berita.index');
+        Route::get('/berita/{id}', [AdminNewsController::class, 'show'])->name('berita.show');
+        Route::get('/prestasi', [AdminPrestasiController::class, 'index'])->name('prestasi.index');
+        Route::get('/prestasi/{id}', [AdminPrestasiController::class, 'show'])->name('prestasi.show');
+        Route::get('/kegiatan', [AdminKegiatanController::class, 'index'])->name('kegiatan.index');
+        Route::get('/industri', [AdminIndustriController::class, 'index'])->name('industri.index');
+        Route::get('/staff', [AdminStaffController::class, 'index'])->name('staff.index');
+        Route::get('/staff/{staff}', [AdminStaffController::class, 'show'])->name('staff.show');
+        Route::get('/testimoni', [AdminTestimoniController::class, 'index'])->name('testimoni.index');
+        Route::get('/ekstrakurikuler', [AdminEkstrakurikulerController::class, 'index'])->name('ekstrakurikuler.index');
+        Route::get('/karya', [AdminKaryaProyekController::class, 'index'])->name('karya.index');
     });
 
-    // === KEGIATAN ===
-    Route::prefix('kegiatan')->name('kegiatan.')->controller(AdminKegiatanController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/', 'store')->name('store');
-        Route::get('/{id}/edit', 'edit')->name('edit');
-        Route::put('/{id}', 'update')->name('update');
-        Route::delete('/{id}', 'destroy')->name('destroy');
+    // === CONTENT EDITING (Super Admin, Editor) ===
+    Route::middleware(['role:super_admin,editor'])->group(function () {
+        // Gallery
+        Route::prefix('gallery')->name('gallery.')->controller(AdminGalleryController::class)->group(function () {
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+        });
+
+        // Berita
+        Route::prefix('berita')->name('berita.')->controller(AdminNewsController::class)->group(function () {
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+        });
+
+        // Prestasi
+        Route::prefix('prestasi')->name('prestasi.')->controller(AdminPrestasiController::class)->group(function () {
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+        });
+
+        // Kegiatan
+        Route::prefix('kegiatan')->name('kegiatan.')->controller(AdminKegiatanController::class)->group(function () {
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+        });
+
+        // Industri
+        Route::prefix('industri')->name('industri.')->controller(AdminIndustriController::class)->group(function () {
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{industri}/edit', 'edit')->name('edit');
+            Route::put('/{industri}', 'update')->name('update');
+            Route::delete('/{industri}', 'destroy')->name('destroy');
+        });
+
+        // Staff
+        Route::prefix('staff')->name('staff.')->controller(AdminStaffController::class)->group(function () {
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{staff}/edit', 'edit')->name('edit');
+            Route::put('/{staff}', 'update')->name('update');
+            Route::delete('/{staff}', 'destroy')->name('destroy');
+        });
+
+        // Testimoni
+        Route::prefix('testimoni')->name('testimoni.')->controller(AdminTestimoniController::class)->group(function () {
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+        });
+
+        // Ekstrakurikuler
+        Route::prefix('ekstrakurikuler')->name('ekstrakurikuler.')->controller(AdminEkstrakurikulerController::class)->group(function () {
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+        });
+
+        // Karya
+        Route::prefix('karya')->name('karya.')->controller(AdminKaryaProyekController::class)->group(function () {
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+        });
     });
 
-    // === INDUSTRI ===
-    Route::prefix('industri')->name('industri.')->controller(AdminIndustriController::class)->group(function () {
-        Route::get('/', 'index')->name('index');           // list industri
-        Route::get('/create', 'create')->name('create');   // form tambah
-        Route::post('/', 'store')->name('store');          // simpan
-        Route::get('/{industri}/edit', 'edit')->name('edit');    // form edit
-        Route::put('/{industri}', 'update')->name('update');     // update
-        Route::delete('/{industri}', 'destroy')->name('destroy');// hapus
-    });
+    // === MODERATION / INBOX (Super Admin, Moderator) ===
+    Route::middleware(['role:super_admin,moderator'])->group(function () {
+        // Contact / Inbox
+        Route::prefix('contact')->name('contact.')->controller(AdminContactController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/bulk-mark-read', 'bulkMarkAsRead')->name('bulk-mark-read');
+            Route::post('/bulk-delete', 'bulkDelete')->name('bulk-delete');
+            Route::get('/{id}', 'show')->name('show');
+            Route::post('/{id}/mark-read', 'markAsRead')->name('mark-read');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+        });
 
-    // === STAFF ===
-    Route::prefix('staff')->name('staff.')->controller(AdminStaffController::class)->group(function () {
-        Route::get('/', 'index')->name('index');            // list staff
-        Route::get('/create', 'create')->name('create');    // form tambah staff
-        Route::post('/', 'store')->name('store');           // simpan staff baru
-        Route::get('/{staff}', 'show')->name('show');       // detail staff
-        Route::get('/{staff}/edit', 'edit')->name('edit');  // form edit staff
-        Route::put('/{staff}', 'update')->name('update');   // update staff
-        Route::delete('/{staff}', 'destroy')->name('destroy'); // hapus staff
-    });
+        // Notifications
+        Route::prefix('notifications')->name('notifications.')->controller(AdminNotificationController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/mark-all-read', 'markAllRead')->name('mark-all-read');
+            Route::post('/{id}/mark-read', 'markRead')->name('mark-read');
+        });
 
-    // === TESTIMONI ===
-    Route::prefix('testimoni')->name('testimoni.')->controller(AdminTestimoniController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/', 'store')->name('store');
-        Route::get('/{id}/edit', 'edit')->name('edit');
-        Route::put('/{id}', 'update')->name('update');
-        Route::delete('/{id}', 'destroy')->name('destroy');
-    });
-
-    // === EKSTRAKURIKULER ===
-    Route::prefix('ekstrakurikuler')->name('ekstrakurikuler.')->controller(AdminEkstrakurikulerController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/', 'store')->name('store');
-        Route::get('/{id}/edit', 'edit')->name('edit');
-        Route::put('/{id}', 'update')->name('update');
-        Route::delete('/{id}', 'destroy')->name('destroy');
-    });
-
-    // === KARYA ===
-    Route::prefix('karya')->name('karya.')->controller(AdminKaryaProyekController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/', 'store')->name('store');
-        Route::get('/{id}/edit', 'edit')->name('edit');
-        Route::put('/{id}', 'update')->name('update');
-        Route::delete('/{id}', 'destroy')->name('destroy');
-    });
-
-    // === CONTACT / INBOX ===
-    Route::prefix('contact')->name('contact.')->controller(AdminContactController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::post('/bulk-mark-read', 'bulkMarkAsRead')->name('bulk-mark-read');
-        Route::post('/bulk-delete', 'bulkDelete')->name('bulk-delete');
-        Route::get('/{id}', 'show')->name('show');
-        Route::post('/{id}/mark-read', 'markAsRead')->name('mark-read');
-        Route::delete('/{id}', 'destroy')->name('destroy');
-    });
-
-    // === ACTIVITY LOGS ===
-    Route::prefix('logs')->name('logs.')->controller(AdminLogController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::post('/clear', 'clear')->name('clear');
-    });
-
-    // === NOTIFICATIONS ===
-    Route::prefix('notifications')->name('notifications.')->controller(AdminNotificationController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::post('/mark-all-read', 'markAllRead')->name('mark-all-read');
-        Route::post('/{id}/mark-read', 'markRead')->name('mark-read');
-    });
-
-    // === SETTINGS ===
-    Route::prefix('settings')->name('settings.')->controller(AdminSettingController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::patch('/update', 'update')->name('update');
-        Route::post('/init', 'init')->name('init');
-    });
-
-    // === BACKUP ===
-    Route::prefix('backup')->name('backup.')->controller(AdminBackupController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::post('/create', 'create')->name('create');
-        Route::get('/download/{filename}', 'download')->name('download');
-        Route::delete('/{filename}', 'destroy')->name('destroy');
+        // Admin Chat
+        Route::prefix('chat')->name('chat.')->controller(\App\Http\Controllers\prestasiprima\AdminChatController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+        });
     });
 
 });
+
 
 
 

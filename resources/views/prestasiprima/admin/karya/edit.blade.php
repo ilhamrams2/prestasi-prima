@@ -36,7 +36,6 @@
                         <label class="block text-sm font-bold text-slate-700 tracking-tight">Kategori</label>
                         <input type="text" name="kategori" value="{{ old('kategori', $project->kategori) }}"
                                placeholder="Contoh: Game Development / Web App"
-                               class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800" required>
                                class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800" required>
                     </div>
                 </div>
@@ -47,7 +46,7 @@
                     <div class="flex flex-col md:flex-row items-center gap-6 p-6 bg-slate-50 border-2 border-dashed border-slate-200 rounded-[2rem] hover:border-orange-400 transition-colors group">
                         <div class="w-40 h-28 bg-white rounded-2xl flex-shrink-0 flex items-center justify-center shadow-sm overflow-hidden border border-slate-100 flex-col gap-1 relative">
                             @if($project->gambar)
-                                <img src="{{ asset('storage/karya/' . $project->gambar) }}" class="w-full h-full object-cover">
+                                <img src="{{ asset('assets/images/karya-proyek/' . $project->gambar) }}" class="w-full h-full object-cover">
                             @else
                                 {{-- Icon Removed --}}
                             @endif

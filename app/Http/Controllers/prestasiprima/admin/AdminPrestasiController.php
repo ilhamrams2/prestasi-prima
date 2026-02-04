@@ -5,7 +5,7 @@ namespace App\Http\Controllers\prestasiprima\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\prestasiprima\Prestasi;
-use Illuminate\Support\Facades\File;
+use App\Services\prestasiprima\MediaService;
 
 class AdminPrestasiController extends Controller
 {
@@ -38,10 +38,11 @@ class AdminPrestasiController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
-            $gambar = $request->file('gambar');
-            $namaFile = time() . '_' . $gambar->getClientOriginalName();
-            $gambar->move(public_path('storage/prestasi'), $namaFile);
-            $validated['gambar'] = 'prestasi/' . $namaFile;
+            $path = MediaService::upload($request->file('gambar'), 'prestasi', 800);
+            $validated['gambar'] = 'storage/' . $path; // Add storage prefix only for external access if needed, but usually just path
+            // Note: MediaService returns 'folder/filename.webp'. Prestasi Controller seems to use 'prestasi/filename' logic manually. 
+            // Let's stick to MediaService convention.
+            $validated['gambar'] = $path; 
         }
 
         Prestasi::create($validated);
@@ -74,17 +75,14 @@ class AdminPrestasiController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
-            // Hapus gambar lama dari folder publik
-            $pathLama = public_path('storage/' . $prestasi->gambar);
-            if (File::exists($pathLama)) {
-                File::delete($pathLama);
+            // Hapus gambar lama
+            if ($prestasi->gambar) {
+                MediaService::delete($prestasi->gambar);
             }
 
             // Upload gambar baru
-            $gambar = $request->file('gambar');
-            $namaFile = time() . '_' . $gambar->getClientOriginalName();
-            $gambar->move(public_path('storage/prestasi'), $namaFile);
-            $validated['gambar'] = 'prestasi/' . $namaFile;
+            $path = MediaService::upload($request->file('gambar'), 'prestasi', 800);
+            $validated['gambar'] = $path;
         }
 
         $prestasi->update($validated);
@@ -101,10 +99,9 @@ class AdminPrestasiController extends Controller
     {
         $prestasi = Prestasi::findOrFail($id);
 
-        // Hapus file gambar dari public/storage/
-        $path = public_path('storage/' . $prestasi->gambar);
-        if (File::exists($path)) {
-            File::delete($path);
+        // Hapus file gambar
+        if ($prestasi->gambar) {
+            MediaService::delete($prestasi->gambar);
         }
 
         $prestasi->delete();

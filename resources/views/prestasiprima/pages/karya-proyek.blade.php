@@ -124,7 +124,7 @@
             {{-- Image container with zoom effect --}}
             <div class="relative h-[280px] overflow-hidden rounded-t-[40px]">
               @if($project->gambar)
-                <img src="{{ asset('storage/karya/' . $project->gambar) }}" alt="{{ $project->judul }}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                <img src="{{ asset('assets/images/karya-proyek/' . $project->gambar) }}" alt="{{ $project->judul }}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
               @else
                 <div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-300">
                     <i class="ri-image-line text-6xl"></i>
@@ -220,7 +220,7 @@
     const content = document.getElementById('modalContent');
     const project = projects[index];
     const tagsArr = project.tags ? project.tags.split(',') : [];
-    const imageUrl = project.gambar ? `/storage/karya/${project.gambar}` : '';
+    const imageUrl = project.gambar ? `/assets/images/karya-proyek/${project.gambar}` : '';
 
     content.innerHTML = `
       <div class="flex flex-col gap-10">

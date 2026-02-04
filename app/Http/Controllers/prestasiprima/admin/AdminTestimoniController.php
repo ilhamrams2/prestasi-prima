@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\prestasiprima\Testimoni;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Services\prestasiprima\MediaService;
 
 class AdminTestimoniController extends Controller
 {
@@ -31,8 +32,8 @@ class AdminTestimoniController extends Controller
 
         $foto = null;
         if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('testimoni', 'public');
-            $foto = basename($fotoPath);
+            $path = MediaService::upload($request->file('foto'), 'testimoni', 400, 400);
+            $foto = basename($path);
         }
 
         Testimoni::create([
@@ -62,11 +63,11 @@ class AdminTestimoniController extends Controller
         ]);
 
         if ($request->hasFile('foto')) {
-            if ($testimoni->foto && Storage::disk('public')->exists('testimoni/' . $testimoni->foto)) {
-                Storage::disk('public')->delete('testimoni/' . $testimoni->foto);
+            if ($testimoni->foto) {
+                MediaService::delete('testimoni/' . $testimoni->foto);
             }
-            $fotoPath = $request->file('foto')->store('testimoni', 'public');
-            $testimoni->foto = basename($fotoPath);
+            $path = MediaService::upload($request->file('foto'), 'testimoni', 400, 400);
+            $testimoni->foto = basename($path);
         }
 
         $testimoni->update([
@@ -81,8 +82,8 @@ class AdminTestimoniController extends Controller
     public function destroy($id)
     {
         $testimoni = Testimoni::findOrFail($id);
-        if ($testimoni->foto && Storage::disk('public')->exists('testimoni/' . $testimoni->foto)) {
-            Storage::disk('public')->delete('testimoni/' . $testimoni->foto);
+        if ($testimoni->foto) {
+            MediaService::delete('testimoni/' . $testimoni->foto);
         }
         $testimoni->delete();
 

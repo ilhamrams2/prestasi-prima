@@ -44,7 +44,7 @@
                                 <div class="flex items-center gap-4">
                                     <div class="w-20 h-14 rounded-xl bg-slate-100 border border-slate-200 overflow-hidden flex-shrink-0">
                                         @if($item->gambar)
-                                            <img src="{{ asset('storage/karya/' . $item->gambar) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                            <img src="{{ asset('assets/images/karya-proyek/' . $item->gambar) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                                         @else
                                             <div class="w-full h-full flex items-center justify-center bg-orange-50 text-orange-500">
                                                 <i class="ri-image-line text-xl"></i>

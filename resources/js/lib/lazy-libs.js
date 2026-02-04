@@ -38,7 +38,7 @@ export const ensureSwiper = () => {
 
   if (!swiperPromise) {
     swiperPromise = Promise.all([
-      import('swiper/swiper-bundle.css'),
+      import('swiper/css/bundle'),
       import('swiper/bundle')
     ]).then(([_, module]) => {
       const Swiper = module.default;

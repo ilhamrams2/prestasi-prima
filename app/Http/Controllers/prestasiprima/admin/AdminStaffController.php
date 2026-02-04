@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\prestasiprima\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Services\prestasiprima\MediaService;
 
 class AdminStaffController extends Controller
 {
@@ -35,13 +36,16 @@ class AdminStaffController extends Controller
             'kutipan' => 'nullable|string|max:1000',
         ]);
 
-        $fotoPath = $request->file('foto')->store('staff', 'public');
+        if ($request->hasFile('foto')) {
+            $path = MediaService::upload($request->file('foto'), 'staff', 600);
+            $foto = basename($path);
+        }
 
         Staff::create([
             'nama' => $request->nama,
             'jabatan' => $request->jabatan,
             'kategori' => $request->kategori,
-            'foto' => basename($fotoPath),
+            'foto' => $foto,
             'kutipan' => $request->kutipan,
         ]);
 
@@ -72,11 +76,11 @@ class AdminStaffController extends Controller
         ]);
 
         if ($request->hasFile('foto')) {
-            if ($staff->foto && Storage::disk('public')->exists('staff/'.$staff->foto)) {
-                Storage::disk('public')->delete('staff/'.$staff->foto);
+            if ($staff->foto) {
+                MediaService::delete('staff/' . $staff->foto);
             }
-            $fotoPath = $request->file('foto')->store('staff', 'public');
-            $staff->foto = basename($fotoPath);
+            $path = MediaService::upload($request->file('foto'), 'staff', 600);
+            $staff->foto = basename($path);
         }
 
         $staff->update([

@@ -30,8 +30,10 @@ class AdminEkstrakurikulerController extends Controller
 
         $gambar = null;
         if ($request->hasFile('gambar')) {
-            $gambarPath = $request->file('gambar')->store('ekstrakurikuler', 'public');
-            $gambar = basename($gambarPath);
+            $file = $request->file('gambar');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/images/ekskul'), $filename);
+            $gambar = $filename;
         }
 
         Ekstrakurikuler::create([
@@ -59,11 +61,13 @@ class AdminEkstrakurikulerController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
-            if ($ekskul->gambar && Storage::disk('public')->exists('ekstrakurikuler/' . $ekskul->gambar)) {
-                Storage::disk('public')->delete('ekstrakurikuler/' . $ekskul->gambar);
+            if ($ekskul->gambar && file_exists(public_path('assets/images/ekskul/' . $ekskul->gambar))) {
+                unlink(public_path('assets/images/ekskul/' . $ekskul->gambar));
             }
-            $gambarPath = $request->file('gambar')->store('ekstrakurikuler', 'public');
-            $ekskul->gambar = basename($gambarPath);
+            $file = $request->file('gambar');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/images/ekskul'), $filename);
+            $ekskul->gambar = $filename;
         }
 
         $ekskul->update([
@@ -77,8 +81,8 @@ class AdminEkstrakurikulerController extends Controller
     public function destroy($id)
     {
         $ekskul = Ekstrakurikuler::findOrFail($id);
-        if ($ekskul->gambar && Storage::disk('public')->exists('ekstrakurikuler/' . $ekskul->gambar)) {
-            Storage::disk('public')->delete('ekstrakurikuler/' . $ekskul->gambar);
+        if ($ekskul->gambar && file_exists(public_path('assets/images/ekskul/' . $ekskul->gambar))) {
+            unlink(public_path('assets/images/ekskul/' . $ekskul->gambar));
         }
         $ekskul->delete();
 

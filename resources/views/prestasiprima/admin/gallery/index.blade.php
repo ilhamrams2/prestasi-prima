@@ -66,11 +66,11 @@
                                class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white text-slate-800 hover:bg-[#FF6B00] hover:text-white transition-all duration-300 shadow-xl">
                                 <i class="ri-edit-2-line text-xl"></i>
                             </a>
-                            <form action="{{ route('prestasiprima.admin.gallery.destroy', $gallery->id) }}" method="POST" 
-                                  onsubmit="return confirm('Yakin ingin menghapus media ini?')">
+                            <form action="{{ route('prestasiprima.admin.gallery.destroy', $gallery->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" 
+                                        onclick="return confirmDelete(event)"
                                         class="w-12 h-12 flex items-center justify-center rounded-2xl bg-white text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-xl">
                                     <i class="ri-delete-bin-6-line text-xl"></i>
                                 </button>

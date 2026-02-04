@@ -84,7 +84,7 @@
                     <div class="flex flex-col md:flex-row items-center gap-6 p-6 bg-slate-50 border-2 border-dashed border-slate-200 rounded-[2rem] hover:border-orange-400 transition-colors group">
                         <div class="w-40 h-28 bg-white rounded-2xl flex-shrink-0 flex items-center justify-center shadow-sm overflow-hidden border border-slate-100 flex-col gap-1 relative">
                             @if (!empty($news->thumbnail))
-                                <img src="{{ asset('storage/' . $news->thumbnail) }}" alt="Thumbnail" class="w-full h-full object-cover">
+                                <img src="{{ asset($news->thumbnail) }}" alt="Thumbnail" class="w-full h-full object-cover">
                             @else
                                 {{-- Icon Removed --}}
                             @endif

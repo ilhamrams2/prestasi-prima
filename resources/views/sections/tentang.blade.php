@@ -83,7 +83,7 @@
           </p>
 
           <div class="flex flex-wrap gap-6">
-            <a href="{{ url('/about/profile-sekolah') }}" class="group relative inline-flex items-center gap-4 bg-orange-600 px-10 py-5 rounded-2xl transition-all duration-500 hover:bg-orange-700 hover:-translate-y-1 shadow-[0_20px_40px_-10px_rgba(234,88,12,0.3)]">
+            <a href="{{ url('/tentang/profile-sekolah') }}" class="group relative inline-flex items-center gap-4 bg-orange-600 px-10 py-5 rounded-2xl transition-all duration-500 hover:bg-orange-700 hover:-translate-y-1 shadow-[0_20px_40px_-10px_rgba(234,88,12,0.3)]">
               <span class="text-xs font-black text-white uppercase tracking-widest">Eksplorasi Visi</span>
               <iconify-icon icon="solar:round-arrow-right-bold" class="text-white text-xl group-hover:translate-x-1 transition-transform"></iconify-icon>
             </a>

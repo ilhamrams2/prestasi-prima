@@ -8,6 +8,7 @@ use App\Models\prestasiprima\News;
 use App\Models\prestasiprima\Category;
 use App\Models\prestasiprima\ActivityLog;
 use Illuminate\Support\Str;
+use App\Services\prestasiprima\MediaService;
 
 class AdminNewsController extends Controller
 {
@@ -37,13 +38,19 @@ class AdminNewsController extends Controller
 
         $data = $request->only(['title', 'content', 'category_id']);
         $data['slug'] = Str::slug($request->title);
+        $data['author_id'] = auth('authPP')->id();
+
+        // Status logic
+        if (auth('authPP')->user()->isSuperAdmin() || auth('authPP')->user()->isModerator()) {
+            $data['status'] = $request->status ?? 'published';
+        } else {
+            $data['status'] = 'pending';
+        }
 
         // Upload thumbnail jika ada
         if ($request->hasFile('thumbnail')) {
-            $file = $request->file('thumbnail');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/thumbnails'), $filename);
-            $data['thumbnail'] = 'uploads/thumbnails/' . $filename;
+            $path = MediaService::upload($request->file('thumbnail'), 'thumbnails', 1200);
+            $data['thumbnail'] = 'storage/' . $path;
         }
 
         $news = News::create($data);
@@ -76,16 +83,23 @@ class AdminNewsController extends Controller
         $data = $request->only(['title', 'content', 'category_id']);
         $data['slug'] = Str::slug($request->title);
 
+        // Status logic - Only admin/moderator can change status
+        if (auth('authPP')->user()->isSuperAdmin() || auth('authPP')->user()->isModerator()) {
+            if ($request->has('status')) {
+                $data['status'] = $request->status;
+            }
+        }
+
         // Upload thumbnail baru dan hapus yang lama
         if ($request->hasFile('thumbnail')) {
-            if ($news->thumbnail && file_exists(public_path($news->thumbnail))) {
-                unlink(public_path($news->thumbnail));
+            // Hapus file lama
+            if ($news->thumbnail) {
+                $oldPath = str_replace('storage/', '', $news->thumbnail);
+                MediaService::delete($oldPath);
             }
 
-            $file = $request->file('thumbnail');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/thumbnails'), $filename);
-            $data['thumbnail'] = 'uploads/thumbnails/' . $filename;
+            $path = MediaService::upload($request->file('thumbnail'), 'thumbnails', 1200);
+            $data['thumbnail'] = 'storage/' . $path;
         }
 
         $news->update($data);
@@ -101,8 +115,9 @@ class AdminNewsController extends Controller
     {
         $news = News::findOrFail($id);
 
-        if ($news->thumbnail && file_exists(public_path($news->thumbnail))) {
-            unlink(public_path($news->thumbnail));
+        if ($news->thumbnail) {
+            $oldPath = str_replace('storage/', '', $news->thumbnail);
+            MediaService::delete($oldPath);
         }
 
         $news->delete();

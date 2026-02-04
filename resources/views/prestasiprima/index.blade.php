@@ -27,11 +27,10 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="@yield('title', 'SMK Prestasi Prima')">
   <meta name="twitter:description" content="@yield('meta_description', $defaultDescription)">
+  <meta name="theme-color" content="#FF6B00">
 
   {{-- === Fonts === --}}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  {{-- === Fonts (Locally Hosted via Vite) === --}}
 
   {{-- === Favicon === --}}
   <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-smk.png') }}">
@@ -56,6 +55,15 @@
       white-space: nowrap;
       border-width: 0;
     }
+    
+    /* Performance for HP Kentang */
+    img:not([loading="lazy"]) {
+        content-visibility: auto;
+    }
+    
+    .will-change-transform {
+        will-change: transform;
+    }
   </style> 
 
   @stack('styles')
@@ -68,14 +76,39 @@
     Lanjut ke Konten Utama
   </a>
 
-  {{-- ==================== PRELOADER ==================== --}}
-  <div id="pageLoader" role="status" aria-label="Loading page" class="fixed inset-0 bg-white flex flex-col items-center justify-center z-[9999] transition-opacity duration-700 ease-out">
-    <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo SMK Prestasi Prima" class="w-16 h-16 mb-4 animate-pulse select-none" loading="lazy">
-    <p id="loaderText" class="text-gray-700 font-semibold text-base">Sedang memuat halaman...</p>
-    <div class="mt-3 w-40 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-      <div class="h-full bg-orange-500 animate-loading-bar"></div>
+  {{-- ==================== MODERN PRELOADER (TECH ORBIT v3) ==================== --}}
+  <div id="pageLoader" class="fixed inset-0 bg-white z-[9999] flex flex-col items-center justify-center transition-all duration-1000 ease-[cubic-bezier(0.87,0,0.13,1)]">
+    
+    <!-- Tighter Orbit Container (Medium Size) -->
+    <div class="relative w-28 h-28 flex items-center justify-center mb-4">
+      
+      <!-- Tech Rings (Tight Fit) -->
+      <!-- Ring 1: Outer static-ish -->
+      <div class="absolute inset-0 border border-orange-100 rounded-full opacity-50"></div>
+      
+      <!-- Ring 2: Rotating Orange -->
+      <div class="absolute inset-[2px] border-t-[3px] border-r-[1px] border-orange-500 rounded-full animate-[spin_3s_linear_infinite]"></div>
+      
+      <!-- Ring 3: Counter-Rotating Darker -->
+      <div class="absolute inset-[6px] border-b-[3px] border-l-[1px] border-orange-600 rounded-full animate-[spin_2s_linear_infinite_reverse]"></div>
+
+      <!-- Logo (Fitted & Medium) -->
+      <div class="absolute inset-0 flex items-center justify-center z-10 p-3">
+        <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo" class="w-full h-full object-contain drop-shadow-md">
+      </div>
     </div>
+
+    <!-- Simple Text -->
+    <p class="text-[10px] font-black text-orange-600 tracking-[0.2em] uppercase animate-pulse">Sedang memuat halaman...</p>
+    
   </div>
+    @keyframes loading {
+      0% { left: -50%; width: 50%; }
+      50% { left: 25%; width: 75%; }
+      100% { left: 100%; width: 50%; }
+    }
+  </style>
+
 
   <div id="acc-content-wrapper" class="transition-all duration-300 bg-white min-h-screen relative z-10">
     {{-- ==================== HEADER ==================== --}}
@@ -91,11 +124,21 @@
   </div>
 
   {{-- ==================== SCRIPTS ==================== --}}
-  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
-  <script src="https://unpkg.com/lucide@latest" defer></script>
+  {{-- Scripts loaded via Vite --}}
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // === UNREGISTER/CLEANUP PWA SERVICE WORKER ===
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister().then(function(boolean) {
+                        console.log('Service Worker Unregistered:', boolean);
+                    });
+                }
+            });
+        }
+
   // === INIT AOS ===
   if (window.initAOS) {
     window.initAOS({ once: false, offset: 100, duration: 800, easing: 'ease-in-out' }).catch((error) => {
@@ -116,45 +159,49 @@
       link.classList.add("border-b-2", "border-orange-500");
   });
 
-  // === PRELOADER ===
-  const loader = document.getElementById("pageLoader");
-  const loaderText = document.getElementById("loaderText");
-
-  const pageMap = {
-    "/": "Sedang memuat halaman Beranda...",
-    "/tentang/program": "Sedang memuat halaman Program Keahlian...",
-    "/tentang/profile-sekolah": "Sedang memuat Profil Sekolah...",
-    "/tentang/staffmanagement": "Sedang memuat halaman Staff & Guru...",
-    "/tentang/sambutan": "Sedang memuat halaman Sambutan...",
-    "/siswa/prestasi": "Sedang memuat halaman Prestasi Siswa...",
-    "/siswa/ekstrakurikuler": "Sedang memuat halaman Ekstrakurikuler...",
-    "/siswa/penerimaan-siswa": "Sedang memuat halaman Penerimaan Siswa...",
-    "/siswa/karya-proyek": "Sedang memuat halaman Karya & Proyek Siswa...",
-    "/informasi/testimoni": "Sedang memuat halaman Testimoni Siswa...",
-    "/informasi/faq": "Sedang memuat halaman FAQ...",
-    "/informasi/industri": "Sedang memuat halaman Industri...",
-    "/dokumentasi/gallery": "Sedang memuat halaman Galeri...",
-    "/dokumentasi/berita": "Sedang memuat halaman Berita...",
-    "/dokumentasi/kegiatan": "Sedang memuat halaman Kegiatan...",
-
-    "/pendaftaran": "Sedang memuat halaman Pendaftaran..."
-  };
-
-  loaderText.textContent = pageMap[path] || "Sedang memuat halaman...";
-
-  const hideLoader = () => {
-    if (!loader) return;
-    loader.style.opacity = "0";
-    setTimeout(() => loader.remove(), 600);
-  };
-
-  if (document.readyState === "complete") {
-    requestAnimationFrame(hideLoader);
-  } else {
-    window.addEventListener("load", hideLoader, { once: true });
-    setTimeout(hideLoader, 1800);
-  }
 });
+  </script>
+
+  {{-- === ISOLATED PRELOADER SCRIPT (Guaranteed Execution) === --}}
+  <script>
+    (function() {
+        const loader = document.getElementById("pageLoader");
+        if (!loader) return;
+
+        // SETTING: Minimum display time in ms (e.g., 1500 = 1.5 seconds)
+        // This ensures the animation is viewed even on fast connections.
+        const minimumDuration = 1500; 
+        const startTime = Date.now();
+
+        function vanish() {
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = Math.max(0, minimumDuration - elapsedTime);
+
+            // Wait for the remaining time if page loaded too fast
+            setTimeout(() => {
+                loader.classList.add("opacity-0", "pointer-events-none");
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 1000); // Wait for CSS transition (1s)
+            }, remainingTime);
+        }
+
+        // Failsafe: If internet is fast, hide after minimal delay
+        // If slow, wait for load event
+        if (document.readyState === 'complete') {
+            vanish();
+        } else {
+            window.addEventListener('load', vanish);
+            // Backup if 'load' hangs
+            setTimeout(vanish, 5000); 
+        }
+
+        // BFCache fix (Back button)
+        window.addEventListener('pageshow', (e) => {
+            if (e.persisted) vanish();
+        });
+    })();
+  </script>
 
   </script>
 

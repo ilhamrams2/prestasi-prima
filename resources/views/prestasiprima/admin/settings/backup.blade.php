@@ -96,10 +96,12 @@
                                     <a href="{{ route('prestasiprima.admin.backup.download', $backup['name']) }}" class="w-11 h-11 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-[#FF6B00] hover:border-[#FF6B00] transition-all shadow-sm hover:shadow-orange-100 group/btn">
                                         <i class="ri-download-cloud-2-line text-xl group-hover/btn:scale-110 transition-transform"></i>
                                     </a>
-                                    <form action="{{ route('prestasiprima.admin.backup.destroy', $backup['name']) }}" method="POST" onsubmit="return confirm('Hapus file backup ini?')">
+                                    <form action="{{ route('prestasiprima.admin.backup.destroy', $backup['name']) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="w-11 h-11 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-red-500 hover:border-red-500 transition-all shadow-sm hover:shadow-red-500/10 group/btn">
+                                        <button type="submit" 
+                                                onclick="return confirmDelete(event, { title: 'Hapus Backup?', message: 'File cadangan ini akan dihapus permanen dari server.' })"
+                                                class="w-11 h-11 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-red-500 hover:border-red-500 transition-all shadow-sm hover:shadow-red-500/10 group/btn">
                                             <i class="ri-delete-bin-line text-xl group-hover/btn:scale-110 transition-transform"></i>
                                         </button>
                                     </form>
