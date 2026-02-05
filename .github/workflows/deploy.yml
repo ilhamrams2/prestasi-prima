@@ -1,24 +1,111 @@
-name: Deploy via FTP
+name: Deploy to Production
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch: # Manual trigger
 
 jobs:
   deploy:
+    name: Deploy to Production Server
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Upload files via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: ${{ secrets.FTP_PORT }}
-          server-dir: ${{ secrets.FTP_DIR }}
-          local-dir: "./"
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          
+      - name: Add Server to Known Hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+          
+      - name: Deploy to Server
+        env:
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          APP_PATH: ${{ secrets.APP_PATH }}
+        run: |
+          ssh $SERVER_USER@$SERVER_IP << 'ENDSSH'
+            set -e
+            
+            echo "🚀 Starting deployment..."
+            
+            # Navigate to application directory
+            cd ${{ secrets.APP_PATH }}
+            
+            # Enable maintenance mode
+            php artisan down || true
+            
+            # Pull latest changes
+            echo "📥 Pulling latest code..."
+            git fetch origin
+            git reset --hard origin/main
+            
+            # Install/update dependencies
+            echo "📦 Installing dependencies..."
+            composer install --no-dev --optimize-autoloader --no-interaction
+            
+            # Build assets
+            echo "🔨 Building assets..."
+            npm ci --production=false
+            npm run build
+            
+            # Run migrations
+            echo "🗄️ Running migrations..."
+            php artisan migrate --force
+            
+            # Clear and optimize
+            echo "⚡ Optimizing..."
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan event:cache
+            
+            # Generate API docs
+            php artisan l5-swagger:generate
+            
+            # Set permissions
+            echo "🔒 Setting permissions..."
+            chown -R www-data:www-data storage bootstrap/cache
+            chmod -R 775 storage bootstrap/cache
+            
+            # Restart services
+            echo "🔄 Restarting services..."
+            sudo systemctl restart reverb
+            sudo systemctl reload php8.3-fpm
+            sudo systemctl reload nginx
+            
+            # Disable maintenance mode
+            php artisan up
+            
+            echo "✅ Deployment completed successfully!"
+          ENDSSH
+          
+      - name: Health Check
+        run: |
+          sleep 5
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://${{ secrets.APP_URL }})
+          if [ $HTTP_CODE -eq 200 ] || [ $HTTP_CODE -eq 302 ]; then
+            echo "✅ Application is responding (HTTP $HTTP_CODE)"
+          else
+            echo "❌ Application returned HTTP $HTTP_CODE"
+            exit 1
+          fi
+          
+      - name: Notify on Success
+        if: success()
+        run: |
+          echo "✅ Deployment successful!"
+          # Add Slack/Discord webhook notification here if needed
+          
+      - name: Notify on Failure
+        if: failure()
+        run: |
+          echo "❌ Deployment failed!"
+          # Add Slack/Discord webhook notification here if needed

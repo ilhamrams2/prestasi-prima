@@ -3,7 +3,7 @@ SMK PRESTASI PRIMA WEB PORTAL
 
 What is this?
 -------------
-This is the central web platform for SMK Prestasi Prima. It handles the public website, student dashboard (PresmaBoard), administrative panels (AdminPP), and various interactive modules like the 360 Virtual Tour.
+This is the central web platform for SMK Prestasi Prima. It handles the public website, administrative panels (AdminPP), and various interactive modules like the 360 Virtual Tour.
 
 It is built on Laravel. It is fast. It is local.
 
@@ -74,16 +74,24 @@ Architecture & Philosophies
 3.  **Blade & Alpine**: We use server-side rendering with Blade and minimal JS sprinkling with Alpine.js. We do not use a massive SPA framework where it is not needed.
 4.  **Reverb**: We use Laravel Reverb for WebSockets. It replaces Pusher. It is self-hosted.
 
+Documentation
+-------------
+We take documentation seriously.
+
+- **System Documentation (Docusaurus)**: Run `cd documentation && npm start` and visit `http://localhost:3000`. It contains architecture, user manuals, and deployment guides.
+- **API Documentation (Swagger)**: Visit `http://localhost:8000/api/documentation` to see the OpenAPI spec.
+- **Deployment Scripts**: Use `./deploy.sh` for automated production deployment. Run `./pre-deploy-check.sh` before you ship.
+
 Directory Structure
 -------------------
 - `app/` - The core logic.
 - `resources/views/prestasiprima/` - The public facing site.
-- `resources/views/presmaboard/` - The student portal.
 - `resources/views/layouts/` - Admin layouts.
+- `documentation/` - System documentation (Docusaurus).
 
 Contribution
 ------------
-If you commit code that breaks the build, revert it immediately.
+Read `documentation/docs/contributing.md` before you start. If you commit code that breaks the build, revert it immediately.
 If you add a massive image without compressing it, shame on you.
 
 License

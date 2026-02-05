@@ -17,3 +17,55 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Laravel specific
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+/bootstrap/cache/*
+!.gitkeep
+
+# OS Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+*.sublime-project
+*.sublime-workspace
+.project
+.settings/
+*.tmproj
+.vscode/
+nbproject/
+
+# Backup & Temp
+*.bak
+*.tmp
+*.old
+.cache
+
+# Compiled assets
+/public/css/app.css
+/public/js/app.js
+/public/mix-manifest.json
+
+# Documentation build
+/documentation/build
+/documentation/node_modules
+/documentation/.docusaurus
+
+# Logs & Debug
+*.log
+storage/logs/*.log
+/storage/debugbar
+
+# Uploads (production will have different uploads)
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# Swagger generated
+/storage/api-docs

@@ -580,12 +580,27 @@
                 @endif
             @endforeach
 
-            <div class="pt-6">
-                <p class="px-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">External</p>
+                <p class="px-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">Eksternal</p>
+                
+                {{-- Swagger API Docs --}}
+                <a href="{{ url('/api/documentation') }}" target="_blank"
+                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-[#FF6B00] hover:bg-orange-50 transition-all duration-200 group">
+                    <i class="ri-book-read-line text-xl text-slate-400 group-hover:text-[#FF6B00]"></i>
+                    <span class="text-sm">Dokumentasi API</span>
+                </a>
+
+                {{-- Docusaurus / Project Docs --}}
+                <a href="http://localhost:3000" target="_blank"
+                    class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-[#FF6B00] hover:bg-orange-50 transition-all duration-200 group">
+                    <i class="ri-file-list-3-line text-xl text-slate-400 group-hover:text-[#FF6B00]"></i>
+                    <span class="text-sm">Dokumentasi Sistem</span>
+                </a>
+
+                {{-- Live Website --}}
                 <a href="/" target="_blank"
                     class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-[#FF6B00] hover:bg-orange-50 transition-all duration-200 group">
                     <i class="ri-external-link-line text-xl text-slate-400 group-hover:text-[#FF6B00]"></i>
-                    <span class="text-sm">Lihat Website</span>
+                    <span class="text-sm">Lihat Website Utama</span>
                 </a>
             </div>
         </nav>
