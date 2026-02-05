@@ -189,7 +189,7 @@
 </div>
 
 {{-- Scripts for Chart.js --}}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{{-- Scripts for Chart.js (Loaded via Internal Bundle) --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const ctx = document.getElementById('visitorChart').getContext('2d');

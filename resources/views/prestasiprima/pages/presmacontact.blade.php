@@ -78,7 +78,7 @@
         <div class="flex gap-3">
           <button type="submit"
             class="w-full py-3 bg-orange-600 hover:bg-orange-700 text-white text-base sm:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            <i class="fas fa-paper-plane mr-2"></i> Kirim Sekarang
+            <i class="ri-send-plane-2-fill mr-2"></i> Kirim Sekarang
           </button>
           <button type="reset"
             class="w-1/3 py-3 border border-gray-400 text-gray-700 hover:bg-gray-100 rounded-xl font-semibold transition-all duration-300">

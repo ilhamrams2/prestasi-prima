@@ -103,11 +103,7 @@
        data-aos="fade-left" data-aos-duration="1200" data-aos-delay="600">
 </section>
 
-<!-- ===== Styles & Scripts ===== -->
-<noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-</noscript>
-<script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+{{-- Swiper and Iconify are now loaded locally via Vite/app.js --}}
 
 <style>
   /* Swiper Navigation V3 - Premium Glass Look */

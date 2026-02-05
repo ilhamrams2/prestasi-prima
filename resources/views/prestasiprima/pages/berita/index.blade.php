@@ -239,10 +239,8 @@
 @include('components.youtube-lite-script')
 
 @push('styles')
-    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
-      
+      {{-- Plus Jakarta Sans is already loaded locally via app.js --}}
       body {
         font-family: 'Plus Jakarta Sans', sans-serif;
       }

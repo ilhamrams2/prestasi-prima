@@ -253,10 +253,8 @@
   </section>
 
   @push('styles')
-    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    {{-- Plus Jakarta Sans is already loaded locally via app.js --}}
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
-      
       body {
         font-family: 'Plus Jakarta Sans', sans-serif;
       }

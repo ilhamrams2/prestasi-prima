@@ -1,5 +1,5 @@
 @push('styles')
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:italic,wght@400;700&display=swap" rel="stylesheet">
+{{-- Playfair Display font is now loaded locally via Vite/app.js --}}
 <style>
     .serif-quote {
         font-family: 'Playfair Display', serif;

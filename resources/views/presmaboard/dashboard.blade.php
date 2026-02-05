@@ -174,18 +174,20 @@
             }
 
             function loadChartJsAndInit() {
-                if (typeof Chart !== 'undefined') { initCharts(); return; }
-                const s = document.createElement('script');
-                s.src = 'https://cdn.jsdelivr.net/npm/chart.js';
-                s.defer = true;
-                s.onload = initCharts;
-                document.head.appendChild(s);
+                // Chart.js should be available via resources/js/app.js => window.Chart
+                if (typeof Chart !== 'undefined') {
+                    initCharts();
+                } else {
+                    // Slight retry for async loading if necessary
+                    setTimeout(() => {
+                        if (typeof Chart !== 'undefined') initCharts();
+                    }, 500);
+                }
             }
 
             document.addEventListener('DOMContentLoaded', () => {
-                const canvases = document.querySelectorAll('canvas');
-                const needsCharts = Array.from(canvases).some(c => /^(nilaiChart|prestasiChart|spark)/.test(c.id));
-                if (needsCharts) loadChartJsAndInit();
+                // If not already scheduled
+                loadChartJsAndInit();
             });
         </script>
     @endsection

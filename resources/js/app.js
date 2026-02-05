@@ -20,7 +20,13 @@ import '@fontsource/inter/700.css';
 import 'remixicon/fonts/remixicon.css';
 import 'iconify-icon';
 import { createIcons, icons } from 'lucide';
+import Chart from 'chart.js/auto';
+import '@fontsource/playfair-display/400.css';
+import '@fontsource/playfair-display/400-italic.css';
+import '@fontsource/playfair-display/700.css';
+import '@fontsource/playfair-display/700-italic.css';
 
+window.Chart = Chart;
 window.lucide = { createIcons, icons };
 
 // === GSAP (Locally Hosted) ===
