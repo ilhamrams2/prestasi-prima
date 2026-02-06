@@ -479,7 +479,7 @@
                         'icon' => 'ri-home-5-line',
                         'roles' => ['super_admin', 'editor', 'moderator', 'viewer'],
                         'items' => [
-                            ['label' => 'Dashboard', 'route' => 'prestasiprima.admin.dashboard', 'icon' => 'ri-dashboard-line', 'active' => $currentRoute === 'prestasiprima.admin.dashboard'],
+                            ['label' => 'Dashboard', 'route' => 'prestasiprima.admin.dashboard', 'icon' => 'ri-dashboard-line', 'active' => $currentRoute === 'prestasiprima.admin.dashboard', 'roles' => ['super_admin', 'editor', 'moderator', 'viewer']],
                         ]
                     ],
                     [
