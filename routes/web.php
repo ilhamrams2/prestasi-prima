@@ -54,6 +54,7 @@ use App\Http\Controllers\prestasiprima\admin\{
     AdminSettingController,
     AdminBackupController,
     AdminUserController,
+    AdminMikrotikTrainerController,
     AuthPPController
 };
 
@@ -120,7 +121,7 @@ Route::prefix('informasi')->group(function () {
     Route::post('/traffic/calculate', [TrafficController::class, 'calculateDistance'])->name('traffic.calculate');
 
     Route::get('/lulusan-ptn', [LulusanPtnController::class, 'index'])->name('lulusan.ptn');
-    Route::view('/mikrotik-academy', 'mikrotik')->name('mikrotik');
+    Route::get('/mikrotik-academy', [\App\Http\Controllers\prestasiprima\MikrotikAcademyController::class, 'index'])->name('mikrotik');
 });
 
 
@@ -310,6 +311,16 @@ Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprim
             Route::get('/{id}/edit', 'edit')->name('edit');
             Route::put('/{id}', 'update')->name('update');
             Route::delete('/{id}', 'destroy')->name('destroy');
+        });
+
+        // Mikrotik Academy
+        Route::prefix('mikrotik')->name('mikrotik.')->controller(AdminMikrotikTrainerController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{trainer}/edit', 'edit')->name('edit');
+            Route::put('/{trainer}', 'update')->name('update');
+            Route::delete('/{trainer}', 'destroy')->name('destroy');
         });
     });
 

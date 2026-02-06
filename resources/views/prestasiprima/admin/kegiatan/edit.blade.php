@@ -32,6 +32,24 @@
                     @error('judul') <span class="text-xs text-red-500 font-bold ml-1">{{ $message }}</span> @enderror
                 </div>
 
+                {{-- Gambar --}}
+                <div class="space-y-4">
+                    <label class="block text-sm font-bold text-slate-700 tracking-tight">Gambar Kegiatan</label>
+                    <div class="flex items-start gap-6">
+                        @if($kegiatan->gambar)
+                        <div class="w-32 h-32 rounded-2xl overflow-hidden border border-slate-200 shrink-0">
+                            <img src="{{ asset('storage/' . $kegiatan->gambar) }}" alt="Current Image" class="w-full h-full object-cover">
+                        </div>
+                        @endif
+                        <div class="flex-1 space-y-2">
+                            <input type="file" name="gambar" accept="image/*"
+                                   class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800">
+                            <p class="text-[10px] text-slate-500 font-medium">*Unggah foto baru jika ingin mengganti gambar sebelumnya.</p>
+                            @error('gambar') <span class="text-xs text-red-500 font-bold ml-1">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                </div>
+
                 {{-- Waktu & Lokasi Grid --}}
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {{-- Tanggal --}}
@@ -75,7 +93,7 @@
                 <a href="{{ route('prestasiprima.admin.kegiatan.index') }}" 
                    class="px-8 py-3.5 rounded-2xl bg-white border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition-all text-center">Batal</a>
                 <button type="submit" 
-                        class="px-8 py-3.5 rounded-2xl bg-[#FF6B00] border border-orange-600 text-white font-bold text-sm hover:bg-[#e66000] transition-all shadow-lg shadow-orange-500/20 active:scale-95">
+                        class="px-8 py-3.5 rounded-2xl bg-[#E65100] border border-orange-700 text-white font-bold text-sm hover:bg-[#BF4300] transition-all shadow-lg shadow-orange-500/20 active:scale-95">
                     Update Agenda
                 </button>
             </div>

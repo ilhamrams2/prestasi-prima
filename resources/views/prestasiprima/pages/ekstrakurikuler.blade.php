@@ -30,8 +30,8 @@
     font-size: clamp(8rem, 25vw, 25rem);
     font-weight: 900;
     line-height: 1;
-    color: rgba(14, 22, 46, 0.02);
-    -webkit-text-stroke: 1px rgba(14, 22, 46, 0.05);
+    color: rgba(230, 81, 0, 0.05);
+    -webkit-text-stroke: 1px rgba(230, 81, 0, 0.15);
     white-space: nowrap;
     z-index: 0;
     pointer-events: none;
@@ -50,7 +50,7 @@
 <div class="bg-white overflow-hidden relative">
   
   {{-- ========== HERO SECTION ========== --}}
-  <section class="pt-48 pb-20 px-6 bg-white relative">
+  <section class="pt-24 md:pt-32 pb-20 px-6 bg-white relative">
     <div class="text-ghost top-24 -left-20">ACTIVITY</div>
     
     <div class="max-w-7xl mx-auto relative z-10">
@@ -84,40 +84,42 @@
   {{-- ========== GRID EKSTRAKURIKULER ========== --}}
   <section class="py-20 bg-gray-50/30 border-y border-gray-100 relative">
     <div class="max-w-7xl mx-auto px-6 relative">
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8" data-aos="fade-up" data-aos-delay="200">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-8" data-aos="fade-up" data-aos-delay="200">
 
         @foreach ($ekskulList as $index => $item)
         <div
-          class="group relative aspect-square rounded-[2rem] overflow-hidden bg-white shadow-lg hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 border border-gray-100"
+          class="group relative aspect-[4/5] sm:aspect-square rounded-[2rem] overflow-hidden bg-white shadow-md hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 border border-gray-100"
           data-aos="zoom-in" data-aos-delay="{{ $index * 30 }}"
         >
           <!-- Background Reveal Image (Subtle) -->
-          <div class="absolute inset-0 opacity-0 group-hover:opacity-10 scale-110 group-hover:scale-100 transition-all duration-1000 bg-cover bg-center"
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-5 scale-110 group-hover:scale-100 transition-all duration-1000 bg-cover bg-center"
                style="background-image: url('{{ asset('assets/images/gedung/gedungsiswa.avif') }}')"></div>
           
           <!-- Animated Aesthetic Gradient -->
           <div class="absolute -inset-2 bg-gradient-to-br from-orange-500/0 via-orange-500/0 to-orange-500/0 group-hover:from-orange-500/10 group-hover:via-transparent group-hover:to-orange-500/5 transition-all duration-700"></div>
 
           <!-- Main Content -->
-          <div class="relative h-full flex flex-col items-center justify-center p-6 z-10">
+          <div class="relative h-full flex flex-col items-center justify-center p-4 sm:p-6 z-10">
             <!-- Logo Circle -->
-            <div class="w-20 h-20 md:w-28 md:h-28 rounded-full bg-gray-50 group-hover:bg-white overflow-hidden shadow-inner group-hover:shadow-2xl transition-all duration-500 flex items-center justify-center mb-6 border border-gray-100 group-hover:border-orange-100">
+            <div class="w-24 h-24 md:w-36 md:h-36 flex-shrink-0 rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-500 flex items-center justify-center mb-6 border-4 border-white group-hover:border-orange-500/20 bg-gray-50">
               @if($item->gambar)
                   <img src="{{ asset('assets/images/ekskul/' . $item->gambar) }}" 
                        alt="{{ $item->nama }}" 
                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               @else
-                  <i class="ri-group-line text-4xl text-slate-300"></i>
+                  <div class="flex flex-col items-center gap-2 text-slate-300">
+                    <i class="ri-group-line text-4xl"></i>
+                  </div>
               @endif
             </div>
             
             <!-- Name Tracking -->
-            <h3 class="text-xs md:text-sm font-black text-gray-800 uppercase tracking-[0.2em] group-hover:text-orange-600 transition-colors text-center">
+            <h3 class="text-[10px] md:text-sm font-black text-gray-800 uppercase tracking-[0.15em] group-hover:text-orange-600 transition-colors text-center px-2">
               {{ $item->nama }}
             </h3>
 
             <!-- Decorative Line -->
-            <div class="w-0 group-hover:w-12 h-1 bg-orange-500 mt-4 rounded-full transition-all duration-500"></div>
+            <div class="w-0 group-hover:w-8 h-1 bg-orange-500 mt-3 rounded-full transition-all duration-500"></div>
           </div>
 
           <!-- Hover Pulse Glow -->
@@ -129,12 +131,21 @@
     </div>
   </section>
 
-  <!-- FOTO GEDUNG (tidak bisa diklik) -->
-  <section class="relative w-full bg-white overflow-hidden select-none pointer-events-none">
-    <img alt="Gedung SMK Prestasi Prima" 
-         class="w-full h-[40vh] sm:h-[55vh] lg:h-screen object-cover object-center hover:scale-[1.02] transition-transform duration-700" 
-         src="{{ asset('assets/images/gedung/gedung.avif') }}">
-  </section>
+    <section class="relative py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative rounded-[60px] overflow-hidden shadow-2xl group" data-aos="zoom-in">
+                <img src="{{ asset('assets/images/gedung/gedung.avif') }}" 
+                     alt="SMK Prestasi Prima" 
+                     class="w-full h-[60vh] object-cover transform transition-transform duration-1000 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#FF6B00]/60 to-transparent flex flex-col justify-end p-12 md:p-20">
+                    <h3 class="text-white text-4xl md:text-6xl font-black mb-4">Langkah Pertama <br> Menuju Sukses.</h3>
+                    <a href="{{ route('pendaftaran') }}" class="px-10 py-5 bg-white text-[#FF6B00] font-black rounded-2xl w-fit shadow-xl hover:bg-orange-50 transition-colors">
+                        Mulai Masa Depan Anda →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </div>
 

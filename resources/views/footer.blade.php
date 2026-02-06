@@ -293,8 +293,11 @@
       <p class="flex items-center gap-2 text-gray-400">
         <span>© {{ date('Y') }} SMK Prestasi Prima</span>
         <span class="mx-2 text-white/30">|</span>
-        <span>Oren Solution - <span class="font-medium text-white">Version 3.0</span></span>
-      </p>
+<span>
+  Oren Solution <span class="text-white/60">v3.0</span> 
+  <span class="mx-2 text-white/20">|</span> 
+  Developed by <span class="font-medium text-white">Ardy Albanna</span>
+</span>      </p>
       <p class="text-gray-500 text-sm text-center md:text-right">
         Dibuat oleh: <span class="text-orange-400 font-medium">Zwingli, Gibran, Abimanyu, Ardy</span>
       </p>

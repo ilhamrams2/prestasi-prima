@@ -30,8 +30,8 @@
     font-size: clamp(8rem, 25vw, 25rem);
     font-weight: 900;
     line-height: 1;
-    color: rgba(14, 22, 46, 0.02);
-    -webkit-text-stroke: 1px rgba(14, 22, 46, 0.05);
+    color: rgba(230, 81, 0, 0.05);
+    -webkit-text-stroke: 1px rgba(230, 81, 0, 0.15);
     white-space: nowrap;
     z-index: 0;
     pointer-events: none;
@@ -75,7 +75,7 @@
     background: #FFFFFF;
     border-radius: 48px;
     overflow: hidden;
-    border: 1px solid rgba(14, 22, 46, 0.05);
+    border: 1px solid rgba(230, 81, 0, 0.12);
     transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   }
 

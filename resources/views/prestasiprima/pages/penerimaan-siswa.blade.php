@@ -5,16 +5,16 @@
 @push('styles')
 <style>
     :root {
-        --action-orange: #FF6B00;
+        --action-orange: #E65100;
         --off-white-orange: #FDF7F2;
-        --deep-orange: #E65100;
+        --deep-orange: #BF4300;
         --soft-gray: #71717A;
     }
 
     .font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
     
     .dot-pattern {
-        background-image: radial-gradient(#FF6B00 0.5px, transparent 0.5px);
+        background-image: radial-gradient(#E65100 0.5px, transparent 0.5px);
         background-size: 24px 24px;
         opacity: 0.05;
     }
@@ -260,8 +260,7 @@
 @section('content')
 
 <div class="font-jakarta text-slate-900 bg-white overflow-x-hidden">
-
-    <section class="relative min-h-[100vh] flex items-center pt-80 pb-20 overflow-hidden bg-white">
+    <section class="relative min-h-[100vh] flex items-center pt-32 md:pt-48 pb-20 overflow-hidden bg-white">
         <div class="absolute inset-0 dot-pattern opacity-[0.05] pointer-events-none"></div>
         <div class="absolute -top-40 -right-20 w-[600px] h-[600px] bg-orange-50/50 rounded-full blur-3xl pointer-events-none"></div>
         
@@ -269,13 +268,13 @@
             <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
                 {{-- Content --}}
                 <div data-aos="fade-up" data-aos-duration="1000">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-orange-100 text-[#FF6B00] mb-8 font-black uppercase tracking-[0.2em] text-[10px]">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-orange-100 text-[#E65100] mb-8 font-black uppercase tracking-[0.2em] text-[10px]">
                         Admissions 2025
                     </div>
                     
                     <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#E65100] leading-[1.1] mb-8 tracking-tight">
                         Wujudkan <br>
-                        <span class="text-[#FF6B00]">Masa Depan</span> <br>
+                        <span class="text-[#E65100]">Masa Depan</span> <br>
                         Digital Anda.
                     </h1>
                     
@@ -284,24 +283,24 @@
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
-                        <a href="#daftar" class="px-10 py-5 bg-[#FF6B00] text-white font-bold rounded-2xl shadow-[0_15px_30px_rgba(255,107,0,0.3)] hover:shadow-orange-200 transition-all duration-300 transform hover:-translate-y-1">
+                        <a href="#daftar" class="px-10 py-5 bg-[#E65100] text-white font-bold rounded-2xl shadow-[0_15px_30px_rgba(255,107,0,0.3)] hover:shadow-orange-200 transition-all duration-300 transform hover:-translate-y-1">
                             Daftar Sekarang
                         </a>
                         <div class="flex items-center gap-4">
                             <div class="flex -space-x-4">
-                                <div class="w-10 h-10 rounded-full bg-orange-100 border-2 border-white flex items-center justify-center text-[#FF6B00]">
+                                <div class="w-10 h-10 rounded-full bg-orange-100 border-2 border-white flex items-center justify-center text-[#E65100]">
                                     <iconify-icon icon="solar:user-bold-duotone" class="text-xl"></iconify-icon>
                                 </div>
-                                <div class="w-10 h-10 rounded-full bg-[#FF6B00] border-2 border-white flex items-center justify-center text-white shadow-lg relative z-10">
+                                <div class="w-10 h-10 rounded-full bg-[#E65100] border-2 border-white flex items-center justify-center text-white shadow-lg relative z-10">
                                     <iconify-icon icon="solar:user-bold-duotone" class="text-xl"></iconify-icon>
                                 </div>
-                                <div class="w-10 h-10 rounded-full bg-orange-50 border-2 border-white flex items-center justify-center text-[#FF6B00]">
+                                <div class="w-10 h-10 rounded-full bg-orange-50 border-2 border-white flex items-center justify-center text-[#E65100]">
                                     <iconify-icon icon="solar:user-id-bold-duotone" class="text-xl"></iconify-icon>
                                 </div>
                             </div>
                             <div>
                                 <p class="text-[10px] font-black text-orange-400 uppercase tracking-widest leading-none mb-1">Community</p>
-                                <p class="text-sm font-bold text-[#FF6B00]">5k+ Alumni Sukses</p>
+                                <p class="text-sm font-bold text-[#E65100]">5k+ Alumni Sukses</p>
                             </div>
                         </div>
                     </div>
@@ -318,18 +317,18 @@
                     {{-- Single Clean Floating Card --}}
                     <div class="absolute -bottom-10 -left-6 lg:-left-12 hero-glass-card hidden sm:block border-orange-100" data-aos="fade-up" data-aos-delay="500">
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-2xl bg-[#FF6B00] flex items-center justify-center text-white shadow-soft">
+                            <div class="w-12 h-12 rounded-2xl bg-[#E65100] flex items-center justify-center text-white shadow-soft">
                                 <iconify-icon icon="solar:medal-star-bold-duotone" class="text-2xl"></iconify-icon>
                             </div>
                             <div>
-                                <p class="text-xs font-black text-[#FF6B00]">Sekolah Unggulan</p>
+                                <p class="text-xs font-black text-[#E65100]">Sekolah Unggulan</p>
                                 <p class="text-[10px] text-orange-400 font-bold uppercase tracking-widest">Akreditasi A+</p>
                             </div>
                         </div>
                     </div>
 
                     {{-- Simple Contact Trigger --}}
-                    <div class="absolute -top-6 -right-2 sm:-right-6 bg-white border border-orange-100 text-[#FF6B00] p-4 rounded-3xl shadow-xl flex items-center gap-3" data-aos="fade-down" data-aos-delay="700">
+                    <div class="absolute -top-6 -right-2 sm:-right-6 bg-white border border-orange-100 text-[#E65100] p-4 rounded-3xl shadow-xl flex items-center gap-3" data-aos="fade-down" data-aos-delay="700">
                         <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center">
                             <iconify-icon icon="solar:phone-bold" class="text-sm"></iconify-icon>
                         </div>
@@ -381,7 +380,7 @@
 
                 @foreach($jurusan as $item)
                 <div class="bg-white rounded-[24px] p-8 hover-lift border border-slate-100 text-center flex flex-col items-center card-shadow" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                    <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 text-[#FF6B00] icon-container transition-all duration-300">
+                    <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 text-[#E65100] icon-container transition-all duration-300">
                         <iconify-icon icon="{{ $item['icon'] }}" class="text-4xl"></iconify-icon>
                     </div>
                     <h3 class="text-gray-400 font-black text-sm uppercase tracking-widest mb-2">{{ $item['label'] }}</h3>
@@ -400,7 +399,7 @@
     <section id="daftar" class="py-32 bg-white overflow-hidden">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Alur <span class="text-[#FF6B00]">Pendaftaran</span></h2>
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Alur <span class="text-[#E65100]">Pendaftaran</span></h2>
                 <p class="text-gray-500 font-medium uppercase tracking-widest text-xs">Informasi prosedur registrasi calon siswa baru</p>
             </div>
 
@@ -440,7 +439,7 @@
     <section class="py-32 bg-off-white">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center md:text-left mb-16 max-w-2xl">
-                <h2 class="text-4xl md:text-5xl font-extrabold mb-6">Pasca <span class="text-[#FF6B00]">Pendaftaran</span></h2>
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-6">Pasca <span class="text-[#E65100]">Pendaftaran</span></h2>
                 <p class="text-gray-500 text-lg">Langkah-langkah krusial yang harus Anda perhatikan setelah menyelesaikan pengisian formulir pendaftaran.</p>
             </div>
 
@@ -448,7 +447,7 @@
                 {{-- Item 1 --}}
                 <div class="bento-item col-span-6 md:col-span-3 lg:col-span-2 bg-white card-shadow" data-aos="fade-up">
                     <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center mb-6">
-                        <span class="font-black text-[#FF6B00] text-xl">01</span>
+                        <span class="font-black text-[#E65100] text-xl">01</span>
                     </div>
                     <h4 class="font-bold text-lg mb-3">Verifikasi Status</h4>
                     <p class="text-slate-500 text-sm leading-relaxed">Pantau secara berkala dashboard Anda untuk melihat status verifikasi dokumen fisik dan digital.</p>
@@ -457,12 +456,12 @@
                 {{-- Item 2 (Accent) --}}
                 <div class="bento-item col-span-6 md:col-span-3 lg:col-span-4 bg-white border border-orange-100 card-shadow hover-lift" data-aos="fade-up" data-aos-delay="100">
                     <div class="flex flex-col md:flex-row gap-8 items-center h-full">
-                        <div class="shrink-0 w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center text-[#FF6B00] icon-container transition-all duration-300">
+                        <div class="shrink-0 w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center text-[#E65100] icon-container transition-all duration-300">
                              <iconify-icon icon="solar:user-speak-bold-duotone" class="text-5xl"></iconify-icon>
                         </div>
                         <div>
                             <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center mb-4">
-                                <span class="font-black text-[#FF6B00] text-xl">02</span>
+                                <span class="font-black text-[#E65100] text-xl">02</span>
                             </div>
                             <h4 class="font-bold text-xl mb-3 text-slate-800">Tes Psikotes & Wawancara</h4>
                             <p class="text-slate-500 text-sm leading-relaxed">Ikuti rangkaian tes minat dan bakat sesuai dengan jadwal yang telah ditentukan oleh panitia pendaftaran melalui portal pendaftaran.</p>
@@ -471,9 +470,9 @@
                 </div>
 
                 {{-- Item 3 --}}
-                <div class="bento-item col-span-6 md:col-span-4 lg:col-span-3 bg-orange-50/50" data-aos="fade-up" data-aos-delay="200">
-                     <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 shadow-sm">
-                        <span class="font-black text-[#FF6B00] text-xl">03</span>
+                <div class="bento-item col-span-6 md:col-span-4 lg:col-span-3 bg-white card-shadow shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                     <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center mb-6">
+                        <span class="font-black text-[#E65100] text-xl">03</span>
                     </div>
                     <h4 class="font-bold text-lg mb-3">Hasil Seleksi Sementara</h4>
                     <p class="text-slate-500 text-sm leading-relaxed">Dapatkan transparansi data melalui sistem pemantauan hasil seleksi sementara yang diupdate secara real-time berdasarkan scoring nilai.</p>
@@ -482,14 +481,14 @@
                 {{-- Item 4 --}}
                 <div class="bento-item col-span-6 md:col-span-2 lg:col-span-3 bg-white card-shadow" data-aos="fade-up" data-aos-delay="300">
                     <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center mb-6">
-                        <span class="font-black text-[#FF6B00] text-xl">04</span>
+                        <span class="font-black text-[#E65100] text-xl">04</span>
                     </div>
                     <h4 class="font-bold text-lg mb-3">Informasi Kelulusan</h4>
                     <p class="text-slate-500 text-sm leading-relaxed">Pengumuman resmi kelulusan akan diterbitkan melalui WhatsApp Gateway dan email resmi sekolah.</p>
                 </div>
 
                 {{-- Item 5 (Wide) --}}
-                <div class="bento-item col-span-6 bg-[#FF6B00] text-white" data-aos="fade-up" data-aos-delay="400">
+                <div class="bento-item col-span-6 bg-[#E65100] text-white" data-aos="fade-up" data-aos-delay="400">
                     <div class="flex flex-col md:flex-row justify-between items-center gap-6">
                         <div class="flex items-center gap-6">
                             <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center font-black text-2xl">05</div>
@@ -498,7 +497,7 @@
                                 <p class="text-orange-50 opacity-90">Selesaikan proses administratif akhir untuk mengamankan kursi Anda di T.A {{ date('n') >= 7 ? (date('Y') + 1) . '/' . (date('Y') + 2) : date('Y') . '/' . (date('Y') + 1) }}.</p>
                             </div>
                         </div>
-                        <a href="#" class="px-8 py-4 bg-white text-[#FF6B00] font-black rounded-xl hover:bg-orange-50 transition-colors">Unduh Panduan →</a>
+                        <a href="#" class="px-8 py-4 bg-white text-[#E65100] font-black rounded-xl hover:bg-orange-50 transition-colors">Unduh Panduan →</a>
                     </div>
                 </div>
             </div>
@@ -510,17 +509,17 @@
     <section class="py-40 bg-white relative text-center">
         <div class="max-w-4xl mx-auto px-6 relative z-10" data-aos="zoom-in">
             <h2 class="text-3xl sm:text-4xl md:text-6xl font-extrabold text-slate-900 mb-8 leading-tight">
-                Siap Menjadi Bagian dari <span class="text-[#FF6B00]">SMK Prestasi Prima?</span>
+                Siap Menjadi Bagian dari <span class="text-[#E65100]">SMK Prestasi Prima?</span>
             </h2>
             <p class="text-gray-500 text-lg mb-12 max-w-2xl mx-auto">
                 Jadilah bagian dari sekolah yang mendukung potensi dan kreativitas Anda. Langkah pertama menuju masa depan gemilang dimulai di sini.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
                 <a href="/pendaftaran" 
-                   class="px-12 py-5 bg-[#FF6B00] text-white font-black rounded-2xl shadow-[0_20px_40px_rgba(255,107,0,0.3)] hover:scale-105 transition-transform duration-300">
+                   class="px-12 py-5 bg-[#E65100] text-white font-black rounded-2xl shadow-[0_20px_40px_rgba(255,107,0,0.3)] hover:scale-105 transition-transform duration-300">
                   Amankan Kursi Sekarang
                 </a>
-                <a href="https://wa.me/6285195928886" target="_blank" class="font-bold text-slate-500 hover:text-[#FF6B00] transition-colors">
+                <a href="https://wa.me/6285195928886" target="_blank" class="font-bold text-slate-500 hover:text-[#E65100] transition-colors">
                     Hubungi Admin Admissions →
                 </a>
             </div>

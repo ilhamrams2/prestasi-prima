@@ -4,7 +4,8 @@ namespace App\Http\Controllers\prestasiprima\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Prestasiprima\Kegiatan;
+use App\Models\prestasiprima\Kegiatan;
+use Illuminate\Support\Facades\Storage;
 
 class AdminKegiatanController extends Controller
 {
@@ -32,19 +33,20 @@ class AdminKegiatanController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
             'jam' => 'required',
             'tempat' => 'required|string|max:255',
         ]);
 
-        Kegiatan::create([
-            'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi,
-            'tanggal' => $request->tanggal,
-            'jam' => $request->jam,
-            'tempat' => $request->tempat,
-        ]);
+        $data = $request->all();
+
+        if ($request->hasFile('gambar')) {
+            $data['gambar'] = $request->file('gambar')->store('kegiatan', 'public');
+        }
+
+        Kegiatan::create($data);
 
         return redirect()->route('prestasiprima.admin.kegiatan.index')
             ->with('success', 'Kegiatan berhasil ditambahkan!');
@@ -68,19 +70,24 @@ class AdminKegiatanController extends Controller
 
         $request->validate([
             'judul' => 'required|string|max:255',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
             'jam' => 'required',
             'tempat' => 'required|string|max:255',
         ]);
 
-        $kegiatan->update([
-            'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi,
-            'tanggal' => $request->tanggal,
-            'jam' => $request->jam,
-            'tempat' => $request->tempat,
-        ]);
+        $data = $request->all();
+
+        if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada
+            if ($kegiatan->gambar) {
+                Storage::disk('public')->delete($kegiatan->gambar);
+            }
+            $data['gambar'] = $request->file('gambar')->store('kegiatan', 'public');
+        }
+
+        $kegiatan->update($data);
 
         return redirect()->route('prestasiprima.admin.kegiatan.index')
             ->with('success', 'Kegiatan berhasil diperbarui!');
@@ -92,6 +99,9 @@ class AdminKegiatanController extends Controller
     public function destroy($id)
     {
         $kegiatan = Kegiatan::findOrFail($id);
+        if ($kegiatan->gambar) {
+            Storage::disk('public')->delete($kegiatan->gambar);
+        }
         $kegiatan->delete();
 
         return redirect()->route('prestasiprima.admin.kegiatan.index')

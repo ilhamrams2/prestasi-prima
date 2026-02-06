@@ -152,7 +152,8 @@
         </div>
     </section>
 
-    {{-- ====================== CERTIFIED TRAINER SECTION (ELITE SPOTLIGHT REFACTOR) ====================== --}}
+    {{-- ====================== CERTIFIED TRAINER SECTION (DYNAMIC REFACTOR) ====================== --}}
+    @foreach($trainers as $trainer)
     <section class="py-32 px-6 bg-white overflow-hidden border-t border-gray-50">
         <div class="max-w-7xl mx-auto">
             <div class="relative bg-gray-50 rounded-[4rem] p-10 md:p-16 lg:p-24 overflow-hidden border border-gray-100" data-aos="fade-up">
@@ -172,12 +173,12 @@
                             {{-- Main Photo Container --}}
                             <div class="relative rounded-[3rem] overflow-hidden shadow-2xl bg-white p-3 border border-gray-100 transform -rotate-2 transition-transform duration-700 hover:rotate-0">
                                 <div class="aspect-square rounded-[2rem] overflow-hidden bg-gray-100 shadow-inner">
-                                    <img src="{{ asset('assets/images/mikrotik/lana.jpeg') }}" alt="Trainer Ahmad Maulana" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                                    <img src="{{ asset('storage/mikrotik/trainers/' . $trainer->photo) }}" alt="Trainer {{ $trainer->name }}" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
                                 </div>
                             </div>
 
                             {{-- Absolute Badge --}}
-                            <div class="absolute -bottom-6 -right-6 w-20 h-20 bg-orange-600 rounded-3xl flex items-center justify-center text-white shadow-2xl rotate-12">
+                            <div class="absolute -bottom-6 -right-6 w-20 h-20 bg-[#F58220] rounded-3xl flex items-center justify-center text-white shadow-2xl rotate-12">
                                 <iconify-icon icon="solar:verified-check-bold" class="text-4xl"></iconify-icon>
                             </div>
                         </div>
@@ -187,45 +188,50 @@
                     <div class="flex-grow text-center lg:text-left">
                         {{-- Small Context Label --}}
                         <div class="mb-8">
-                            <span class="px-6 py-2 rounded-2xl bg-orange-600 text-white text-[10px] font-black uppercase tracking-[0.25em] shadow-xl shadow-orange-950/20">
-                                Certified Pro Instructor
+                            <span class="px-6 py-2 rounded-2xl bg-[#F58220] text-white text-[10px] font-black uppercase tracking-[0.25em] shadow-xl shadow-orange-950/20">
+                                {{ $trainer->role }}
                             </span>
                         </div>
                         
                         {{-- Hero Name --}}
                         <h2 class="text-5xl md:text-7xl font-bold text-gray-950 tracking-tighter mb-6 leading-[0.9]">
-                           Achmad Maulana, <br class="hidden md:block"> 
-                            <span class="text-orange-600 font-black">S.Kom.</span>
+                           {{ explode(',', $trainer->name)[0] }}, <br class="hidden md:block"> 
+                            <span class="text-[#F58220] font-black">{{ $trainer->title }}</span>
                         </h2>
                         
                         {{-- Subtitle/Role --}}
                         <p class="text-xl md:text-2xl text-gray-400 font-medium max-w-xl mb-12 leading-relaxed">
-                            Membimbing generasi muda menguasai 
-                            <span class="text-gray-900 font-bold block md:inline underline decoration-orange-300 decoration-4 underline-offset-8">Network Engineering Internasional.</span>
+                            {{ $trainer->description }}
                         </p>
 
-                        {{-- Authority Proof (The Certificate Card) --}}
-                        <div class="inline-flex flex-col md:flex-row items-center gap-8 p-6 bg-white rounded-[2.5rem] shadow-xl shadow-gray-200 border border-gray-50 group hover:scale-[1.02] transition-all duration-500">
-                            {{-- Certificate Preview --}}
-                            <a href="{{ asset('assets/images/mikrotik/sertifikat.jpeg') }}" class="glightbox w-36 shrink-0 aspect-[1.414/1] bg-gray-50 rounded-xl overflow-hidden border border-gray-100 relative shadow-sm group/cert block">
-                                <img src="{{ asset('assets/images/mikrotik/sertifikat.jpeg') }}" alt="MTCNA Certificate Preview" class="w-full h-full object-cover transition-transform duration-500 group-hover/cert:scale-110">
-                                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover/cert:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <iconify-icon icon="solar:magnifer-zoom-in-bold" class="text-white text-2xl"></iconify-icon>
-                                </div>
-                                <div class="absolute inset-x-0 bottom-0 py-2 bg-gray-900/40 backdrop-blur-sm text-[6px] text-white text-center font-black uppercase tracking-widest">
-                                    Official Credential
-                                </div>
-                            </a>
+                        {{-- Authority Proof (Multiple Certificates Card) --}}
+                        <div class="grid gap-6">
+                            @foreach($trainer->certificates as $cert)
+                            <div class="inline-flex flex-col md:flex-row items-center gap-8 p-6 bg-white rounded-[2.5rem] shadow-xl shadow-gray-200 border border-gray-50 group hover:scale-[1.02] transition-all duration-500">
+                                {{-- Certificate Preview --}}
+                                <a href="{{ asset('storage/mikrotik/certificates/' . $cert->image) }}" class="glightbox w-36 shrink-0 aspect-[1.414/1] bg-gray-50 rounded-xl overflow-hidden border border-gray-100 relative shadow-sm group/cert block">
+                                    <img src="{{ asset('storage/mikrotik/certificates/' . $cert->image) }}" alt="{{ $cert->title }} Preview" class="w-full h-full object-cover transition-transform duration-500 group-hover/cert:scale-110">
+                                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover/cert:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                        <iconify-icon icon="solar:magnifer-zoom-in-bold" class="text-white text-2xl"></iconify-icon>
+                                    </div>
+                                    <div class="absolute inset-x-0 bottom-0 py-2 bg-gray-900/40 backdrop-blur-sm text-[6px] text-white text-center font-black uppercase tracking-widest">
+                                        Official Credential
+                                    </div>
+                                </a>
 
-                            {{-- Credential Details --}}
-                            <div class="md:pr-8 md:pl-2 text-center md:text-left">
-                                <div class="flex items-center gap-2 mb-2 justify-center md:justify-start">
-                                    <img src="{{ asset('assets/images/mikrotik/logo-mikrotik.png') }}" alt="MikroTik" class="h-4 w-auto object-contain brightness-0 opacity-40">
-                                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Authenticated</span>
+                                {{-- Credential Details --}}
+                                <div class="md:pr-8 md:pl-2 text-center md:text-left">
+                                    <div class="flex items-center gap-2 mb-2 justify-center md:justify-start">
+                                        <img src="{{ asset('assets/images/mikrotik/logo-mikrotik.png') }}" alt="MikroTik" class="h-4 w-auto object-contain brightness-0 opacity-40">
+                                        <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Authenticated</span>
+                                    </div>
+                                    <p class="text-xl font-black text-gray-950 leading-tight">{{ $cert->title }}</p>
+                                    @if($cert->verify_id)
+                                        <p class="text-[10px] text-[#F58220] font-bold uppercase mt-1 tracking-wider italic">Verify ID: {{ $cert->verify_id }}</p>
+                                    @endif
                                 </div>
-                                <p class="text-xl font-black text-gray-950 leading-tight">MTCNA Certified</p>
-                                <p class="text-[10px] text-orange-600 font-bold uppercase mt-1 tracking-wider italic">Verify ID: PP-MTCNA-2024</p>
                             </div>
+                            @endforeach
                         </div>
                     </div>
 
@@ -233,6 +239,24 @@
             </div>
         </div>
     </section>
+    @endforeach
+
+    @if($trainers->isEmpty())
+    {{-- Fallback: Original Hardcoded Section if no data in DB yet --}}
+    <section class="py-32 px-6 bg-white overflow-hidden border-t border-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative bg-gray-50 rounded-[4rem] p-10 md:p-16 lg:p-24 overflow-hidden border border-gray-100" data-aos="fade-up">
+                <div class="relative z-10 flex flex-col lg:flex-row items-center gap-16 lg:gap-24 opacity-50">
+                    <div class="flex-grow text-center">
+                        <iconify-icon icon="solar:medal-star-bold-duotone" class="text-8xl text-orange-200 mb-6"></iconify-icon>
+                        <h2 class="text-3xl font-bold text-gray-400">Belum ada trainer terdaftar.</h2>
+                        <p class="text-gray-400 mt-2">Silakan tambahkan trainer melalui panel admin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
 </div>
 @endsection
 

@@ -12,7 +12,7 @@
         </div>
 
         <a href="{{ route('prestasiprima.admin.kegiatan.create') }}"
-           class="inline-flex items-center gap-2 bg-[#FF6B00] hover:bg-[#e66000] text-white px-6 py-3 rounded-2xl font-bold transition-all duration-300 shadow-lg shadow-orange-500/20 active:scale-95">
+           class="inline-flex items-center gap-2 bg-[#E65100] hover:bg-[#BF4300] text-white px-6 py-3 rounded-2xl font-bold transition-all duration-300 shadow-lg shadow-orange-500/20 active:scale-95">
             <i class="ri-calendar-add-line text-lg"></i>
             Tambah Agenda Baru
         </a>
@@ -49,18 +49,31 @@
                             </td>
 
                             <td class="px-5 py-5">
-                                <p class="font-bold text-slate-800 group-hover:text-[#FF6B00] transition-colors leading-snug">
-                                    {{ $item->judul }}
-                                </p>
-                                <div class="mt-1 flex items-center gap-2">
-                                    <span class="text-[10px] font-extrabold text-[#FF6B00] bg-orange-50 px-2 py-0.5 rounded-lg uppercase tracking-widest">Agenda</span>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
+                                        @if($item->gambar)
+                                            <img src="{{ asset('storage/' . $item->gambar) }}" class="w-full h-full object-cover">
+                                        @else
+                                            <div class="w-full h-full flex items-center justify-center text-slate-300">
+                                                <i class="ri-image-line text-2xl"></i>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-slate-800 group-hover:text-[#E65100] transition-colors leading-snug">
+                                            {{ $item->judul }}
+                                        </p>
+                                        <div class="mt-1 flex items-center gap-2">
+                                            <span class="text-[10px] font-extrabold text-[#E65100] bg-orange-50 px-2 py-0.5 rounded-lg uppercase tracking-widest">Agenda</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </td>
 
                             <td class="px-5 py-5">
                                 <div class="space-y-1">
                                     <div class="flex items-center gap-2 text-slate-600 font-medium text-xs">
-                                        <i class="ri-calendar-todo-line text-[#FF6B00]"></i>
+                                        <i class="ri-calendar-todo-line text-[#E65100]"></i>
                                         {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('l, d F Y') }}
                                     </div>
                                     <div class="flex items-center gap-2 text-slate-400 font-medium text-[11px]">
@@ -80,7 +93,7 @@
                             <td class="px-8 py-5 text-right whitespace-nowrap">
                                 <div class="flex justify-end gap-2">
                                     <a href="{{ route('prestasiprima.admin.kegiatan.edit', $item->id) }}"
-                                       class="w-10 h-10 flex items-center justify-center rounded-xl bg-orange-50 text-[#FF6B00] hover:bg-[#FF6B00] hover:text-white transition-all duration-300 shadow-sm border border-orange-100"
+                                       class="w-10 h-10 flex items-center justify-center rounded-xl bg-orange-50 text-[#E65100] hover:bg-[#E65100] hover:text-white transition-all duration-300 shadow-sm border border-orange-100"
                                        title="Edit">
                                         <i class="ri-edit-2-line text-lg"></i>
                                     </a>

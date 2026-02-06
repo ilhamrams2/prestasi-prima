@@ -510,6 +510,7 @@
                         'roles' => ['super_admin', 'editor', 'moderator', 'viewer'],
                         'items' => [
                             ['label' => 'Manajemen Staff', 'route' => 'prestasiprima.admin.staff.index', 'icon' => 'ri-user-settings-line', 'active' => str_contains($currentRoute, 'staff'), 'roles' => ['super_admin', 'editor', 'moderator', 'viewer']],
+                            ['label' => 'Trainer MikroTik', 'route' => 'prestasiprima.admin.mikrotik.index', 'icon' => 'ri-medal-line', 'active' => str_contains($currentRoute, 'mikrotik'), 'roles' => ['super_admin', 'editor', 'moderator', 'viewer']],
                             ['label' => 'Kerjasama Industri', 'route' => 'prestasiprima.admin.industri.index', 'icon' => 'ri-building-2-line', 'active' => str_contains($currentRoute, 'industri'), 'roles' => ['super_admin', 'editor', 'moderator', 'viewer']],
                         ]
                     ],
