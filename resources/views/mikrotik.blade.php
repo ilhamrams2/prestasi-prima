@@ -204,34 +204,154 @@
                             {{ $trainer->description }}
                         </p>
 
-                        {{-- Authority Proof (Multiple Certificates Card) --}}
-                        <div class="grid gap-6">
-                            @foreach($trainer->certificates as $cert)
-                            <div class="inline-flex flex-col md:flex-row items-center gap-8 p-6 bg-white rounded-[2.5rem] shadow-xl shadow-gray-200 border border-gray-50 group hover:scale-[1.02] transition-all duration-500">
-                                {{-- Certificate Preview --}}
-                                <a href="{{ asset('storage/mikrotik/certificates/' . $cert->image) }}" class="glightbox w-36 shrink-0 aspect-[1.414/1] bg-gray-50 rounded-xl overflow-hidden border border-gray-100 relative shadow-sm group/cert block">
-                                    <img src="{{ asset('storage/mikrotik/certificates/' . $cert->image) }}" alt="{{ $cert->title }} Preview" class="w-full h-full object-cover transition-transform duration-500 group-hover/cert:scale-110">
-                                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover/cert:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                        <iconify-icon icon="solar:magnifer-zoom-in-bold" class="text-white text-2xl"></iconify-icon>
-                                    </div>
-                                    <div class="absolute inset-x-0 bottom-0 py-2 bg-gray-900/40 backdrop-blur-sm text-[6px] text-white text-center font-black uppercase tracking-widest">
-                                        Official Credential
-                                    </div>
-                                </a>
-
-                                {{-- Credential Details --}}
-                                <div class="md:pr-8 md:pl-2 text-center md:text-left">
-                                    <div class="flex items-center gap-2 mb-2 justify-center md:justify-start">
-                                        <img src="{{ asset('assets/images/mikrotik/logo-mikrotik.png') }}" alt="MikroTik" class="h-4 w-auto object-contain brightness-0 opacity-40">
-                                        <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Authenticated</span>
-                                    </div>
-                                    <p class="text-xl font-black text-gray-950 leading-tight">{{ $cert->title }}</p>
-                                    @if($cert->verify_id)
-                                        <p class="text-[10px] text-[#F58220] font-bold uppercase mt-1 tracking-wider italic">Verify ID: {{ $cert->verify_id }}</p>
+                        {{-- Certificate Spotlight Trigger --}}
+                        <div x-data="{ openModal: false, swiper: null }" class="relative">
+                            {{-- The Trigger Card --}}
+                            <div @click="openModal = true; $nextTick(() => { 
+                                    window.ensureSwiper().then(Swiper => {
+                                        if(!swiper) {
+                                            swiper = new Swiper($refs.certSwiper, {
+                                                effect: 'cards',
+                                                grabCursor: true,
+                                                pagination: { el: $refs.swiperPagination, clickable: true },
+                                                navigation: { nextEl: $refs.nextBtn, prevEl: $refs.prevBtn },
+                                            });
+                                        }
+                                    });
+                                })" 
+                                class="inline-flex flex-col md:flex-row items-center gap-10 p-8 bg-white rounded-[3rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)] border border-gray-50 group cursor-pointer hover:scale-[1.02] hover:shadow-2xl transition-all duration-500">
+                                
+                                {{-- Visual Stack Preview --}}
+                                <div class="relative w-48 shrink-0">
+                                    {{-- Stack Effect --}}
+                                    @if($trainer->certificates->count() > 1)
+                                        <div class="absolute inset-0 bg-gray-100 rounded-2xl rotate-6 translate-x-2 translate-y-2 opacity-50"></div>
+                                        <div class="absolute inset-0 bg-gray-50 rounded-2xl -rotate-3 -translate-x-1 -translate-y-1 opacity-80"></div>
                                     @endif
+
+                                    <div class="relative w-full aspect-[1.414/1] bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 shadow-sm transition-transform duration-500 group-hover:-translate-y-2">
+                                        <img src="{{ asset('storage/mikrotik/certificates/' . $trainer->certificates->first()->image) }}" 
+                                             alt="Certification Preview" 
+                                             class="w-full h-full object-cover">
+                                        <div class="absolute inset-0 bg-orange-600/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                        
+                                        @if($trainer->certificates->count() > 1)
+                                        <div class="absolute top-3 right-3 bg-gray-950/80 backdrop-blur-md text-white text-[10px] font-black px-3 py-1.5 rounded-full flex items-center gap-1.5">
+                                            <iconify-icon icon="solar:gallery-bold" class="text-xs"></iconify-icon>
+                                            {{ $trainer->certificates->count() }}
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                {{-- Textual CTA --}}
+                                <div class="text-center md:text-left flex-grow">
+                                    <div class="flex items-center gap-3 mb-3 justify-center md:justify-start">
+                                        <div class="w-8 h-8 rounded-xl bg-orange-50 flex items-center justify-center">
+                                            <iconify-icon icon="solar:medal-star-bold" class="text-lg text-[#F58220]"></iconify-icon>
+                                        </div>
+                                        <span class="text-[10px] font-black text-[#F58220] uppercase tracking-[0.2em]">Verified Credentials</span>
+                                    </div>
+                                    <h4 class="text-2xl font-black text-gray-950 mb-3 tracking-tight">Lihat Riwayat Sertifikasi</h4>
+                                    <p class="text-sm text-gray-400 font-medium leading-loose">
+                                        {{ $trainer->certificates->count() }} Sertifikat Internasional Aktif. Klik untuk verifikasi detail dan validasi ID.
+                                    </p>
+                                </div>
+
+                                {{-- Action Indicator --}}
+                                <div class="shrink-0 w-14 h-14 rounded-full border-2 border-orange-50 flex items-center justify-center group-hover:bg-[#F58220] group-hover:border-[#F58220] transition-all duration-500">
+                                    <iconify-icon icon="solar:arrow-right-up-bold" class="text-2xl text-[#F58220] group-hover:text-white transition-colors"></iconify-icon>
                                 </div>
                             </div>
-                            @endforeach
+
+                            {{-- THE SLIDER MODAL (Teleport to Body for best UI) --}}
+                            <template x-teleport="body">
+                                <div x-show="openModal" 
+                                     x-transition:enter="transition ease-out duration-300"
+                                     x-transition:enter-start="opacity-0"
+                                     x-transition:enter-end="opacity-100"
+                                     x-transition:leave="transition ease-in duration-200"
+                                     x-transition:leave-start="opacity-100"
+                                     x-transition:leave-end="opacity-0"
+                                     class="fixed inset-0 z-[10000] flex items-center justify-center p-6 sm:p-12">
+                                    
+                                    {{-- Backdrop --}}
+                                    <div @click="openModal = false" class="absolute inset-0 bg-gray-950/90 backdrop-blur-2xl"></div>
+
+                                    {{-- Close Button --}}
+                                    <button @click="openModal = false" class="absolute top-8 right-8 w-14 h-14 bg-white/10 hover:bg-white/20 text-white rounded-2xl flex items-center justify-center transition-all z-50">
+                                        <iconify-icon icon="solar:close-circle-bold" class="text-3xl"></iconify-icon>
+                                    </button>
+
+                                    {{-- Modal Content --}}
+                                    <div x-show="openModal" 
+                                         x-transition:enter="transition ease-out duration-500 delay-100"
+                                         x-transition:enter-start="opacity-0 translate-y-12"
+                                         x-transition:enter-end="opacity-100 translate-y-0"
+                                         class="relative w-full max-w-5xl z-10">
+                                        
+                                        {{-- Header Info --}}
+                                        <div class="text-center mb-12">
+                                            <p class="text-[10px] font-black text-orange-500 uppercase tracking-[0.5em] mb-3">Official Certification Record</p>
+                                            <h3 class="text-3xl sm:text-4xl font-bold text-white tracking-tighter">{{ $trainer->name }}</h3>
+                                        </div>
+
+                                        {{-- Swiper Container --}}
+                                        <div class="relative px-12 md:px-20">
+                                            <div x-ref="certSwiper" class="swiper overflow-visible">
+                                                <div class="swiper-wrapper">
+                                                    @foreach($trainer->certificates as $cert)
+                                                    <div class="swiper-slide h-auto">
+                                                        <div class="bg-white rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 shadow-2xl flex flex-col items-center">
+                                                            {{-- Certificate Image --}}
+                                                            <div class="relative w-full aspect-[1.414/1] rounded-2xl overflow-hidden border border-gray-100 shadow-inner mb-10 group/modal-img">
+                                                                <img src="{{ asset('storage/mikrotik/certificates/' . $cert->image) }}" 
+                                                                     alt="{{ $cert->title }}" 
+                                                                     class="w-full h-full object-contain bg-gray-50 scale-95 group-hover/modal-img:scale-100 transition-transform duration-700">
+                                                                
+                                                                <a href="{{ asset('storage/mikrotik/certificates/' . $cert->image) }}" target="_blank"
+                                                                   class="absolute top-4 right-4 w-12 h-12 bg-white/80 backdrop-blur-md rounded-xl flex items-center justify-center text-gray-900 opacity-0 group-hover/modal-img:opacity-100 transition-opacity">
+                                                                    <iconify-icon icon="solar:magnifer-zoom-in-bold" class="text-2xl"></iconify-icon>
+                                                                </a>
+                                                            </div>
+
+                                                            {{-- Info --}}
+                                                            <div class="text-center">
+                                                                <div class="flex items-center gap-3 justify-center mb-4">
+                                                                    <img src="{{ asset('assets/images/mikrotik/logo-mikrotik.png') }}" class="h-6 w-auto opacity-50 brightness-0">
+                                                                    <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+                                                                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Authenticated</span>
+                                                                </div>
+                                                                <h4 class="text-2xl sm:text-3xl font-black text-gray-950 mb-3 tracking-tight">{{ $cert->title }}</h4>
+                                                                @if($cert->verify_id)
+                                                                <div class="inline-flex items-center gap-2 bg-orange-50 px-4 py-2 rounded-xl border border-orange-100">
+                                                                    <span class="text-[9px] font-black text-orange-600 uppercase tracking-widest">Verify ID:</span>
+                                                                    <span class="text-sm font-bold text-gray-900 font-mono">{{ $cert->verify_id }}</span>
+                                                                </div>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+
+                                            {{-- Navigation --}}
+                                            @if($trainer->certificates->count() > 1)
+                                            <button x-ref="prevBtn" class="absolute left-0 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/10 hover:bg-orange-600 text-white rounded-2xl flex items-center justify-center transition-all z-20">
+                                                <iconify-icon icon="solar:alt-arrow-left-bold" class="text-2xl"></iconify-icon>
+                                            </button>
+                                            <button x-ref="nextBtn" class="absolute right-0 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/10 hover:bg-orange-600 text-white rounded-2xl flex items-center justify-center transition-all z-20">
+                                                <iconify-icon icon="solar:alt-arrow-right-bold" class="text-2xl"></iconify-icon>
+                                            </button>
+                                            
+                                            {{-- Pagination --}}
+                                            <div x-ref="swiperPagination" class="!relative !bottom-0 mt-10 flex justify-center custom-swiper-dots"></div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
                         </div>
                     </div>
 
