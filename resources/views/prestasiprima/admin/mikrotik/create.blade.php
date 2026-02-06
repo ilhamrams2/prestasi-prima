@@ -72,7 +72,7 @@
                     <span class="w-8 h-8 rounded-lg bg-orange-50 text-[#E65100] flex items-center justify-center">02</span>
                     Daftar Sertifikat
                 </h3>
-                <button type="button" @click="addCertificate()" 
+                <button type="button" onclick="addCertificate()" 
                         class="px-4 py-2 bg-slate-800 hover:bg-black text-white rounded-xl text-xs font-bold transition-all flex items-center gap-2">
                     <iconify-icon icon="lucide:plus" class="text-base"></iconify-icon>
                     Tambah Sertifikat

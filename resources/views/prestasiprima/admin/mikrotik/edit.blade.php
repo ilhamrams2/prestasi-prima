@@ -91,7 +91,7 @@
                     {{-- Existing Certificates --}}
                     @foreach($trainer->certificates as $cert)
                     <div class="cert-item p-6 bg-white border border-slate-200 rounded-3xl relative group active-cert">
-                        <button type="button" @click="removeExistingCertificate({{ $cert->id }}, $event)" 
+                        <button type="button" onclick="removeExistingCertificate({{ $cert->id }}, this)" 
                                 class="absolute -top-3 -right-3 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-all z-10">
                             <iconify-icon icon="lucide:x" class="text-base"></iconify-icon>
                         </button>
@@ -202,11 +202,11 @@
         checkEmpty();
     }
 
-    function removeExistingCertificate(id, event) {
+    function removeExistingCertificate(id, element) {
         if (confirm('Yakin ingin menghapus sertifikat ini? Data akan benar-benar terhapus setelah form disimpan.')) {
             deletedIds.push(id);
             document.getElementById('deleted_certificates').value = deletedIds.join(',');
-            event.target.closest('.cert-item.active-cert').remove();
+            element.closest('.cert-item.active-cert').remove();
             checkEmpty();
         }
     }

@@ -33,7 +33,7 @@ class AdminLogController extends Controller
             $query->whereDate('created_at', '<=', $request->date_end);
         }
 
-        $logs = $query->paginate(50)->withQueryString();
+        $logs = $query->paginate(50)->appends($request->query());
 
         return view('prestasiprima.admin.logs.index', compact('logs'));
     }
