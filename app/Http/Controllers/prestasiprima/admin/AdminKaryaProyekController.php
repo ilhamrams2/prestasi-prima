@@ -26,7 +26,7 @@ class AdminKaryaProyekController extends Controller
             'judul' => 'required|string|max:255',
             'kategori' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:15360',
             'tags' => 'nullable|string',
             'link' => 'nullable|url',
         ]);
@@ -64,7 +64,7 @@ class AdminKaryaProyekController extends Controller
             'judul' => 'required|string|max:255',
             'kategori' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:15360',
             'tags' => 'nullable|string',
             'link' => 'nullable|url',
         ]);

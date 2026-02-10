@@ -33,7 +33,7 @@ class AdminKegiatanController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:15360',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
             'jam' => 'required',
@@ -70,7 +70,7 @@ class AdminKegiatanController extends Controller
 
         $request->validate([
             'judul' => 'required|string|max:255',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:15360',
             'deskripsi' => 'required|string',
             'tanggal' => 'required|date',
             'jam' => 'required',

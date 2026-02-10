@@ -17,413 +17,259 @@
             --primary-dark: #cc5500;
             --secondary: #64748B;
             --accent: #F59E0B;
-            --bg-body: #F8FAFC;
+            --bg-body: #F9FAFB; /* Filament uses a slightly warmer gray */
             --bg-sidebar: #FFFFFF;
-            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            --sidebar-width: 280px;
+            --filament-danger: #ef4444;
+            --filament-success: #10b981;
+            --filament-warning: #f59e0b;
+            --filament-info: #3b82f6;
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-body);
             color: #1E293B;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+            width: 100%;
         }
 
-        .sidebar-item {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* FORCE INTERACTIVITY */
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        button, a, input, select, textarea, [role="button"], label { cursor: pointer; pointer-events: auto !important; }
+        input, textarea, select { user-select: text !important; -webkit-user-select: text !important; }
+
+        /* LAYOUT AND Z-INDEX */
+        main { position: relative; z-index: 10; }
+        #admin-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-width); background: white; z-index: 50; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-right: 1px solid #e5e7eb; }
+        
+        /* BACKDROP */
+        #sidebar-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); z-index: 45; opacity: 0; visibility: hidden; display: none; pointer-events: none; transition: opacity 0.3s ease; }
+        #sidebar-backdrop.show { display: block; opacity: 1; visibility: visible; pointer-events: auto; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1023px) {
+            #admin-sidebar { transform: translateX(-100%); z-index: 9999; }
+            #admin-sidebar.show { transform: translateX(0); }
+            main { padding-left: 0 !important; }
+            .glass-header { position: sticky; top: 0; z-index: 40; }
+            #sidebar-backdrop { z-index: 9990; }
+        }
+        @media (min-width: 1024px) {
+            #admin-sidebar { transform: translateX(0); box-shadow: none; }
+            main { padding-left: var(--sidebar-width); }
+            #sidebar-backdrop { display: none !important; }
+            #hamburger-trigger { display: none !important; }
         }
 
-        .sidebar-item-active {
-            background: #FFF7ED; /* orange-50 */
-            color: #FF6B00 !important;
-            border-right: 3px solid #FF6B00;
-        }
+        /* UTILS */
+        .glass-header { background: rgba(255, 255, 255, 0.95); border-bottom: 1px solid #e5e7eb; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .sidebar-item { position: relative; overflow: hidden; transition: all 0.2s ease; font-weight: 500; }
+        .sidebar-item-active { background: #FFF7ED; color: #FF6B00 !important; font-weight: 600; }
+        .dropdown-content { transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .hamburger-line { transition: all 0.3s ease; transform-origin: center; }
+        button.active .line-1 { transform: translateY(6px) rotate(45deg); }
+        button.active .line-2 { opacity: 0; transform: translateX(-10px); }
+        button.active .line-3 { transform: translateY(-6px) rotate(-45deg); }
 
-        .glass-header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        /* Notification Responsive Fix */
-        @media (max-width: 640px) {
-            #notification-dropdown {
-                position: absolute !important;
-                right: -4rem !important;
-                left: auto !important;
-                width: 20rem !important;
-                max-width: calc(100vw - 2rem) !important;
-                transform-origin: top right !important;
-            }
-            #profile-dropdown {
-                right: 0 !important;
-                left: auto !important;
-                width: 12rem !important; /* Fixed width for consistency */
-                transform-origin: top right !important;
-            }
-        }
-
-        /* Hamburger Animation */
-        .hamburger-line {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .active .line-1 { transform: translateY(6px) rotate(45deg); }
-        .active .line-2 { opacity: 0; transform: translateX(-10px); }
-        .active .line-3 { transform: translateY(-6px) rotate(-45deg); }
-
-        /* ================= PREMIUM ANIMATIONS & EFFECTS ================= */
-        @keyframes cinemaEntry {
-            0% { opacity: 0; transform: scale(0.98) translateY(15px); filter: blur(10px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
-        }
-
-        .animate-page-entry {
-            animation: cinemaEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .sidebar-item {
-            position: relative;
-            z-index: 1;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .sidebar-item::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%) scaleX(0);
-            width: 4px;
-            height: 60%;
-            background: var(--primary);
-            border-radius: 0 4px 4px 0;
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform-origin: left;
-        }
-
-        .sidebar-item:hover::after, .sidebar-item-active::after {
-            transform: translateY(-50%) scaleX(1);
-        }
-
-        .sidebar-item-active {
-            background: linear-gradient(90deg, rgba(255, 107, 0, 0.08) 0%, transparent 100%) !important;
-            color: var(--primary) !important;
-            font-weight: 800 !important;
-        }
-
-        /* ================= TOAST NOTIFICATION SYSTEM ================= */
+        /* ================= FILAMENT-STYLE TOASTS ================= */
         #toast-container {
             position: fixed;
             top: 1.5rem;
             right: 1.5rem;
-            z-index: 9999;
+            z-index: 10000;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 1rem;
             pointer-events: none;
+            width: auto;
+            max-width: 420px;
+        }
+
+        @media (max-width: 640px) {
+            #toast-container { top: 1rem; left: 1rem; right: 1rem; max-width: none; }
         }
 
         .toast-item {
-            min-width: 320px;
-            max-width: 450px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 1.25rem;
-            padding: 1rem 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.5);
             pointer-events: auto;
-            transform: translateX(120%);
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E5E7EB; /* Subtle border */
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            gap: 0.75rem;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .toast-item.show {
-            transform: translateX(0);
-        }
+        .toast-item.show { transform: translateX(0); opacity: 1; }
 
-        .toast-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-        }
-
-        .toast-success::before { background: transparent; }
-        .toast-error::before { background: transparent; }
-        .toast-warning::before { background: transparent; }
-        .toast-info::before { background: transparent; }
+        /* Toast Colors */
+        .toast-success .toast-icon { color: var(--filament-success); background: #ECFDF5; }
+        .toast-danger .toast-icon { color: var(--filament-danger); background: #FEF2F2; }
+        .toast-warning .toast-icon { color: var(--filament-warning); background: #FFFBEB; }
+        .toast-info .toast-icon { color: var(--filament-info); background: #EFF6FF; }
 
         .toast-icon {
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 0.85rem;
-            display: flex;
-            items-center;
-            justify-content: center;
             flex-shrink: 0;
-        }
-
-        .toast-success .toast-icon { background: #ECFDF5; color: #10B981; }
-        .toast-error .toast-icon { background: #FEF2F2; color: #EF4444; }
-        .toast-warning .toast-icon { background: #FFFBEB; color: #F59E0B; }
-        .toast-info .toast-icon { background: #EFF6FF; color: #3B82F6; }
-
-        .toast-content { flex-1: min-0; }
-        .toast-title { font-size: 0.875rem; font-weight: 800; color: #1E293B; margin-bottom: 0.125rem; }
-        .toast-message { font-size: 0.75rem; color: #64748B; font-weight: 500; line-height: 1.4; }
-
-        .toast-close {
-            color: #94A3B8;
-            cursor: pointer;
-            padding: 0.25rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-        }
-        .toast-close:hover { background: #F1F5F9; color: #64748B; }
-
-        .toast-progress {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-        }
-
-        .toast-progress-bar {
-            width: 100%;
-            height: 100%;
-            transition: height linear;
-        }
-        .toast-success .toast-progress-bar { background: #10B981; }
-        .toast-error .toast-progress-bar { background: #EF4444; }
-        .toast-warning .toast-progress-bar { background: #F59E0B; }
-        .toast-info .toast-progress-bar { background: #3B82F6; }
-
-        /* ================= CONFIRMATION MODAL ================= */
-        #confirm-modal {
-            position: fixed;
-            inset: 0;
-            z-index: 10000;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 9999px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        #confirm-modal.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .toast-content { flex: 1; min-width: 0; }
+        .toast-title { font-weight: 700; font-size: 0.875rem; color: #111827; margin-bottom: 0.125rem; }
+        .toast-message { font-size: 0.8125rem; color: #6B7280; line-height: 1.4; }
 
-        #confirm-modal-backdrop {
-            position: absolute;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.5);
-            backdrop-filter: blur(8px);
+        .toast-close {
+            color: #9CA3AF;
+            padding: 0.25rem;
+            border-radius: 0.375rem;
+            transition: color 0.2s;
         }
+        .toast-close:hover { color: #4B5563; background: #F3F4F6; }
 
+        /* ================= FILAMENT-STYLE MODAL ================= */
+        #confirm-modal { position: fixed; inset: 0; z-index: 10001; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; visibility: hidden; transition: all 0.2s; }
+        #confirm-modal.show { opacity: 1; visibility: visible; pointer-events: auto; }
+        #confirm-modal-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); transition: opacity 0.3s; }
+        
         #confirm-modal-content {
             position: relative;
+            background: white;
             width: 100%;
             max-width: 400px;
-            background: white;
-            border-radius: 2.5rem;
-            padding: 2rem;
-            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.2);
-            transform: scale(0.9) translateY(20px);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: scale(0.95);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
+        #confirm-modal.show #confirm-modal-content { transform: scale(1); }
 
-        #confirm-modal.show #confirm-modal-content {
-            transform: scale(1) translateY(0);
-        }
-
-        .confirm-icon-box {
-            width: 4rem;
-            height: 4rem;
-            border-radius: 1.25rem;
+        .modal-body { padding: 1.5rem; text-align: center; }
+        .modal-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
             background: #FEF2F2;
             color: #EF4444;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.25rem;
+            margin: 0 auto 1rem;
         }
-
-        .confirm-title { font-size: 1.5rem; font-weight: 900; color: #1E293B; text-align: center; margin-bottom: 0.75rem; letter-spacing: -0.025em; }
-        .confirm-message { font-size: 0.875rem; color: #64748B; text-align: center; margin-bottom: 2rem; line-height: 1.6; font-weight: 500; }
-
-        .confirm-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        .modal-title { font-weight: 700; font-size: 1.125rem; color: #111827; margin-bottom: 0.5rem; }
+        .modal-message { font-size: 0.875rem; color: #6B7280; line-height: 1.5; }
+        
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            background: #F9FAFB;
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            border-top: 1px solid #F3F4F6;
         }
-
-        .btn-confirm-cancel {
-            padding: 0.875rem;
-            border-radius: 1.25rem;
-            border: 2px solid #F1F5F9;
-            background: white;
-            color: #64748B;
-            font-weight: 800;
+        
+        .btn-modal {
+            flex: 1;
+            padding: 0.625rem 1rem;
+            border-radius: 0.5rem;
             font-size: 0.875rem;
+            font-weight: 600;
             transition: all 0.2s;
+            text-align: center;
         }
-        .btn-confirm-cancel:hover { background: #F8FAFC; border-color: #E2E8F0; color: #1E293B; }
+        .btn-cancel { background: white; color: #374151; border: 1px solid #D1D5DB; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+        .btn-cancel:hover { background: #F9FAFB; border-color: #9CA3AF; }
+        
+        .btn-confirm { background: #EF4444; color: white; border: 1px solid transparent; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+        .btn-confirm:hover { background: #DC2626; }
+        .btn-confirm:focus { ring: 2px solid #FCA5A5; }
 
-        .btn-confirm-danger {
-            padding: 0.875rem;
-            border-radius: 1.25rem;
-            background: #EF4444;
-            color: white;
-            font-weight: 800;
-            font-size: 0.875rem;
-            box-shadow: 0 10px 20px -5px rgba(239, 68, 68, 0.3);
-            transition: all 0.2s;
-        }
-        .btn-confirm-danger:hover { background: #DC2626; transform: translateY(-2px); box-shadow: 0 15px 25px -5px rgba(239, 68, 68, 0.4); }
-        .btn-confirm-danger:active { transform: translateY(0); }
-
-        /* ================= FLOATING CHAT WIDGET ================= */
+        /* ================= FIXED CHAT WIDGET ================= */
         #admin-chat-widget {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
+            z-index: 9950;
         }
 
+        #chat-toggle {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: #FF6B00;
+            color: white;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(255, 107, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        #chat-toggle:hover { transform: scale(1.1); background: #EA580C; }
+        #chat-toggle.active { transform: rotate(45deg); background: #4B5563; }
+
         #chat-window {
+            position: absolute;
+            bottom: 4.5rem;
+            right: 0;
             width: 350px;
             height: 500px;
             background: white;
-            border-radius: 2rem;
+            border-radius: 1rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid #E5E7EB;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-            transform: scale(0.8) translateY(20px);
+            transform-origin: bottom right;
+            transform: scale(0.9) translateY(20px);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 1px solid rgba(255, 107, 0, 0.1);
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow: hidden;
         }
 
         #chat-window.show {
             transform: scale(1) translateY(0);
             opacity: 1;
             visibility: visible;
+            pointer-events: auto;
         }
 
-        .chat-header {
-            background: linear-gradient(135deg, #FF6B00, #E65100);
-            padding: 1.5rem;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        @media (max-width: 640px) {
+            #admin-chat-widget { bottom: 1.5rem; right: 1.5rem; }
+            #chat-window { 
+                position: fixed; 
+                right: 1rem; 
+                left: 1rem; 
+                bottom: 6rem;
+                width: auto; 
+                max-height: 60vh;
+            }
         }
 
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            background: #F8FAFC;
-        }
-
-        .message-bubble {
-            max-width: 80%;
-            padding: 0.75rem 1rem;
-            border-radius: 1.25rem;
-            font-size: 0.8125rem;
-            line-height: 1.5;
-            position: relative;
-        }
-
-        .message-mine {
-            align-self: flex-end;
-            background: #FF6B00;
-            color: white;
-            border-bottom-right-radius: 0.25rem;
-        }
-
-        .message-others {
-            align-self: flex-start;
-            background: white;
-            color: #1E293B;
-            border-bottom-left-radius: 0.25rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-
-        .chat-input-area {
-            padding: 1rem;
-            background: white;
-            border-top: 1px solid #F1F5F9;
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        #chat-input {
-            flex: 1;
-            background: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            border-radius: 1rem;
-            padding: 0.75rem 1rem;
-            font-size: 0.8125rem;
-            outline: none;
-            transition: all 0.2s;
-        }
-
-        #chat-input:focus {
-            border-color: #FF6B00;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.1);
-        }
-
-        .chat-toggle-btn {
-            width: 4rem;
-            height: 4rem;
-            background: #FF6B00;
-            border-radius: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.75rem;
-            box-shadow: 0 20px 25px -5px rgba(255, 107, 0, 0.3);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .chat-toggle-btn:hover {
-            transform: scale(1.1) rotate(-5deg);
-            background: #E65100;
-        }
-
-        .chat-toggle-btn.active {
-            transform: scale(0.9) rotate(90deg);
-        }
-    </style>
-</head>
+        .chat-header { background: #FF6B00; color: white; padding: 1rem; display: flex; align-items: center; justify-content: space-between; }
+        .chat-messages { flex: 1; padding: 1rem; overflow-y: auto; background: #F9FAFB; display: flex; flex-direction: column; gap: 0.75rem; }
+        .chat-input-area { padding: 0.75rem; border-top: 1px solid #E5E7EB; display: flex; gap: 0.5rem; background: white; }
+        #chat-input { flex: 1; padding: 0.5rem 0.75rem; border-radius: 0.5rem; border: 1px solid #D1D5DB; font-size: 0.875rem; }
+        #chat-input:focus { outline: none; border-color: #FF6B00; ring: 2px solid rgba(255,107,0,0.2); }
+    </style></head>
 
 <body class="min-h-screen bg-slate-50 transition-colors duration-500">
 
@@ -434,22 +280,24 @@
     <div id="confirm-modal">
         <div id="confirm-modal-backdrop" onclick="Confirm.hide()"></div>
         <div id="confirm-modal-content">
-            <div class="confirm-icon-box">
-                <i class="ri-delete-bin-fill text-4xl"></i>
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="ri-delete-bin-line text-2xl"></i>
+                </div>
+                <h3 class="modal-title" id="confirm-title">Konfirmasi Hapus</h3>
+                <p class="modal-message" id="confirm-message">Apakah Anda yakin? Data yang dihapus tidak dapat dikembalikan lagi.</p>
             </div>
-            <h3 class="confirm-title" id="confirm-title">Konfirmasi Hapus</h3>
-            <p class="confirm-message" id="confirm-message">Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.</p>
-            <div class="confirm-actions">
-                <button type="button" class="btn-confirm-cancel" onclick="Confirm.hide()">Batal</button>
-                <button type="button" class="btn-confirm-danger" id="confirm-execute">Hapus Data</button>
+            <div class="modal-footer">
+                <button type="button" class="btn-modal btn-cancel" onclick="Confirm.hide()">Batal</button>
+                <button type="button" class="btn-modal btn-confirm" id="confirm-execute">Ya, Hapus</button>
             </div>
         </div>
     </div>
     {{-- Backdrop for mobile sidebar --}}
-    <div id="sidebar-backdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-20 invisible opacity-0 transition-opacity duration-300 lg:hidden"></div>
+    <div id="sidebar-backdrop" onclick="toggleMobileSidebar()"></div>
 
     {{-- ================= SIDEBAR ================= --}}
-    <aside id="admin-sidebar" class="w-[280px] bg-white border-r border-slate-100 flex flex-col fixed inset-y-0 left-0 z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] shadow-2xl lg:shadow-none">
+    <aside id="admin-sidebar" class="flex flex-col shadow-2xl lg:shadow-none border-r border-slate-100">
         {{-- Logo Section --}}
         <div class="px-8 py-8 flex items-center justify-between lg:justify-start gap-3">
             <div class="flex items-center gap-3">
@@ -622,7 +470,7 @@
     {{-- ================= MAIN CONTENT ================= --}}
     <main class="lg:pl-72 min-h-screen transition-all duration-500 animate-page-entry">
         {{-- HEADER --}}
-        <header class="glass-header sticky top-0 z-20 border-b border-slate-200/60 px-8 py-4">
+        <header class="glass-header sticky top-0 z-30 border-b border-slate-200/60 px-8 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-4">
                     {{-- Premium Hamburger --}}
@@ -719,28 +567,6 @@
 
     {{-- Dropdown Toggle Script --}}
     <script>
-        function toggleMobileSidebar() {
-            const sidebar = document.getElementById('admin-sidebar');
-            const backdrop = document.getElementById('sidebar-backdrop');
-            const trigger = document.getElementById('hamburger-trigger');
-            const isHidden = sidebar.classList.contains('-translate-x-full');
-
-            if (isHidden) {
-                sidebar.classList.remove('-translate-x-full');
-                backdrop.classList.remove('invisible', 'opacity-0');
-                backdrop.classList.add('opacity-100');
-                trigger.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                backdrop.classList.add('opacity-0');
-                trigger.classList.remove('active');
-                setTimeout(() => {
-                    backdrop.classList.add('invisible');
-                    document.body.style.overflow = '';
-                }, 300);
-            }
-        }
 
         function toggleDropdown(categoryId) {
             const dropdown = document.getElementById(categoryId);
@@ -996,178 +822,140 @@
         });
     </script>
     <script>
-        // ================= TOAST MANAGER =================
-        const Toast = {
+        // ================= GLOBAL UI MANAGER =================
+        window.Toast = {
             container: document.getElementById('toast-container'),
             
-            show(type, title, message, duration = 4000) {
+            show(type, title, message, duration = 5000) {
                 const id = 'toast-' + Math.random().toString(36).substr(2, 9);
                 const icons = {
                     success: 'ri-checkbox-circle-fill',
-                    error: 'ri-error-warning-fill',
+                    error: 'ri-close-circle-fill',
                     warning: 'ri-alert-fill',
                     info: 'ri-information-fill'
                 };
+                
+                // Allow simple usage: Toast.success('Message')
+                if (!message) { message = title; title = type.charAt(0).toUpperCase() + type.slice(1); }
 
                 const html = `
                     <div id="${id}" class="toast-item toast-${type}">
                         <div class="toast-icon">
-                            <i class="${icons[type]} text-xl"></i>
+                            <i class="${icons[type]} text-lg"></i>
                         </div>
                         <div class="toast-content">
                             <div class="toast-title">${title}</div>
                             <div class="toast-message">${message}</div>
                         </div>
-                        <div class="toast-close" onclick="Toast.remove('${id}')">
+                        <button class="toast-close" onclick="Toast.remove('${id}')">
                             <i class="ri-close-line"></i>
-                        </div>
-                        <div class="toast-progress">
-                            <div id="${id}-progress" class="toast-progress-bar"></div>
-                        </div>
+                        </button>
                     </div>
                 `;
 
                 this.container.insertAdjacentHTML('beforeend', html);
                 const element = document.getElementById(id);
-                const progress = document.getElementById(id + '-progress');
+                
+                // Small delay to allow DOM paint before transition
+                requestAnimationFrame(() => {
+                    setTimeout(() => element.classList.add('show'), 10);
+                });
 
-                // Animate entrance
-                setTimeout(() => element.classList.add('show'), 10);
-
-                // Progress bar animation
-                progress.style.transitionDuration = duration + 'ms';
-                setTimeout(() => progress.style.height = '0%', 20);
-
-                // Auto remove
-                const timeout = setTimeout(() => this.remove(id), duration);
-                element.dataset.timeoutId = timeout;
+                setTimeout(() => this.remove(id), duration);
             },
 
             remove(id) {
                 const element = document.getElementById(id);
-                if (!element) return;
-                
-                clearTimeout(element.dataset.timeoutId);
-                element.classList.remove('show');
-                setTimeout(() => element.remove(), 500);
+                if (element) {
+                    element.classList.remove('show');
+                    setTimeout(() => element.remove(), 400);
+                }
             },
 
-            success(message, title = 'Berhasil!') { this.show('success', title, message); },
-            error(message, title = 'Kesalahan!') { this.show('error', title, message); },
-            warning(message, title = 'Peringatan!') { this.show('warning', title, message); },
-            info(message, title = 'Informasi') { this.show('info', title, message); }
+            success(msg, title = 'Berhasil') { this.show('success', title, msg); },
+            error(msg, title = 'Error') { this.show('error', title, msg); },
+            warning(msg, title = 'Peringatan') { this.show('warning', title, msg); },
+            info(msg, title = 'Info') { this.show('info', title, msg); }
         };
 
-        // ================= CONFIRMATION MANAGER =================
-        const Confirm = {
+        window.Confirm = {
             modal: document.getElementById('confirm-modal'),
             title: document.getElementById('confirm-title'),
-            message: document.getElementById('confirm-message'),
-            executeBtn: document.getElementById('confirm-execute'),
-            formToSubmit: null,
-
+            msg: document.getElementById('confirm-message'),
+            btn: document.getElementById('confirm-execute'),
+            icon: document.querySelector('.modal-icon i'),
+            iconBox: document.querySelector('.modal-icon'),
+            
             show(form, options = {}) {
-                this.formToSubmit = form;
+                this.form = form;
                 this.title.textContent = options.title || 'Konfirmasi Hapus';
-                this.message.textContent = options.message || 'Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.';
-                this.executeBtn.textContent = options.buttonText || 'Hapus Data';
+                this.msg.textContent = options.message || 'Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.';
+                this.btn.textContent = options.btnText || 'Ya, Hapus';
                 
-                // Color adjustment if not a danger action
-                if(options.type === 'warning') {
-                    document.querySelector('.confirm-icon-box').style.background = '#FFFBEB';
-                    document.querySelector('.confirm-icon-box').style.color = '#F59E0B';
-                    document.querySelector('.confirm-icon-box i').className = 'ri-alert-fill text-4xl';
-                    this.executeBtn.style.background = '#F59E0B';
-                    this.executeBtn.style.boxShadow = '0 10px 20px -5px rgba(245, 158, 11, 0.3)';
+                // Style based on type
+                if (options.type === 'warning') {
+                     this.iconBox.style.background = '#FFFBEB';
+                     this.iconBox.style.color = '#F59E0B';
+                     this.icon.className = 'ri-alert-fill text-2xl';
+                     this.btn.style.background = '#F59E0B';
+                     this.btn.style.borderColor = '#F59E0B';
                 } else {
-                    document.querySelector('.confirm-icon-box').style.background = '#FEF2F2';
-                    document.querySelector('.confirm-icon-box').style.color = '#EF4444';
-                    document.querySelector('.confirm-icon-box i').className = 'ri-delete-bin-fill text-4xl';
-                    this.executeBtn.style.background = '#EF4444';
-                    this.executeBtn.style.boxShadow = '0 10px 20px -5px rgba(239, 68, 68, 0.3)';
+                     this.iconBox.style.background = '#FEF2F2';
+                     this.iconBox.style.color = '#EF4444';
+                     this.icon.className = 'ri-delete-bin-line text-2xl';
+                     this.btn.style.background = '#EF4444';
+                     this.btn.style.borderColor = '#EF4444'; 
                 }
-
-                this.modal.classList.add('show');
                 
-                this.executeBtn.onclick = () => {
-                    this.formToSubmit.submit();
-                    this.hide();
-                };
+                this.modal.classList.add('show');
+                this.btn.onclick = () => { form.submit(); this.hide(); };
             },
-
-            hide() {
-                this.modal.classList.remove('show');
-                this.formToSubmit = null;
-            }
+            hide() { this.modal.classList.remove('show'); }
         };
 
-        // Helper untuk tombol delete di seluruh halaman
-        function confirmDelete(event, options = {}) {
-            event.preventDefault();
-            const form = event.target.closest('form');
-            Confirm.show(form, options);
+        window.confirmDelete = function(e) {
+            e.preventDefault();
+            Confirm.show(e.target.closest('form'));
             return false;
-        }
+        };
 
-        // Handle Laravel Session Flash Messages
-        @if(session('success'))
-            setTimeout(() => Toast.success("{{ session('success') }}"), 100);
-        @endif
-
-        @if(session('error'))
-            setTimeout(() => Toast.error("{{ session('error') }}"), 100);
-        @endif
-
-        @if(session('warning'))
-            setTimeout(() => Toast.warning("{{ session('warning') }}"), 100);
-        @endif
-
+        // ================= SESSION HANDLERS =================
+        @if(session('success')) setTimeout(() => Toast.success("{{ session('success') }}"), 300); @endif
+        @if(session('error')) setTimeout(() => Toast.error("{{ session('error') }}"), 300); @endif
+        @if(session('warning')) setTimeout(() => Toast.warning("{{ session('warning') }}"), 300); @endif
         @if($errors->any())
             @foreach($errors->all() as $error)
-                setTimeout(() => Toast.error("{{ $error }}", "Validasi Gagal"), 200);
+                setTimeout(() => Toast.error("{{ $error }}", "Validasi Gagal"), 300);
             @endforeach
         @endif
 
-        // Force unregister Service Worker for Admin Area
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                for(let registration of registrations) {
-                    registration.unregister();
-                    console.log('Service Worker Unregistered for Admin');
-                }
-            });
-        }
-
-        // ================= ADMIN CHAT LOGIC =================
+        // ================= GLOBAL CHAT WIDGET =================
         let chatBadgeCount = 0;
-        const currentUserId = {{ auth('authPP')->id() }};
+        const currentUserId = {{ auth('authPP')->id() ?? 0 }};
 
-        function toggleChat() {
-            const window = document.getElementById('chat-window');
-            const toggle = document.getElementById('chat-toggle');
-            const icon = document.getElementById('chat-icon');
-            const isOpen = window.classList.contains('show');
-
+        window.toggleChat = function() {
+            const win = document.getElementById('chat-window');
+            const btn = document.getElementById('chat-toggle');
+            const isOpen = win.classList.contains('show');
+            
             if (isOpen) {
-                window.classList.remove('show');
-                toggle.classList.remove('active');
-                icon.className = 'ri-chat-4-fill';
+                win.classList.remove('show');
+                btn.classList.remove('active');
             } else {
-                window.classList.add('show');
-                toggle.classList.add('active');
-                icon.className = 'ri-close-line';
+                win.classList.add('show');
+                btn.classList.add('active');
                 
                 // Clear badge
                 chatBadgeCount = 0;
                 document.getElementById('chat-badge').classList.add('hidden');
                 
-                // Fetch messages if first time
-                fetchChatMessages();
-                
-                // Scroll to bottom
+                // Fetch messages if empty
+                if(document.getElementById('chat-messages').children.length <= 1) {
+                    fetchChatMessages();
+                }
                 setTimeout(scrollToBottom, 100);
             }
-        }
+        };
 
         async function fetchChatMessages() {
             try {
@@ -1180,24 +968,25 @@
                     messages.forEach(msg => appendMessage(msg, false));
                     scrollToBottom();
                 }
-            } catch (error) {
-                console.error('Fetch Chat Error:', error);
-            }
+            } catch (error) { console.error('Chat Error:', error); }
         }
 
         function appendMessage(msg, animate = true) {
             const container = document.getElementById('chat-messages');
             const isMine = msg.user_id == currentUserId;
             
+            // Simple logic to prevent "You" from seeing "You" as name
+            const name = isMine ? 'Anda' : (msg.user_name || 'Admin');
+            
             const html = `
-                <div class="flex flex-col ${isMine ? 'items-end' : 'items-start'} ${animate ? 'animate-page-entry' : ''}">
-                    <span class="text-[9px] text-slate-400 font-bold mb-1 px-2">${isMine ? 'Anda' : msg.user_name}</span>
-                    <div class="message-bubble ${isMine ? 'message-mine' : 'message-others'}">
+                <div class="flex flex-col ${isMine ? 'items-end' : 'items-start'} ${animate ? 'animate-page-entry' : ''} mb-3">
+                    <span class="text-[10px] text-slate-400 font-bold mb-1 px-1">${name}</span>
+                    <div class="relative max-w-[85%] p-3 rounded-2xl text-xs leading-relaxed shadow-sm
+                        ${isMine ? 'bg-[#FF6B00] text-white rounded-br-none' : 'bg-white text-slate-700 border border-slate-100 rounded-bl-none'}">
                         ${msg.message}
                     </div>
                 </div>
             `;
-            
             container.insertAdjacentHTML('beforeend', html);
         }
 
@@ -1207,7 +996,6 @@
             if (!message) return;
 
             input.value = '';
-            
             try {
                 const response = await fetch('{{ route("prestasiprima.admin.chat.store") }}', {
                     method: 'POST',
@@ -1221,7 +1009,6 @@
                 appendMessage(chat);
                 scrollToBottom();
             } catch (error) {
-                console.error('Send Msg Error:', error);
                 Toast.error('Gagal mengirim pesan');
             }
         }
@@ -1231,65 +1018,57 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // Listen for realtime messages
+        // Realtime Listener
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 if (window.Echo) {
                     window.Echo.join('admin-presence')
                         .listen('.AdminMessageSent', (e) => {
-                            console.log('Chat Baru:', e);
-                            appendMessage(e.message);
-                            
-                            // Update badge if chat window is closed
-                            if (!document.getElementById('chat-window').classList.contains('show')) {
-                                chatBadgeCount++;
-                                const badge = document.getElementById('chat-badge');
-                                badge.textContent = chatBadgeCount;
-                                badge.classList.remove('hidden');
-                                badge.classList.add('flex');
-                                
-                                // Optional: Play notification sound
-                                Toast.info('Pesan baru dari ' + e.message.user_name, 'Admin Chat');
+                            if(e.message.user_id != currentUserId) {
+                                appendMessage(e.message);
+                                if (!document.getElementById('chat-window').classList.contains('show')) {
+                                    chatBadgeCount++;
+                                    const badge = document.getElementById('chat-badge');
+                                    badge.textContent = chatBadgeCount;
+                                    badge.classList.remove('hidden');
+                                    badge.classList.add('flex');
+                                    Toast.info('Pesan baru dari ' + e.message.user_name, 'Admin Chat');
+                                }
+                                scrollToBottom();
                             }
-                            
-                            scrollToBottom();
                         });
                 }
             }, 2000);
         });
     </script>
-    {{-- FLOATING CHAT WIDGET --}}
+    {{-- NEW CHAT WIDGET --}}
     <div id="admin-chat-widget">
         <div id="chat-window">
-            <div class="chat-header">
-                <div>
-                    <h3 class="text-sm font-extrabold tracking-tight">Admin Live Chat</h3>
-                    <p class="text-[10px] text-orange-100 font-medium">Terhubung dengan admin lain</p>
-                </div>
-                <button onclick="toggleChat()" class="text-white/80 hover:text-white transition-colors">
-                    <i class="ri-close-line text-xl"></i>
-                </button>
-            </div>
-            <div id="chat-messages" class="chat-messages">
-                <!-- Messages go here -->
-                <div class="flex flex-col items-center justify-center h-full text-center p-8">
-                    <div class="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center mb-3">
-                        <i class="ri-chat-smile-2-line text-slate-400 text-xl"></i>
-                    </div>
-                    <p class="text-[11px] text-slate-400 font-medium">Halo! Mulai chat dengan admin lain yang sedang online.</p>
-                </div>
-            </div>
-            <div class="chat-input-area">
-                <input type="text" id="chat-input" placeholder="Tulis pesan..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
-                <button onclick="sendChatMessage()" class="w-10 h-10 bg-orange-100 text-[#FF6B00] rounded-xl flex items-center justify-center hover:bg-[#FF6B00] hover:text-white transition-all active:scale-90">
-                    <i class="ri-send-plane-2-fill"></i>
-                </button>
-            </div>
+             <div class="chat-header">
+                 <div class="flex flex-col">
+                    <span class="font-bold text-sm">Admin Live Chat</span>
+                    <span class="text-[10px] opacity-90 font-medium">Global Room</span>
+                 </div>
+                 <button onclick="toggleChat()" class="hover:bg-white/20 p-1 rounded transition-colors"><i class="ri-close-line text-lg"></i></button>
+             </div>
+             <div class="chat-messages custom-scrollbar" id="chat-messages">
+                 <div class="flex flex-col items-center justify-center h-full text-center p-8 opacity-50">
+                     <i class="ri-chat-smile-2-line text-4xl mb-2 text-slate-300"></i>
+                     <p class="text-[10px] text-slate-400">Mulai percakapan dengan admin lain.</p>
+                 </div>
+             </div>
+             <div class="chat-input-area">
+                 <input type="text" id="chat-input" placeholder="Ketik pesan..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
+                 <button onclick="sendChatMessage()" class="text-[#FF6B00] hover:bg-orange-50 p-2 rounded-lg transition-colors"><i class="ri-send-plane-fill text-xl"></i></button>
+             </div>
         </div>
-        <div id="chat-toggle" onclick="toggleChat()" class="chat-toggle-btn relative">
+        <div id="chat-toggle" onclick="toggleChat()">
             <i class="ri-chat-4-fill" id="chat-icon"></i>
-            <span id="chat-badge" class="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white text-[10px] font-bold rounded-full border-2 border-white items-center justify-center hidden">0</span>
+            <span id="chat-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full border-2 border-white items-center justify-center hidden flex">0</span>
         </div>
     </div>
+
+    {{-- CRITICAL MOBILE FIX - Load this script to fix backdrop and interaction issues --}}
+    <script src="{{ asset('js/admin-mobile-fix.js') }}"></script>
 </body>
 </html>

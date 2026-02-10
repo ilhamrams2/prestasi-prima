@@ -17,13 +17,6 @@
         </a>
     </div>
 
-    {{-- ================= ALERT ================= --}}
-    @if(session('success'))
-        <div class="mb-8 p-4 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center gap-3 text-emerald-700 shadow-sm animate-fade-in">
-            <i class="ri-checkbox-circle-fill text-xl"></i>
-            <p class="text-sm font-bold">{{ session('success') }}</p>
-        </div>
-    @endif
 
     {{-- ================= TABLE CARD ================= --}}
     <div class="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">

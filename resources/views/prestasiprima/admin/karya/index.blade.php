@@ -17,13 +17,6 @@
         </a>
     </div>
 
-    {{-- ================= ALERT ================= --}}
-    @if(session('success'))
-        <div class="mb-8 p-4 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center gap-3 text-emerald-700 shadow-sm animate-fade-in">
-            <i class="ri-checkbox-circle-fill text-xl"></i>
-            <p class="text-sm font-bold">{{ session('success') }}</p>
-        </div>
-    @endif
 
     {{-- ================= TABLE CARD ================= --}}
     <div class="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">
@@ -83,7 +76,7 @@
                                     <form action="{{ route('prestasiprima.admin.karya.destroy', $item->id) }}" method="POST" class="inline">
                                         @csrf @method('DELETE')
                                         <button type="submit" 
-                                                onclick="return confirm('Hapus karya ini?')"
+                                                onclick="return confirmDelete(event)"
                                                 class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-400 hover:bg-red-50 hover:text-red-600 transition-all shadow-sm"
                                                 title="Hapus">
                                             <i class="ri-delete-bin-line text-lg"></i>

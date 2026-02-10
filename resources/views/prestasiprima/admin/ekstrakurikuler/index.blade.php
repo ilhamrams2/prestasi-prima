@@ -17,13 +17,6 @@
         </a>
     </div>
 
-    {{-- ================= ALERT ================= --}}
-    @if(session('success'))
-        <div class="mb-8 p-4 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center gap-3 text-emerald-700 shadow-sm animate-fade-in">
-            <i class="ri-checkbox-circle-fill text-xl"></i>
-            <p class="text-sm font-bold">{{ session('success') }}</p>
-        </div>
-    @endif
 
     {{-- ================= CONTENT GRID ================= --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -48,7 +41,7 @@
                         <form action="{{ route('prestasiprima.admin.ekstrakurikuler.destroy', $item->id) }}" method="POST" class="flex-1">
                             @csrf @method('DELETE')
                             <button type="submit" 
-                                    onclick="return confirm('Hapus ekskul ini?')"
+                                    onclick="return confirmDelete(event)"
                                     class="w-full bg-red-500/80 backdrop-blur-md hover:bg-red-600 text-white py-2 rounded-xl text-xs font-bold text-center transition-all">
                                Hapus
                             </button>

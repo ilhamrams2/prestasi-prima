@@ -12,10 +12,13 @@
             <p class="text-slate-500 mt-1">Pantau setiap aksi dan perubahan yang dilakukan admin</p>
         </div>
         <div class="flex items-center gap-3">
-            <form action="{{ route('prestasiprima.admin.logs.clear') }}" method="POST" onsubmit="return confirm('Hapus log lama?')">
+            <form action="{{ route('prestasiprima.admin.logs.clear') }}" method="POST">
                 @csrf
                 <input type="hidden" name="days" value="30">
-                <button type="submit" class="bg-red-50 text-red-600 px-6 py-3 rounded-2xl font-bold hover:bg-red-100 transition-all flex items-center gap-2">
+                <button type="submit" 
+                        onclick="return confirmDelete(event)"
+                        data-confirm-text="Apakah Anda yakin ingin menghapus semua log aktivitas yang berusia lebih dari 30 hari?"
+                        class="bg-red-50 text-red-600 px-6 py-3 rounded-2xl font-bold hover:bg-red-100 transition-all flex items-center gap-2">
                     <i class="ri-delete-bin-line"></i> Bersihkan Log (>30 hari)
                 </button>
             </form>
@@ -215,6 +218,7 @@
             closeLogModal();
         }
     }
+
 </script>
 
 @endsection

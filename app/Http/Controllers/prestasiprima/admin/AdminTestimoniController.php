@@ -27,7 +27,7 @@ class AdminTestimoniController extends Controller
             'nama' => 'required|string|max:255',
             'jabatan' => 'required|string|max:255',
             'pesan' => 'required|string',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:15360',
         ]);
 
         $foto = null;
@@ -59,7 +59,7 @@ class AdminTestimoniController extends Controller
             'nama' => 'required|string|max:255',
             'jabatan' => 'required|string|max:255',
             'pesan' => 'required|string',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:15360',
         ]);
 
         if ($request->hasFile('foto')) {

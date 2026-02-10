@@ -121,7 +121,7 @@ class AdminGalleryController extends Controller
         return $request->validate([
             'title'       => 'required|string|max:255',
             'type'        => 'required|in:image,video',
-            'thumbnail'   => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'thumbnail'   => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:15360',
             'video_url'   => 'nullable|string',
             'description' => 'nullable|string',
             'category'    => 'nullable|string',

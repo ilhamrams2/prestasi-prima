@@ -29,11 +29,11 @@ class AdminMikrotikTrainerController extends Controller
             'title' => 'required|string|max:255',
             'role' => 'required|string|max:255',
             'description' => 'required|string',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,webp|max:15360',
             'certificates' => 'nullable|array',
             'certificates.*.title' => 'required|string|max:255',
             'certificates.*.verify_id' => 'nullable|string|max:255',
-            'certificates.*.image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'certificates.*.image' => 'required|image|mimes:jpeg,png,jpg,webp|max:15360',
         ]);
 
         DB::beginTransaction();
@@ -81,16 +81,16 @@ class AdminMikrotikTrainerController extends Controller
             'title' => 'required|string|max:255',
             'role' => 'required|string|max:255',
             'description' => 'required|string',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:15360',
             'new_certificates' => 'nullable|array',
             'new_certificates.*.title' => 'required|string|max:255',
             'new_certificates.*.verify_id' => 'nullable|string|max:255',
-            'new_certificates.*.image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'new_certificates.*.image' => 'required|image|mimes:jpeg,png,jpg,webp|max:15360',
             'existing_certificates' => 'nullable|array',
             'existing_certificates.*.id' => 'required|exists:mikrotik_certificates,id',
             'existing_certificates.*.title' => 'required|string|max:255',
             'existing_certificates.*.verify_id' => 'nullable|string|max:255',
-            'existing_certificates.*.image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'existing_certificates.*.image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:15360',
             'deleted_certificates' => 'nullable|string', // Comma separated IDs
         ]);
 

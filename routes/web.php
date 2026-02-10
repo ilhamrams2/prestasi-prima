@@ -172,6 +172,23 @@ Route::prefix('authPP')->group(function () {
 
 Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprima.admin.')->group(function () {
 
+    // === DEBUG ROUTE (TEMPORARY) ===
+    Route::get('/debug-user', function() {
+        $user = auth('authPP')->user();
+        return response()->json([
+            'authenticated' => auth('authPP')->check(),
+            'user' => $user,
+            'role' => $user->role ?? null,
+            'status' => $user->status ?? null,
+            'is_super_admin' => $user->isSuperAdmin() ?? null,
+        ]);
+    })->name('debug.user');
+
+    // === TEST ROUTE (TEMPORARY) - No role middleware ===
+    Route::get('/test-berita-create', function() {
+        return 'TEST: Anda bisa akses route ini! User: ' . auth('authPP')->user()->name;
+    })->name('test.berita');
+
     // === DASHBOARD (All Roles) ===
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
@@ -218,13 +235,13 @@ Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprim
         // Read-only access for most content sections
         Route::get('/gallery', [AdminGalleryController::class, 'index'])->name('gallery.index');
         Route::get('/berita', [AdminNewsController::class, 'index'])->name('berita.index');
-        Route::get('/berita/{id}', [AdminNewsController::class, 'show'])->name('berita.show');
+        // NOTE: berita/{id} moved below to avoid conflict with berita/create
         Route::get('/prestasi', [AdminPrestasiController::class, 'index'])->name('prestasi.index');
-        Route::get('/prestasi/{id}', [AdminPrestasiController::class, 'show'])->name('prestasi.show');
+        // prestasi/{id} moved below to avoid conflict with prestasi/create
         Route::get('/kegiatan', [AdminKegiatanController::class, 'index'])->name('kegiatan.index');
         Route::get('/industri', [AdminIndustriController::class, 'index'])->name('industri.index');
         Route::get('/staff', [AdminStaffController::class, 'index'])->name('staff.index');
-        Route::get('/staff/{staff}', [AdminStaffController::class, 'show'])->name('staff.show');
+        // staff/{staff} moved below to avoid conflict with staff/create
         Route::get('/testimoni', [AdminTestimoniController::class, 'index'])->name('testimoni.index');
         Route::get('/ekstrakurikuler', [AdminEkstrakurikulerController::class, 'index'])->name('ekstrakurikuler.index');
         Route::get('/karya', [AdminKaryaProyekController::class, 'index'])->name('karya.index');
@@ -248,6 +265,7 @@ Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprim
             Route::get('/{id}/edit', 'edit')->name('edit');
             Route::put('/{id}', 'update')->name('update');
             Route::delete('/{id}', 'destroy')->name('destroy');
+            Route::get('/{id}', 'show')->name('show'); // Moved here after /create
         });
 
         // Prestasi
@@ -285,6 +303,8 @@ Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprim
             Route::put('/{staff}', 'update')->name('update');
             Route::delete('/{staff}', 'destroy')->name('destroy');
         });
+
+
 
         // Testimoni
         Route::prefix('testimoni')->name('testimoni.')->controller(AdminTestimoniController::class)->group(function () {
@@ -349,6 +369,11 @@ Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprim
             Route::post('/', 'store')->name('store');
         });
     });
+
+    // === WILDCARD ROUTES (Must be at the end to avoid blocking /create, etc) ===
+    Route::get('/staff/{staff}', [AdminStaffController::class, 'show'])->name('staff.show');
+    Route::get('/berita/{id}', [AdminNewsController::class, 'show'])->name('berita.show');
+    Route::get('/prestasi/{id}', [AdminPrestasiController::class, 'show'])->name('prestasi.show');
 
 });
 

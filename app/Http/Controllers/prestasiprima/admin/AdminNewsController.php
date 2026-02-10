@@ -33,7 +33,7 @@ class AdminNewsController extends Controller
             'title'       => 'required|string|max:255',
             'content'     => 'required|string',
             'category_id' => 'required|exists:prestasiprima_categories,id',
-            'thumbnail'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'thumbnail'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:15360',
         ]);
 
         $data = $request->only(['title', 'content', 'category_id']);
@@ -76,7 +76,7 @@ class AdminNewsController extends Controller
             'title'       => 'required|string|max:255',
             'content'     => 'required|string',
             'category_id' => 'required|exists:prestasiprima_categories,id',
-            'thumbnail'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'thumbnail'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:15360',
         ]);
 
         $news = News::findOrFail($id);

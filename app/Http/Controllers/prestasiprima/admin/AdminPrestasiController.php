@@ -34,7 +34,7 @@ class AdminPrestasiController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar' => 'required|image|mimes:jpg,jpeg,png,webp|max:15360',
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -71,7 +71,7 @@ class AdminPrestasiController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:15360',
         ]);
 
         if ($request->hasFile('gambar')) {

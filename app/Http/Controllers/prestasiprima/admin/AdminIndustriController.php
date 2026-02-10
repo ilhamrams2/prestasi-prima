@@ -25,7 +25,7 @@ class AdminIndustriController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:prestasiprima_industris,slug',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048'
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:15360'
         ]);
 
         $logoPath = null;
@@ -53,7 +53,7 @@ class AdminIndustriController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:prestasiprima_industris,slug,' . $industri->id,
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048'
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:15360'
         ]);
 
         if ($request->hasFile('logo')) {

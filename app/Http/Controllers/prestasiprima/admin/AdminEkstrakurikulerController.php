@@ -25,7 +25,7 @@ class AdminEkstrakurikulerController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:15360',
         ]);
 
         $gambar = null;
@@ -57,7 +57,7 @@ class AdminEkstrakurikulerController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:15360',
         ]);
 
         if ($request->hasFile('gambar')) {

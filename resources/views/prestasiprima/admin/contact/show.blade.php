@@ -89,11 +89,11 @@
         </a>
 
         <form action="{{ route('prestasiprima.admin.contact.destroy', $message->id) }}" 
-              method="POST" 
-              onsubmit="return confirm('Yakin ingin menghapus pesan ini?')">
+              method="POST">
             @csrf
             @method('DELETE')
             <button type="submit" 
+                    onclick="return confirmDelete(event)"
                     class="inline-flex items-center gap-2 px-6 py-3 bg-red-50 text-red-600 rounded-2xl font-bold hover:bg-red-100 transition-all">
                 <i class="ri-delete-bin-line"></i>
                 Hapus Pesan

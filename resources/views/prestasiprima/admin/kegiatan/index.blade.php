@@ -18,15 +18,6 @@
         </a>
     </div>
 
-    {{-- ================= FLASH MESSAGE ================= --}}
-    @if (session('success'))
-        <div class="p-4 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center gap-3 text-emerald-700 animate-fade-in-down">
-            <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white flex-shrink-0">
-                <i class="ri-check-line text-lg font-bold"></i>
-            </div>
-            <p class="text-sm font-bold">{{ session('success') }}</p>
-        </div>
-    @endif
 
     {{-- ================= TABLE CONTAINER ================= --}}
     <div class="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">
@@ -102,7 +93,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" 
-                                                onclick="return confirm('Yakin ingin menghapus agenda kegiatan ini?')"
+                                                onclick="return confirmDelete(event)"
                                                 class="w-10 h-10 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-sm border border-red-100"
                                                 title="Hapus">
                                             <i class="ri-delete-bin-6-line text-lg"></i>

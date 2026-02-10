@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class MediaService
 {
     /**
-     * Upload and optimize image
+     * Upload and optimize image or file
      * 
      * @param \Illuminate\Http\UploadedFile $file
      * @param string $folder
@@ -20,26 +20,40 @@ class MediaService
      */
     public static function upload($file, $folder = 'uploads', $width = 1200, $height = null, $quality = 80)
     {
-        // 1. Create filename with WebP extension
-        $filename = Str::random(40) . '.webp';
-        $path = $folder . '/' . $filename;
+        $mime = $file->getMimeType();
 
-        // 2. Process Image with Intervention
-        $image = Image::make($file);
+        // 1. IMAGE HANDLING (Convert to WebP & Compress)
+        if (str_starts_with($mime, 'image/')) {
+            $filename = Str::random(40) . '.webp';
+            $path = $folder . '/' . $filename;
 
-        // 3. Auto-Resize (maintain aspect ratio)
-        if ($width || $height) {
-            $image->resize($width, $height, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
+            // Process Image with Intervention
+            $image = Image::make($file);
+
+            // Auto-Resize (maintain aspect ratio)
+            if ($width || $height) {
+                $image->resize($width, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+            }
+
+            // Encode as WebP with quality optimization
+            $content = (string) $image->encode('webp', $quality);
+
+            // Store in Public Disk
+            Storage::disk('public')->put($path, $content);
+
+            return $path;
         }
 
-        // 4. Encode as WebP with quality optimization
-        $content = (string) $image->encode('webp', $quality);
+        // 2. DOCUMENT / VIDEO HANDLING (Direct Storage)
+        // Keep original extension
+        $extension = $file->getClientOriginalExtension();
+        $filename = Str::random(40) . '.' . $extension;
 
-        // 5. Store in Public Disk
-        Storage::disk('public')->put($path, $content);
+        // Store safely using stream (better for large video files)
+        $path = $file->storeAs($folder, $filename, 'public');
 
         return $path;
     }

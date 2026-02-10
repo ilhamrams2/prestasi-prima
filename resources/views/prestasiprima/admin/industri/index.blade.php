@@ -18,15 +18,6 @@
         </a>
     </div>
 
-    {{-- ================= FLASH MESSAGE ================= --}}
-    @if (session('success'))
-        <div class="p-4 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center gap-3 text-emerald-700">
-            <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center text-white flex-shrink-0">
-                <i class="ri-check-line text-lg font-bold"></i>
-            </div>
-            <p class="text-sm font-bold">{{ session('success') }}</p>
-        </div>
-    @endif
 
     {{-- ================= TABLE CONTAINER ================= --}}
     <div class="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">

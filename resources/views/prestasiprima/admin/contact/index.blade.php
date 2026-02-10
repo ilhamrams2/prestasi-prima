@@ -98,7 +98,8 @@
                 @csrf
                 <input type="hidden" name="ids" id="bulk-delete-ids">
                 <button type="submit" 
-                        onclick="return confirm('Yakin ingin menghapus pesan yang dipilih?')"
+                        onclick="return confirmDelete(event)"
+                        data-confirm-text="Yakin ingin menghapus pesan yang dipilih?"
                         class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-all flex items-center gap-2 text-sm shadow-lg shadow-red-500/20">
                     <i class="ri-delete-bin-line text-base"></i>
                     Hapus
@@ -176,11 +177,11 @@
                             </a>
                             
                             <form action="{{ route('prestasiprima.admin.contact.destroy', $message->id) }}" 
-                                  method="POST" 
-                                  onsubmit="return confirm('Yakin ingin menghapus pesan ini?')">
+                                  method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" 
+                                        onclick="return confirmDelete(event)"
                                         class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border-2 border-slate-200 text-slate-600 hover:text-red-600 hover:border-red-600 hover:bg-red-50 transition-all group"
                                         title="Hapus">
                                     <i class="ri-delete-bin-line text-lg group-hover:scale-110 transition-transform"></i>

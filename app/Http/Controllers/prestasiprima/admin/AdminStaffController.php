@@ -32,7 +32,7 @@ class AdminStaffController extends Controller
             'nama' => 'required|string|max:255',
             'jabatan' => 'required|string|max:255',
             'kategori' => 'required|string|in:kepala,kaprog,kesiswaan,guru_mapel',
-            'foto' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'foto' => 'required|image|mimes:jpg,jpeg,png,webp|max:15360',
             'kutipan' => 'nullable|string|max:1000',
         ]);
 
@@ -71,7 +71,7 @@ class AdminStaffController extends Controller
             'nama' => 'required|string|max:255',
             'jabatan' => 'required|string|max:255',
             'kategori' => 'required|string|in:kepala,kaprog,kesiswaan,guru_mapel',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:15360',
             'kutipan' => 'nullable|string|max:1000',
         ]);
 

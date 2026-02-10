@@ -28,4 +28,11 @@ export default defineConfig({
             plugins: [tailwindcss, autoprefixer],
         },
     },
+    server: {
+        host: true, // Listen on all addresses (0.0.0.0)
+        cors: true,
+        hmr: {
+            host: '192.168.0.104', // Explicitly set HMR host for mobile
+        },
+    },
 });

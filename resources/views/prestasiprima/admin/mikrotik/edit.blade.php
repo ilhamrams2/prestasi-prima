@@ -203,12 +203,18 @@
     }
 
     function removeExistingCertificate(id, element) {
-        if (confirm('Yakin ingin menghapus sertifikat ini? Data akan benar-benar terhapus setelah form disimpan.')) {
-            deletedIds.push(id);
-            document.getElementById('deleted_certificates').value = deletedIds.join(',');
-            element.closest('.cert-item.active-cert').remove();
-            checkEmpty();
-        }
+        window.Confirm.show({
+            submit: function() {
+                deletedIds.push(id);
+                document.getElementById('deleted_certificates').value = deletedIds.join(',');
+                element.closest('.cert-item.active-cert').remove();
+                checkEmpty();
+            }
+        }, {
+            title: 'Hapus Sertifikat',
+            message: 'Yakin ingin menghapus sertifikat ini? Data akan benar-benar terhapus setelah form disimpan.',
+            btnText: 'Hapus'
+        });
     }
 
     function checkEmpty() {
