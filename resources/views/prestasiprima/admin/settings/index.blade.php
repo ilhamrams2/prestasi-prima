@@ -110,9 +110,14 @@
                             @elseif($setting->type == 'color')
                                 <div class="flex items-center gap-4">
                                     <div class="relative w-12 h-12 rounded-xl overflow-hidden border border-slate-200">
-                                        <input type="color" name="{{ $setting->key }}" value="{{ $setting->value }}" class="absolute -inset-2 w-[150%] h-[150%] cursor-pointer">
+                                        <input type="color" value="{{ $setting->value }}" 
+                                               id="color-picker-{{ $setting->key }}"
+                                               oninput="document.getElementById('color-input-{{ $setting->key }}').value = this.value"
+                                               class="absolute -inset-2 w-[150%] h-[150%] cursor-pointer">
                                     </div>
-                                    <input type="text" value="{{ $setting->value }}" class="px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-xs font-mono font-bold text-slate-600 w-32 uppercase" readonly>
+                                    <input type="text" name="{{ $setting->key }}" value="{{ $setting->value }}" id="color-input-{{ $setting->key }}" 
+                                           oninput="document.getElementById('color-picker-{{ $setting->key }}').value = this.value"
+                                           class="px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-xs font-mono font-bold text-slate-700 w-32 uppercase focus:ring-2 focus:ring-[#FF6B00]/20 focus:border-[#FF6B00] outline-none transition-all">
                                 </div>
 
                             @else

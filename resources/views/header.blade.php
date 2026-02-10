@@ -16,7 +16,8 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 5a2 2 0 012-2h3.3l1.3 3.9-1.9 2a11 11 0 005 5l2-2 3.9 1.3V19a2 2 0 01-2 2h-1C10.6 21 3 13.4 3 4V5z"/>
           </svg>
-          <a href="tel:089599439033" class="text-white font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/80 focus-visible:ring-offset-orange-500">+62 851-9592-8886</a>
+          @php $sitePhone = \App\Models\prestasiprima\SiteSetting::get('contact_phone', '+62 851-9592-8886'); @endphp
+          <a href="tel:{{ str_replace([' ', '-', '+'], '', $sitePhone) }}" class="text-white font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/80 focus-visible:ring-offset-orange-500">{{ $sitePhone }}</a>
         </div>
 
         <!-- Email -->
@@ -25,7 +26,8 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 8l7.9 5.3a2 2 0 002.2 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
           </svg>
-          <a href="mailto:halo@smkprestasiprima.ac.id" class="text-white font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/80 focus-visible:ring-offset-orange-500">smk.prestasiprima.sch.id</a>
+          @php $siteEmail = \App\Models\prestasiprima\SiteSetting::get('contact_email', 'info@prestasiprima.sch.id'); @endphp
+          <a href="mailto:{{ $siteEmail }}" class="text-white font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/80 focus-visible:ring-offset-orange-500">{{ $siteEmail }}</a>
         </div>
 
       </div>
@@ -38,8 +40,12 @@
 
       <!-- Logo -->
     <a href="/" class="flex items-center space-x-3">
-      <img src="{{ asset('assets/images/logo-smk.png') }}" alt="Logo" width="{{ $headerLogoSize[0] }}" height="{{ $headerLogoSize[1] }}" class="h-12 w-auto object-contain">
-      <span class="font-outfit font-black text-xl header-logo text-white whitespace-nowrap tracking-tight">SMK Prestasi Prima</span>
+      @php 
+        $siteLogo = \App\Models\prestasiprima\SiteSetting::get('site_logo');
+        $siteName = \App\Models\prestasiprima\SiteSetting::get('site_name', 'SMK Prestasi Prima');
+      @endphp
+      <img src="{{ $siteLogo ? asset($siteLogo) : asset('assets/images/logo-smk.png') }}" alt="Logo" width="{{ $headerLogoSize[0] }}" height="{{ $headerLogoSize[1] }}" class="h-12 w-auto object-contain">
+      <span class="font-outfit font-black text-xl header-logo text-white whitespace-nowrap tracking-tight">{{ $siteName }}</span>
     </a>
 
       <!-- Desktop Menu -->

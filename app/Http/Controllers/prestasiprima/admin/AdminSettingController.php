@@ -23,47 +23,57 @@ class AdminSettingController extends Controller
      */
     public function update(Request $request)
     {
-        $settings = SiteSetting::all();
+        try {
+            $settings = SiteSetting::all();
 
-        foreach ($settings as $setting) {
-            $key = $setting->key;
-            $oldValue = $setting->value;
+            foreach ($settings as $setting) {
+                $key = $setting->key;
+                $oldValue = $setting->value;
 
-            if ($setting->type === 'image') {
-                if ($request->hasFile($key)) {
-                    // Delete old file
-                    if ($oldValue && file_exists(public_path($oldValue))) {
-                        unlink(public_path($oldValue));
+                if ($setting->type === 'image') {
+                    if ($request->hasFile($key)) {
+                        // Ensure directory exists
+                        if (!file_exists(public_path('uploads/settings'))) {
+                            mkdir(public_path('uploads/settings'), 0777, true);
+                        }
+
+                        // Delete old file
+                        if ($oldValue && file_exists(public_path($oldValue))) {
+                            unlink(public_path($oldValue));
+                        }
+
+                        $file = $request->file($key);
+                        $filename = 'setting_' . $key . '_' . time() . '.' . $file->getClientOriginalExtension();
+                        $file->move(public_path('uploads/settings'), $filename);
+                        $setting->update(['value' => 'uploads/settings/' . $filename]);
+                        
+                        ActivityLog::log('update', "Memperbarui gambar pengaturan: {$setting->label}");
                     }
-
-                    $file = $request->file($key);
-                    $filename = 'setting_' . $key . '_' . time() . '.' . $file->getClientOriginalExtension();
-                    $file->move(public_path('uploads/settings'), $filename);
-                    $setting->update(['value' => 'uploads/settings/' . $filename]);
-                    
-                    ActivityLog::log('update', "Memperbarui gambar pengaturan: {$setting->label}");
-                }
-            } elseif ($setting->type === 'boolean') {
-                $newValue = $request->has($key) ? '1' : '0';
-                if ($oldValue != $newValue) {
-                    $setting->update(['value' => $newValue]);
-                    $status = $newValue == '1' ? 'AKTIF' : 'NON-AKTIF';
-                    ActivityLog::log('update', "Mengubah status {$setting->label} menjadi {$status}");
-                }
-            } else {
-                if ($request->has($key)) {
-                    $newValue = $request->input($key);
+                } elseif ($setting->type === 'boolean') {
+                    $newValue = $request->has($key) ? '1' : '0';
                     if ($oldValue != $newValue) {
                         $setting->update(['value' => $newValue]);
-                        ActivityLog::log('update', "Mengubah {$setting->label} dari '{$oldValue}' menjadi '{$newValue}'");
+                        $status = $newValue == '1' ? 'AKTIF' : 'NON-AKTIF';
+                        ActivityLog::log('update', "Mengubah status {$setting->label} menjadi {$status}");
+                    }
+                } else {
+                    if ($request->has($key)) {
+                        $newValue = $request->input($key);
+                        if ($oldValue != $newValue) {
+                            $setting->update(['value' => $newValue]);
+                            ActivityLog::log('update', "Mengubah {$setting->label} dari '{$oldValue}' menjadi '{$newValue}'");
+                        }
                     }
                 }
             }
+
+            SiteSetting::clearCache();
+
+            return back()->with('success', 'Pengaturan berhasil diperbarui.');
+        } catch (\Exception $e) {
+            \Log::error('Gagal memperbarui pengaturan: ' . $e->getMessage());
+            return back()->with('error', 'Gagal memperbarui pengaturan: ' . $e->getMessage())->withInput();
         }
-
-        SiteSetting::clearCache();
-
-        return back()->with('success', 'Pengaturan berhasil diperbarui.');
     }
 
     /**
@@ -75,6 +85,7 @@ class AdminSettingController extends Controller
             // General
             ['key' => 'site_name', 'value' => 'SMK Prestasi Prima', 'label' => 'Nama Situs', 'type' => 'text', 'group' => 'general', 'description' => 'Nama sekolah yang akan muncul di judul website.'],
             ['key' => 'site_description', 'value' => 'Sekolah Berbasis Kompetensi dan Akhlak Mulia', 'label' => 'Deskripsi Situs', 'type' => 'textarea', 'group' => 'general', 'description' => 'Slogan atau deskripsi singkat sekolah.'],
+            ['key' => 'site_motto', 'value' => 'IF BETTER IS POSSIBLE, GOOD IS NOT ENOUGH!', 'label' => 'Motto Sekolah', 'type' => 'text', 'group' => 'general', 'description' => 'Motto atau slogan singkat yang muncul di footer.'],
             ['key' => 'maintenance_mode', 'value' => '0', 'label' => 'Maintenance Mode', 'type' => 'boolean', 'group' => 'general', 'description' => 'Aktifkan untuk menampilkan halaman perbaikan.'],
             
             // Identity
@@ -88,7 +99,8 @@ class AdminSettingController extends Controller
             // Contact
             ['key' => 'contact_email', 'value' => 'info@prestasiprima.sch.id', 'label' => 'Email Kontak', 'type' => 'text', 'group' => 'contact', 'description' => 'Email resmi sekolah untuk korespondensi.'],
             ['key' => 'contact_phone', 'value' => '021-1234567', 'label' => 'Telepon', 'type' => 'text', 'group' => 'contact', 'description' => 'Nomor telepon kantor sekolah.'],
-            ['key' => 'address', 'value' => 'Jl. Raya No. 1, Jakarta', 'label' => 'Alamat', 'type' => 'textarea', 'group' => 'contact', 'description' => 'Alamat lengkap lokasi sekolah.'],
+            ['key' => 'address', 'value' => 'Jl. Hankam Raya No. 89, Cilangkap, Cipayung, Jakarta Timur', 'label' => 'Alamat', 'type' => 'textarea', 'group' => 'contact', 'description' => 'Alamat lengkap lokasi sekolah.'],
+            ['key' => 'map_iframe', 'value' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4748268020353!2d106.8972187!3d-6.332476499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed2681bc7c67%3A0x777152b1d3f74a62!2sSMK%20Prestasi%20Prima!5e0!3m2!1sid!2sid!4v1756647265168!5m2!1sid!2sid', 'label' => 'URL Google Maps (Embed)', 'type' => 'textarea', 'group' => 'contact', 'description' => 'Masukkan atribut src dari kode embed Google Maps.'],
             
             // Social Media
             ['key' => 'facebook_url', 'value' => '#', 'label' => 'Facebook URL', 'type' => 'text', 'group' => 'social', 'description' => 'Link ke halaman Facebook resmi.'],

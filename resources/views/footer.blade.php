@@ -25,13 +25,17 @@
   <!-- Motto teks berjalan -->
   <div class="flex-1 overflow-hidden px-6 md:px-24 py-6 relative z-10">
     <div class="flex whitespace-nowrap animate-marquee">
+      @php 
+        $siteMotto = \App\Models\prestasiprima\SiteSetting::get('site_motto', 'IF BETTER IS POSSIBLE, GOOD IS NOT ENOUGH!');
+        $siteNameFull = \App\Models\prestasiprima\SiteSetting::get('site_name', 'SMK Prestasi Prima');
+      @endphp
       <h2
         class="inline-block text-white font-bold text-base sm:text-lg md:text-2xl uppercase tracking-wide drop-shadow leading-snug">
-        SMK PRESTASI PRIMA – MENCETAK GENERASI BERPRESTASI! &nbsp;&nbsp; • &nbsp;&nbsp;
-        IF BETTER IS POSSIBLE, GOOD IS NOT ENOUGH! &nbsp;&nbsp; • &nbsp;&nbsp;
+        {{ $siteNameFull }} – MENCETAK GENERASI BERPRESTASI! &nbsp;&nbsp; • &nbsp;&nbsp;
+        {{ $siteMotto }} &nbsp;&nbsp; • &nbsp;&nbsp;
         BERANI HEBAT, BERANI BERPRESTASI! &nbsp;&nbsp; • &nbsp;&nbsp;
-        SMK PRESTASI PRIMA – MENCETAK GENERASI BERPRESTASI! &nbsp;&nbsp; • &nbsp;&nbsp;
-        IF BETTER IS POSSIBLE, GOOD IS NOT ENOUGH! &nbsp;&nbsp; • &nbsp;&nbsp;
+        {{ $siteNameFull }} – MENCETAK GENERASI BERPRESTASI! &nbsp;&nbsp; • &nbsp;&nbsp;
+        {{ $siteMotto }} &nbsp;&nbsp; • &nbsp;&nbsp;
         BERANI HEBAT, BERANI BERPRESTASI!
       </h2>
     </div>
@@ -93,40 +97,55 @@
   </div>
 
   <!-- Bagian Atas Footer -->
-  <div
-    class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 lg:px-16 pt-14 pb-10 flex flex-col lg:flex-row items-center justify-between gap-10 border-b border-white/10">
+  <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 lg:px-16 pt-14 pb-10 flex flex-col lg:flex-row items-center justify-between gap-10 border-b border-white/10">
     <!-- Logo dan Motto -->
-    <div class="flex flex-col lg:flex-row items-center lg:items-start text-center lg:text-left gap-6">
-      <div class="flex items-center justify-center w-20 h-20 rounded-full border-2 border-orange-500 shadow-xl bg-white">
-        <img src="{{ asset($footerLogoPath) }}" alt="Logo"
+    <div class="flex flex-col lg:flex-row items-center gap-6 text-center lg:text-left">
+      @php 
+        $siteLogo = \App\Models\prestasiprima\SiteSetting::get('site_logo');
+        $siteName = \App\Models\prestasiprima\SiteSetting::get('site_name', 'SMK Prestasi Prima');
+        $siteDescription = \App\Models\prestasiprima\SiteSetting::get('site_description', 'Mencetak generasi berprestasi melalui pendidikan unggulan.');
+      @endphp
+      <div class="flex items-center justify-center w-20 h-20 rounded-full border-2 border-orange-500 shadow-xl bg-white flex-shrink-0">
+        <img src="{{ $siteLogo ? asset($siteLogo) : asset('assets/images/logo-smk.png') }}" alt="Logo"
           width="{{ $footerLogoSize[0] }}"
           height="{{ $footerLogoSize[1] }}"
-          class="max-h-full max-w-full object-contain">
+          class="max-h-full max-w-full object-contain p-2">
       </div>
       <div>
-        <h2 class="text-2xl font-bold text-white tracking-wide">SMK Prestasi Prima</h2>
-        <p class="text-sm text-gray-400 mt-2 max-w-md">
-          Mencetak generasi berprestasi melalui pendidikan unggulan dan lingkungan belajar yang inspiratif.
+        <h2 class="text-2xl font-bold text-white tracking-wide">{{ $siteName }}</h2>
+        <p class="text-sm text-gray-400 mt-1 max-w-md">
+          {{ $siteDescription }}
         </p>
-        <p class="italic text-orange-400/90 text-xs mt-3">“Berani Hebat, Berani Berprestasi.”</p>
+        <p class="italic text-orange-400/90 text-xs mt-2">“Berani Hebat, Berani Berprestasi.”</p>
       </div>
     </div>
 
     <!-- Sosial Media -->
     <div class="flex items-center gap-4">
-      <a href="https://www.facebook.com/p/SMK-Prestasi-PRIMA-100035392916117/"
-        class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"
-        aria-label="Facebook SMK Prestasi Prima"><i class="ri-facebook-fill text-lg"></i></a>
-      <a href="https://www.instagram.com/smkprestasiprima/"
-        class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"
-        aria-label="Instagram SMK Prestasi Prima"><i class="ri-instagram-line text-lg"></i></a>
-      <a href="https://www.youtube.com/@SEKOLAHPRESTASIPRIMA"
-        class="bg-orange-500/90 hover:bg-orange-600 w-10 h-10 flex items-center justify-center rounded-full transition shadow-md"
-        aria-label="YouTube SMK Prestasi Prima"><i class="ri-youtube-fill text-lg"></i></a>
+      @php 
+        $fb = \App\Models\prestasiprima\SiteSetting::get('facebook_url', '#');
+        $ig = \App\Models\prestasiprima\SiteSetting::get('instagram_url', '#');
+        $yt = \App\Models\prestasiprima\SiteSetting::get('youtube_url', '#');
+      @endphp
+      @if($fb != '#')
+      <a href="{{ $fb }}"
+        class="bg-white/10 hover:bg-orange-600 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 shadow-lg border border-white/5 group"
+        aria-label="Facebook"><i class="ri-facebook-fill text-xl group-hover:scale-110"></i></a>
+      @endif
+      @if($ig != '#')
+      <a href="{{ $ig }}"
+        class="bg-white/10 hover:bg-orange-600 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 shadow-lg border border-white/5 group"
+        aria-label="Instagram"><i class="ri-instagram-line text-xl group-hover:scale-110"></i></a>
+      @endif
+      @if($yt != '#')
+      <a href="{{ $yt }}"
+        class="bg-white/10 hover:bg-orange-600 w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 shadow-lg border border-white/5 group"
+        aria-label="YouTube"><i class="ri-youtube-fill text-xl group-hover:scale-110"></i></a>
+      @endif
     </div>
   </div>
 
-  <!-- =================== BAGIAN ATAS FOOTER =================== -->
+  <!-- =================== INFORMASI SEKOLAH =================== -->
   <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 lg:px-16 pt-14 pb-10 border-b border-white/10">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
       <!-- Kolom 1: Informasi Sekolah -->
@@ -137,11 +156,15 @@
             class="absolute left-0 -bottom-1 w-10 h-[2px] bg-gradient-to-r from-orange-500 to-orange-300 rounded-full"></span>
         </h3>
         <ul class="text-sm text-gray-400 space-y-3 mt-4">
-      <li class="flex items-center gap-3"><i class="ri-phone-line text-orange-400 text-base"></i><span>+62 851-9592-8886</span></li>
-      <li class="flex items-center gap-3"><i class="ri-mail-line text-orange-400 text-base"></i><span>smk.prestasiprima.sch.id</span></li>
-      <li class="flex items-center gap-3"><i class="ri-building-4-line text-orange-400 text-base"></i><span>Jl. Hankam Raya No. 89, Cilangkap, Cipayung,Jakarta Timur, DKI Jakarta.</span></li>
-      <li class="flex items-center gap-3"><i class="ri-time-line text-orange-400 text-base"></i><span>Senin –
-              Jumat: 06.00 - 17.00</span></li>
+      @php 
+        $sitePhone = \App\Models\prestasiprima\SiteSetting::get('contact_phone', '+62 851-9592-8886');
+        $siteEmail = \App\Models\prestasiprima\SiteSetting::get('contact_email', 'info@prestasiprima.sch.id');
+        $siteAddress = \App\Models\prestasiprima\SiteSetting::get('address', 'Jl. Hankam Raya No. 89, Cilangkap, Cipayung, Jakarta Timur');
+      @endphp
+      <li class="flex items-center gap-3"><i class="ri-phone-line text-orange-400 text-base"></i><span>{{ $sitePhone }}</span></li>
+      <li class="flex items-center gap-3"><i class="ri-mail-line text-orange-400 text-base"></i><span>{{ $siteEmail }}</span></li>
+      <li class="flex items-center gap-3"><i class="ri-building-4-line text-orange-400 text-base"></i><span>{{ $siteAddress }}</span></li>
+      <li class="flex items-center gap-3"><i class="ri-time-line text-orange-400 text-base"></i><span>Senin – Jumat: 06.00 - 17.00</span></li>
         </ul>
       </div>
 
@@ -224,9 +247,13 @@
       </h2>
       <div
         class="rounded-2xl overflow-hidden shadow-lg border border-white/10 h-[230px] sm:h-[260px] md:h-[280px] lg:h-[300px]">
+        @php 
+            $mapUrl = \App\Models\prestasiprima\SiteSetting::get('map_iframe'); 
+            $siteNameFull = \App\Models\prestasiprima\SiteSetting::get('site_name', 'SMK Prestasi Prima');
+        @endphp
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4748268020353!2d106.8972187!3d-6.332476499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed2681bc7c67%3A0x777152b1d3f74a62!2sSMK%20Prestasi%20Prima!5e0!3m2!1sid!2sid!4v1756647265168!5m2!1sid!2sid"
-          width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy" title="Lokasi SMK Prestasi Prima">
+          src="{{ $mapUrl ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4748268020353!2d106.8972187!3d-6.332476499999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed2681bc7c67%3A0x777152b1d3f74a62!2sSMK%20Prestasi%20Prima!5e0!3m2!1sid!2sid!4v1756647265168!5m2!1sid!2sid' }}"
+          width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy" title="Lokasi {{ $siteNameFull }}">
         </iframe>
       </div>
     </div>
@@ -291,7 +318,7 @@
     <div
       class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 flex flex-col md:flex-row items-center justify-between gap-2 text-xs md:text-sm">
       <p class="flex items-center gap-2 text-gray-400">
-        <span>© {{ date('Y') }} SMK Prestasi Prima</span>
+        <span>© {{ date('Y') }} {{ \App\Models\prestasiprima\SiteSetting::get('site_name', 'SMK Prestasi Prima') }}</span>
         <span class="mx-2 text-white/30">|</span>
 <span>
   Oren Solution <span class="text-white/60">v3.0</span> 

@@ -4,37 +4,62 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>@yield('title', 'SMK Prestasi Prima')</title>
+  <title>@yield('title', \App\Models\prestasiprima\SiteSetting::get('site_name', 'SMK Prestasi Prima'))</title>
   @php
-    $defaultDescription = 'SMK Prestasi Prima menghadirkan pendidikan kejuruan berkualitas dengan jurusan unggulan, fasilitas modern, dan dukungan karier untuk siswa berprestasi.';
+    $defaultDescription = \App\Models\prestasiprima\SiteSetting::get('site_description', 'SMK Prestasi Prima menghadirkan pendidikan kejuruan berkualitas dengan jurusan unggulan, fasilitas modern, dan dukungan karier untuk siswa berprestasi.');
+    $siteName = \App\Models\prestasiprima\SiteSetting::get('site_name', 'SMK Prestasi Prima');
   @endphp
-  @if (trim($__env->yieldContent('meta_description')) !== '')
-    <meta name="description" content="@yield('meta_description')">
-  @else
-    <meta name="description" content="{{ $defaultDescription }}">
-  @endif
-  @if (trim($__env->yieldContent('meta_keywords')) !== '')
-    <meta name="keywords" content="@yield('meta_keywords')">
-  @endif
+  <meta name="description" content="@yield('meta_description', $defaultDescription)">
+  <meta name="keywords" content="@yield('meta_keywords', \App\Models\prestasiprima\SiteSetting::get('meta_keywords', 'smk, prestasi, prima, jakarta'))">
   @if (trim($__env->yieldContent('meta_robots')) !== '')
     <meta name="robots" content="@yield('meta_robots')">
   @endif
-  <meta property="og:title" content="@yield('title', 'SMK Prestasi Prima')">
+  <meta property="og:title" content="@yield('title', $siteName)">
   <meta property="og:description" content="@yield('meta_description', $defaultDescription)">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ url()->current() }}">
-  <meta property="og:image" content="{{ asset('assets/images/logo-smk.png') }}">
+  @php
+    $siteLogo = \App\Models\prestasiprima\SiteSetting::get('site_logo');
+    $siteFavicon = \App\Models\prestasiprima\SiteSetting::get('site_favicon');
+    $primaryColor = \App\Models\prestasiprima\SiteSetting::get('primary_color', '#FF6B00');
+    $secondaryColor = \App\Models\prestasiprima\SiteSetting::get('secondary_color', '#1e293b');
+  @endphp
+  <meta property="og:image" content="{{ $siteLogo ? asset($siteLogo) : asset('assets/images/logo-smk.png') }}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="@yield('title', 'SMK Prestasi Prima')">
+  <meta name="twitter:title" content="@yield('title', $siteName)">
   <meta name="twitter:description" content="@yield('meta_description', $defaultDescription)">
-  <meta name="theme-color" content="#FF6B00">
+  <meta name="theme-color" content="{{ $primaryColor }}">
 
-  {{-- === Fonts === --}}
-  {{-- === Fonts (Locally Hosted via Vite) === --}}
+  {{-- === Dynamic Theme Colors === --}}
+  <style>
+    :root {
+      --primary-color: {{ $primaryColor }};
+      --secondary-color: {{ $secondaryColor }};
+      --primary-hover: {{ $primaryColor }}dd; /* Transparent version for hover */
+    }
+    
+    /* Dynamic Theme Overrides */
+    .text-orange-600, .group-hover\:text-orange-600:hover, .hover\:text-orange-600:hover { color: var(--primary-color) !important; }
+    .bg-orange-600, .hover\:bg-orange-600:hover { background-color: var(--primary-color) !important; }
+    .text-orange-500, .group-hover\:text-orange-500:hover { color: var(--primary-color) !important; }
+    .bg-orange-500, .hover\:bg-orange-500:hover { background-color: var(--primary-color) !important; }
+    .border-orange-500 { border-color: var(--primary-color) !important; }
+    .focus\:ring-orange-500:focus { --tw-ring-color: var(--primary-color) !important; }
+    
+    .bg-slate-900 { background-color: var(--secondary-color) !important; }
+    .bg-slate-800 { background-color: var(--secondary-color) !important; }
+    
+    /* Specific overrides for buttons and transitions */
+    .nav-link:hover::after { background: var(--primary-color) !important; }
+    #backToTop:hover { background-color: var(--primary-color) !important; border-color: var(--primary-color) !important; }
+    #accToggle:hover { background-color: var(--primary-color) !important; }
+    .acc-btn.active { border-color: var(--primary-color) !important; background-color: color-mix(in srgb, var(--primary-color), white 90%) !important; }
+    .acc-btn.active iconify-icon, .acc-btn.active span { color: var(--primary-color) !important; }
+  </style>
 
   {{-- === Favicon === --}}
-  <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-smk.png') }}">
-  <link rel="apple-touch-icon" href="{{ asset('assets/images/logo-smk.png') }}">
+  <link rel="icon" type="image/png" href="{{ $siteFavicon ? asset($siteFavicon) : asset('assets/images/logo-smk.png') }}">
+  <link rel="apple-touch-icon" href="{{ $siteFavicon ? asset($siteFavicon) : asset('assets/images/logo-smk.png') }}">
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <style> 
@@ -627,5 +652,18 @@
       });
     }
   </script>
+  @php
+    $gaId = \App\Models\prestasiprima\SiteSetting::get('google_analytics_id');
+  @endphp
+  @if($gaId)
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaId }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ $gaId }}');
+    </script>
+  @endif
 </body>
 </html>

@@ -29,10 +29,10 @@ export default defineConfig({
         },
     },
     server: {
-        host: true, // Listen on all addresses (0.0.0.0)
+        host: '127.0.0.1', 
         cors: true,
         hmr: {
-            host: '192.168.0.104', // Explicitly set HMR host for mobile
+            host: '127.0.0.1',
         },
     },
 });
