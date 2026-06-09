@@ -403,18 +403,24 @@
 
     <script>
         /* =======================================
-            SCENES (ALL 11)
+            SCENES (ALL 15)
         ======================================= */
         const scenes = [
-            { name: 'Field', file: "{{ asset('assets/360View/v360-1.jpg') }}" },
-            { name: 'Hallway', file: "{{ asset('assets/360View/v360-2.jpg') }}" },
-            { name: 'Regular Class', file: "{{ asset('assets/360View/v360-8.jpg') }}" },
-            { name: 'Cafeteria', file: "{{ asset('assets/360View/v360-3.jpg') }}" },
-            { name: 'Cafetaria Hallway', file: "{{ asset('assets/360View/v360-4.jpg') }}" },
-            { name: 'Executive Class', file: "{{ asset('assets/360View/v360-6.jpg') }}" },
-            { name: 'C Building 3rd floor', file: "{{ asset('assets/360View/v360-9.jpg') }}" },
-            { name: 'Executive Corridor', file: "{{ asset('assets/360View/v360-10.jpg') }}" },
-            { name: 'Library', file: "{{ asset('assets/360View/v360-11.jpg') }}" }
+            { name: 'Mora Hall', file: "{{ asset('assets/360View/aula-mora.jpeg') }}" },
+            { name: 'Cafeteria', file: "{{ asset('assets/360View/kantin.jpeg') }}" },
+            { name: 'Cafeteria 2', file: "{{ asset('assets/360View/kantin-2.jpg') }}" },
+            { name: 'Bilingual Class', file: "{{ asset('assets/360View/kelas-bilingual.jpeg') }}" },
+            { name: 'DKV Laboratory', file: "{{ asset('assets/360View/lab-dkv.jpeg') }}" },
+            { name: 'PPLG Laboratory', file: "{{ asset('assets/360View/lab-pplg.jpg') }}" },
+            { name: 'Field', file: "{{ asset('assets/360View/lapangan.jpg') }}" },
+            { name: 'Bilingual Corridor', file: "{{ asset('assets/360View/lorong-bilingual.jpg') }}" },
+            { name: 'Corridor', file: "{{ asset('assets/360View/lorong.jpg') }}" },
+            { name: 'Prayer Room', file: "{{ asset('assets/360View/mushola.jpeg') }}" },
+            { name: 'Library', file: "{{ asset('assets/360View/perpustakaan.jpeg') }}" },
+            { name: 'Admission Office', file: "{{ asset('assets/360View/ppdb.jpeg') }}" },
+            { name: 'Classroom', file: "{{ asset('assets/360View/ruang-kelas.jpeg') }}" },
+            { name: 'Meeting Room', file: "{{ asset('assets/360View/ruang-rapat.jpeg') }}" },
+            { name: 'Restroom', file: "{{ asset('assets/360View/toilet.jpeg') }}" }
         ];
 
         let currentScene = 0;

@@ -36,20 +36,20 @@
 
   <!-- NAVBAR -->
   <div class="navbar transition-all duration-300">
-    <div class="max-w-[1600px] mx-auto flex items-center justify-between px-6 md:px-12 py-5">
+    <div class="max-w-[1600px] mx-auto flex items-center justify-between px-4 lg:px-6 xl:px-8 2xl:px-12 py-3 xl:py-5">
 
       <!-- Logo -->
-    <a href="/" class="flex items-center space-x-3">
+    <a href="/" class="flex items-center space-x-2 xl:space-x-3">
       @php 
         $siteLogo = \App\Models\prestasiprima\SiteSetting::get('site_logo');
         $siteName = \App\Models\prestasiprima\SiteSetting::get('site_name', 'SMK Prestasi Prima');
       @endphp
-      <img src="{{ $siteLogo ? asset($siteLogo) : asset('assets/images/logo-smk.png') }}" alt="Logo" width="{{ $headerLogoSize[0] }}" height="{{ $headerLogoSize[1] }}" class="h-12 w-auto object-contain">
-      <span class="font-outfit font-black text-xl header-logo text-white whitespace-nowrap tracking-tight">{{ $siteName }}</span>
+      <img src="{{ $siteLogo ? asset($siteLogo) : asset('assets/images/logo-smk.png') }}" alt="Logo" width="{{ $headerLogoSize[0] }}" height="{{ $headerLogoSize[1] }}" class="h-10 xl:h-12 w-auto object-contain">
+      <span class="font-outfit font-black text-sm lg:text-[15px] xl:text-lg 2xl:text-xl header-logo text-white whitespace-nowrap tracking-tight">{{ $siteName }}</span>
     </a>
 
       <!-- Desktop Menu -->
-      <nav class="hidden xl:flex items-center space-x-8 lg:space-x-10 font-outfit font-bold text-sm tracking-[0.05em] uppercase">
+      <nav class="hidden lg:flex items-center space-x-3 xl:space-x-4 2xl:space-x-8 font-outfit font-bold text-[11px] xl:text-[13px] 2xl:text-sm tracking-[0.02em] xl:tracking-[0.05em] uppercase">
         <a href="/" class="nav-link text-white whitespace-nowrap">Beranda</a>
 
         <!-- Tentang -->
@@ -131,10 +131,10 @@
 
 
           <a href="{{ route('mikrotik') }}" 
-            class="nav-link nav-mikrotik-special relative px-6 py-2 rounded-full transition-all duration-300 flex items-center gap-2.5 group overflow-hidden border-2 border-orange-500/20 hover:border-orange-500 shadow-sm hover:shadow-orange-200/50">
+            class="nav-link nav-mikrotik-special relative px-3 xl:px-4 2xl:px-6 py-1.5 xl:py-2 rounded-full transition-all duration-300 flex items-center gap-1.5 xl:gap-2 2xl:gap-2.5 group overflow-hidden border-2 border-orange-500/20 hover:border-orange-500 shadow-sm hover:shadow-orange-200/50">
             <div class="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <iconify-icon icon="lucide:network" class="relative z-10 text-lg group-hover:text-white transition-colors duration-300"></iconify-icon>
-            <span class="relative z-10 group-hover:text-white transition-colors duration-300 text-sm tracking-tight whitespace-nowrap">MikroTik Academy</span>
+            <iconify-icon icon="lucide:network" class="relative z-10 text-base xl:text-lg group-hover:text-white transition-colors duration-300"></iconify-icon>
+            <span class="relative z-10 group-hover:text-white transition-colors duration-300 text-[11px] xl:text-[13px] 2xl:text-sm tracking-tight whitespace-nowrap">MikroTik Academy</span>
             <span class="relative flex h-2 w-2 z-10">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500 group-hover:bg-white transition-colors"></span>
@@ -143,7 +143,7 @@
       </nav>
 
       <!-- Mobile Menu Button -->
-      <button id="menu-btn" class="md:hidden focus:outline-none">
+      <button id="menu-btn" class="lg:hidden focus:outline-none">
         <svg class="w-7 h-7 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
           <rect x="3" y="3" width="4" height="4"/>
           <rect x="10" y="3" width="4" height="4"/>
@@ -159,7 +159,7 @@
     </div>
 
     <!-- MOBILE MENU -->
-    <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
+    <div id="mobile-menu" class="lg:hidden bg-white shadow-lg hidden">
       
       <a href="/" class="mobile-link">Beranda</a>
 
@@ -275,7 +275,7 @@
         isHomePage = window.location.pathname === '/';
 
   function updateNavbarColor() {
-    const isMobile = window.innerWidth < 768;
+    const isMobile = window.innerWidth < 1024;
     if (isMobile) {
       headerEl.classList.add('bg-white','shadow');
       headerEl.classList.remove('bg-transparent');
@@ -535,7 +535,7 @@ window.addEventListener("DOMContentLoaded", () => {
 /* ===============================
    MOBILE HEADER STYLING
 ================================== */
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   #header {
     background-color: #fff !important;
     box-shadow: 0 1px 2px rgba(0,0,0,.05);

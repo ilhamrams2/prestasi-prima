@@ -174,7 +174,7 @@
   }
 
   // === AKTIFKAN ICON LUCIDE ===
-  if (window.lucide) lucide.createIcons();
+  if (window.lucide) lucide.createIcons({ icons: window.lucide.icons });
 
   // === ACTIVE LINK ===
   const path = window.location.pathname;
