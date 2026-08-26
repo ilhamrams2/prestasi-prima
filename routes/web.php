@@ -165,16 +165,19 @@ Route::controller(Pendaftaran::class)->group(function () {
 Route::prefix('admin')->group(function () {
     Route::get('login', [AuthPPController::class, 'showLoginForm'])->name('admin.login');
     Route::post('login', [AuthPPController::class, 'login'])->name('admin.login.post');
-    Route::post('logout', [AuthPPController::class, 'logout'])->name('admin.logout');
+    Route::match(['get', 'post'], 'logout', [AuthPPController::class, 'logout'])->name('admin.logout');
 });
 
-// Standard & Legacy Aliases / Redirects
-Route::redirect('/login', '/admin/login');
-Route::redirect('/authPP', '/admin/login');
-Route::redirect('/authPP/login', '/admin/login');
+// Standard Aliases
+Route::get('/login', [AuthPPController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthPPController::class, 'login'])->name('login.post');
+Route::match(['get', 'post'], '/logout', [AuthPPController::class, 'logout'])->name('logout');
+
+// Legacy authPP Aliases
+Route::get('/authPP', function() { return redirect()->route('admin.login'); });
+Route::get('/authPP/login', [AuthPPController::class, 'showLoginForm'])->name('authPP.login');
+Route::post('/authPP/login', [AuthPPController::class, 'login'])->name('authPP.login.post');
 Route::match(['get', 'post'], '/authPP/logout', [AuthPPController::class, 'logout'])->name('authPP.logout');
-Route::get('/authPP/login-legacy', [AuthPPController::class, 'showLoginForm'])->name('authPP.login');
-Route::post('/authPP/login-legacy-post', [AuthPPController::class, 'login'])->name('authPP.login.post');
 
 // Admin Root Redirect
 Route::get('/admin', function () {

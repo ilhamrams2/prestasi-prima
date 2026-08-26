@@ -4,8 +4,6 @@
     $prestasiLogoPath = 'assets/images/logo-smk.png';
     $prestasiLogoSize = @getimagesize(public_path($prestasiLogoPath)) ?: [256, 256];
     $prestasis = \App\Models\prestasiprima\Prestasi::getForLanding();
-    $prestasiDecorLeft = @getimagesize(public_path('assets/images/section/prestasi/netowrk.svg')) ?: [560, 560];
-    $prestasiDecorRight = @getimagesize(public_path('assets/images/section/tentang/race.svg')) ?: [600, 600];
   @endphp
   <div class="max-w-7xl mx-auto px-4 md:px-8 text-center">
 
@@ -72,21 +70,6 @@
       </button>
     </div>
   </div>
-
-  <!-- Background Dekoratif -->
-  <img src="{{ asset('assets/images/section/prestasi/netowrk.svg') }}" 
-       alt="Network" 
-       width="{{ $prestasiDecorLeft[0] }}"
-       height="{{ $prestasiDecorLeft[1] }}"
-       class="bg-deco-left absolute -bottom-16 -left-48 w-[460px] md:w-[560px] opacity-0 select-none pointer-events-none" 
-       data-aos="fade-right" data-aos-duration="1200" data-aos-delay="500">
-
-  <img src="{{ asset('assets/images/section/tentang/race.svg') }}" 
-       alt="Race" 
-       width="{{ $prestasiDecorRight[0] }}"
-       height="{{ $prestasiDecorRight[1] }}"
-       class="bg-deco-right absolute -bottom-80 -right-24 w-[480px] md:w-[600px] opacity-0 select-none pointer-events-none" 
-       data-aos="fade-left" data-aos-duration="1200" data-aos-delay="600">
 </section>
 
 <style>

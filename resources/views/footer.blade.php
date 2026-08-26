@@ -314,19 +314,13 @@
   </div>
 
   <!-- =================== FOOTER BOTTOM =================== -->
-  <div class="border-t border-white/10 bg-[#070b18]/90 py-4 relative z-10">
-    <div
-      class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 flex flex-col md:flex-row items-center justify-between gap-2 text-xs md:text-sm">
-      <p class="flex items-center gap-2 text-gray-400">
-        <span>© {{ date('Y') }} {{ \App\Models\prestasiprima\SiteSetting::get('site_name', 'SMK Prestasi Prima') }}</span>
-        <span class="mx-2 text-white/30">|</span>
-<span>
-  Oren Solution <span class="text-white/60">v3.0</span> 
-  <span class="mx-2 text-white/20">|</span> 
-  Developed by <span class="font-medium text-white">Ardy Albanna</span>
-</span>      </p>
-      <p class="text-gray-500 text-sm text-center md:text-right">
-        Dibuat oleh: <span class="text-orange-400 font-medium">Zwingli, Gibran, Abimanyu, Ardy</span>
+  <div class="border-t border-white/10 bg-[#070b18]/90 py-5 relative z-10">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs md:text-sm text-gray-400">
+      <p class="flex items-center gap-2">
+        <span>© {{ date('Y') }} {{ \App\Models\prestasiprima\SiteSetting::get('site_name', 'SMK Prestasi Prima') }}. All Rights Reserved.</span>
+      </p>
+      <p class="text-xs text-gray-500 font-mono">
+        Oren Solution <span class="text-white/50">v3.0</span>
       </p>
     </div>
   </div>

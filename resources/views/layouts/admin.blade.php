@@ -575,7 +575,7 @@
         {{-- FOOTER --}}
         <footer class="px-8 py-6 text-center">
             <p class="text-sm text-slate-400 font-medium uppercase tracking-widest text-[10px]">
-                &copy; {{ date('Y') }} SMK Prestasi Prima • Developed by Ardy & Abi
+                &copy; {{ date('Y') }} SMK Prestasi Prima. All Rights Reserved.
             </p>
         </footer>
     </main>
