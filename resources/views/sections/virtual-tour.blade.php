@@ -27,7 +27,7 @@
            onclick="window.location='{{ route('virtual-tour') }}'">
         
         <div class="relative aspect-video">
-           <img src="{{ asset('assets/360View/lapangan.jpg') }}" 
+           <img src="{{ asset('assets/360View/lapangan.jpeg') }}" 
                 alt="Preview Virtual Tour" 
                 class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
            

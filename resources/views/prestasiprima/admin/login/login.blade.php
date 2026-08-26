@@ -129,7 +129,7 @@
         <p class="text-gray-400 font-medium text-lg">Silakan masuk untuk mengelola sistem.</p>
       </div>
 
-      <form method="POST" action="{{ route('authPP.login.post') }}" class="space-y-8">
+      <form method="POST" action="{{ route('admin.login.post') }}" class="space-y-8">
         @csrf
 
         <!-- Email -->

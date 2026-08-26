@@ -6,7 +6,7 @@
   class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-transparent">
 
   <!-- TOPBAR -->
-  <div class="hidden md:flex bg-orange-500 text-white text-sm">
+  <div class="topbar hidden md:flex bg-orange-500 text-white text-sm">
     <div class="max-w-7xl mx-auto w-full flex justify-end">
       <div class="flex items-center divide-x divide-white px-4 py-2 rounded-bl-lg">
 
@@ -64,7 +64,6 @@
             <a href="/tentang/program" class="dropdown-item">Program</a>
             <a href="/tentang/profile-sekolah" class="dropdown-item">Profile Sekolah</a>
             <a href="/tentang/fasilitas" class="dropdown-item">Fasilitas</a>
-            <a href="/tentang/staffmanagement" class="dropdown-item">Staff Management</a>
             <a href="/tentang/sambutan" class="dropdown-item">Sambutan Pembina Yayasan</a>
           </div>
         </div>
@@ -173,7 +172,6 @@
         <a href="/tentang/program" class="mobile-subitem">Program</a>
         <a href="/tentang/profile-sekolah" class="mobile-subitem">Profile Sekolah</a>
         <a href="/tentang/fasilitas" class="mobile-subitem">Fasilitas</a>
-        <a href="/tentang/staffmanagement" class="mobile-subitem">Staff Management</a>
         <a href="/tentang/sambutan" class="mobile-subitem">Sambutan Pembina Yayasan</a>
       </div>
 
@@ -227,105 +225,136 @@
 
 <!-- SCRIPT -->
 <script>
-  // Desktop dropdown hover
-  document.querySelectorAll('.dropdown').forEach(drop => {
-    const menu = drop.querySelector('.dropdown-menu');
-    let timeout;
-    drop.addEventListener('mouseenter', () => {
-      clearTimeout(timeout);
-      menu.classList.remove('hidden');
-      setTimeout(() => menu.classList.add('opacity-100','translate-y-0'), 10);
+(() => {
+  const initHeaderScript = () => {
+    // Desktop dropdown hover
+    document.querySelectorAll('.dropdown').forEach(drop => {
+      const menu = drop.querySelector('.dropdown-menu');
+      if (!menu) return;
+      let timeout;
+      drop.addEventListener('mouseenter', () => {
+        clearTimeout(timeout);
+        menu.classList.remove('hidden');
+        setTimeout(() => menu.classList.add('opacity-100','translate-y-0'), 10);
+      });
+      drop.addEventListener('mouseleave', () => {
+        menu.classList.remove('opacity-100','translate-y-0');
+        timeout = setTimeout(() => menu.classList.add('hidden'), 200);
+      });
     });
-    drop.addEventListener('mouseleave', () => {
-      menu.classList.remove('opacity-100','translate-y-0');
-      timeout = setTimeout(() => menu.classList.add('hidden'), 200);
-    });
-  });
 
-  // Mobile menu toggle
-  const menuBtn = document.getElementById('menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  let open = false;
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let open = false;
 
-  menuBtn.addEventListener('click', () => {
-    open = !open;
-    if (open) {
-      mobileMenu.classList.remove('hidden');
-      requestAnimationFrame(() => mobileMenu.classList.add('open'));
-    } else {
-      mobileMenu.classList.remove('open');
-      setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+    if (menuBtn && mobileMenu) {
+      menuBtn.onclick = () => {
+        open = !open;
+        if (open) {
+          mobileMenu.classList.remove('hidden');
+          requestAnimationFrame(() => mobileMenu.classList.add('open'));
+        } else {
+          mobileMenu.classList.remove('open');
+          setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+        }
+      };
     }
-  });
 
-  // Mobile dropdown toggle
-  document.querySelectorAll('.mobile-dropdown-btn').forEach(btn => {
-    const submenu = btn.nextElementSibling;
-    const icon = btn.querySelector('svg');
-    btn.addEventListener('click', () => {
-      submenu.classList.toggle('open');
-      icon.classList.toggle('rotate-180');
+    // Mobile dropdown toggle
+    document.querySelectorAll('.mobile-dropdown-btn').forEach(btn => {
+      const submenu = btn.nextElementSibling;
+      const icon = btn.querySelector('svg');
+      btn.onclick = () => {
+        if (submenu) submenu.classList.toggle('open');
+        if (icon) icon.classList.toggle('rotate-180');
+      };
     });
-  });
 
-  // Scroll & color header
-  const headerEl = document.getElementById('header'),
-        logoEl = document.querySelector('.header-logo'),
-        navLinkEls = document.querySelectorAll('.nav-link'),
-        isHomePage = window.location.pathname === '/';
+    // Scroll & color header
+    const headerEl = document.getElementById('header');
+    const logoEl = document.querySelector('.header-logo');
+    const navLinkEls = document.querySelectorAll('.nav-link');
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '';
 
-  function updateNavbarColor() {
-    const isMobile = window.innerWidth < 1024;
-    if (isMobile) {
-      headerEl.classList.add('bg-white','shadow');
-      headerEl.classList.remove('bg-transparent');
-      logoEl.classList.replace('text-white','text-orange-600');
-      navLinkEls.forEach(l => l.classList.replace('text-white','text-orange-600'));
-    } else if (isHomePage) {
-      if (window.scrollY > 50) {
+    function updateNavbarColor() {
+      if (!headerEl) return;
+      const isMobile = window.innerWidth < 1024;
+      if (isMobile) {
         headerEl.classList.add('bg-white','shadow');
-        logoEl.classList.replace('text-white','text-orange-600');
-        navLinkEls.forEach(l => l.classList.replace('text-white','text-orange-600'));
+        headerEl.classList.remove('bg-transparent');
+        if (logoEl) {
+          logoEl.classList.remove('text-white');
+          logoEl.classList.add('text-orange-600');
+        }
+        navLinkEls.forEach(l => {
+          l.classList.remove('text-white');
+          l.classList.add('text-orange-600');
+        });
+      } else if (isHomePage) {
+        if (window.scrollY > 50) {
+          headerEl.classList.add('bg-white','shadow');
+          if (logoEl) {
+            logoEl.classList.remove('text-white');
+            logoEl.classList.add('text-orange-600');
+          }
+          navLinkEls.forEach(l => {
+            l.classList.remove('text-white');
+            l.classList.add('text-orange-600');
+          });
+        } else {
+          headerEl.classList.remove('bg-white','shadow');
+          if (logoEl) {
+            logoEl.classList.remove('text-orange-600');
+            logoEl.classList.add('text-white');
+          }
+          navLinkEls.forEach(l => {
+            l.classList.remove('text-orange-600');
+            l.classList.add('text-white');
+          });
+        }
       } else {
-        headerEl.classList.remove('bg-white','shadow');
-        logoEl.classList.replace('text-orange-600','text-white');
-        navLinkEls.forEach(l => l.classList.replace('text-orange-600','text-white'));
+        headerEl.classList.add('bg-white','shadow');
+        if (logoEl) {
+          logoEl.classList.remove('text-white');
+          logoEl.classList.add('text-orange-600');
+        }
+        navLinkEls.forEach(l => {
+          l.classList.remove('text-white');
+          l.classList.add('text-orange-600');
+        });
       }
-    } else {
-      headerEl.classList.add('bg-white','shadow');
-      logoEl.classList.replace('text-white','text-orange-600');
-      navLinkEls.forEach(l => l.classList.replace('text-white','text-orange-600'));
     }
+
+    window.addEventListener('scroll', updateNavbarColor, { passive: true });
+    window.addEventListener('resize', updateNavbarColor, { passive: true });
+    updateNavbarColor();
+
+    // Animasi saat halaman load
+    if (headerEl) {
+      const topbar = headerEl.querySelector(".topbar");
+      const navbar = headerEl.querySelector(".navbar");
+      const navItems = headerEl.querySelectorAll(".nav-link");
+
+      headerEl.classList.add("animate-header");
+      if (topbar) topbar.classList.add("animate-topbar");
+      if (navbar) navbar.classList.add("animate-navbar");
+      if (logoEl) logoEl.classList.add("animate-logo");
+
+      navItems.forEach((item, index) => {
+        item.classList.add("animate-nav-item");
+        item.style.animationDelay = `${0.9 + index * 0.15}s`;
+      });
+    }
+  };
+
+  if (document.readyState !== "loading") {
+    initHeaderScript();
+  } else {
+    document.addEventListener("DOMContentLoaded", initHeaderScript, { once: true });
   }
-
-  window.addEventListener('scroll', updateNavbarColor);
-  window.addEventListener('resize', updateNavbarColor);
-  updateNavbarColor();
-
-// Animasi kompleks saat halaman load
-window.addEventListener("DOMContentLoaded", () => {
-  const header = document.getElementById("header");
-  const topbar = header.querySelector(".topbar");
-  const navbar = header.querySelector(".navbar");
-  const logo = header.querySelector(".header-logo");
-  const navItems = header.querySelectorAll(".nav-link");
-
-  // Header utama
-  header.classList.add("animate-header");
-
-  // Bagian dalam
-  if (topbar) topbar.classList.add("animate-topbar");
-  if (navbar) navbar.classList.add("animate-navbar");
-  if (logo) logo.classList.add("animate-logo");
-
-  // Menu item dengan staggered delay
-  navItems.forEach((item, index) => {
-    item.classList.add("animate-nav-item");
-    item.style.animationDelay = `${0.9 + index * 0.15}s`; // jeda per item
-  });
-});
-
-
+  document.addEventListener("turbo:load", initHeaderScript);
+})();
 </script>
 
 <style>

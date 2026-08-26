@@ -17,7 +17,7 @@ class AuthPPMiddleware
     public function handle(Request $request, Closure $next): Response
     {
          if (!Auth::guard('authPP')->check()) {
-            return redirect()->route('authPP.login')->with('error', 'Silakan login dulu!');
+            return redirect()->route('admin.login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
         return $next($request);

@@ -23,7 +23,8 @@ class CheckMaintenanceMode
 
         if ($isMaintenance == '1') {
             // 2. Allow access ONLY for admin panel and auth routes
-            if ($request->is('prestasiprima/admin*') || 
+            if ($request->is('admin*') || 
+                $request->is('prestasiprima/admin*') || 
                 $request->is('authPP*')) {
                 return $next($request);
             }

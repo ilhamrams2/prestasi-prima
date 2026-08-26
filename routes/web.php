@@ -55,6 +55,8 @@ use App\Http\Controllers\prestasiprima\admin\{
     AdminBackupController,
     AdminUserController,
     AdminMikrotikTrainerController,
+    AdminHeroController,
+    AdminLulusanPtnController,
     AuthPPController
 };
 
@@ -91,7 +93,6 @@ Route::prefix('tentang')->group(function () {
         Route::get('/program/tjkt', [ProgramController::class, 'tjkt'])->name('program.tjkt');
         Route::get('/program/bcf', [ProgramController::class, 'bcf'])->name('program.bcf');
     Route::get('/profile-sekolah', [ProfileSekolahController::class, 'index'])->name('prestasiprima.profile-sekolah');
-    Route::get('/staffmanagement', [StaffController::class, 'index'])->name('staff');
     Route::get('/sambutan', [SambutanController::class, 'index'])->name('sambutan');
     Route::get('/fasilitas', [FasilitasController::class, 'index'])->name('fasilitas');
 });
@@ -157,20 +158,40 @@ Route::controller(Pendaftaran::class)->group(function () {
 
 
 // ============================================================
-// ================ PRESTASIPRIMA LOGIN =======================
+// ==================== AUTH & ADMIN LOGIN ====================
 // ============================================================
 
-Route::prefix('authPP')->group(function () {
-    Route::get('login', [AuthPPController::class, 'showLoginForm'])->name('authPP.login');
-    Route::post('login', [AuthPPController::class, 'login'])->name('authPP.login.post');
-    Route::post('logout', [AuthPPController::class, 'logout'])->name('authPP.logout');
+// Clean Admin Authentication Routes
+Route::prefix('admin')->group(function () {
+    Route::get('login', [AuthPPController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('login', [AuthPPController::class, 'login'])->name('admin.login.post');
+    Route::post('logout', [AuthPPController::class, 'logout'])->name('admin.logout');
 });
+
+// Standard & Legacy Aliases / Redirects
+Route::redirect('/login', '/admin/login');
+Route::redirect('/authPP', '/admin/login');
+Route::redirect('/authPP/login', '/admin/login');
+Route::match(['get', 'post'], '/authPP/logout', [AuthPPController::class, 'logout'])->name('authPP.logout');
+Route::get('/authPP/login-legacy', [AuthPPController::class, 'showLoginForm'])->name('authPP.login');
+Route::post('/authPP/login-legacy-post', [AuthPPController::class, 'login'])->name('authPP.login.post');
+
+// Admin Root Redirect
+Route::get('/admin', function () {
+    return auth('authPP')->check()
+        ? redirect()->route('prestasiprima.admin.dashboard')
+        : redirect()->route('admin.login');
+})->name('admin');
+
+// Backward compatibility redirects for legacy /prestasiprima/admin paths
+Route::redirect('/prestasiprima/admin', '/admin');
+Route::redirect('/prestasiprima/admin/{any}', '/admin/{any}')->where('any', '.*');
 
 // ============================================================
 // ================ PRESTASIPRIMA ADMIN PANEL =================
 // ============================================================
 
-Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprima.admin.')->group(function () {
+Route::middleware(['authPP'])->prefix('admin')->name('prestasiprima.admin.')->group(function () {
 
     // === DEBUG ROUTE (TEMPORARY) ===
     Route::get('/debug-user', function() {
@@ -245,10 +266,22 @@ Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprim
         Route::get('/testimoni', [AdminTestimoniController::class, 'index'])->name('testimoni.index');
         Route::get('/ekstrakurikuler', [AdminEkstrakurikulerController::class, 'index'])->name('ekstrakurikuler.index');
         Route::get('/karya', [AdminKaryaProyekController::class, 'index'])->name('karya.index');
+        Route::get('/hero', [AdminHeroController::class, 'index'])->name('hero.index');
+        Route::get('/lulusan-ptn', [AdminLulusanPtnController::class, 'index'])->name('lulusan-ptn.index');
     });
 
     // === CONTENT EDITING (Super Admin, Editor) ===
     Route::middleware(['role:super_admin,editor'])->group(function () {
+        // Hero Video Section
+        Route::prefix('hero')->name('hero.')->controller(AdminHeroController::class)->group(function () {
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+            Route::patch('/{id}/set-active', 'setActive')->name('set-active');
+        });
+
         // Gallery
         Route::prefix('gallery')->name('gallery.')->controller(AdminGalleryController::class)->group(function () {
             Route::get('/create', 'create')->name('create');
@@ -341,6 +374,16 @@ Route::middleware(['authPP'])->prefix('prestasiprima/admin')->name('prestasiprim
             Route::get('/{trainer}/edit', 'edit')->name('edit');
             Route::put('/{trainer}', 'update')->name('update');
             Route::delete('/{trainer}', 'destroy')->name('destroy');
+        });
+
+        // Lulusan PTN
+        Route::prefix('lulusan-ptn')->name('lulusan-ptn.')->controller(AdminLulusanPtnController::class)->group(function () {
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+            Route::patch('/{id}/toggle-status', 'toggleStatus')->name('toggle-status');
         });
     });
 

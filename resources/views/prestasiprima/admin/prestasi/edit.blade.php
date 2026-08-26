@@ -1,77 +1,120 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Prestasi')
+@section('title', 'Edit Prestasi Siswa')
 
 @section('content')
-<div class="max-w-4xl mx-auto">
+<div class="max-w-4xl mx-auto space-y-8">
     {{-- ================= HEADER ================= --}}
-    <div class="flex items-center gap-4 mb-8">
-        <a href="{{ route('prestasiprima.admin.prestasi.index') }}" 
-           class="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">
-            <i class="ri-arrow-left-line text-lg"></i>
-        </a>
-        <div>
-            <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight">Perbarui Info Prestasi</h1>
-            <p class="text-sm text-slate-500 font-medium">Lakukan perubahan pada rincian data pencapaian siswa dan siswi.</p>
+    <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <a href="{{ route('prestasiprima.admin.prestasi.index') }}" 
+               class="w-11 h-11 flex items-center justify-center rounded-2xl bg-white border border-slate-200 text-slate-600 hover:bg-orange-50 hover:text-[#FF6B00] hover:border-orange-200 transition-all shadow-sm">
+                <i class="ri-arrow-left-line text-xl"></i>
+            </a>
+            <div>
+                <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight">Edit Data Prestasi</h1>
+                <p class="text-sm text-slate-500 font-medium">Perbarui rincian dan poster penghargaan siswa.</p>
+            </div>
         </div>
     </div>
 
     {{-- ================= FORM CARD ================= --}}
-    <div class="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">
-        <form action="{{ route('prestasiprima.admin.prestasi.update', $prestasi->id) }}" method="POST" enctype="multipart/form-data" class="divide-y divide-slate-50">
+    <div class="bg-white rounded-3xl sm:rounded-[2.5rem] shadow-sm border border-slate-100 p-6 sm:p-8 md:p-10">
+        <form action="{{ route('prestasiprima.admin.prestasi.update', $prestasi->id) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
             @csrf
             @method('PUT')
 
-            <div class="p-8 space-y-8">
-                {{-- Judul --}}
+            <div class="space-y-6">
+                {{-- Judul Prestasi --}}
                 <div class="space-y-2">
-                    <label class="block text-sm font-bold text-slate-700 tracking-tight">Judul Pencapaian</label>
-                    <input type="text" name="judul" value="{{ old('judul', $prestasi->judul) }}" 
-                           placeholder="Contoh: Juara 1 LKS Tingkat Nasional 2024"
-                           class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800" required>
-                    @error('judul') <span class="text-xs text-red-500 font-bold ml-1">{{ $message }}</span> @enderror
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                        Judul Pencapaian / Kejuaraan <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" name="judul" value="{{ old('judul', $prestasi->judul) }}" required
+                           placeholder="Contoh: Juara 1 LKS Tingkat Nasional Bidang IT Network 2024"
+                           class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-medium text-slate-800 focus:bg-white focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 transition-all outline-none">
+                    @error('judul')
+                        <p class="text-xs text-red-500 font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                {{-- Gambar Upload --}}
-                <div class="space-y-4">
-                    <label class="block text-sm font-bold text-slate-700 tracking-tight">Dokumentasi Visual</label>
-                    <div class="flex flex-col md:flex-row items-center gap-6 p-6 bg-slate-50 border-2 border-dashed border-slate-200 rounded-[2rem] hover:border-orange-400 transition-colors group">
-                        <div class="w-40 h-28 bg-white rounded-2xl flex-shrink-0 flex items-center justify-center shadow-sm overflow-hidden border border-slate-100 flex-col gap-1 relative">
-                            @if($prestasi->gambar)
-                                <img src="{{ asset('storage/' . $prestasi->gambar) }}" alt="Prestasi" class="w-full h-full object-cover">
-                            @else
-                                {{-- Icon Removed --}}
-                            @endif
+                {{-- Upload Poster Gambar with Live Preview --}}
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                        Foto / Poster Penghargaan
+                    </label>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                        {{-- Preview Box --}}
+                        <div class="md:col-span-1">
+                            <div class="w-full aspect-[3/4] bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl overflow-hidden flex flex-col items-center justify-center relative group" id="posterPreviewContainer">
+                                <img id="posterPreviewImage" src="{{ $prestasi->gambar_url }}" alt="{{ $prestasi->judul }}" class="w-full h-full object-cover">
+                            </div>
                         </div>
-                        <div class="flex-1 text-center md:text-left">
-                            <h4 class="text-sm font-bold text-slate-800 mb-1">Ganti Foto Penghargaan</h4>
-                            <p class="text-xs text-slate-500 font-medium mb-4 leading-relaxed">Biarkan kosong jika tidak ingin mengubah foto.<br>Format: JPG, PNG, WEBP (Maks. 2MB).</p>
-                            <input type="file" name="gambar" 
-                                   class="block w-full text-[11px] text-slate-500 file:mr-4 file:py-2.5 file:px-6 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#FF6B00] file:text-white hover:file:bg-[#e66000] transition-all cursor-pointer">
+
+                        {{-- File Input Details --}}
+                        <div class="md:col-span-2 space-y-4">
+                            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <i class="ri-file-upload-line text-2xl text-orange-500"></i>
+                                    <div>
+                                        <h4 class="text-sm font-bold text-slate-800">Ganti File Poster</h4>
+                                        <p class="text-xs text-slate-400">Biarkan kosong jika tidak ingin mengubah poster lama.</p>
+                                    </div>
+                                </div>
+                                <input type="file" name="gambar" id="gambarInput" accept="image/jpeg,image/png,image/webp,image/jpg"
+                                       class="block w-full text-xs text-slate-500 file:mr-4 file:py-3 file:px-5 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#FF6B00] file:text-white hover:file:bg-[#e66000] file:transition-colors file:cursor-pointer cursor-pointer">
+                            </div>
+                            <p class="text-[11px] text-slate-400 leading-relaxed italic">
+                                💡 Format yang didukung: JPG, PNG, WEBP (Maksimal 15MB).
+                            </p>
                         </div>
                     </div>
+                    @error('gambar')
+                        <p class="text-xs text-red-500 font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                {{-- Deskripsi --}}
+                {{-- Deskripsi Prestasi --}}
                 <div class="space-y-2">
-                    <label class="block text-sm font-bold text-slate-700 tracking-tight">Rincian Prestasi</label>
-                    <textarea name="deskripsi" rows="5" 
-                              placeholder="Ceritakan detail mengenai prestasi yang diraih..."
-                              class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 focus:bg-white outline-none transition-all duration-300 font-medium text-slate-800">{{ old('deskripsi', $prestasi->deskripsi) }}</textarea>
-                    @error('deskripsi') <span class="text-xs text-red-500 font-bold ml-1">{{ $message }}</span> @enderror
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                        Deskripsi / Rincian Penghargaan (Opsional)
+                    </label>
+                    <textarea name="deskripsi" rows="4"
+                              placeholder="Tuliskan nama siswa, tingkatan kejuaraan (Kota/Provinsi/Nasional), instansi penyelenggara, atau catatan penting lainnya..."
+                              class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-medium text-slate-800 focus:bg-white focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 transition-all outline-none leading-relaxed">{{ old('deskripsi', $prestasi->deskripsi) }}</textarea>
+                    @error('deskripsi')
+                        <p class="text-xs text-red-500 font-medium">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 
             {{-- Form Actions --}}
-            <div class="p-8 bg-slate-50/50 flex flex-col md:flex-row justify-end gap-3">
+            <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-end gap-3">
                 <a href="{{ route('prestasiprima.admin.prestasi.index') }}" 
-                   class="px-8 py-3.5 rounded-2xl bg-white border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition-all text-center">Batal</a>
+                   class="w-full sm:w-auto px-6 py-3.5 rounded-2xl border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition-all text-center">
+                    Batal
+                </a>
                 <button type="submit" 
-                        class="px-8 py-3.5 rounded-2xl bg-[#FF6B00] border border-orange-600 text-white font-bold text-sm hover:bg-[#e66000] transition-all shadow-lg shadow-orange-500/20 active:scale-95">
-                    Update Prestasi
+                        class="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-[#FF6B00] hover:bg-[#e66000] text-white font-bold text-sm transition-all duration-300 shadow-lg shadow-orange-500/20 active:scale-95 text-center flex items-center justify-center gap-2">
+                    <i class="ri-check-line text-lg"></i>
+                    Perbarui Prestasi
                 </button>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    document.getElementById('gambarInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewImg = document.getElementById('posterPreviewImage');
+                previewImg.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 @endsection

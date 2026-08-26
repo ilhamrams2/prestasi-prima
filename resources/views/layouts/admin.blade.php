@@ -335,6 +335,7 @@
                         'icon' => 'ri-folder-2-line',
                         'roles' => ['super_admin', 'editor', 'moderator', 'viewer'],
                         'items' => [
+                            ['label' => 'Hero Video Section', 'route' => 'prestasiprima.admin.hero.index', 'icon' => 'ri-play-circle-line', 'active' => str_contains($currentRoute, 'hero'), 'roles' => ['super_admin', 'editor', 'moderator', 'viewer']],
                             ['label' => 'Manajemen Berita', 'route' => 'prestasiprima.admin.berita.index', 'icon' => 'ri-article-line', 'active' => str_contains($currentRoute, 'berita'), 'roles' => ['super_admin', 'editor', 'moderator', 'viewer']],
                             ['label' => 'Manajemen Galeri', 'route' => 'prestasiprima.admin.gallery.index', 'icon' => 'ri-image-2-line', 'active' => str_contains($currentRoute, 'gallery'), 'roles' => ['super_admin', 'editor', 'moderator', 'viewer']],
                             ['label' => 'Inbox Pesan', 'route' => 'prestasiprima.admin.contact.index', 'icon' => 'ri-mail-line', 'active' => str_contains($currentRoute, 'contact'), 'roles' => ['super_admin', 'moderator']],
@@ -357,9 +358,9 @@
                         'icon' => 'ri-team-line',
                         'roles' => ['super_admin', 'editor', 'moderator', 'viewer'],
                         'items' => [
-                            ['label' => 'Manajemen Staff', 'route' => 'prestasiprima.admin.staff.index', 'icon' => 'ri-user-settings-line', 'active' => str_contains($currentRoute, 'staff'), 'roles' => ['super_admin', 'editor', 'moderator', 'viewer']],
                             ['label' => 'Trainer MikroTik', 'route' => 'prestasiprima.admin.mikrotik.index', 'icon' => 'ri-medal-line', 'active' => str_contains($currentRoute, 'mikrotik'), 'roles' => ['super_admin', 'editor', 'moderator', 'viewer']],
                             ['label' => 'Kerjasama Industri', 'route' => 'prestasiprima.admin.industri.index', 'icon' => 'ri-building-2-line', 'active' => str_contains($currentRoute, 'industri'), 'roles' => ['super_admin', 'editor', 'moderator', 'viewer']],
+                            ['label' => 'Lulusan PTN', 'route' => 'prestasiprima.admin.lulusan-ptn.index', 'icon' => 'ri-government-line', 'active' => str_contains($currentRoute, 'lulusan-ptn'), 'roles' => ['super_admin', 'editor', 'moderator', 'viewer']],
                         ]
                     ],
                     [
@@ -413,7 +414,7 @@
                             <i class="ri-arrow-down-s-line text-lg transition-transform duration-300 dropdown-arrow {{ $hasActiveItem ? 'rotate-180' : '' }}" id="arrow-{{ $categoryId }}"></i>
                         </button>
                         
-                        <div id="{{ $categoryId }}" class="dropdown-content overflow-hidden transition-all duration-300 {{ $hasActiveItem ? 'max-h-96' : 'max-h-0' }}">
+                        <div id="{{ $categoryId }}" class="dropdown-content overflow-hidden transition-all duration-300 {{ $hasActiveItem ? 'max-h-[600px]' : 'max-h-0' }}">
                             <div class="pl-4 pr-2 py-2 space-y-1">
                                 @foreach($allowedItems as $item)
                                     <a href="{{ route($item['route']) }}"
@@ -449,17 +450,17 @@
                 <a href="/" target="_blank"
                     class="sidebar-item flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-[#FF6B00] hover:bg-orange-50 transition-all duration-200 group">
                     <i class="ri-external-link-line text-xl text-slate-400 group-hover:text-[#FF6B00]"></i>
-                    <span class="text-sm">Lihat Website Utama</span>
+                    <span class="text-sm">Lihat Website</span>
                 </a>
             </div>
         </nav>
 
         {{-- User Section / Logout --}}
         <div class="p-6 border-t border-slate-100 bg-slate-50">
-            <form action="{{ route('authPP.logout') }}" method="POST">
+            <form action="{{ route('admin.logout') }}" method="POST">
                 @csrf
                 <button type="submit"
-                    class="w-full flex items-center justify-center gap-3 bg-white border border-slate-200 hover:bg-red-50 text-slate-600 hover:text-red-600 font-bold px-4 py-3 rounded-xl transition-all duration-300 shadow-sm">
+                    class="w-full flex items-center justify-center gap-3 bg-white border border-slate-200 hover:bg-red-50 text-slate-600 hover:text-red-600 font-bold px-4 py-3 rounded-xl transition-all duration-300 shadow-sm cursor-pointer">
                     <i class="ri-logout-circle-r-line text-xl"></i>
                     <span class="text-sm">Keluar Panel</span>
                 </button>
@@ -467,28 +468,42 @@
         </div>
     </aside>
 
-    {{-- ================= MAIN CONTENT ================= --}}
-    <main class="lg:pl-72 min-h-screen transition-all duration-500 animate-page-entry">
-        {{-- HEADER --}}
-        <header class="glass-header sticky top-0 z-30 border-b border-slate-200/60 px-8 py-4">
+    {{-- Backdrop for mobile --}}
+    <div id="sidebar-backdrop" onclick="toggleMobileSidebar()"></div>
+
+    {{-- MAIN WRAPPER --}}
+    <main class="min-h-screen flex flex-col transition-all duration-300">
+        
+        {{-- HEADER / NAVBAR --}}
+        <header class="glass-header sticky top-0 px-4 sm:px-6 md:px-8 lg:px-10 py-3.5 z-40 transition-all">
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    {{-- Premium Hamburger --}}
-                    <button id="hamburger-trigger" onclick="toggleMobileSidebar()" class="lg:hidden w-11 h-11 bg-white border border-slate-200 rounded-2xl flex flex-col items-center justify-center gap-1.5 text-slate-500 shadow-sm hover:border-orange-500 hover:text-orange-500 transition-all active:scale-95">
-                        <span class="hamburger-line line-1 w-6 h-0.5 bg-current rounded-full"></span>
-                        <span class="hamburger-line line-2 w-4 h-0.5 bg-current rounded-full self-start ml-[7px]"></span>
-                        <span class="hamburger-line line-3 w-6 h-0.5 bg-current rounded-full"></span>
+                {{-- Hamburger Mobile & Page Title --}}
+                <div class="flex items-center gap-3 md:gap-4">
+                    <button id="hamburger-trigger" onclick="toggleMobileSidebar()" 
+                            class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-all cursor-pointer select-none">
+                        <span class="hamburger-line line-1 w-5 h-0.5 bg-slate-600 rounded-full"></span>
+                        <span class="hamburger-line line-2 w-5 h-0.5 bg-slate-600 rounded-full"></span>
+                        <span class="hamburger-line line-3 w-5 h-0.5 bg-slate-600 rounded-full"></span>
                     </button>
-                    <div class="max-w-[150px] sm:max-w-none">
-                        <h2 class="text-sm md:text-xl font-bold text-slate-800 leading-tight truncate">@yield('title')</h2>
-                        <p class="hidden md:block text-xs text-slate-500 mt-0.5 font-medium">Selamat datang kembali, Admin!</p>
+                    <div>
+                        <h2 class="text-base sm:text-lg md:text-xl font-bold text-slate-800 tracking-tight leading-tight">
+                            @yield('title', 'Dashboard')
+                        </h2>
+                        <p class="text-[10px] sm:text-xs text-slate-400 font-medium hidden sm:block">Panel Administrasi SMK Prestasi Prima</p>
                     </div>
                 </div>
-                
-                <div class="flex items-center gap-2 md:gap-4">
+
+                {{-- Right Actions --}}
+                <div class="flex items-center gap-2 sm:gap-4">
+                    {{-- Quick Action: Website --}}
+                    <a href="/" target="_blank" class="hidden sm:flex items-center gap-2 px-4 py-2 bg-slate-50 hover:bg-orange-50 text-slate-600 hover:text-[#FF6B00] rounded-xl text-xs font-bold transition-all border border-slate-200/60 shadow-sm">
+                        <i class="ri-external-link-line"></i>
+                        <span>Lihat Web</span>
+                    </a>
+
                     {{-- Notification Bell --}}
                     <div class="relative">
-                        <button onclick="toggleNotificationDropdown()" class="w-11 h-11 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-orange-500 hover:border-orange-500 transition-all relative group shadow-sm active:scale-95">
+                        <button onclick="toggleNotificationDropdown()" class="w-11 h-11 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-500 hover:text-orange-500 hover:border-orange-500 transition-all relative group shadow-sm active:scale-95 cursor-pointer">
                             <i class="ri-notification-3-line text-xl group-hover:animate-swing"></i>
                             <span id="notification-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full border-2 border-white items-center justify-center hidden">
                                 0
@@ -496,13 +511,13 @@
                         </button>
 
                         {{-- Notification Dropdown --}}
-                        <div id="notification-dropdown" class="absolute right-0 mt-4 w-80 md:w-96 bg-white rounded-[2rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] border border-slate-100 transform origin-top-right transition-all duration-300 opacity-0 scale-95 invisible z-[60] overflow-hidden">
+                        <div id="notification-dropdown" class="fixed sm:absolute left-3 right-3 sm:left-auto sm:right-0 mt-4 w-auto sm:w-96 bg-white rounded-[2rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] border border-slate-100 transform origin-top-right transition-all duration-300 opacity-0 scale-95 invisible z-[60] overflow-hidden">
                             <div class="px-6 py-5 border-b border-slate-50 flex items-center justify-between bg-slate-50/30">
                                 <div>
                                     <h3 class="text-sm font-bold text-slate-800">Notifikasi</h3>
                                     <p class="text-[10px] text-slate-400 font-medium">Update terbaru dari sistem</p>
                                 </div>
-                                <button onclick="markAllNotificationsAsRead()" class="text-[10px] font-bold text-[#FF6B00] hover:text-[#E65100] transition-colors uppercase tracking-wider">Tandai Baca</button>
+                                <button onclick="markAllNotificationsAsRead()" class="text-[10px] font-bold text-[#FF6B00] hover:text-[#E65100] transition-colors uppercase tracking-wider cursor-pointer">Tandai Baca</button>
                             </div>
                             <div id="notification-list" class="max-h-96 overflow-y-auto divide-y divide-slate-50">
                                 {{-- Notifications will be loaded here via AJAX --}}
@@ -522,11 +537,11 @@
                     <div class="relative">
                         <div onclick="toggleProfileDropdown()" class="flex items-center gap-3 px-2 py-1.5 rounded-full hover:bg-slate-50 transition-colors cursor-pointer group select-none">
                             <div class="w-9 h-9 bg-gradient-to-tr from-[#FF6B00] to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md shadow-orange-500/20 uppercase tracking-tighter">
-                                {{ substr(auth('authPP')->user()->name, 0, 1) }}
+                                {{ substr(auth('authPP')->user()->name ?? 'A', 0, 1) }}
                             </div>
                             <div class="hidden md:block">
-                                <p class="text-sm font-bold text-slate-800 leading-none">{{ auth('authPP')->user()->name }}</p>
-                                <p class="text-[10px] text-orange-600 font-bold mt-1 uppercase tracking-wider">{{ auth('authPP')->user()->role_label }}</p>
+                                <p class="text-sm font-bold text-slate-800 leading-none">{{ auth('authPP')->user()->name ?? 'Admin' }}</p>
+                                <p class="text-[10px] text-orange-600 font-bold mt-1 uppercase tracking-wider">{{ auth('authPP')->user()->role_label ?? 'Staff' }}</p>
                             </div>
                             <i id="profile-arrow" class="ri-arrow-down-s-line text-slate-400 group-hover:text-slate-600 transition-transform duration-300"></i>
                         </div>
@@ -537,9 +552,9 @@
                                 <a href="{{ route('prestasiprima.admin.password.edit') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-600 hover:bg-orange-50 hover:text-[#FF6B00] transition-colors text-sm font-medium">
                                     <i class="ri-lock-password-line"></i> Ganti Password
                                 </a>
-                                <form action="{{ route('authPP.logout') }}" method="POST">
+                                <form action="{{ route('admin.logout') }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 transition-colors text-sm font-medium">
+                                    <button type="submit" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 transition-colors text-sm font-medium cursor-pointer">
                                         <i class="ri-logout-box-r-line"></i> Keluar
                                     </button>
                                 </form>
@@ -552,7 +567,7 @@
 
         {{-- PAGE CONTENT --}}
         <section class="p-4 sm:p-6 md:p-8 lg:p-10 pb-12 w-full">
-            <div class="max-w-7xl">
+            <div class="max-w-7xl mx-auto">
                 @yield('content')
             </div>
         </section>
@@ -565,65 +580,95 @@
         </footer>
     </main>
 
-    {{-- Dropdown Toggle Script --}}
+    {{-- Dropdown & Sidebar Toggle Script --}}
     <script>
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('admin-sidebar');
+            const backdrop = document.getElementById('sidebar-backdrop');
+            const trigger = document.getElementById('hamburger-trigger');
+            if (!sidebar) return;
+            
+            if (sidebar.classList.contains('show')) {
+                sidebar.classList.remove('show');
+                if (backdrop) backdrop.classList.remove('show');
+                if (trigger) trigger.classList.remove('active');
+                document.body.style.overflow = '';
+            } else {
+                sidebar.classList.add('show');
+                if (backdrop) backdrop.classList.add('show');
+                if (trigger) trigger.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
 
         function toggleDropdown(categoryId) {
             const dropdown = document.getElementById(categoryId);
             const arrow = document.getElementById('arrow-' + categoryId);
+            if (!dropdown) return;
             
-            if (dropdown.style.maxHeight && dropdown.style.maxHeight !== '0px') {
-                dropdown.style.maxHeight = '0px';
-                arrow.classList.remove('rotate-180');
+            if (dropdown.classList.contains('max-h-0')) {
+                dropdown.classList.remove('max-h-0');
+                dropdown.classList.add('max-h-[600px]');
+                if (arrow) arrow.classList.add('rotate-180');
             } else {
-                dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
-                arrow.classList.add('rotate-180');
+                dropdown.classList.remove('max-h-[600px]', 'max-h-96');
+                dropdown.classList.add('max-h-0');
+                if (arrow) arrow.classList.remove('rotate-180');
             }
         }
-
-        // Auto-expand active category on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const activeCategories = document.querySelectorAll('.dropdown-content.max-h-96');
-            activeCategories.forEach(function(category) {
-                category.style.maxHeight = category.scrollHeight + 'px';
-            });
-        });
 
         // Profile Dropdown Toggle
         function toggleProfileDropdown() {
             const dropdown = document.getElementById('profile-dropdown');
             const arrow = document.getElementById('profile-arrow');
+            if (!dropdown) return;
             
             if (dropdown.classList.contains('invisible')) {
-                // Show
                 dropdown.classList.remove('invisible', 'opacity-0', 'scale-95');
-                arrow.classList.add('rotate-180');
-                // Hide other dropdowns if open
-                document.getElementById('notification-dropdown').classList.add('invisible', 'opacity-0', 'scale-95');
+                if (arrow) arrow.classList.add('rotate-180');
+                const notifDropdown = document.getElementById('notification-dropdown');
+                if (notifDropdown) notifDropdown.classList.add('invisible', 'opacity-0', 'scale-95');
             } else {
-                // Hide
                 dropdown.classList.add('invisible', 'opacity-0', 'scale-95');
-                arrow.classList.remove('rotate-180');
+                if (arrow) arrow.classList.remove('rotate-180');
             }
         }
 
         function toggleNotificationDropdown() {
             const dropdown = document.getElementById('notification-dropdown');
+            if (!dropdown) return;
             
             if (dropdown.classList.contains('invisible')) {
-                // Show
                 dropdown.classList.remove('invisible', 'opacity-0', 'scale-95');
-                // Hide other dropdowns if open
-                document.getElementById('profile-dropdown').classList.add('invisible', 'opacity-0', 'scale-95');
-                document.getElementById('profile-arrow').classList.remove('rotate-180');
+                const profileDropdown = document.getElementById('profile-dropdown');
+                const profileArrow = document.getElementById('profile-arrow');
+                if (profileDropdown) profileDropdown.classList.add('invisible', 'opacity-0', 'scale-95');
+                if (profileArrow) profileArrow.classList.remove('rotate-180');
                 
-                // Fetch notifications
                 fetchNotifications();
             } else {
-                // Hide
                 dropdown.classList.add('invisible', 'opacity-0', 'scale-95');
             }
         }
+
+        // Close dropdowns on outside click
+        document.addEventListener('click', function(e) {
+            const notifDropdown = document.getElementById('notification-dropdown');
+            const notifBtn = e.target.closest('button[onclick="toggleNotificationDropdown()"]');
+            
+            if (notifDropdown && !notifBtn && !notifDropdown.contains(e.target) && !notifDropdown.classList.contains('invisible')) {
+                notifDropdown.classList.add('opacity-0', 'scale-95', 'invisible');
+            }
+
+            const profileDropdown = document.getElementById('profile-dropdown');
+            const profileTrigger = e.target.closest('div[onclick="toggleProfileDropdown()"]');
+            
+            if (profileDropdown && !profileTrigger && !profileDropdown.contains(e.target) && !profileDropdown.classList.contains('invisible')) {
+                profileDropdown.classList.add('opacity-0', 'scale-95', 'invisible');
+                const arrow = document.getElementById('profile-arrow');
+                if (arrow) arrow.classList.remove('rotate-180');
+            }
+        });
 
         async function fetchNotifications() {
             try {
@@ -683,7 +728,7 @@
 
         async function markNotificationRead(id, link) {
             try {
-                await fetch(`{{ url('/prestasiprima/admin/notifications') }}/${id}/mark-read`, {
+                await fetch(`{{ url('/admin/notifications') }}/${id}/mark-read`, {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',

@@ -3,12 +3,7 @@
   @php
     $prestasiLogoPath = 'assets/images/logo-smk.png';
     $prestasiLogoSize = @getimagesize(public_path($prestasiLogoPath)) ?: [256, 256];
-    $prestasiSlideFiles = ['satu.webp', 'dua.webp', 'tiga.webp', 'empat.webp', 'lima.webp', 'enam.webp'];
-    $prestasiSlideSizes = [];
-    foreach ($prestasiSlideFiles as $file) {
-      $size = @getimagesize(public_path('assets/images/section/prestasi/' . $file)) ?: [1280, 720];
-      $prestasiSlideSizes[$file] = ['width' => $size[0], 'height' => $size[1]];
-    }
+    $prestasis = \App\Models\prestasiprima\Prestasi::getForLanding();
     $prestasiDecorLeft = @getimagesize(public_path('assets/images/section/prestasi/netowrk.svg')) ?: [560, 560];
     $prestasiDecorRight = @getimagesize(public_path('assets/images/section/tentang/race.svg')) ?: [600, 600];
   @endphp
@@ -16,10 +11,10 @@
 
     <!-- ===== Header ===== -->
     <div class="mb-12 text-center relative">
-   <img src="{{ asset($prestasiLogoPath) }}" alt="Logo Sekolah" 
-     width="{{ $prestasiLogoSize[0] }}"
-     height="{{ $prestasiLogoSize[1] }}"
-     class="mx-auto h-14 w-auto max-w-full object-contain mb-4"
+      <img src="{{ asset($prestasiLogoPath) }}" alt="Logo Sekolah" 
+           width="{{ $prestasiLogoSize[0] }}"
+           height="{{ $prestasiLogoSize[1] }}"
+           class="mx-auto h-14 w-auto max-w-full object-contain mb-4"
            data-aos="zoom-in" data-aos-duration="1000">
       <h3 class="text-lg font-bold text-gray-800 mb-1" 
           data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
@@ -40,48 +35,39 @@
     <div class="relative mt-8 px-4 sm:px-14" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
       <div class="swiper prestasiSwiper !p-10 !-m-10">
         <div class="swiper-wrapper">
-          <!-- Slides -->
-          <div class="swiper-slide">
-            <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
-              <img src="{{ asset('assets/images/section/prestasi/satu.webp') }}" alt="Juara Dua" width="{{ $prestasiSlideSizes['satu.webp']['width'] }}" height="{{ $prestasiSlideSizes['satu.webp']['height'] }}" class="w-full object-cover">
+          <!-- Dynamic Prestasi Slides from Database -->
+          @forelse ($prestasis as $prestasi)
+            <div class="swiper-slide">
+              <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 group transition-all duration-300 hover:shadow-md">
+                <img src="{{ $prestasi->gambar_url }}" 
+                     alt="{{ $prestasi->judul }}" 
+                     loading="lazy" 
+                     class="w-full aspect-[3/4] object-cover">
+              </div>
             </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
-              <img src="{{ asset('assets/images/section/prestasi/dua.webp') }}" alt="Juara Tiga" width="{{ $prestasiSlideSizes['dua.webp']['width'] }}" height="{{ $prestasiSlideSizes['dua.webp']['height'] }}" class="w-full object-cover">
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
-              <img src="{{ asset('assets/images/section/prestasi/tiga.webp') }}" alt="Juara Tiga" width="{{ $prestasiSlideSizes['tiga.webp']['width'] }}" height="{{ $prestasiSlideSizes['tiga.webp']['height'] }}" class="w-full object-cover">
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
-              <img src="{{ asset('assets/images/section/prestasi/empat.webp') }}" alt="Juara Empat" width="{{ $prestasiSlideSizes['empat.webp']['width'] }}" height="{{ $prestasiSlideSizes['empat.webp']['height'] }}" class="w-full object-cover">
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
-              <img src="{{ asset('assets/images/section/prestasi/lima.webp') }}" alt="Juara Lima" width="{{ $prestasiSlideSizes['lima.webp']['width'] }}" height="{{ $prestasiSlideSizes['lima.webp']['height'] }}" class="w-full object-cover">
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
-              <img src="{{ asset('assets/images/section/prestasi/enam.webp') }}" alt="Juara Enam" width="{{ $prestasiSlideSizes['enam.webp']['width'] }}" height="{{ $prestasiSlideSizes['enam.webp']['height'] }}" class="w-full object-cover">
-            </div>
-          </div>
+          @empty
+            @foreach(['satu.webp', 'dua.webp', 'tiga.webp', 'empat.webp', 'lima.webp', 'enam.webp'] as $defaultImg)
+              <div class="swiper-slide">
+                <div class="prestasi-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                  <img src="{{ asset('assets/images/section/prestasi/' . $defaultImg) }}" 
+                       alt="Prestasi Siswa SMK Prestasi Prima" 
+                       loading="lazy" 
+                       class="w-full aspect-[3/4] object-cover">
+                </div>
+              </div>
+            @endforeach
+          @endforelse
         </div>
 
         <!-- Pagination -->
         <div class="swiper-pagination !-bottom-1"></div>
       </div>
 
-      <!-- Navigation Buttons - Custom classes to avoid Swiper default styles -->
-      <button class="prestasi-nav-prev custom-nav-v3 -left-4 sm:-left-8">
+      <!-- Navigation Buttons -->
+      <button class="prestasi-nav-prev custom-nav-v3 -left-4 sm:-left-8" aria-label="Sebelumnya">
         <iconify-icon icon="lucide:chevron-left"></iconify-icon>
       </button>
-      <button class="prestasi-nav-next custom-nav-v3 -right-4 sm:-right-8">
+      <button class="prestasi-nav-next custom-nav-v3 -right-4 sm:-right-8" aria-label="Selanjutnya">
         <iconify-icon icon="lucide:chevron-right"></iconify-icon>
       </button>
     </div>
@@ -89,21 +75,19 @@
 
   <!-- Background Dekoratif -->
   <img src="{{ asset('assets/images/section/prestasi/netowrk.svg') }}" 
-    alt="Network" 
-    width="{{ $prestasiDecorLeft[0] }}"
-    height="{{ $prestasiDecorLeft[1] }}"
+       alt="Network" 
+       width="{{ $prestasiDecorLeft[0] }}"
+       height="{{ $prestasiDecorLeft[1] }}"
        class="bg-deco-left absolute -bottom-16 -left-48 w-[460px] md:w-[560px] opacity-0 select-none pointer-events-none" 
        data-aos="fade-right" data-aos-duration="1200" data-aos-delay="500">
 
   <img src="{{ asset('assets/images/section/tentang/race.svg') }}" 
-    alt="Race" 
-    width="{{ $prestasiDecorRight[0] }}"
-    height="{{ $prestasiDecorRight[1] }}"
+       alt="Race" 
+       width="{{ $prestasiDecorRight[0] }}"
+       height="{{ $prestasiDecorRight[1] }}"
        class="bg-deco-right absolute -bottom-80 -right-24 w-[480px] md:w-[600px] opacity-0 select-none pointer-events-none" 
        data-aos="fade-left" data-aos-duration="1200" data-aos-delay="600">
 </section>
-
-{{-- Swiper and Iconify are now loaded locally via Vite/app.js --}}
 
 <style>
   /* Swiper Navigation V3 - Premium Glass Look */
@@ -118,15 +102,11 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     color: #ea580c !important;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-top: -30px !important;
-    border: 1px solid rgba(234, 88, 12, 0.1);
-    display: flex !important;
+    display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    outline: none;
   }
-  .custom-nav-v3 iconify-icon { font-size: 18px; color: currentColor; }
   
   /* Hover Effect: Pulse & Glow */
   .custom-nav-v3:hover { 
@@ -144,7 +124,6 @@
       height: 40px !important;
       background-color: rgba(255, 255, 255, 0.95) !important;
     }
-    .custom-nav-v3::after { font-size: 14px !important; }
   }
 
   /* Prestasi Card Hover */

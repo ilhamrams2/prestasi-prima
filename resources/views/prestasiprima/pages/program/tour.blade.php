@@ -39,7 +39,7 @@
         </span>
 
         {{-- Gambar Preview (Satu untuk semua) --}}
-        <img src="{{ asset('assets/360View/v360-1.jpg') }}" 
+        <img src="{{ asset('assets/360View/lapangan.jpeg') }}" 
              alt="Preview Virtual Tour {{ strtoupper($program) }}" 
              class="w-full aspect-video object-cover">
 

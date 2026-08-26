@@ -5,6 +5,7 @@ namespace App\Http\Controllers\prestasiprima\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\prestasiprima\Prestasi;
+use App\Models\prestasiprima\ActivityLog;
 use App\Services\prestasiprima\MediaService;
 
 class AdminPrestasiController extends Controller
@@ -14,7 +15,7 @@ class AdminPrestasiController extends Controller
      */
     public function index()
     {
-        $prestasis = Prestasi::latest()->get();
+        $prestasis = Prestasi::latest()->paginate(12);
         return view('prestasiprima.admin.prestasi.index', compact('prestasis'));
     }
 
@@ -33,23 +34,23 @@ class AdminPrestasiController extends Controller
     {
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
+            'deskripsi' => 'nullable|string',
             'gambar' => 'required|image|mimes:jpg,jpeg,png,webp|max:15360',
+            'tanggal' => 'nullable|date',
         ]);
 
         if ($request->hasFile('gambar')) {
             $path = MediaService::upload($request->file('gambar'), 'prestasi', 800);
-            $validated['gambar'] = 'storage/' . $path; // Add storage prefix only for external access if needed, but usually just path
-            // Note: MediaService returns 'folder/filename.webp'. Prestasi Controller seems to use 'prestasi/filename' logic manually. 
-            // Let's stick to MediaService convention.
-            $validated['gambar'] = $path; 
+            $validated['gambar'] = $path;
         }
 
-        Prestasi::create($validated);
+        $prestasi = Prestasi::create($validated);
+
+        ActivityLog::log('create', "Menambahkan prestasi baru: '{$prestasi->judul}'", $prestasi);
 
         return redirect()
             ->route('prestasiprima.admin.prestasi.index')
-            ->with('success', 'Prestasi berhasil ditambahkan!');
+            ->with('success', 'Prestasi baru berhasil ditambahkan dan otomatis tampil di landing page!');
     }
 
     /**
@@ -70,22 +71,22 @@ class AdminPrestasiController extends Controller
 
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string',
+            'deskripsi' => 'nullable|string',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:15360',
+            'tanggal' => 'nullable|date',
         ]);
 
         if ($request->hasFile('gambar')) {
-            // Hapus gambar lama
             if ($prestasi->gambar) {
                 MediaService::delete($prestasi->gambar);
             }
-
-            // Upload gambar baru
             $path = MediaService::upload($request->file('gambar'), 'prestasi', 800);
             $validated['gambar'] = $path;
         }
 
         $prestasi->update($validated);
+
+        ActivityLog::log('update', "Memperbarui data prestasi: '{$prestasi->judul}'", $prestasi);
 
         return redirect()
             ->route('prestasiprima.admin.prestasi.index')
@@ -98,13 +99,15 @@ class AdminPrestasiController extends Controller
     public function destroy($id)
     {
         $prestasi = Prestasi::findOrFail($id);
+        $judul = $prestasi->judul;
 
-        // Hapus file gambar
         if ($prestasi->gambar) {
             MediaService::delete($prestasi->gambar);
         }
 
         $prestasi->delete();
+
+        ActivityLog::log('delete', "Menghapus data prestasi: '{$judul}'");
 
         return redirect()
             ->route('prestasiprima.admin.prestasi.index')
@@ -112,7 +115,7 @@ class AdminPrestasiController extends Controller
     }
 
     /**
-     * Tampilkan detail prestasi (fungsi show).
+     * Tampilkan detail prestasi.
      */
     public function show($id)
     {

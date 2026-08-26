@@ -95,6 +95,7 @@ class AdminSettingController extends Controller
             // Appearance
             ['key' => 'primary_color', 'value' => '#FF6B00', 'label' => 'Warna Utama', 'type' => 'color', 'group' => 'appearance', 'description' => 'Warna dominan untuk website (Header, Button, dll).'],
             ['key' => 'secondary_color', 'value' => '#1e293b', 'label' => 'Warna Sekunder', 'type' => 'color', 'group' => 'appearance', 'description' => 'Warna pendukung (Footer, Background, dll).'],
+            ['key' => 'hero_youtube_url', 'value' => 'https://www.youtube.com/watch?v=EYzn0caf0_k', 'label' => 'Hero Video YouTube (URL / ID)', 'type' => 'text', 'group' => 'appearance', 'description' => 'Link atau ID video YouTube untuk intro/background hero section.'],
 
             // Contact
             ['key' => 'contact_email', 'value' => 'info@prestasiprima.sch.id', 'label' => 'Email Kontak', 'type' => 'text', 'group' => 'contact', 'description' => 'Email resmi sekolah untuk korespondensi.'],

@@ -8,21 +8,7 @@
     <div class="absolute inset-0 bg-[linear-gradient(130deg,rgba(255,140,0,0.05)_25%,transparent_25%,transparent_50%,rgba(255,140,0,0.05)_50%,rgba(255,140,0,0.05)_75%,transparent_75%,transparent)] bg-[length:80px_80px] opacity-40 animate-slide"></div>
 
     @php
-      $ptnLogos = [
-        ['file' => 'unj.png', 'label' => 'Universitas Negeri Jakarta'],
-        ['file' => 'ipb.png', 'label' => 'Institut Pertanian Bogor'],
-        ['file' => 'unpad.png', 'label' => 'Universitas Padjadjaran'],
-        ['file' => 'trisakti.png', 'label' => 'Universitas Trisakti'],
-        ['file' => 'uin2.png', 'label' => 'UIN Syarif Hidayatullah Jakarta'],
-        ['file' => 'isi2.png', 'label' => 'Institut Seni Indonesia Surakarta'],
-        ['file' => 'politeknik.png', 'label' => 'Politeknik Prestasi Prima'],
-        ['file' => 'ui3.png', 'label' => 'Universitas Indonesia'],
-      ];
-      $ptnLogoSizes = [];
-      foreach ($ptnLogos as $item) {
-        $size = @getimagesize(public_path('assets/images/section/ptn/' . $item['file'])) ?: [400, 160];
-        $ptnLogoSizes[$item['file']] = ['width' => $size[0], 'height' => $size[1]];
-      }
+      $ptnList = \App\Models\prestasiprima\LulusanPtn::getActive();
       $ptnDecorLeft = @getimagesize(public_path('assets/images/section/ptn/network.svg')) ?: [640, 480];
       $ptnDecorRight = @getimagesize(public_path('assets/images/section/ptn/race.svg')) ?: [660, 480];
     @endphp
@@ -41,8 +27,8 @@
     <!-- Dekorasi Kanan -->
     <img src="{{ asset('assets/images/section/ptn/race.svg') }}"
          alt="Dekorasi Kanan"
-      width="{{ $ptnDecorRight[0] }}"
-      height="{{ $ptnDecorRight[1] }}"
+         width="{{ $ptnDecorRight[0] }}"
+         height="{{ $ptnDecorRight[1] }}"
          data-aos="zoom-in-up"
          data-aos-delay="400"
          data-aos-duration="1200"
@@ -58,18 +44,36 @@
     </h3>
 
     <div class="mt-10 sm:mt-14 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-6 sm:gap-8 md:gap-10 items-center justify-items-center px-4 sm:px-10">
-      @foreach ($ptnLogos as $index => $logo)
-        <div class="flex items-center justify-center bg-white/60 backdrop-blur-md p-6 sm:p-8 rounded-2xl border border-orange-100/50 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 w-full aspect-square max-w-[160px] group"
+      @forelse ($ptnList as $index => $ptn)
+        @if ($ptn->link_website)
+          <a href="{{ $ptn->link_website }}" target="_blank" rel="noopener noreferrer"
+             class="flex items-center justify-center bg-white/60 backdrop-blur-md p-6 sm:p-8 rounded-2xl border border-orange-100/50 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 w-full aspect-square max-w-[160px] group"
              data-aos="fade-up"
-             data-aos-delay="{{ 100 * ($index + 1) }}"
-             data-aos-duration="800">
-          <img src="{{ asset('assets/images/section/ptn/' . $logo['file']) }}"
-               alt="{{ $logo['label'] }}"
-               width="{{ $ptnLogoSizes[$logo['file']]['width'] }}"
-               height="{{ $ptnLogoSizes[$logo['file']]['height'] }}"
-               class="w-full h-full object-contain transition-all duration-700 group-hover:scale-110 select-none filter group-hover:drop-shadow-lg">
+             data-aos-delay="{{ 100 * (($index % 8) + 1) }}"
+             data-aos-duration="800"
+             title="{{ $ptn->nama_kampus }}">
+            <img src="{{ $ptn->logo_url }}"
+                 alt="{{ $ptn->nama_kampus }}"
+                 loading="lazy"
+                 class="w-full h-full object-contain transition-all duration-700 group-hover:scale-110 select-none filter group-hover:drop-shadow-lg">
+          </a>
+        @else
+          <div class="flex items-center justify-center bg-white/60 backdrop-blur-md p-6 sm:p-8 rounded-2xl border border-orange-100/50 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 w-full aspect-square max-w-[160px] group"
+               data-aos="fade-up"
+               data-aos-delay="{{ 100 * (($index % 8) + 1) }}"
+               data-aos-duration="800"
+               title="{{ $ptn->nama_kampus }}">
+            <img src="{{ $ptn->logo_url }}"
+                 alt="{{ $ptn->nama_kampus }}"
+                 loading="lazy"
+                 class="w-full h-full object-contain transition-all duration-700 group-hover:scale-110 select-none filter group-hover:drop-shadow-lg">
+          </div>
+        @endif
+      @empty
+        <div class="col-span-full py-8 text-center text-slate-400 font-medium">
+          Belum ada data kampus mitra.
         </div>
-      @endforeach
+      @endforelse
     </div>
   </div>
 </section>
@@ -98,28 +102,12 @@
 
   /* Efek melayang lembut */
   .animated-decor {
-    animation: float-slow 10s ease-in-out infinite;
-    transition: transform 0.5s ease-out, opacity 0.8s ease;
-    will-change: transform;
+    animation: float-slow 8s ease-in-out infinite;
+  }
+  .decor-left {
+    animation-delay: 0s;
+  }
+  .decor-right {
+    animation-delay: 2s;
   }
 </style>
-
-<!-- ===== SCRIPT AOS & PARALLAX ===== -->
-<script>
-  // Inisialisasi AOS agar animasi aktif tiap scroll & reload
-  AOS.init({
-    duration: 1000,
-    once: false,
-    mirror: true,
-    offset: 100,
-  });
-
-  // Efek parallax agar ikut scroll
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    const left = document.querySelector('.decor-left');
-    const right = document.querySelector('.decor-right');
-    if (left) left.style.transform = `translateY(${scrollY * 0.08}px) rotate(${scrollY * 0.01}deg)`;
-    if (right) right.style.transform = `translateY(${scrollY * -0.06}px) rotate(${scrollY * -0.01}deg)`;
-  });
-</script>

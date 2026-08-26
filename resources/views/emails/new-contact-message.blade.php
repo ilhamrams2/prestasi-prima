@@ -145,7 +145,7 @@
             </div>
 
             <div style="text-align: center; margin: 30px 0;">
-                <a href="{{ url('/prestasiprima/admin/contact/' . $message->id) }}" class="action-button">
+                <a href="{{ url('/admin/contact/' . $message->id) }}" class="action-button">
                     Lihat & Balas Pesan
                 </a>
             </div>

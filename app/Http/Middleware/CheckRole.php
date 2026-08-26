@@ -20,7 +20,7 @@ class CheckRole
     {
         if (!$request->user('authPP')) {
             \Log::info('CheckRole: User not authenticated');
-            return redirect()->route('authPP.login');
+            return redirect()->route('admin.login');
         }
 
         $user = $request->user('authPP');
